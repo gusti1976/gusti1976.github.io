@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Main homepage -->
   <url>
     <loc>https://gusti1976.github.io/</loc>
     <lastmod>2025-09-03</lastmod>
@@ -9,7 +8,6 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Streaming profiles -->
   <url>
     <loc>https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG</loc>
     <changefreq>monthly</changefreq>
@@ -34,14 +32,12 @@
     <priority>0.6</priority>
   </url>
 
-  <!-- Social profiles -->
   <url>
     <loc>https://www.tiktok.com/@gusticeland</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Music databases -->
   <url>
     <loc>https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5</loc>
     <changefreq>monthly</changefreq>
