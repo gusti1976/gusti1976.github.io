@@ -35,30 +35,38 @@
   <link rel="me" href="https://www.setlist.fm/setlists/agust-islandia-3b9eecc4.html">
 
   <!-- JSON-LD MusicArtist + WebSite -->
- <script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "MusicArtist",
+      "@type": "Person",
       "name": "Agust Smari Bjarkarson",
       "alternateName": "Agust Islandia",
-      "additionalName": ["Agust Smari Bjarkarson", "Agust Islandia"],
-      "genre": "Pop",
       "birthDate": "1976-08-26",
       "birthPlace": "Reykjavik, Iceland",
-      "identifier": {
-        "@type": "PropertyValue",
-        "propertyID": "ISNI",
-        "value": "0000000528099919"
-      },
+      "identifier": { "@type": "PropertyValue", "propertyID": "ISNI", "value": "0000000528099919" },
       "image": "https://commons.wikimedia.org/wiki/Special:FilePath/Portrait_of_Agust_Smari_Bjarkarson_(2025).jpg",
       "sameAs": [
         "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
         "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
         "https://www.tiktok.com/@gusticeland",
         "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5",
-        "https://www.setlist.fm/setlists/agust-islandia-3b9eecc4.html"
+        "https://www.setlist.fm/setlists/agust-islandia-3b9eecc4.html",
+        "https://www.wikidata.org/wiki/Q136089384"
+      ],
+      "url": "https://gusti1976.github.io/",
+      "musicGroupMember": { "@id": "#agust-islandia" }
+    },
+    {
+      "@type": "MusicGroup",
+      "@id": "#agust-islandia",
+      "name": "Agust Islandia",
+      "member": { "@type": "Person", "name": "Agust Smari Bjarkarson" },
+      "sameAs": [
+        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+        "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+        "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
       ],
       "url": "https://gusti1976.github.io/"
     },
