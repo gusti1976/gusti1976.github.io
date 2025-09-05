@@ -41,6 +41,7 @@
   "@graph": [
     {
       "@type": "Person",
+      "@id": "#agust-person",
       "name": "Agust Smari Bjarkarson",
       "alternateName": "Agust Islandia",
       "additionalName": ["Agust Smari Bjarkarson", "Agust Islandia"],
@@ -63,7 +64,20 @@
         "https://www.setlist.fm/setlists/agust-islandia-3b9eecc4.html",
         "https://www.wikidata.org/wiki/Q136089384"
       ],
-      "url": "https://gusti1976.github.io/"
+      "url": "https://gusti1976.github.io/",
+      "memberOf": { "@id": "#agust-islandia" }
+    },
+    {
+      "@type": "MusicGroup",
+      "@id": "#agust-islandia",
+      "name": "Agust Islandia",
+      "url": "https://gusti1976.github.io/",
+      "sameAs": [
+        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+        "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+        "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
+      ],
+      "member": { "@id": "#agust-person" }
     },
     {
       "@type": "WebSite",
