@@ -91,6 +91,11 @@
       --maxw: 820px;
       --primary-color: #1db954; /* Spotify green */
       --apple-color: #fc3c44; /* Apple Music red */
+      --pride-purple: #732982;
+      --pride-blue: #004CFF;
+      --pride-teal: #008080;
+      --iceland-blue: #0048E0;
+      --warm-gold: #FFD700;
     }
 
     html, body {
@@ -99,7 +104,8 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #333;
-      background: #fafafa;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
     }
 
     /* Container */
@@ -107,9 +113,30 @@
       max-width: var(--maxw);
       margin: 40px auto;
       padding: 0 20px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+      animation: subtle-rotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes subtle-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     /* Typography */
@@ -120,15 +147,27 @@
 
     h1 {
       font-size: 2.2rem;
-      color: #1a1a1a;
+      background: linear-gradient(45deg, var(--pride-purple), var(--pride-blue), var(--pride-teal));
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-shift 3s ease-in-out infinite;
       margin-bottom: 8px;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     h2 {
       font-size: 1.5rem;
       color: #444;
       margin-bottom: 16px;
-      border-bottom: 2px solid #eee;
+      border-bottom: 2px solid transparent;
+      background: linear-gradient(90deg, var(--iceland-blue), var(--warm-gold)) bottom repeat-x;
+      background-size: 100% 2px;
       padding-bottom: 8px;
     }
 
@@ -137,37 +176,66 @@
       text-align: center;
       margin-bottom: 40px;
       padding: 40px 0 20px 0;
+      position: relative;
+      z-index: 1;
     }
 
     header img {
       display: block;
       margin: 20px auto;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
       max-width: 280px;
-      transition: transform 0.3s ease;
+      max-height: 350px;
+      width: auto;
+      height: auto;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 3px solid transparent;
+      background: linear-gradient(45deg, var(--pride-purple), var(--pride-blue), var(--pride-teal)) border-box;
+      background-clip: padding-box, border-box;
+      object-fit: cover;
     }
 
     header img:hover {
-      transform: scale(1.02);
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     }
 
     /* Section spacing */
     section {
       margin: 30px 0;
       padding: 0 10px;
+      position: relative;
+      z-index: 1;
     }
 
     /* Links styling */
     a {
-      color: #1db954;
+      color: var(--iceland-blue);
       text-decoration: none;
-      transition: color 0.2s ease;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
     a:hover {
-      color: #168f43;
-      text-decoration: underline;
+      color: var(--pride-purple);
+      text-decoration: none;
+    }
+
+    a:not(.btn-icon):hover::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--iceland-blue), var(--pride-purple));
+      animation: link-glow 0.3s ease;
+    }
+
+    @keyframes link-glow {
+      from { width: 0%; }
+      to { width: 100%; }
     }
 
     /* Discography list */
@@ -183,9 +251,37 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 12px 0;
-      border-bottom: 1px solid #f0f0f0;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(240,240,240,0.8);
       flex-wrap: wrap;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.05) 50%, transparent 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .discography li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: linear-gradient(180deg, var(--pride-purple), var(--pride-blue), var(--pride-teal));
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .discography li:hover {
+      transform: translateX(8px);
+      background: linear-gradient(90deg, rgba(255,215,0,0.1) 0%, rgba(115,41,130,0.05) 50%, rgba(0,76,255,0.1) 100%);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .discography li:hover::before {
+      transform: scaleY(1);
     }
 
     .discography li:last-child {
@@ -216,6 +312,7 @@
       outline-offset: 2px;
       position: relative;
       overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.2);
     }
 
     .btn-icon::before {
@@ -233,24 +330,25 @@
 
     .btn-icon:hover {
       transform: translateY(-4px) scale(1.1);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.4);
     }
 
     .btn-icon.spotify {
-      background: linear-gradient(135deg, #1db954, #1ed760);
+      background: #1db954;
     }
 
     .btn-icon.spotify:hover {
-      background: linear-gradient(135deg, #1ed760, #1db954);
+      background: #1ed760;
       box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
     }
 
     .btn-icon.apple {
-      background: linear-gradient(135deg, #fc3c44, #ff6b73);
+      background: #fc3c44;
     }
 
     .btn-icon.apple:hover {
-      background: linear-gradient(135deg, #ff6b73, #fc3c44);
+      background: #ff4757;
       box-shadow: 0 8px 25px rgba(252, 60, 68, 0.4);
     }
 
@@ -259,7 +357,7 @@
       width: 22px;
       height: 22px;
       display: block;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
     }
 
     /* Footer */
@@ -333,8 +431,6 @@
       <img
         src="https://www.gusti.com/agust_islandia.jpg"
         alt="Agust Islandia, Agust Smari Bjarkarson, Icelandic pop artist portrait"
-        width="300"
-        height="300"
         decoding="async">
     </header>
 
@@ -375,13 +471,13 @@
         <li>
           <span class="release">Pride Month 2025, EP, June 2025</span>
           <span class="platforms">
-            <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-month-2025-ep/1827272560" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music">
-              <svg class="icon-svg" fill="#fc3c44">
+            <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-month-2025-ep/1827272560" target="_blank" rel="noopener" title="Listen on Apple Music">
+              <svg class="icon-svg" fill="white">
                 <use href="#apple-icon"/>
               </svg>
             </a>
-            <a class="btn-icon spotify" href="https://open.spotify.com/album/1F5hEAv96G2mkZzIDZhL5f" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
-              <svg class="icon-svg" fill="#1db954">
+            <a class="btn-icon spotify" href="https://open.spotify.com/album/2gJsNkTxkF5zJhFiKtjXsk" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
+              <svg class="icon-svg" fill="white">
                 <use href="#spotify-icon"/>
               </svg>
             </a>
@@ -391,13 +487,13 @@
         <li>
           <span class="release">Swipe Me to the Moon, A Gay Musical, Album, 2025</span>
           <span class="platforms">
-            <a class="btn-icon apple" href="https://music.apple.com/us/album/swipe-me-to-the-moon-a-gay-musical/1833359480" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music">
-              <svg class="icon-svg" fill="#fc3c44">
+            <a class="btn-icon apple" href="https://music.apple.com/us/album/swipe-me-to-the-moon-a-gay-musical/1833359480" target="_blank" rel="noopener" title="Listen on Apple Music">
+              <svg class="icon-svg" fill="white">
                 <use href="#apple-icon"/>
               </svg>
             </a>
             <a class="btn-icon spotify" href="https://open.spotify.com/album/3Mtk9KuFgeL9WZb8NOD2mB" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
-              <svg class="icon-svg" fill="#1db954">
+              <svg class="icon-svg" fill="white">
                 <use href="#spotify-icon"/>
               </svg>
             </a>
@@ -407,13 +503,13 @@
         <li>
           <span class="release">Yogurt, Single, 2025</span>
           <span class="platforms">
-            <a class="btn-icon apple" href="https://music.apple.com/us/album/yogurt-single/1830482188" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music">
-              <svg class="icon-svg" fill="#fc3c44">
+            <a class="btn-icon apple" href="https://music.apple.com/us/album/yogurt-single/1830482188" target="_blank" rel="noopener" title="Listen on Apple Music">
+              <svg class="icon-svg" fill="white">
                 <use href="#apple-icon"/>
               </svg>
             </a>
             <a class="btn-icon spotify" href="https://open.spotify.com/album/5YclQmEVVvq0z5mTD3iHOW" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
-              <svg class="icon-svg" fill="#1db954">
+              <svg class="icon-svg" fill="white">
                 <use href="#spotify-icon"/>
               </svg>
             </a>
@@ -423,13 +519,13 @@
         <li>
           <span class="release">Peach and Purple, Single, 2025</span>
           <span class="platforms">
-            <a class="btn-icon apple" href="https://music.apple.com/us/album/peach-and-purple-single/1830482079" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music">
-              <svg class="icon-svg" fill="#fc3c44">
+            <a class="btn-icon apple" href="https://music.apple.com/us/album/peach-and-purple-single/1830482079" target="_blank" rel="noopener" title="Listen on Apple Music">
+              <svg class="icon-svg" fill="white">
                 <use href="#apple-icon"/>
               </svg>
             </a>
             <a class="btn-icon spotify" href="https://open.spotify.com/album/0K3z7VgKoHUgzZfFOjhXhV" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
-              <svg class="icon-svg" fill="#1db954">
+              <svg class="icon-svg" fill="white">
                 <use href="#spotify-icon"/>
               </svg>
             </a>
@@ -439,13 +535,13 @@
         <li>
           <span class="release">Pride Around the World, Single, 2025</span>
           <span class="platforms">
-            <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-around-the-world-single/1830482080" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music">
-              <svg class="icon-svg" fill="#fc3c44">
+            <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-around-the-world-single/1830482080" target="_blank" rel="noopener" title="Listen on Apple Music">
+              <svg class="icon-svg" fill="white">
                 <use href="#apple-icon"/>
               </svg>
             </a>
             <a class="btn-icon spotify" href="https://open.spotify.com/album/3wJ5e9OV4tJZ8sHMxe7rTB" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
-              <svg class="icon-svg" fill="#1db954">
+              <svg class="icon-svg" fill="white">
                 <use href="#spotify-icon"/>
               </svg>
             </a>
@@ -455,13 +551,13 @@
         <li>
           <span class="release">Pride on the Seas, Single, 2025</span>
           <span class="platforms">
-            <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-on-the-seas-single/1830482081" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music">
-              <svg class="icon-svg" fill="#fc3c44">
+            <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-on-the-seas-single/1830482081" target="_blank" rel="noopener" title="Listen on Apple Music">
+              <svg class="icon-svg" fill="white">
                 <use href="#apple-icon"/>
               </svg>
             </a>
             <a class="btn-icon spotify" href="https://open.spotify.com/album/5a8uKu2uxjZH2pLvVg0Noz" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
-              <svg class="icon-svg" fill="#1db954">
+              <svg class="icon-svg" fill="white">
                 <use href="#spotify-icon"/>
               </svg>
             </a>
@@ -471,13 +567,13 @@
         <li>
           <span class="release">Bless This Mess, Single, 2025</span>
           <span class="platforms">
-            <a class="btn-icon apple" href="https://music.apple.com/us/album/bless-this-mess-single/1830482082" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music">
-              <svg class="icon-svg" fill="#fc3c44">
+            <a class="btn-icon apple" href="https://music.apple.com/us/album/bless-this-mess-single/1830482082" target="_blank" rel="noopener" title="Listen on Apple Music">
+              <svg class="icon-svg" fill="white">
                 <use href="#apple-icon"/>
               </svg>
             </a>
             <a class="btn-icon spotify" href="https://open.spotify.com/album/3bQPe1J1VdZNm9Vg0nUIo8" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
-              <svg class="icon-svg" fill="#1db954">
+              <svg class="icon-svg" fill="white">
                 <use href="#spotify-icon"/>
               </svg>
             </a>
@@ -487,7 +583,7 @@
         <li>
           <span class="release">Cowboys, EP, 2025</span>
           <span class="platforms">
-            <a class="btn-icon apple" href="https://music.apple.com/us/album/cowboys-ep/1830482189" target="_blank" rel="noopener noreferrer" title="Listen on Apple Music">
+            <a class="btn-icon apple" href="https://music.apple.com/us/album/cowboys-ep/1830482189" target="_blank" rel="noopener" title="Listen on Apple Music">
               <svg class="icon-svg" fill="white">
                 <use href="#apple-icon"/>
               </svg>
