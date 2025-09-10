@@ -167,7 +167,15 @@
       <h2>Selected Discography</h2>
       <ul class="discography">
         <li>
-          <span class="release">Pride Month 2025, EP, June 2025</span>
+          <span class="release">
+            Pride Month 2025, EP, June 2025
+            <span class="info-bubble" title="Release info">i
+              <div class="info-tooltip">
+                A vibrant celebration of LGBTQ+ pride featuring uplifting anthems like "Shine so Bright" and "Broadway Pride." 
+                This EP captures the joy, visibility, and empowerment of Pride Month with shimmering synth-pop and dance energy.
+              </div>
+            </span>
+          </span>
           <span class="platforms">
             <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-month-2025-ep/1827272560" target="_blank" rel="noopener" title="Listen on Apple Music">
               <svg class="icon-svg" fill="white">
@@ -183,7 +191,15 @@
         </li>
 
         <li>
-          <span class="release">Swipe Me to the Moon, A Gay Musical, Album, 2025</span>
+          <span class="release">
+            Swipe Me to the Moon, A Gay Musical, Album, 2025
+            <span class="info-bubble" title="Release info">i
+              <div class="info-tooltip">
+                A contemporary gay musical following two men from dating app meeting to deep love. 
+                22 songs explore modern queer romance, first dates, relationship milestones, and finding forever love in the digital age.
+              </div>
+            </span>
+          </span>
           <span class="platforms">
             <a class="btn-icon apple" href="https://music.apple.com/us/album/swipe-me-to-the-moon-a-gay-musical/1833359480" target="_blank" rel="noopener" title="Listen on Apple Music">
               <svg class="icon-svg" fill="white">
@@ -199,7 +215,15 @@
         </li>
 
         <li>
-          <span class="release">Yogurt, Single, 2025</span>
+          <span class="release">
+            Yogurt, Single, 2025
+            <span class="info-bubble" title="Release info">i
+              <div class="info-tooltip">
+                An intriguing pop single with playful energy. 
+                The exact themes remain delightfully mysterious - let the music speak for itself!
+              </div>
+            </span>
+          </span>
           <span class="platforms">
             <a class="btn-icon apple" href="https://music.apple.com/us/album/yogurt-single/1830482188" target="_blank" rel="noopener" title="Listen on Apple Music">
               <svg class="icon-svg" fill="white">
@@ -231,7 +255,15 @@
         </li>
 
         <li>
-          <span class="release">Pride Around the World, Single, 2025</span>
+          <span class="release">
+            Pride Around the World, Single, 2025
+            <span class="info-bubble" title="Release info">i
+              <div class="info-tooltip">
+                A global anthem celebrating LGBTQ+ unity and international Pride solidarity. 
+                This uplifting single honors diverse queer communities worldwide and the universal power of Pride.
+              </div>
+            </span>
+          </span>
           <span class="platforms">
             <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-around-the-world-single/1834268047" target="_blank" rel="noopener" title="Listen on Apple Music">
               <svg class="icon-svg" fill="white">
@@ -279,7 +311,15 @@
         </li>
 
         <li>
-          <span class="release">Cowboys, EP, 2025</span>
+          <span class="release">
+            Cowboys, EP, 2025
+            <span class="info-bubble" title="Release info">i
+              <div class="info-tooltip">
+                A playful, irreverent take on cowboy culture with queer themes and humor. 
+                Features "Y'all Means All" and "Two Steers in Love" - subverting Western stereotypes with LGBTQ+ inclusivity and cheeky comedy.
+              </div>
+            </span>
+          </span>
           <span class="platforms">
             <a class="btn-icon apple" href="https://music.apple.com/us/album/cowboys-ep/1834409818" target="_blank" rel="noopener" title="Listen on Apple Music">
               <svg class="icon-svg" fill="white">
@@ -314,5 +354,36 @@
       © 2025 <strong>Agust Smari Bjarkarson</strong>
     </footer>
   </div>
+
+  <script>
+    // Handle info bubble interactions for mobile devices
+    document.addEventListener('DOMContentLoaded', function() {
+      const infoBubbles = document.querySelectorAll('.info-bubble');
+      
+      infoBubbles.forEach(bubble => {
+        bubble.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Close other active bubbles
+          infoBubbles.forEach(otherBubble => {
+            if (otherBubble !== bubble) {
+              otherBubble.classList.remove('active');
+            }
+          });
+          
+          // Toggle current bubble
+          bubble.classList.toggle('active');
+        });
+      });
+      
+      // Close bubble when clicking outside
+      document.addEventListener('click', function() {
+        infoBubbles.forEach(bubble => {
+          bubble.classList.remove('active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>

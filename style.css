@@ -309,6 +309,87 @@ footer {
   }
 }
 
+/* Info bubble styles */
+.info-bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  background: linear-gradient(45deg, var(--pride-purple), var(--pride-blue));
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.info-bubble:hover {
+  transform: scale(1.1);
+  background: linear-gradient(45deg, var(--pride-blue), var(--pride-teal));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.info-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10px;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.9);
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  max-width: 300px;
+  width: max-content;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.info-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(0,0,0,0.9);
+}
+
+.info-bubble:hover .info-tooltip,
+.info-bubble.active .info-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile adjustments for tooltips */
+@media (max-width: 640px) {
+  .info-tooltip {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    width: auto;
+    max-width: none;
+    transform: none;
+    margin-bottom: 0;
+  }
+  
+  .info-tooltip::after {
+    display: none;
+  }
+}
+
 /* Utility classes */
 .sr-only {
   position: absolute;
