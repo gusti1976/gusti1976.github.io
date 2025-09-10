@@ -156,6 +156,7 @@ a:not(.btn-icon):hover::after {
   padding: 0;
   margin: 20px 0;
   font-size: 1rem;
+  overflow: visible;
 }
 
 .discography li {
@@ -171,7 +172,7 @@ a:not(.btn-icon):hover::after {
   background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.05) 50%, transparent 100%);
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .discography li::before {
@@ -326,6 +327,7 @@ footer {
   transition: all 0.3s ease;
   position: relative;
   border: 1px solid rgba(255,255,255,0.3);
+  z-index: 100;
 }
 
 .info-bubble:hover {
@@ -349,7 +351,7 @@ footer {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1000;
+  z-index: 9999;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   border: 1px solid rgba(255,255,255,0.1);
   pointer-events: none;
