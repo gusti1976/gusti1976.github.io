@@ -1,3 +1,15 @@
+/* Center the hero section */
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+header img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
 /* Base layout */
 :root {
   --maxw: 820px;
