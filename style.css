@@ -1,0 +1,49 @@
+/* style.css */
+
+/* Discography list */
+.discography {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1em;
+  line-height: 2;
+}
+
+.discography li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.discography .release {
+  flex: 1 1 auto;
+}
+
+.discography .platforms {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.discography .btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.discography .btn-icon img {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.discography .btn-icon:focus-visible,
+.discography .btn-icon:hover {
+  background: rgba(0,0,0,.06);
+}
