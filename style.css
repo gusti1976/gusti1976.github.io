@@ -1,94 +1,323 @@
-/* Center the hero section */
-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-header img {
-  display: block;
-  margin: 0 auto;
-  border-radius: 10px;
-}
-
 /* Base layout */
 :root {
   --maxw: 820px;
+  --primary-color: #1db954; /* Spotify green */
+  --apple-color: #fc3c44; /* Apple Music red */
+  --pride-purple: #732982;
+  --pride-blue: #004CFF;
+  --pride-teal: #008080;
+  --iceland-blue: #0048E0;
+  --warm-gold: #FFD700;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-}
-
-/* Typography helpers */
-h1, h2 {
-  line-height: 1.25;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
 }
 
 /* Container */
 .page {
   max-width: var(--maxw);
   margin: 40px auto;
-  padding: 0 16px;
-  font-family: Arial, sans-serif;
+  padding: 0 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+  animation: subtle-rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes subtle-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Typography */
+h1, h2 {
+  line-height: 1.25;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.2rem;
+  background: linear-gradient(45deg, var(--pride-purple), var(--pride-blue), var(--pride-teal));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #444;
+  margin-bottom: 16px;
+  border-bottom: 2px solid transparent;
+  background: linear-gradient(90deg, var(--iceland-blue), var(--warm-gold)) bottom repeat-x;
+  background-size: 100% 2px;
+  padding-bottom: 8px;
+}
+
+/* Header styling */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 0 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+header img {
+  display: block;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  max-width: 280px;
+  max-height: 350px;
+  width: auto;
+  height: auto;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 3px solid transparent;
+  background: linear-gradient(45deg, var(--pride-purple), var(--pride-blue), var(--pride-teal)) border-box;
+  background-clip: padding-box, border-box;
+  object-fit: cover;
+}
+
+header img:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* Section spacing */
+section {
+  margin: 30px 0;
+  padding: 0 10px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Links styling */
+a {
+  color: var(--iceland-blue);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+a:hover {
+  color: var(--pride-purple);
+  text-decoration: none;
+}
+
+a:not(.btn-icon):hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--iceland-blue), var(--pride-purple));
+  animation: link-glow 0.3s ease;
+}
+
+@keyframes link-glow {
+  from { width: 0%; }
+  to { width: 100%; }
 }
 
 /* Discography list */
 .discography {
   list-style: none;
   padding: 0;
-  margin: 0;
-  font-size: 1em;
-  line-height: 2;
+  margin: 20px 0;
+  font-size: 1rem;
 }
 
 .discography li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: .75rem;
+  gap: 1rem;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(240,240,240,0.8);
   flex-wrap: wrap;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,215,0,0.05) 50%, transparent 100%);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.discography li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(180deg, var(--pride-purple), var(--pride-blue), var(--pride-teal));
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.discography li:hover {
+  transform: translateX(8px);
+  background: linear-gradient(90deg, rgba(255,215,0,0.1) 0%, rgba(115,41,130,0.05) 50%, rgba(0,76,255,0.1) 100%);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.discography li:hover::before {
+  transform: scaleY(1);
+}
+
+.discography li:last-child {
+  border-bottom: none;
 }
 
 .discography .release {
   flex: 1 1 auto;
+  font-weight: 500;
 }
 
-/* Icon buttons area */
-.discography .platforms {
+/* Platform icons */
+.platforms {
   display: inline-flex;
   align-items: center;
-  gap: .35rem;            /* spacing between icons, no text separators */
-  font-size: 0;           /* kills stray text nodes, just in case */
+  gap: 8px;
 }
 
-/* Clickable icon button */
-.discography .btn-icon {
+.btn-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   text-decoration: none;
-  outline-offset: 3px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  outline-offset: 2px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.2);
 }
 
-.discography .btn-icon img {
+.btn-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-icon:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.btn-icon.spotify {
+  background: #1db954;
+}
+
+.btn-icon.spotify:hover {
+  background: #1ed760;
+  box-shadow: 0 8px 25px rgba(29, 185, 84, 0.4);
+}
+
+.btn-icon.apple {
+  background: #fc3c44;
+}
+
+.btn-icon.apple:hover {
+  background: #ff4757;
+  box-shadow: 0 8px 25px rgba(252, 60, 68, 0.4);
+}
+
+/* SVG icons */
+.icon-svg {
+  width: 22px;
+  height: 22px;
   display: block;
-  width: 20px;
-  height: 20px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
 }
 
-/* Hover and keyboard focus */
-.discography .btn-icon:hover,
-.discography .btn-icon:focus-visible {
-  background: rgba(0, 0, 0, .06);
+/* Footer */
+footer {
+  text-align: center;
+  padding: 30px 0 40px 0;
+  color: #666;
+  font-size: 0.9rem;
+  border-top: 1px solid #eee;
+  margin-top: 40px;
 }
 
-/* Utility, center hero image nicely on small screens */
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
+/* Responsive design */
+@media (max-width: 640px) {
+  .page {
+    margin: 20px auto;
+    padding: 0 16px;
+    border-radius: 0;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  header img {
+    max-width: 240px;
+  }
+
+  .discography li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .platforms {
+    align-self: flex-end;
+  }
+}
+
+/* Utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
