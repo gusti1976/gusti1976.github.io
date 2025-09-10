@@ -356,11 +356,15 @@
   </div>
 
   <script>
-    // Handle info bubble interactions for mobile devices
+    // Handle info bubble interactions for all devices
     document.addEventListener('DOMContentLoaded', function() {
       const infoBubbles = document.querySelectorAll('.info-bubble');
       
+      // Detect touch devices
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      
       infoBubbles.forEach(bubble => {
+        // For touch devices or explicit click interactions
         bubble.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -375,10 +379,34 @@
           // Toggle current bubble
           bubble.classList.toggle('active');
         });
+        
+        // For Safari and other browsers that might need explicit touch handling
+        if (isTouchDevice) {
+          bubble.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Close other active bubbles
+            infoBubbles.forEach(otherBubble => {
+              if (otherBubble !== bubble) {
+                otherBubble.classList.remove('active');
+              }
+            });
+            
+            // Toggle current bubble
+            bubble.classList.toggle('active');
+          });
+        }
       });
       
       // Close bubble when clicking outside
       document.addEventListener('click', function() {
+        infoBubbles.forEach(bubble => {
+          bubble.classList.remove('active');
+        });
+      });
+      
+      document.addEventListener('touchstart', function() {
         infoBubbles.forEach(bubble => {
           bubble.classList.remove('active');
         });

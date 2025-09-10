@@ -336,24 +336,24 @@ footer {
 
 .info-tooltip {
   position: absolute;
-  bottom: 100%;
+  bottom: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
-  margin-bottom: 10px;
   padding: 12px 16px;
   background: rgba(0,0,0,0.9);
   color: white;
   border-radius: 8px;
   font-size: 14px;
   line-height: 1.4;
-  max-width: 300px;
-  width: max-content;
+  width: 280px;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   z-index: 1000;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   border: 1px solid rgba(255,255,255,0.1);
+  pointer-events: none;
+  text-align: left;
 }
 
 .info-tooltip::after {
@@ -370,6 +370,7 @@ footer {
 .info-bubble.active .info-tooltip {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 /* Mobile adjustments for tooltips */
@@ -380,7 +381,6 @@ footer {
     left: 20px;
     right: 20px;
     width: auto;
-    max-width: none;
     transform: none;
     margin-bottom: 0;
   }
