@@ -1,4 +1,25 @@
-/* style.css */
+/* Base layout */
+:root {
+  --maxw: 820px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Typography helpers */
+h1, h2 {
+  line-height: 1.25;
+}
+
+/* Container */
+.page {
+  max-width: var(--maxw);
+  margin: 40px auto;
+  padding: 0 16px;
+  font-family: Arial, sans-serif;
+}
 
 /* Discography list */
 .discography {
@@ -21,12 +42,15 @@
   flex: 1 1 auto;
 }
 
+/* Icon buttons area */
 .discography .platforms {
   display: inline-flex;
   align-items: center;
-  gap: .35rem;
+  gap: .35rem;            /* spacing between icons, no text separators */
+  font-size: 0;           /* kills stray text nodes, just in case */
 }
 
+/* Clickable icon button */
 .discography .btn-icon {
   display: inline-flex;
   align-items: center;
@@ -35,6 +59,7 @@
   height: 28px;
   border-radius: 6px;
   text-decoration: none;
+  outline-offset: 3px;
 }
 
 .discography .btn-icon img {
@@ -43,7 +68,15 @@
   height: 20px;
 }
 
-.discography .btn-icon:focus-visible,
-.discography .btn-icon:hover {
-  background: rgba(0,0,0,.06);
+/* Hover and keyboard focus */
+.discography .btn-icon:hover,
+.discography .btn-icon:focus-visible {
+  background: rgba(0, 0, 0, .06);
+}
+
+/* Utility, center hero image nicely on small screens */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
