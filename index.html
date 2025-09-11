@@ -104,6 +104,12 @@
     </defs>
   </svg>
 
+  <!-- Skip to content link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Screen reader announcements -->
+  <div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
   <div class="page">
     <header>
       <h1><strong>Agust Smari Bjarkarson</strong> (<em>Agust Islandia</em>)</h1>
@@ -114,8 +120,9 @@
         decoding="async">
     </header>
 
-    <section>
-      <p>
+    <main id="main-content">
+      <section>
+        <p>
         <strong>Agust Smari Bjarkarson</strong>, known artistically as <em>Agust Islandia</em>, is an
         <strong>Icelandic queer pop artist</strong> from Reykjavik creating music that celebrates <strong>queer life, queer love, and Pride</strong>.
         His music blends humor, heart, and bold storytelling with dance energy, centering LGBTQ+ experiences and universal themes of identity and freedom.
@@ -170,12 +177,17 @@
           <div class="release-header">
             <span class="release">
               Pride Month 2025, EP, June 2025
-              <span class="info-bubble" title="Release info">i
-                <div class="info-tooltip">
+              <button class="info-bubble" 
+                      aria-label="Show release information for Pride Month 2025 EP"
+                      aria-expanded="false"
+                      aria-describedby="pride-month-2025-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="pride-month-2025-tooltip" role="tooltip" aria-hidden="true">
                   A vibrant celebration of LGBTQ+ pride featuring uplifting anthems like "Shine so Bright" and "Broadway Pride." 
                   This EP captures the joy, visibility, and empowerment of Pride Month with shimmering synth-pop and dance energy.
                 </div>
-              </span>
+              </button>
             </span>
             <span class="platforms">
               <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-month-2025-ep/1827272560" target="_blank" rel="noopener" title="Listen on Apple Music">
@@ -190,7 +202,11 @@
               </a>
             </span>
           </div>
-          <div class="mobile-info-content">
+          <div class="mobile-info-content" 
+               id="pride-month-2025-info" 
+               role="region" 
+               aria-label="Pride Month 2025 EP release information"
+               aria-hidden="true">
             A vibrant celebration of LGBTQ+ pride featuring uplifting anthems like "Shine so Bright" and "Broadway Pride." 
             This EP captures the joy, visibility, and empowerment of Pride Month with shimmering synth-pop and dance energy.
           </div>
@@ -200,12 +216,17 @@
           <div class="release-header">
             <span class="release">
               Swipe Me to the Moon, A Gay Musical, Album, 2025
-              <span class="info-bubble" title="Release info">i
-                <div class="info-tooltip">
+              <button class="info-bubble" 
+                      aria-label="Show release information for Swipe Me to the Moon musical"
+                      aria-expanded="false"
+                      aria-describedby="swipe-me-to-the-moon-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="swipe-me-to-the-moon-tooltip" role="tooltip" aria-hidden="true">
                   A contemporary gay musical following two men from dating app meeting to deep love. 
                   22 songs explore modern queer romance, first dates, relationship milestones, and finding forever love in the digital age.
                 </div>
-              </span>
+              </button>
             </span>
             <span class="platforms">
               <a class="btn-icon apple" href="https://music.apple.com/us/album/swipe-me-to-the-moon-a-gay-musical/1833359480" target="_blank" rel="noopener" title="Listen on Apple Music">
@@ -220,7 +241,11 @@
               </a>
             </span>
           </div>
-          <div class="mobile-info-content">
+          <div class="mobile-info-content" 
+               id="swipe-me-to-the-moon-info" 
+               role="region" 
+               aria-label="Swipe Me to the Moon musical release information"
+               aria-hidden="true">
             A contemporary gay musical following two men from dating app meeting to deep love. 
             22 songs explore modern queer romance, first dates, relationship milestones, and finding forever love in the digital age.
           </div>
@@ -230,12 +255,17 @@
           <div class="release-header">
             <span class="release">
               Yogurt, Single, 2025
-              <span class="info-bubble" title="Release info">i
-                <div class="info-tooltip">
+              <button class="info-bubble" 
+                      aria-label="Show release information for Yogurt single"
+                      aria-expanded="false"
+                      aria-describedby="yogurt-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="yogurt-tooltip" role="tooltip" aria-hidden="true">
                   An intriguing pop single with playful energy. 
                   The exact themes remain delightfully mysterious - let the music speak for itself!
                 </div>
-              </span>
+              </button>
             </span>
             <span class="platforms">
               <a class="btn-icon apple" href="https://music.apple.com/us/album/yogurt-single/1830482188" target="_blank" rel="noopener" title="Listen on Apple Music">
@@ -250,7 +280,11 @@
               </a>
             </span>
           </div>
-          <div class="mobile-info-content">
+          <div class="mobile-info-content" 
+               id="yogurt-info" 
+               role="region" 
+               aria-label="Yogurt single release information"
+               aria-hidden="true">
             An intriguing pop single with playful energy. 
             The exact themes remain delightfully mysterious - let the music speak for itself!
           </div>
@@ -260,12 +294,17 @@
           <div class="release-header">
             <span class="release">
               Peach and Purple, Single, 2025
-              <span class="info-bubble" title="Release info">i
-                <div class="info-tooltip">
+              <button class="info-bubble" 
+                      aria-label="Show release information for Peach and Purple single"
+                      aria-expanded="false"
+                      aria-describedby="peach-and-purple-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="peach-and-purple-tooltip" role="tooltip" aria-hidden="true">
                   A colorful pop single blending soft and vibrant tones. 
                   The peach and purple palette suggests warmth meets mystique in this melodic creation.
                 </div>
-              </span>
+              </button>
             </span>
             <span class="platforms">
               <a class="btn-icon apple" href="https://music.apple.com/us/album/peach-and-purple-single/1830614759" target="_blank" rel="noopener" title="Listen on Apple Music">
@@ -280,7 +319,11 @@
               </a>
             </span>
           </div>
-          <div class="mobile-info-content">
+          <div class="mobile-info-content" 
+               id="peach-and-purple-info" 
+               role="region" 
+               aria-label="Peach and Purple single release information"
+               aria-hidden="true">
             A colorful pop single blending soft and vibrant tones. 
             The peach and purple palette suggests warmth meets mystique in this melodic creation.
           </div>
@@ -290,12 +333,17 @@
           <div class="release-header">
             <span class="release">
               Pride Around the World, Single, 2025
-              <span class="info-bubble" title="Release info">i
-                <div class="info-tooltip">
+              <button class="info-bubble" 
+                      aria-label="Show release information for Pride Around the World single"
+                      aria-expanded="false"
+                      aria-describedby="pride-around-the-world-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="pride-around-the-world-tooltip" role="tooltip" aria-hidden="true">
                   A global anthem celebrating LGBTQ+ unity and international Pride solidarity. 
                   This uplifting single honors diverse queer communities worldwide and the universal power of Pride.
                 </div>
-              </span>
+              </button>
             </span>
             <span class="platforms">
               <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-around-the-world-single/1834268047" target="_blank" rel="noopener" title="Listen on Apple Music">
@@ -310,7 +358,11 @@
               </a>
             </span>
           </div>
-          <div class="mobile-info-content">
+          <div class="mobile-info-content" 
+               id="pride-around-the-world-info" 
+               role="region" 
+               aria-label="Pride Around the World single release information"
+               aria-hidden="true">
             A global anthem celebrating LGBTQ+ unity and international Pride solidarity. 
             This uplifting single honors diverse queer communities worldwide and the universal power of Pride.
           </div>
@@ -320,12 +372,17 @@
           <div class="release-header">
             <span class="release">
               Pride on the Seas, Single, 2025
-              <span class="info-bubble" title="Release info">i
-                <div class="info-tooltip">
+              <button class="info-bubble" 
+                      aria-label="Show release information for Pride on the Seas single"
+                      aria-expanded="false"
+                      aria-describedby="pride-on-the-seas-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="pride-on-the-seas-tooltip" role="tooltip" aria-hidden="true">
                   A nautical Pride anthem celebrating LGBTQ+ freedom and adventure on the open waters. 
                   This single captures the spirit of Pride sailing the seas with queer joy and liberation.
                 </div>
-              </span>
+              </button>
             </span>
             <span class="platforms">
               <a class="btn-icon apple" href="https://music.apple.com/us/album/pride-on-the-seas-single/1832629718" target="_blank" rel="noopener" title="Listen on Apple Music">
@@ -340,7 +397,11 @@
               </a>
             </span>
           </div>
-          <div class="mobile-info-content">
+          <div class="mobile-info-content" 
+               id="pride-on-the-seas-info" 
+               role="region" 
+               aria-label="Pride on the Seas single release information"
+               aria-hidden="true">
             A nautical Pride anthem celebrating LGBTQ+ freedom and adventure on the open waters. 
             This single captures the spirit of Pride sailing the seas with queer joy and liberation.
           </div>
@@ -350,12 +411,17 @@
           <div class="release-header">
             <span class="release">
               Bless This Mess, Single, 2025
-              <span class="info-bubble" title="Release info">i
-                <div class="info-tooltip">
+              <button class="info-bubble" 
+                      aria-label="Show release information for Bless This Mess single"
+                      aria-expanded="false"
+                      aria-describedby="bless-this-mess-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="bless-this-mess-tooltip" role="tooltip" aria-hidden="true">
                   A heartfelt anthem about embracing life's beautiful chaos and imperfection. 
                   This single celebrates finding grace and blessing in the messy, authentic moments of queer life.
                 </div>
-              </span>
+              </button>
             </span>
             <span class="platforms">
               <a class="btn-icon apple" href="https://music.apple.com/us/album/bless-this-mess-single/1831807697" target="_blank" rel="noopener" title="Listen on Apple Music">
@@ -370,7 +436,11 @@
               </a>
             </span>
           </div>
-          <div class="mobile-info-content">
+          <div class="mobile-info-content" 
+               id="bless-this-mess-info" 
+               role="region" 
+               aria-label="Bless This Mess single release information"
+               aria-hidden="true">
             A heartfelt anthem about embracing life's beautiful chaos and imperfection. 
             This single celebrates finding grace and blessing in the messy, authentic moments of queer life.
           </div>
@@ -380,12 +450,17 @@
           <div class="release-header">
             <span class="release">
               Cowboys, EP, 2025
-              <span class="info-bubble" title="Release info">i
-                <div class="info-tooltip">
+              <button class="info-bubble" 
+                      aria-label="Show release information for Cowboys EP"
+                      aria-expanded="false"
+                      aria-describedby="cowboys-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="cowboys-tooltip" role="tooltip" aria-hidden="true">
                   A playful, irreverent take on cowboy culture with queer themes and humor. 
                   Features "Y'all Means All" and "Two Steers in Love" - subverting Western stereotypes with LGBTQ+ inclusivity and cheeky comedy.
                 </div>
-              </span>
+              </button>
             </span>
             <span class="platforms">
               <a class="btn-icon apple" href="https://music.apple.com/us/album/cowboys-ep/1834409818" target="_blank" rel="noopener" title="Listen on Apple Music">
@@ -400,7 +475,11 @@
               </a>
             </span>
           </div>
-          <div class="mobile-info-content">
+          <div class="mobile-info-content" 
+               id="cowboys-info" 
+               role="region" 
+               aria-label="Cowboys EP release information"
+               aria-hidden="true">
             A playful, irreverent take on cowboy culture with queer themes and humor. 
             Features "Y'all Means All" and "Two Steers in Love" - subverting Western stereotypes with LGBTQ+ inclusivity and cheeky comedy.
           </div>
@@ -421,6 +500,7 @@
         for updates, behind the scenes content, and new music releases.
       </p>
     </section>
+    </main>
 
     <footer>
       © 2025 <strong>Agust Smari Bjarkarson</strong>
@@ -428,46 +508,134 @@
   </div>
 
   <script>
-    // Handle info bubble interactions for all devices
+    // Handle info bubble interactions for all devices with accessibility
     document.addEventListener('DOMContentLoaded', function() {
       const infoBubbles = document.querySelectorAll('.info-bubble');
+      const srAnnouncements = document.getElementById('sr-announcements');
       
       // Detect touch devices and mobile
       const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      const isMobile = window.innerWidth <= 640;
+      let isMobile = window.innerWidth <= 640;
       
-      infoBubbles.forEach(bubble => {
-        bubble.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
+      // Screen reader announcement helper
+      function announceToScreenReader(message) {
+        if (srAnnouncements) {
+          srAnnouncements.textContent = message;
+          // Clear after a moment to allow for repeated announcements
+          setTimeout(() => {
+            srAnnouncements.textContent = '';
+          }, 1000);
+        }
+      }
+      
+      // Toggle content visibility and manage ARIA states
+      function toggleContent(bubble) {
+        const isExpanded = bubble.getAttribute('aria-expanded') === 'true';
+        const releaseName = bubble.getAttribute('aria-label').replace('Show release information for ', '');
+        
+        if (isMobile) {
+          // Mobile: Handle inline collapsible content
+          const listItem = bubble.closest('li');
+          const mobileContent = listItem.querySelector('.mobile-info-content');
           
-          if (isMobile) {
-            // Mobile: Handle inline collapsible content
-            const listItem = bubble.closest('li');
-            const mobileContent = listItem.querySelector('.mobile-info-content');
-            
-            if (mobileContent) {
-              // Close all other expanded content
-              document.querySelectorAll('.mobile-info-content.expanded').forEach(content => {
-                if (content !== mobileContent) {
-                  content.classList.remove('expanded');
+          if (mobileContent) {
+            // Close all other expanded content and reset their ARIA states
+            document.querySelectorAll('.mobile-info-content.expanded').forEach(content => {
+              if (content !== mobileContent) {
+                content.classList.remove('expanded');
+                content.setAttribute('aria-hidden', 'true');
+                const otherBubble = content.parentElement.querySelector('.info-bubble');
+                if (otherBubble) {
+                  otherBubble.setAttribute('aria-expanded', 'false');
                 }
-              });
-              
-              // Toggle current content
-              mobileContent.classList.toggle('expanded');
-            }
-          } else {
-            // Desktop: Handle tooltip behavior
-            // Close other active bubbles
-            infoBubbles.forEach(otherBubble => {
-              if (otherBubble !== bubble) {
-                otherBubble.classList.remove('active');
               }
             });
             
-            // Toggle current bubble
-            bubble.classList.toggle('active');
+            // Toggle current content
+            const willExpand = !isExpanded;
+            mobileContent.classList.toggle('expanded', willExpand);
+            mobileContent.setAttribute('aria-hidden', willExpand ? 'false' : 'true');
+            bubble.setAttribute('aria-expanded', willExpand.toString());
+            
+            // Screen reader announcement
+            if (willExpand) {
+              announceToScreenReader(`${releaseName} release information expanded`);
+            } else {
+              announceToScreenReader(`${releaseName} release information collapsed`);
+            }
+          }
+        } else {
+          // Desktop: Handle tooltip behavior
+          const tooltip = bubble.querySelector('.info-tooltip');
+          
+          // Close other active bubbles and tooltips
+          infoBubbles.forEach(otherBubble => {
+            if (otherBubble !== bubble) {
+              otherBubble.classList.remove('active');
+              otherBubble.setAttribute('aria-expanded', 'false');
+              const otherTooltip = otherBubble.querySelector('.info-tooltip');
+              if (otherTooltip) {
+                otherTooltip.setAttribute('aria-hidden', 'true');
+              }
+            }
+          });
+          
+          // Toggle current bubble and tooltip
+          const willExpand = !isExpanded;
+          bubble.classList.toggle('active', willExpand);
+          bubble.setAttribute('aria-expanded', willExpand.toString());
+          if (tooltip) {
+            tooltip.setAttribute('aria-hidden', willExpand ? 'false' : 'true');
+          }
+          
+          // Screen reader announcement
+          if (willExpand) {
+            announceToScreenReader(`${releaseName} release information shown`);
+          } else {
+            announceToScreenReader(`${releaseName} release information hidden`);
+          }
+        }
+      }
+      
+      infoBubbles.forEach(bubble => {
+        // Click and touch handling
+        bubble.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleContent(bubble);
+        });
+        
+        // Keyboard navigation
+        bubble.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleContent(bubble);
+          }
+          // Escape key to close
+          if (e.key === 'Escape') {
+            const isExpanded = bubble.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) {
+              e.preventDefault();
+              if (isMobile) {
+                const listItem = bubble.closest('li');
+                const mobileContent = listItem.querySelector('.mobile-info-content');
+                if (mobileContent) {
+                  mobileContent.classList.remove('expanded');
+                  mobileContent.setAttribute('aria-hidden', 'true');
+                  bubble.setAttribute('aria-expanded', 'false');
+                  announceToScreenReader('Release information collapsed');
+                }
+              } else {
+                bubble.classList.remove('active');
+                bubble.setAttribute('aria-expanded', 'false');
+                const tooltip = bubble.querySelector('.info-tooltip');
+                if (tooltip) {
+                  tooltip.setAttribute('aria-hidden', 'true');
+                }
+                announceToScreenReader('Release information hidden');
+              }
+            }
           }
         });
         
@@ -485,6 +653,11 @@
         document.addEventListener('click', function() {
           infoBubbles.forEach(bubble => {
             bubble.classList.remove('active');
+            bubble.setAttribute('aria-expanded', 'false');
+            const tooltip = bubble.querySelector('.info-tooltip');
+            if (tooltip) {
+              tooltip.setAttribute('aria-hidden', 'true');
+            }
           });
         });
       }
@@ -493,12 +666,19 @@
       window.addEventListener('resize', function() {
         const isNowMobile = window.innerWidth <= 640;
         if (isNowMobile !== isMobile) {
+          isMobile = isNowMobile;
           // Clean up any active states when switching between mobile/desktop
           infoBubbles.forEach(bubble => {
             bubble.classList.remove('active');
+            bubble.setAttribute('aria-expanded', 'false');
+            const tooltip = bubble.querySelector('.info-tooltip');
+            if (tooltip) {
+              tooltip.setAttribute('aria-hidden', 'true');
+            }
           });
           document.querySelectorAll('.mobile-info-content.expanded').forEach(content => {
             content.classList.remove('expanded');
+            content.setAttribute('aria-hidden', 'true');
           });
         }
       });

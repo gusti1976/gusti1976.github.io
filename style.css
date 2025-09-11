@@ -328,6 +328,20 @@ footer {
   position: relative;
   border: 1px solid rgba(255,255,255,0.3);
   z-index: 100;
+  /* Button reset styles */
+  padding: 0;
+  outline: none;
+  font-family: inherit;
+}
+
+.info-bubble:focus {
+  outline: 2px solid var(--iceland-blue);
+  outline-offset: 2px;
+}
+
+.info-bubble:focus-visible {
+  outline: 2px solid var(--iceland-blue);
+  outline-offset: 2px;
 }
 
 .info-bubble:hover {
@@ -479,6 +493,25 @@ footer {
   .mobile-info-content {
     display: none !important;
   }
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--iceland-blue);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  z-index: 9999;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 6px;
 }
 
 /* Utility classes */
