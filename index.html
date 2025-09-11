@@ -374,6 +374,7 @@
         backdrop.addEventListener('click', function() {
           infoBubbles.forEach(bubble => {
             bubble.classList.remove('active');
+            bubble.style.visibility = 'visible';
           });
           backdrop.classList.remove('active');
         });
@@ -395,12 +396,22 @@
           // Toggle current bubble
           const isActive = bubble.classList.toggle('active');
           
-          // Handle mobile backdrop
+          // Handle mobile backdrop and hide other bubbles
           if (isMobile && backdrop) {
             if (isActive) {
               backdrop.classList.add('active');
+              // Hide all other info bubbles on mobile when one is active
+              infoBubbles.forEach(otherBubble => {
+                if (otherBubble !== bubble) {
+                  otherBubble.style.visibility = 'hidden';
+                }
+              });
             } else {
               backdrop.classList.remove('active');
+              // Show all info bubbles again
+              infoBubbles.forEach(otherBubble => {
+                otherBubble.style.visibility = 'visible';
+              });
             }
           }
         });
