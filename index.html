@@ -360,8 +360,24 @@
     document.addEventListener('DOMContentLoaded', function() {
       const infoBubbles = document.querySelectorAll('.info-bubble');
       
-      // Detect touch devices
+      // Detect touch devices and mobile
       const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isMobile = window.innerWidth <= 640;
+      
+      // Create backdrop for mobile
+      let backdrop = null;
+      if (isMobile) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'mobile-tooltip-backdrop';
+        document.body.appendChild(backdrop);
+        
+        backdrop.addEventListener('click', function() {
+          infoBubbles.forEach(bubble => {
+            bubble.classList.remove('active');
+          });
+          backdrop.classList.remove('active');
+        });
+      }
       
       infoBubbles.forEach(bubble => {
         // For touch devices or explicit click interactions
@@ -377,7 +393,16 @@
           });
           
           // Toggle current bubble
-          bubble.classList.toggle('active');
+          const isActive = bubble.classList.toggle('active');
+          
+          // Handle mobile backdrop
+          if (isMobile && backdrop) {
+            if (isActive) {
+              backdrop.classList.add('active');
+            } else {
+              backdrop.classList.remove('active');
+            }
+          }
         });
         
         // For Safari and other browsers that might need explicit touch handling
@@ -385,32 +410,18 @@
           bubble.addEventListener('touchstart', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
-            // Close other active bubbles
-            infoBubbles.forEach(otherBubble => {
-              if (otherBubble !== bubble) {
-                otherBubble.classList.remove('active');
-              }
-            });
-            
-            // Toggle current bubble
-            bubble.classList.toggle('active');
           });
         }
       });
       
-      // Close bubble when clicking outside
-      document.addEventListener('click', function() {
-        infoBubbles.forEach(bubble => {
-          bubble.classList.remove('active');
+      // Close bubble when clicking outside (desktop)
+      if (!isMobile) {
+        document.addEventListener('click', function() {
+          infoBubbles.forEach(bubble => {
+            bubble.classList.remove('active');
+          });
         });
-      });
-      
-      document.addEventListener('touchstart', function() {
-        infoBubbles.forEach(bubble => {
-          bubble.classList.remove('active');
-        });
-      });
+      }
     });
   </script>
 </body>

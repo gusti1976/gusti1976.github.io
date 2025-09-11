@@ -389,22 +389,67 @@ footer {
   }
 }
 
+/* Mobile backdrop for tooltips */
+.mobile-tooltip-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-tooltip-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* Mobile adjustments for tooltips */
 @media (max-width: 640px) {
   .info-tooltip {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    bottom: 100px;
+    left: 16px;
+    right: 16px;
     width: auto;
+    max-width: none;
     -webkit-transform: none;
     -moz-transform: none;
     transform: none;
     margin-bottom: 0;
+    background: rgba(255,255,255,0.98);
+    color: #333;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   
   .info-tooltip::after {
     display: none;
+  }
+  
+  .info-bubble.active .info-tooltip {
+    animation: mobile-tooltip-in 0.3s ease-out forwards;
+  }
+  
+  @keyframes mobile-tooltip-in {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 }
 
