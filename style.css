@@ -378,6 +378,10 @@ footer {
   z-index: 999998;
 }
 
+.info-bubble.active {
+  opacity: 0;
+}
+
 .info-bubble:hover .info-tooltip,
 .info-bubble.active .info-tooltip {
   opacity: 1;
