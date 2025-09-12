@@ -443,7 +443,9 @@
             
             // Move tooltip back to its original position
             if (tooltip.parentNode === tooltipPortal) {
-              bubble.parentNode.appendChild(tooltip);
+              // Find the correct container (the span.release that contains the button)
+              const container = bubble.parentNode;
+              container.appendChild(tooltip);
             }
           }
         });
@@ -557,7 +559,7 @@
             tooltip.setAttribute('aria-hidden', 'true');
             bubble.classList.remove('active');
             
-            // Move tooltip back
+            // Move tooltip back to its original container
             bubble.parentNode.appendChild(tooltip);
             
             // Announce to screen readers
