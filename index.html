@@ -401,6 +401,13 @@
       const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
       const isMobile = window.innerWidth <= 640;
       
+      console.log('Device detection:', {
+        isTouchDevice: isTouchDevice,
+        isMobile: isMobile,
+        windowWidth: window.innerWidth,
+        userAgent: navigator.userAgent
+      });
+      
       // Create tooltip portal container
       let tooltipPortal = document.createElement('div');
       tooltipPortal.className = 'tooltip-portal';
@@ -508,9 +515,13 @@
       
       // Function to toggle tooltip
       function toggleTooltip(bubble) {
+        console.log('toggleTooltip called for bubble:', bubble);
         const tooltipId = bubble.getAttribute('aria-describedby');
+        console.log('Looking for tooltip with ID:', tooltipId);
         const tooltip = document.getElementById(tooltipId);
+        console.log('Found tooltip:', tooltip);
         const isExpanded = bubble.getAttribute('aria-expanded') === 'true';
+        console.log('Current expanded state:', isExpanded);
         
         // Close other tooltips first
         infoBubbles.forEach(otherBubble => {
@@ -579,6 +590,7 @@
       infoBubbles.forEach(bubble => {
         // Click and touch interactions
         bubble.addEventListener('click', function(e) {
+          console.log('Click detected on bubble:', bubble);
           e.preventDefault();
           e.stopPropagation();
           toggleTooltip(bubble);
