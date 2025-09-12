@@ -400,7 +400,8 @@ footer {
 }
 
 .info-bubble:hover .info-tooltip,
-.info-bubble.active .info-tooltip {
+.info-bubble.active .info-tooltip,
+.info-tooltip[aria-hidden="false"] {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
