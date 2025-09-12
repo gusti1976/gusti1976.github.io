@@ -339,6 +339,10 @@ footer {
   z-index: 100;
   padding: 0;
   outline: none;
+  -webkit-appearance: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .info-bubble:hover {

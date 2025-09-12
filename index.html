@@ -587,13 +587,27 @@
         }
       }
       
-      infoBubbles.forEach(bubble => {
-        // Click and touch interactions
+      infoBubbles.forEach((bubble, index) => {
+        console.log('Setting up event listeners for bubble', index, bubble);
+        
+        // Multiple event bindings for Safari compatibility
         bubble.addEventListener('click', function(e) {
           console.log('Click detected on bubble:', bubble);
           e.preventDefault();
           e.stopPropagation();
           toggleTooltip(bubble);
+        });
+        
+        bubble.addEventListener('touchend', function(e) {
+          console.log('Touch detected on bubble:', bubble);
+          e.preventDefault();
+          e.stopPropagation();
+          toggleTooltip(bubble);
+        });
+        
+        // Safari sometimes needs mousedown as well
+        bubble.addEventListener('mousedown', function(e) {
+          console.log('MouseDown detected on bubble:', bubble);
         });
         
         // Keyboard interactions
