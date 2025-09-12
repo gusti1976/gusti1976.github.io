@@ -609,12 +609,10 @@
           bubble.addEventListener('mouseleave', function() {
             // Small delay to allow moving to tooltip
             setTimeout(() => {
-              if (!bubble.matches(':hover') && !tooltip.matches(':hover')) {
-                const tooltipId = bubble.getAttribute('aria-describedby');
-                const tooltip = document.getElementById(tooltipId);
-                if (tooltip && bubble.getAttribute('aria-expanded') === 'true') {
-                  toggleTooltip(bubble);
-                }
+              const tooltipId = bubble.getAttribute('aria-describedby');
+              const tooltip = document.getElementById(tooltipId);
+              if (tooltip && !bubble.matches(':hover') && !tooltip.matches(':hover') && bubble.getAttribute('aria-expanded') === 'true') {
+                toggleTooltip(bubble);
               }
             }, 100);
           });
