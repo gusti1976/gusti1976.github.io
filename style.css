@@ -372,7 +372,9 @@ footer {
 }
 
 .info-bubble.active {
-  opacity: 0;
+  transform: scale(1.1);
+  background: linear-gradient(45deg, var(--pride-blue), var(--pride-teal));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .info-bubble:hover .info-tooltip,
