@@ -31,7 +31,7 @@ html, body {
   box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .page::before {
@@ -173,6 +173,7 @@ a:not(.btn-icon):hover::after {
   transition: all 0.3s ease;
   position: relative;
   overflow: visible;
+  z-index: auto;
 }
 
 .discography li::before {
@@ -337,12 +338,7 @@ footer {
 }
 
 .info-tooltip {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -moz-transform: translateX(-50%);
-  transform: translateX(-50%);
+  position: fixed;
   padding: 12px 16px;
   background: rgba(0,0,0,0.9);
   color: white;
@@ -355,7 +351,7 @@ footer {
   -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
   -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 999999;
+  z-index: 1000000;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   border: 1px solid rgba(255,255,255,0.1);
   pointer-events: none;
@@ -366,16 +362,13 @@ footer {
 .info-tooltip::after {
   content: '';
   position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
   border: 6px solid transparent;
   border-top-color: rgba(0,0,0,0.9);
 }
 
 .info-bubble:hover,
 .info-bubble.active {
-  z-index: 999998;
+  z-index: 999999;
 }
 
 .info-bubble.active {
@@ -417,10 +410,18 @@ footer {
   visibility: visible;
 }
 
+/* Tooltip portal container for fixed positioning */
+.tooltip-portal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000000;
+  pointer-events: none;
+}
+
 /* Mobile adjustments for tooltips */
 @media (max-width: 640px) {
   .info-tooltip {
-    position: fixed;
     bottom: 100px;
     left: 16px;
     right: 16px;
@@ -440,7 +441,7 @@ footer {
     padding: 20px;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    z-index: 10001;
+    z-index: 1000001;
   }
   
   .info-tooltip::after {

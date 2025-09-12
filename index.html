@@ -388,6 +388,11 @@
       const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
       const isMobile = window.innerWidth <= 640;
       
+      // Create tooltip portal container
+      let tooltipPortal = document.createElement('div');
+      tooltipPortal.className = 'tooltip-portal';
+      document.body.appendChild(tooltipPortal);
+      
       // Create backdrop for mobile
       let backdrop = null;
       if (isMobile) {
@@ -399,12 +404,71 @@
           infoBubbles.forEach(bubble => {
             bubble.classList.remove('active');
             bubble.style.visibility = 'visible';
+            // Move tooltip back to original position
+            const tooltip = bubble.querySelector('.info-tooltip');
+            if (tooltip) {
+              bubble.appendChild(tooltip);
+            }
           });
           backdrop.classList.remove('active');
         });
       }
       
+      // Function to position tooltip
+      function positionTooltip(bubble, tooltip) {
+        if (isMobile) {
+          // On mobile, use fixed bottom positioning
+          tooltip.style.left = '16px';
+          tooltip.style.right = '16px';
+          tooltip.style.bottom = '100px';
+          tooltip.style.top = 'auto';
+          tooltip.style.transform = 'none';
+        } else {
+          // On desktop, position above the bubble
+          const bubbleRect = bubble.getBoundingClientRect();
+          const tooltipRect = tooltip.getBoundingClientRect();
+          
+          // Position above the bubble
+          const top = bubbleRect.top - tooltipRect.height - 10;
+          const left = bubbleRect.left + (bubbleRect.width / 2) - (tooltipRect.width / 2);
+          
+          // Ensure tooltip stays within viewport
+          const adjustedLeft = Math.max(10, Math.min(window.innerWidth - tooltipRect.width - 10, left));
+          
+          tooltip.style.top = Math.max(10, top) + 'px';
+          tooltip.style.left = adjustedLeft + 'px';
+          tooltip.style.bottom = 'auto';
+          tooltip.style.right = 'auto';
+          tooltip.style.transform = 'none';
+          
+          // Position the arrow
+          const arrow = tooltip.querySelector('::after') || tooltip;
+          const arrowLeft = (bubbleRect.left + bubbleRect.width / 2) - adjustedLeft;
+          tooltip.style.setProperty('--arrow-left', arrowLeft + 'px');
+          
+          // Update arrow positioning with CSS custom property
+          const arrowStyles = `
+            .info-tooltip::after {
+              left: var(--arrow-left, 50%);
+              transform: translateX(-50%);
+              top: 100%;
+            }
+          `;
+          
+          // Add or update arrow styles
+          let arrowStyleElement = document.getElementById('dynamic-arrow-styles');
+          if (!arrowStyleElement) {
+            arrowStyleElement = document.createElement('style');
+            arrowStyleElement.id = 'dynamic-arrow-styles';
+            document.head.appendChild(arrowStyleElement);
+          }
+          arrowStyleElement.textContent = arrowStyles;
+        }
+      }
+      
       infoBubbles.forEach(bubble => {
+        const tooltip = bubble.querySelector('.info-tooltip');
+        
         // For touch devices or explicit click interactions
         bubble.addEventListener('click', function(e) {
           e.preventDefault();
@@ -414,11 +478,26 @@
           infoBubbles.forEach(otherBubble => {
             if (otherBubble !== bubble) {
               otherBubble.classList.remove('active');
+              // Move other tooltips back
+              const otherTooltip = otherBubble.querySelector('.info-tooltip');
+              if (otherTooltip && otherTooltip.parentNode === tooltipPortal) {
+                otherBubble.appendChild(otherTooltip);
+              }
             }
           });
           
           // Toggle current bubble
           const isActive = bubble.classList.toggle('active');
+          
+          if (isActive && tooltip) {
+            // Move tooltip to portal and position it
+            tooltipPortal.appendChild(tooltip);
+            // Small delay to allow DOM update before positioning
+            setTimeout(() => positionTooltip(bubble, tooltip), 0);
+          } else if (tooltip) {
+            // Move tooltip back to bubble
+            bubble.appendChild(tooltip);
+          }
           
           // Handle mobile backdrop and hide other bubbles
           if (isMobile && backdrop) {
@@ -440,6 +519,24 @@
           }
         });
         
+        // Desktop hover behavior
+        if (!isMobile && !isTouchDevice) {
+          bubble.addEventListener('mouseenter', function() {
+            if (tooltip) {
+              tooltipPortal.appendChild(tooltip);
+              setTimeout(() => positionTooltip(bubble, tooltip), 0);
+              bubble.classList.add('active');
+            }
+          });
+          
+          bubble.addEventListener('mouseleave', function() {
+            if (tooltip && tooltip.parentNode === tooltipPortal) {
+              bubble.appendChild(tooltip);
+              bubble.classList.remove('active');
+            }
+          });
+        }
+        
         // For Safari and other browsers that might need explicit touch handling
         if (isTouchDevice) {
           bubble.addEventListener('touchstart', function(e) {
@@ -454,9 +551,27 @@
         document.addEventListener('click', function() {
           infoBubbles.forEach(bubble => {
             bubble.classList.remove('active');
+            const tooltip = bubble.querySelector('.info-tooltip');
+            if (!tooltip) {
+              const portalTooltip = tooltipPortal.querySelector('.info-tooltip');
+              if (portalTooltip) {
+                bubble.appendChild(portalTooltip);
+              }
+            }
           });
         });
       }
+      
+      // Handle window resize to reposition tooltips
+      window.addEventListener('resize', function() {
+        const activeTooltip = tooltipPortal.querySelector('.info-tooltip');
+        if (activeTooltip) {
+          const activeBubble = document.querySelector('.info-bubble.active');
+          if (activeBubble) {
+            positionTooltip(activeBubble, activeTooltip);
+          }
+        }
+      });
     });
   </script>
 </body>
