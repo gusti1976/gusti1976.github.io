@@ -3,9 +3,17 @@
 <head>
   <!-- Handle /index.html → / redirect for GitHub Pages -->
   <script>
+    // Immediate redirect for /index.html requests
     if (window.location.pathname === '/index.html') {
       window.location.replace('/');
     }
+    // Also ensure canonical points to root regardless of access path
+    document.addEventListener('DOMContentLoaded', function() {
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical && window.location.pathname === '/index.html') {
+        canonical.href = 'https://www.gusti.com/';
+      }
+    });
   </script>
   <meta http-equiv="refresh" content="0; url=/" />
 
