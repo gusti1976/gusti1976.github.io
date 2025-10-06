@@ -4,19 +4,11 @@
 <head>
   <!-- Handle /index.html → / redirect for GitHub Pages -->
   <script>
-    // Immediate redirect for /index.html requests
-    if (window.location.pathname === '/index.html') {
+    // Only redirect if accessed via /index.html and not during normal page load
+    if (window.location.pathname === '/index.html' && window.location.search === '') {
       window.location.replace('/');
     }
-    // Also ensure canonical points to root regardless of access path
-    document.addEventListener('DOMContentLoaded', function() {
-      const canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical && window.location.pathname === '/index.html') {
-        canonical.href = 'https://www.gusti.com/';
-      }
-    });
   </script>
-  <meta http-equiv="refresh" content="0; url=/" />
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
