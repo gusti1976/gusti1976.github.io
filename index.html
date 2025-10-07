@@ -747,8 +747,22 @@
     });
   </script>
 
-  <!-- Google Analytics (loaded conditionally based on consent) -->
+  <!-- Google Analytics with Consent Mode v2 -->
   <script>
+    // Initialize gtag and dataLayer first
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Set default consent state (denied by default for GDPR compliance)
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'functionality_storage': 'denied',
+      'personalization_storage': 'denied',
+      'security_storage': 'granted',  // Always granted for essential functionality
+      'wait_for_update': 500
+    });
+
     // Cookie consent functions
     function getCookieConsent() {
       return localStorage.getItem('cookieConsent');
@@ -756,21 +770,39 @@
 
     function loadGoogleAnalytics() {
       if (getCookieConsent() === 'accepted') {
-        // Load Google Analytics
+        // Load Google Analytics script
         const script = document.createElement('script');
         script.async = true;
         script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XT20Z24BS6';
         document.head.appendChild(script);
 
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XT20Z24BS6');
+        // Initialize GA after script loads
+        script.onload = function() {
+          gtag('js', new Date());
+          gtag('config', 'G-XT20Z24BS6');
+        };
+      }
+    }
+
+    // Update consent state based on stored preference
+    function updateConsentState() {
+      const consent = getCookieConsent();
+      if (consent === 'accepted') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted',
+          'functionality_storage': 'granted'
+        });
+        loadGoogleAnalytics();
+      } else if (consent === 'declined') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'denied',
+          'functionality_storage': 'denied'
+        });
       }
     }
 
     // Load analytics if already consented
-    loadGoogleAnalytics();
+    updateConsentState();
   </script>
 
   <!-- Cloudflare Web Analytics -->
@@ -939,6 +971,11 @@
 
     function acceptCookies() {
       localStorage.setItem('cookieConsent', 'accepted');
+      // Update Google Consent Mode
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'functionality_storage': 'granted'
+      });
       hideCookieBanner();
       loadGoogleAnalytics();
       closeCookieDetails();
@@ -946,6 +983,11 @@
 
     function declineCookies() {
       localStorage.setItem('cookieConsent', 'declined');
+      // Update Google Consent Mode
+      gtag('consent', 'update', {
+        'analytics_storage': 'denied',
+        'functionality_storage': 'denied'
+      });
       hideCookieBanner();
       closeCookieDetails();
     }
