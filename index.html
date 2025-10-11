@@ -54,95 +54,148 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": "https://www.gusti.com/#website",
+        "url": "https://www.gusti.com/",
+        "name": "Agust Smari Bjarkarson",
+        "publisher": {
+          "@id": "https://www.gusti.com/#label"
+        },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.gusti.com/#webpage",
+        "url": "https://www.gusti.com/",
+        "name": "Agust Smari Bjarkarson, Queer Pop Artist | LGBTQ+ Music & Pride",
+        "description": "Agust Smari Bjarkarson (Agust Islandia) is an Icelandic queer pop artist creating music that celebrates queer life, queer love, and Pride.",
+        "isPartOf": {
+          "@id": "https://www.gusti.com/#website"
+        },
+        "about": {
+          "@id": "https://www.gusti.com/#agust-person"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://www.gusti.com/#hero-image"
+        },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://www.gusti.com/#hero-image",
+        "url": "https://www.gusti.com/agust_islandia.jpg",
+        "contentUrl": "https://www.gusti.com/agust_islandia.jpg",
+        "caption": "Portrait of Agust Smari Bjarkarson (Agust Islandia)",
+        "width": 694,
+        "height": 1112,
+        "inLanguage": "en-US"
+      },
+      {
         "@type": "Person",
-        "@id": "#agust-person",
+        "@id": "https://www.gusti.com/#agust-person",
         "name": "Agust Smari Bjarkarson",
         "alternateName": "Agust Islandia",
-        "additionalName": ["Agust Smari Bjarkarson", "Agust Islandia"],
         "birthDate": "1976-08-26",
-        "birthPlace": { "@type": "Place", "name": "Reykjavik, Iceland" },
-        "identifier": { "@type": "PropertyValue", "propertyID": "ISNI", "value": "0000000528099919" },
-        "image": "https://www.gusti.com/agust_islandia.jpg",
-        "jobTitle": "Pop Artist",
+        "birthPlace": {
+          "@type": "Place",
+          "name": "Reykjavík, Iceland"
+        },
         "nationality": "Icelandic",
+        "jobTitle": "Singer-songwriter",
+        "image": {
+          "@id": "https://www.gusti.com/#hero-image"
+        },
+        "url": "https://www.gusti.com/",
         "sameAs": [
+          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5",
+          "https://www.wikidata.org/wiki/Q136089384",
           "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
           "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
           "https://www.tiktok.com/@gusticeland",
-          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5",
-          "https://www.discogs.com/artist/16616054-Agust-Smari-Bjarkarson",
-          "https://www.wikidata.org/wiki/Q136089384"
+          "https://www.discogs.com/artist/16616054-Agust-Smari-Bjarkarson"
         ],
-        "url": "https://www.gusti.com/",
-        "memberOf": { "@id": "#agust-islandia" }
+        "memberOf": {
+          "@id": "https://www.gusti.com/#agust-islandia"
+        },
+        "identifier": [
+          {
+            "@type": "PropertyValue",
+            "propertyID": "ISNI",
+            "value": "0000000528099919"
+          },
+          {
+            "@type": "PropertyValue",
+            "propertyID": "MusicBrainz",
+            "value": "fca2294b-5bbb-4711-881a-aa61e90346f5"
+          }
+        ]
       },
       {
         "@type": "MusicGroup",
-        "@id": "#agust-islandia",
+        "@id": "https://www.gusti.com/#agust-islandia",
         "name": "Agust Islandia",
-        "url": "https://www.gusti.com",
-        "genre": ["Pop", "Dance", "Electronic"],
+        "url": "https://www.gusti.com/",
+        "genre": ["Pop", "Dance-pop", "EDM"],
+        "member": {
+          "@id": "https://www.gusti.com/#agust-person"
+        },
         "sameAs": [
+          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5",
           "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
-          "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
-          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
-        ],
-        "member": { "@id": "#agust-person" }
+          "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"
+        ]
       },
       {
-        "@type": "WebSite",
-        "name": "Agust Smari Bjarkarson",
-        "url": "https://www.gusti.com/"
+        "@type": "Organization",
+        "@id": "https://www.gusti.com/#label",
+        "name": "Agust Islandia",
+        "alternateName": "Agust Islandia (label)",
+        "url": "https://www.gusti.com/",
+        "founder": {
+          "@id": "https://www.gusti.com/#agust-person"
+        },
+        "foundingDate": "2020",
+        "foundingLocation": {
+          "@type": "Place",
+          "name": "Reykjavík, Iceland"
+        },
+        "sameAs": [
+          "https://musicbrainz.org/label/ca66ad85-7842-4a0b-b95b-b969d54eea85"
+        ],
+        "identifier": [
+          {
+            "@type": "PropertyValue",
+            "propertyID": "MusicBrainz",
+            "value": "ca66ad85-7842-4a0b-b95b-b969d54eea85"
+          }
+        ]
       },
       {
         "@type": "MusicAlbum",
+        "@id": "https://www.gusti.com/#album-pride-month-2025",
         "name": "Pride Month 2025",
         "albumProductionType": "http://schema.org/StudioAlbum",
         "albumReleaseType": "http://schema.org/EPRelease",
         "datePublished": "2025-06",
-        "byArtist": { "@id": "#agust-islandia" },
+        "byArtist": {
+          "@id": "https://www.gusti.com/#agust-islandia"
+        },
         "genre": ["Pop", "Dance", "LGBTQ+ Pride"],
         "description": "A vibrant celebration of LGBTQ+ pride featuring uplifting anthems like 'Shine so Bright' and 'Broadway Pride.'"
       },
       {
-        "@type": "MusicAlbum", 
+        "@type": "MusicAlbum",
+        "@id": "https://www.gusti.com/#album-swipe-me-to-the-moon",
         "name": "Swipe Me to the Moon, A Gay Musical",
         "albumProductionType": "http://schema.org/StudioAlbum",
         "albumReleaseType": "http://schema.org/AlbumRelease",
         "datePublished": "2025",
-        "byArtist": { "@id": "#agust-islandia" },
+        "byArtist": {
+          "@id": "https://www.gusti.com/#agust-islandia"
+        },
         "genre": ["Musical Theatre", "Pop", "LGBTQ+"],
         "description": "A contemporary gay musical following two men from dating app meeting to deep love. 22 songs explore modern queer romance.",
         "numTracks": 22
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What type of music does Agust Smari Bjarkarson create?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Agust Smari Bjarkarson (Agust Islandia) creates queer pop music that celebrates LGBTQ+ life, queer love, and Pride. His music blends shimmering synth-pop anthems, cinematic ballads, and atmospheric electronica with bold storytelling centered on queer experiences."
-            }
-          },
-          {
-            "@type": "Question", 
-            "name": "Where can I listen to Agust Islandia's music?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "You can listen to Agust Islandia's music on Spotify, Apple Music, and other major streaming platforms. Follow the links on his website for direct access to his latest releases including Pride Month 2025 EP and Swipe Me to the Moon musical."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What are Agust Islandia's most popular songs?",
-            "acceptedAnswer": {
-              "@type": "Answer", 
-              "text": "Popular releases include 'Gay and Proud', songs from the Pride Month 2025 EP like 'Shine so Bright' and 'Broadway Pride', and the full musical album 'Swipe Me to the Moon' featuring 22 songs about modern queer romance."
-            }
-          }
-        ]
       }
     ]
   }
