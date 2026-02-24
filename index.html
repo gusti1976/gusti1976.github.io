@@ -39,7 +39,7 @@
   <link rel="me" href="https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5">
   <link rel="me" href="https://www.discogs.com/artist/16616054-Agust-Smari-Bjarkarson">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-optimized.css">
 
   <script type="application/ld+json">
   {
@@ -92,7 +92,7 @@
 
 </head>
 <body>
-  <!-- SVG Icon Definitions -->
+  <!-- SVG Icon Definitions (organized in icons.svg for reference) -->
   <svg style="display: none;" aria-hidden="true">
     <defs>
       <symbol id="spotify-icon" viewBox="0 0 24 24">
@@ -112,10 +112,28 @@
 
   <div class="page">
     <header>
+      <!-- Theme Toggle Button -->
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        aria-label="Toggle dark mode"
+        title="Toggle dark/light mode">
+        <svg class="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <!-- Moon icon (shown in light mode) -->
+          <path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                fill="currentColor"/>
+
+          <!-- Sun icon (shown in dark mode) -->
+          <circle id="sun-circle" cx="12" cy="12" r="5" fill="currentColor" style="display: none;"/>
+          <path id="sun-rays" d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"
+                stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+        </svg>
+      </button>
+
       <h1><strong>Agust Smari Bjarkarson</strong> (<em>Agust Islandia</em>)</h1>
       <h2><strong>Icelandic Queer Pop Artist</strong>, Reykjavik</h2>
       <img
-        src="https://www.gusti.com/agust_islandia.jpg"
+        src="/agust_islandia.jpg"
         alt="Agust Islandia, Agust Smari Bjarkarson, Icelandic pop artist portrait"
         decoding="async">
     </header>
@@ -544,182 +562,10 @@
     </footer>
   </div>
 
-  <script>
-    // Handle info bubble interactions for all devices with accessibility
-    document.addEventListener('DOMContentLoaded', function() {
-      const infoBubbles = document.querySelectorAll('.info-bubble');
-      const srAnnouncements = document.getElementById('sr-announcements');
-      
-      // Detect touch devices and mobile
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      let isMobile = window.innerWidth <= 640;
-      
-      // Screen reader announcement helper
-      function announceToScreenReader(message) {
-        if (srAnnouncements) {
-          srAnnouncements.textContent = message;
-          // Clear after a moment to allow for repeated announcements
-          setTimeout(() => {
-            srAnnouncements.textContent = '';
-          }, 1000);
-        }
-      }
-      
-      // Toggle content visibility and manage ARIA states
-      function toggleContent(bubble) {
-        const isExpanded = bubble.getAttribute('aria-expanded') === 'true';
-        const releaseName = bubble.getAttribute('aria-label').replace('Show release information for ', '');
-        
-        if (isMobile) {
-          // Mobile: Handle inline collapsible content
-          const listItem = bubble.closest('li');
-          const mobileContent = listItem.querySelector('.mobile-info-content');
-          
-          if (mobileContent) {
-            // Close all other expanded content and reset their ARIA states
-            document.querySelectorAll('.mobile-info-content.expanded').forEach(content => {
-              if (content !== mobileContent) {
-                content.classList.remove('expanded');
-                content.setAttribute('aria-hidden', 'true');
-                const otherBubble = content.parentElement.querySelector('.info-bubble');
-                if (otherBubble) {
-                  otherBubble.setAttribute('aria-expanded', 'false');
-                }
-              }
-            });
-            
-            // Toggle current content
-            const willExpand = !isExpanded;
-            mobileContent.classList.toggle('expanded', willExpand);
-            mobileContent.setAttribute('aria-hidden', willExpand ? 'false' : 'true');
-            bubble.setAttribute('aria-expanded', willExpand.toString());
-            
-            // Screen reader announcement
-            if (willExpand) {
-              announceToScreenReader(`${releaseName} release information expanded`);
-            } else {
-              announceToScreenReader(`${releaseName} release information collapsed`);
-            }
-          }
-        } else {
-          // Desktop: Handle tooltip behavior
-          const tooltip = bubble.querySelector('.info-tooltip');
-          
-          // Close other active bubbles and tooltips
-          infoBubbles.forEach(otherBubble => {
-            if (otherBubble !== bubble) {
-              otherBubble.classList.remove('active');
-              otherBubble.setAttribute('aria-expanded', 'false');
-              const otherTooltip = otherBubble.querySelector('.info-tooltip');
-              if (otherTooltip) {
-                otherTooltip.setAttribute('aria-hidden', 'true');
-              }
-            }
-          });
-          
-          // Toggle current bubble and tooltip
-          const willExpand = !isExpanded;
-          bubble.classList.toggle('active', willExpand);
-          bubble.setAttribute('aria-expanded', willExpand.toString());
-          if (tooltip) {
-            tooltip.setAttribute('aria-hidden', willExpand ? 'false' : 'true');
-          }
-          
-          // Screen reader announcement
-          if (willExpand) {
-            announceToScreenReader(`${releaseName} release information shown`);
-          } else {
-            announceToScreenReader(`${releaseName} release information hidden`);
-          }
-        }
-      }
-      
-      infoBubbles.forEach(bubble => {
-        // Click and touch handling
-        bubble.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleContent(bubble);
-        });
-        
-        // Keyboard navigation
-        bubble.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleContent(bubble);
-          }
-          // Escape key to close
-          if (e.key === 'Escape') {
-            const isExpanded = bubble.getAttribute('aria-expanded') === 'true';
-            if (isExpanded) {
-              e.preventDefault();
-              if (isMobile) {
-                const listItem = bubble.closest('li');
-                const mobileContent = listItem.querySelector('.mobile-info-content');
-                if (mobileContent) {
-                  mobileContent.classList.remove('expanded');
-                  mobileContent.setAttribute('aria-hidden', 'true');
-                  bubble.setAttribute('aria-expanded', 'false');
-                  announceToScreenReader('Release information collapsed');
-                }
-              } else {
-                bubble.classList.remove('active');
-                bubble.setAttribute('aria-expanded', 'false');
-                const tooltip = bubble.querySelector('.info-tooltip');
-                if (tooltip) {
-                  tooltip.setAttribute('aria-hidden', 'true');
-                }
-                announceToScreenReader('Release information hidden');
-              }
-            }
-          }
-        });
-        
-        // For Safari and other browsers that might need explicit touch handling
-        if (isTouchDevice) {
-          bubble.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-          });
-        }
-      });
-      
-      // Close tooltip when clicking outside (desktop only)
-      if (!isMobile) {
-        document.addEventListener('click', function() {
-          infoBubbles.forEach(bubble => {
-            bubble.classList.remove('active');
-            bubble.setAttribute('aria-expanded', 'false');
-            const tooltip = bubble.querySelector('.info-tooltip');
-            if (tooltip) {
-              tooltip.setAttribute('aria-hidden', 'true');
-            }
-          });
-        });
-      }
-      
-      // Handle window resize to update mobile detection
-      window.addEventListener('resize', function() {
-        const isNowMobile = window.innerWidth <= 640;
-        if (isNowMobile !== isMobile) {
-          isMobile = isNowMobile;
-          // Clean up any active states when switching between mobile/desktop
-          infoBubbles.forEach(bubble => {
-            bubble.classList.remove('active');
-            bubble.setAttribute('aria-expanded', 'false');
-            const tooltip = bubble.querySelector('.info-tooltip');
-            if (tooltip) {
-              tooltip.setAttribute('aria-hidden', 'true');
-            }
-          });
-          document.querySelectorAll('.mobile-info-content.expanded').forEach(content => {
-            content.classList.remove('expanded');
-            content.setAttribute('aria-hidden', 'true');
-          });
-        }
-      });
-    });
-  </script>
+  <!-- Dark Mode Toggle Script (load first before main app) -->
+  <script src="dark-mode.js"></script>
+
+  <!-- Main Application Script -->
+  <script src="script.js"></script>
 </body>
 </html>
