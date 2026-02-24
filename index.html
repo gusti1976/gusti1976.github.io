@@ -41,6 +41,67 @@
 
   <link rel="stylesheet" href="style-optimized.css">
 
+  <!-- Google Analytics with Consent Mode v2 -->
+  <script>
+    // Initialize gtag and dataLayer first
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Set default consent state (denied by default for GDPR compliance)
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'functionality_storage': 'denied',
+      'personalization_storage': 'denied',
+      'security_storage': 'granted',  // Always granted for essential functionality
+      'wait_for_update': 500
+    });
+
+    // Cookie consent functions
+    function getCookieConsent() {
+      return localStorage.getItem('cookieConsent');
+    }
+
+    function loadGoogleAnalytics() {
+      if (getCookieConsent() === 'accepted') {
+        // Load Google Analytics script
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XT20Z24BS6';
+        document.head.appendChild(script);
+
+        // Initialize GA after script loads
+        script.onload = function() {
+          gtag('js', new Date());
+          gtag('config', 'G-XT20Z24BS6');
+        };
+      }
+    }
+
+    // Update consent state based on stored preference
+    function updateConsentState() {
+      const consent = getCookieConsent();
+      if (consent === 'accepted') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted',
+          'functionality_storage': 'granted'
+        });
+        loadGoogleAnalytics();
+      } else if (consent === 'declined') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'denied',
+          'functionality_storage': 'denied'
+        });
+      }
+    }
+
+    // Load analytics if already consented
+    updateConsentState();
+  </script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d0d49a35feb04d88bc73450f8caeaf3d"}'></script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -85,6 +146,39 @@
         "@type": "WebSite",
         "name": "Agust Smari Bjarkarson",
         "url": "https://www.gusti.com/"
+      },
+      {
+        "@type": "MusicAlbum",
+        "@id": "https://www.gusti.com/#single-feel-alive",
+        "name": "Feel Alive",
+        "albumReleaseType": "http://schema.org/SingleRelease",
+        "datePublished": "2025",
+        "byArtist": {
+          "@id": "https://www.gusti.com/#agust-islandia"
+        },
+        "genre": ["Dance-pop", "EDM"],
+        "description": "Feel Alive is a high-energy fusion of EDM and Dance, a celebration of joy, freedom, and the rush of being alive.",
+        "url": [
+          "https://music.apple.com/album/feel-alive-single/1844031485",
+          "https://open.spotify.com/album/19KSa1M1r9pV4RFpYj2iGJ"
+        ]
+      },
+      {
+        "@type": "MusicAlbum",
+        "@id": "https://www.gusti.com/#album-the-unseen-chorus",
+        "name": "The Unseen Chorus, A Gay Musical",
+        "albumProductionType": "http://schema.org/StudioAlbum",
+        "albumReleaseType": "http://schema.org/AlbumRelease",
+        "datePublished": "2025",
+        "byArtist": {
+          "@id": "https://www.gusti.com/#agust-islandia"
+        },
+        "genre": ["Musical Theatre", "Pop", "LGBTQ+"],
+        "description": "The Unseen Chorus – A Gay Musical is an unflinching theatrical work that confronts how the gay community has drifted in the age of apps and online porn, where infidelity has become widespread, promiscuity is often celebrated, and desire is fueled by the constant pursuit of the next, seemingly better partner. Through its narrative and music, the production highlights this vicious cycle while urging reflection and change. It serves as both a mirror and a challenge, asking individuals and the community alike to pause, look inward, and reclaim values of love, honesty, and loyalty. Ultimately, the musical dares audiences to rise above the noise and imagine something truer, stronger, and more human.",
+        "url": [
+          "https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786",
+          "https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p"
+        ]
       }
     ]
   }
@@ -191,6 +285,43 @@
     <section>
       <h2>Selected Discography</h2>
       <ul class="discography">
+        <li>
+          <div class="release-header">
+            <span class="release">
+              Feel Alive, Single, 2025
+              <button class="info-bubble"
+                      aria-label="Show release information for Feel Alive single"
+                      aria-expanded="false"
+                      aria-describedby="feel-alive-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="feel-alive-tooltip" role="tooltip" aria-hidden="true">
+                  "Feel Alive" is a high-energy fusion of EDM and Dance, a celebration of joy, freedom, and the rush of being alive.
+                </div>
+              </button>
+            </span>
+            <span class="platforms">
+              <a class="btn-icon apple" href="https://music.apple.com/album/feel-alive-single/1844031485" target="_blank" rel="noopener" title="Listen on Apple Music">
+                <svg class="icon-svg" fill="white">
+                  <use href="#apple-icon"/>
+                </svg>
+              </a>
+              <a class="btn-icon spotify" href="https://open.spotify.com/album/19KSa1M1r9pV4RFpYj2iGJ" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
+                <svg class="icon-svg" fill="white">
+                  <use href="#spotify-icon"/>
+                </svg>
+              </a>
+            </span>
+          </div>
+          <div class="mobile-info-content"
+               id="feel-alive-info"
+               role="region"
+               aria-label="Feel Alive single release information"
+               aria-hidden="true">
+            "Feel Alive" is a high-energy fusion of EDM and Dance, a celebration of joy, freedom, and the rush of being alive.
+          </div>
+        </li>
+
         <li>
           <div class="release-header">
             <span class="release">
@@ -303,6 +434,43 @@
                aria-hidden="true">
             A contemporary gay musical following two men from dating app meeting to deep love. 
             22 songs explore modern queer romance, first dates, relationship milestones, and finding forever love in the digital age.
+          </div>
+        </li>
+
+        <li>
+          <div class="release-header">
+            <span class="release">
+              The Unseen Chorus, A Gay Musical, Album, 2025
+              <button class="info-bubble"
+                      aria-label="Show release information for The Unseen Chorus musical"
+                      aria-expanded="false"
+                      aria-describedby="unseen-chorus-info"
+                      role="button"
+                      tabindex="0">i
+                <div class="info-tooltip" id="unseen-chorus-tooltip" role="tooltip" aria-hidden="true">
+                  The Unseen Chorus – A Gay Musical is an unflinching theatrical work that confronts how the gay community has drifted in the age of apps and online porn, where infidelity has become widespread, promiscuity is often celebrated, and desire is fueled by the constant pursuit of the next, seemingly better partner. Through its narrative and music, the production highlights this vicious cycle while urging reflection and change. It serves as both a mirror and a challenge, asking individuals and the community alike to pause, look inward, and reclaim values of love, honesty, and loyalty. Ultimately, the musical dares audiences to rise above the noise and imagine something truer, stronger, and more human.
+                </div>
+              </button>
+            </span>
+            <span class="platforms">
+              <a class="btn-icon apple" href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener" title="Listen on Apple Music">
+                <svg class="icon-svg" fill="white">
+                  <use href="#apple-icon"/>
+                </svg>
+              </a>
+              <a class="btn-icon spotify" href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer" title="Listen on Spotify">
+                <svg class="icon-svg" fill="white">
+                  <use href="#spotify-icon"/>
+                </svg>
+              </a>
+            </span>
+          </div>
+          <div class="mobile-info-content"
+               id="unseen-chorus-info"
+               role="region"
+               aria-label="The Unseen Chorus musical release information"
+               aria-hidden="true">
+            The Unseen Chorus – A Gay Musical is an unflinching theatrical work that confronts how the gay community has drifted in the age of apps and online porn, where infidelity has become widespread, promiscuity is often celebrated, and desire is fueled by the constant pursuit of the next, seemingly better partner. Through its narrative and music, the production highlights this vicious cycle while urging reflection and change. It serves as both a mirror and a challenge, asking individuals and the community alike to pause, look inward, and reclaim values of love, honesty, and loyalty. Ultimately, the musical dares audiences to rise above the noise and imagine something truer, stronger, and more human.
           </div>
         </li>
 
@@ -561,6 +729,208 @@
       © 2025 <strong>Agust Smari Bjarkarson</strong>
     </footer>
   </div>
+
+  <!-- GDPR Cookie Consent Banner -->
+  <div id="cookieConsent" class="cookie-consent" style="display: none;">
+    <div class="cookie-content">
+      <p>We use cookies to improve your experience and analyze site usage. <a href="#" onclick="showCookieDetails(); return false;">Learn more</a></p>
+      <div class="cookie-buttons">
+        <button onclick="acceptCookies()" class="btn-accept">Accept All</button>
+        <button onclick="declineCookies()" class="btn-decline">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Details Modal -->
+  <div id="cookieDetails" class="cookie-modal" style="display: none;">
+    <div class="cookie-modal-content">
+      <h3>Cookie Information</h3>
+      <p><strong>Essential:</strong> Required for basic site functionality.</p>
+      <p><strong>Analytics:</strong> Google Analytics to understand site usage and improve performance.</p>
+      <div class="cookie-modal-buttons">
+        <button onclick="acceptCookies()" class="btn-accept">Accept All</button>
+        <button onclick="declineCookies()" class="btn-decline">Decline Analytics</button>
+        <button onclick="closeCookieDetails()" class="btn-close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .cookie-consent {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.95);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      z-index: 10001;
+      font-size: 14px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .cookie-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cookie-content p {
+      margin: 0;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .cookie-content a {
+      color: #4CAF50;
+      text-decoration: underline;
+    }
+
+    .cookie-buttons {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn-accept, .btn-decline, .btn-close {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-accept {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-accept:hover {
+      background: #45a049;
+    }
+
+    .btn-decline, .btn-close {
+      background: #666;
+      color: white;
+    }
+
+    .btn-decline:hover, .btn-close:hover {
+      background: #555;
+    }
+
+    .cookie-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 10002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cookie-modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      color: #333;
+    }
+
+    .cookie-modal-content h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .cookie-modal-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .cookie-consent {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+      }
+
+      .cookie-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .cookie-buttons {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .cookie-modal-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+
+  <script>
+    // Cookie consent functionality
+    function showCookieBanner() {
+      const consent = getCookieConsent();
+      if (!consent) {
+        document.getElementById('cookieConsent').style.display = 'block';
+      }
+    }
+
+    function acceptCookies() {
+      localStorage.setItem('cookieConsent', 'accepted');
+      // Update Google Consent Mode
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'functionality_storage': 'granted'
+      });
+      hideCookieBanner();
+      loadGoogleAnalytics();
+      closeCookieDetails();
+    }
+
+    function declineCookies() {
+      localStorage.setItem('cookieConsent', 'declined');
+      // Update Google Consent Mode
+      gtag('consent', 'update', {
+        'analytics_storage': 'denied',
+        'functionality_storage': 'denied'
+      });
+      hideCookieBanner();
+      closeCookieDetails();
+    }
+
+    function hideCookieBanner() {
+      document.getElementById('cookieConsent').style.display = 'none';
+    }
+
+    function showCookieDetails() {
+      document.getElementById('cookieDetails').style.display = 'flex';
+    }
+
+    function closeCookieDetails() {
+      document.getElementById('cookieDetails').style.display = 'none';
+    }
+
+    // Show banner on page load if no consent given
+    document.addEventListener('DOMContentLoaded', function() {
+      showCookieBanner();
+    });
+  </script>
 
   <!-- Dark Mode Toggle Script (load first before main app) -->
   <script src="dark-mode.js"></script>
