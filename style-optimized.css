@@ -214,14 +214,15 @@ h6 {
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 2.8rem;
   background: var(--gradient-pride);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient-shift 3s ease-in-out infinite;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  font-weight: bold;
 }
 
 @keyframes gradient-shift {
@@ -244,6 +245,33 @@ h2 {
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-md);
   font-weight: normal;
+}
+
+.subtitle-large {
+  font-size: 1.6rem;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+  border: none;
+  background: none;
+  padding-bottom: 0;
+  text-align: center;
+}
+
+/* Light mode heading colors (explicit) */
+html[data-theme="light"] .subtitle-large {
+  color: #444444;
+}
+
+/* Dark mode subtitle-large */
+@media (prefers-color-scheme: dark) {
+  .subtitle-large {
+    color: #ffffff;
+  }
+}
+
+html[data-theme="dark"] .subtitle-large {
+  color: #ffffff;
 }
 
 /* Light mode heading colors (explicit) */
@@ -1152,7 +1180,11 @@ footer {
   }
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
+  }
+
+  .subtitle-large {
+    font-size: 1.3rem;
   }
 
   /* Adjust toggle button spacing on mobile */
