@@ -353,49 +353,65 @@ header picture:hover img {
 
 .btn-secondary {
   background: transparent;
-  color: #000000;
+  color: white;
   border: 2px solid var(--color-primary-blue);
 }
 
 .btn-secondary:hover {
   background: var(--color-primary-blue);
-  color: #000000;
+  color: white;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 72, 224, 0.3);
 }
 
 /* Light mode CTA button colors */
 html[data-theme="light"] .btn-secondary {
-  color: #000000;
+  color: white;
   border-color: var(--color-primary-blue);
 }
 
 html[data-theme="light"] .btn-secondary:hover {
   background: var(--color-primary-blue);
-  color: #000000;
+  color: white;
 }
 
 /* Dark mode CTA button colors */
 @media (prefers-color-scheme: dark) {
-  .btn-secondary {
+  .btn-primary {
     color: #000000;
+  }
+
+  .btn-primary:hover {
+    color: #000000;
+  }
+
+  .btn-secondary {
+    color: white;
     border-color: #6eb3ff;
   }
 
   .btn-secondary:hover {
     background: #6eb3ff;
-    color: #000000;
+    color: white;
   }
 }
 
-html[data-theme="dark"] .btn-secondary {
+html[data-theme="dark"] .btn-primary {
   color: #000000;
+}
+
+html[data-theme="dark"] .btn-primary:hover {
+  color: #000000;
+}
+
+html[data-theme="dark"] .btn-secondary {
+  color: white;
   border-color: #6eb3ff;
 }
 
 html[data-theme="dark"] .btn-secondary:hover {
   background: #6eb3ff;
-  color: #000000;
+  color: white;
 }
 
 /* Focus states for accessibility */
