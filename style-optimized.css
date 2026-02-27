@@ -353,26 +353,26 @@ header picture:hover img {
 
 .btn-secondary {
   background: transparent;
-  color: white;
+  color: #000000;
   border: 2px solid var(--color-primary-blue);
 }
 
 .btn-secondary:hover {
   background: var(--color-primary-blue);
-  color: white;
+  color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 72, 224, 0.3);
 }
 
 /* Light mode CTA button colors */
 html[data-theme="light"] .btn-secondary {
-  color: white;
+  color: #000000;
   border-color: var(--color-primary-blue);
 }
 
 html[data-theme="light"] .btn-secondary:hover {
   background: var(--color-primary-blue);
-  color: white;
+  color: #000000;
 }
 
 /* Dark mode CTA button colors */
