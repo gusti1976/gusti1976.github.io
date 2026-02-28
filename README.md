@@ -13,6 +13,9 @@ His music blends humor, heart, and bold storytelling with dance energy, celebrat
   - [Feel Alive](https://www.gusti.com/feel-alive.html) - EDM dance anthem
   - [Come Out of the Dark](https://www.gusti.com/come-out-of-the-dark.html) - Musical theatre song
 
+- **Album Landing Pages**: Complete tracklists and album information
+  - [The Unseen Chorus](https://www.gusti.com/the-unseen-chorus.html) - A Gay Musical (30+ tracks)
+
 - **Enhanced SEO**: Complete Schema.org markup, AI optimization (llms.txt), meta tags
 - **Bilingual Support**: Spanish/English content with proper language markup
 - **Accessibility**: WCAG compliant, dark mode support, keyboard navigation
@@ -45,7 +48,9 @@ His music blends humor, heart, and bold storytelling with dance energy, celebrat
 - `llms.txt` - AI crawler optimization file
 - `style-optimized.css` - Main stylesheet with CSS variables
 - `dark-mode.js` - Theme toggle functionality
-- Song pages: `gay-and-proud.html`, `my-fire.html`, `feel-alive.html`, `come-out-of-the-dark.html`
+- `sitemap.xml` - SEO sitemap for search engines
+- Song lyric pages: `gay-and-proud.html`, `my-fire.html`, `feel-alive.html`, `come-out-of-the-dark.html`
+- Album landing pages: `the-unseen-chorus.html`
 
 ## Contact
 

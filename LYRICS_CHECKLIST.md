@@ -189,12 +189,57 @@ For albums with lyric pages for select tracks:
 <a href="/song-2.html">Song 2</a> (Track Y - full lyrics available)
 ```
 
-#### Step 3: Future Tracklist Feature (Not Yet Implemented)
-For comprehensive album documentation:
-- Create `/album-name/` directory
-- Add `tracklist.html` with all song titles
-- Link short excerpts, but full lyric pages only for priority songs
-- **Note:** This is a future enhancement, not current practice
+#### Step 3: Create Album Landing Page
+**Pattern:** Create dedicated `/album-name.html` page for multi-song albums/musicals
+
+**When to Create:**
+- Album/musical has 10+ tracks
+- Want to provide complete tracklist and album information
+- Multiple songs (or future songs) will have individual lyric pages
+
+**Example:** `/the-unseen-chorus.html` - Created for 30+ track musical
+
+**Album Page Structure:**
+```html
+/the-unseen-chorus.html includes:
+- Album Information section
+- About the Musical section
+- Featured Song(s) with Full Lyrics - links to individual lyric pages
+- Complete Tracklist section (placeholder for all song titles)
+- Themes & Messages section
+- Listen & Stream section
+- More LGBTQ+ Music section (cross-links)
+```
+
+**Checklist for Creating Album Landing Page:**
+- [ ] Create `/album-name.html` (use hyphens, lowercase)
+- [ ] Copy structure from `/the-unseen-chorus.html` template
+- [ ] Update all meta tags (title, description, OG tags)
+- [ ] Add Schema.org MusicAlbum markup (not MusicComposition)
+- [ ] Write "About the Album/Musical" description
+- [ ] List featured songs with links to individual lyric pages
+- [ ] Add tracklist section (either complete or placeholder)
+- [ ] Update "Themes & Messages" for the album
+- [ ] Add to sitemap.xml with priority 0.8
+- [ ] Link from index.html discography (make album title a link)
+- [ ] Remove "Featured song:" from discography tooltip (info now on album page)
+
+**Schema.org for Album Pages:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "MusicAlbum",
+  "name": "Album Title",
+  "albumReleaseType": "http://schema.org/AlbumRelease",
+  "byArtist": { ... },
+  "datePublished": "2025",
+  "genre": [...],
+  "url": "streaming URL",
+  "sameAs": ["Spotify URL", "Apple Music URL"]
+}
+```
+
+**Note:** Album pages use priority 0.8 in sitemap (vs 0.9 for individual lyric pages)
 
 ---
 
@@ -375,12 +420,13 @@ Each song page shows 3 OTHER songs in "More Songs" section.
 
 ### Priority Levels for Lyric Pages
 
-| Priority | Description | Action |
-|----------|-------------|--------|
-| **P0 - Must Create** | Singles, lead tracks, viral songs | Create immediately upon release |
-| **P1 - Should Create** | Thematic centerpieces, bilingual content | Create within 1-2 weeks |
-| **P2 - Nice to Have** | Popular album tracks with search potential | Create when time allows |
-| **P3 - Skip** | Standard album filler tracks | Document in tracklist only |
+| Priority | Content Type | Description | Action |
+|----------|--------------|-------------|--------|
+| **P0 - Must Create** | Song Lyric Pages | Singles, lead tracks, viral songs | Create immediately upon release |
+| **P0 - Must Create** | Album Landing Pages | Albums/musicals with 10+ tracks | Create when album has multiple priority songs |
+| **P1 - Should Create** | Song Lyric Pages | Thematic centerpieces, bilingual content | Create within 1-2 weeks |
+| **P2 - Nice to Have** | Song Lyric Pages | Popular album tracks with search potential | Create when time allows |
+| **P3 - Skip** | Song Lyric Pages | Standard album filler tracks | Document in tracklist only |
 
 ---
 
@@ -525,8 +571,10 @@ Each song page shows 3 OTHER songs in "More Songs" section.
 ☐ Identify 2-4 priority songs from album
 ☐ Apply "When to Create Lyric Page" decision tree
 ☐ Create lyric pages for selected tracks
-☐ Add "Featured song:" link to album discography entry
-☐ Consider future tracklist page for full album
+☐ Create album landing page (/album-name.html) if 10+ tracks
+☐ Link album title from index.html discography to album page
+☐ Link individual songs from album page to their lyric pages
+☐ Add album page to sitemap.xml with priority 0.8
 ```
 
 ### For Bilingual Content:

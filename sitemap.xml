@@ -36,4 +36,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- Album Landing Page -->
+  <url>
+    <loc>https://www.gusti.com/the-unseen-chorus.html</loc>
+    <lastmod>2026-02-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
