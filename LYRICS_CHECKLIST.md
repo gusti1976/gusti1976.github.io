@@ -128,8 +128,17 @@ This document provides comprehensive guidelines for managing lyrics on www.gusti
 - [ ] Add relevant keywords to "Keywords for AI Understanding"
 - [ ] Update "Last Updated" date at bottom
 
-#### 7. Test Everything
+#### 7. Update Sitemap
+- [ ] Add new page to `/sitemap.xml`
+- [ ] Set `<loc>` to full URL: `https://www.gusti.com/song-name.html`
+- [ ] Set `<lastmod>` to today's date (YYYY-MM-DD)
+- [ ] Set `<changefreq>` to `monthly`
+- [ ] Set `<priority>` to `0.9` (high priority for lyric pages)
+- [ ] Update homepage `<lastmod>` date in sitemap
+
+#### 8. Test Everything
 - [ ] Validate Schema.org markup with [Google Rich Results Test](https://search.google.com/test/rich-results)
+- [ ] Validate sitemap.xml with [XML Sitemap Validator](https://www.xml-sitemaps.com/validate-xml-sitemap.html)
 - [ ] Check all internal links work (lyric page ↔ homepage ↔ other songs)
 - [ ] Verify Spotify and Apple Music links open correctly
 - [ ] Test on mobile (responsive layout, buttons, info bubbles)
@@ -507,7 +516,8 @@ Each song page shows 3 OTHER songs in "More Songs" section.
 ☐ Add to index.html discography with link
 ☐ Update cross-links on all existing lyric pages
 ☐ Update llms.txt
-☐ Test everything
+☐ Update sitemap.xml with new page
+☐ Test everything (including sitemap validation)
 ```
 
 ### For Album Track Selection:

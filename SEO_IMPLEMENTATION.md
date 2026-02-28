@@ -624,13 +624,70 @@ Handles:
 
 ---
 
-## 16. Future SEO Opportunities
+## 16. Sitemap.xml Management
+
+### Current Sitemap Structure
+**Location:** `/sitemap.xml`
+
+All pages included with priority and update frequency:
+```xml
+<!-- Homepage -->
+<url>
+  <loc>https://www.gusti.com/</loc>
+  <lastmod>2026-02-27</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>1.0</priority>
+</url>
+
+<!-- Lyric Pages - High Priority for SEO -->
+<url>
+  <loc>https://www.gusti.com/gay-and-proud.html</loc>
+  <lastmod>2026-02-27</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+```
+
+### Priority Guidelines
+- **1.0** - Homepage only
+- **0.9** - Lyric pages (high SEO value)
+- **0.8** - (reserved for future: artist bio page, contact page)
+- **0.7** - (reserved for future: album tracklist pages)
+
+### Update Frequency
+- **Homepage** - `weekly` (new releases, discography updates)
+- **Lyric Pages** - `monthly` (lyrics rarely change)
+
+### When to Update Sitemap
+**Always update sitemap.xml when:**
+- [ ] New lyric page created
+- [ ] Existing page significantly updated
+- [ ] Homepage structure changes
+- [ ] New section/page added to site
+
+### Sitemap Submission
+**Submit to search engines:**
+1. **Google Search Console:** https://search.google.com/search-console
+   - Property: www.gusti.com
+   - Submit sitemap URL: https://www.gusti.com/sitemap.xml
+
+2. **Bing Webmaster Tools:** https://www.bing.com/webmasters
+   - Submit same sitemap URL
+
+### Validation
+Test sitemap before committing:
+- **XML Validator:** https://www.xml-sitemaps.com/validate-xml-sitemap.html
+- **Google Search Console:** "Sitemaps" section shows errors
+
+---
+
+## 17. Future SEO Opportunities
 
 ### Quick Wins
 1. **Add FAQ Schema** - Mark up FAQ section with Schema.org Question/Answer
 2. **Add BreadcrumbList** - For song pages (Home > Discography > Song)
 3. **Add Person Schema** - For Agust Smari Bjarkarson on homepage
-4. **Submit Sitemap** - Generate and submit XML sitemap to Google
+4. **Robots.txt** - Create robots.txt to guide crawlers
 
 ### Medium Priority
 1. **Track IDs** - Get ISWC and ISRC codes, add to Schema.org
