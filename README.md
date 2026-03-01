@@ -7,50 +7,159 @@ His music blends humor, heart, and bold storytelling with dance energy, celebrat
 
 ## Official Website Features
 
-- **Full Lyric Pages**: Complete, authoritative lyrics for major releases
-  - [Gay and Proud / Gay y Orgulloso](https://www.gusti.com/gay-and-proud.html) - Bilingual Pride anthem
-  - [My Fire (Mi Fuego)](https://www.gusti.com/my-fire.html) - Bilingual love song
-  - [Feel Alive](https://www.gusti.com/feel-alive.html) - EDM dance anthem
-  - [Come Out of the Dark](https://www.gusti.com/come-out-of-the-dark.html) - Musical theatre song
+### Complete Musical with Full Lyrics
+- **[The Unseen Chorus](https://www.gusti.com/the-unseen-chorus.html)** - A Gay Musical
+  - **All 27 tracks** have dedicated lyric pages with full Schema.org markup
+  - Complete 3-act narrative: Infidelity → Addiction → Recovery → Love
+  - Album landing page with tracklist, story arc, and themes
+  - Release date: October 6, 2025
 
-- **Album Landing Pages**: Complete tracklists and album information
-  - [The Unseen Chorus](https://www.gusti.com/the-unseen-chorus.html) - A Gay Musical (30+ tracks)
+### Pride Anthems & Singles
+- **[Gay and Proud / Gay y Orgulloso](https://www.gusti.com/gay-and-proud.html)** - Viral bilingual Pride anthem (540K+ TikTok views)
+- **[My Fire (Mi Fuego)](https://www.gusti.com/my-fire.html)** - Bilingual Spanish/English love song
+- **[Feel Alive](https://www.gusti.com/feel-alive.html)** - High-energy EDM dance anthem
 
-- **Enhanced SEO**: Complete Schema.org markup, AI optimization (llms.txt), meta tags
+### New Pages & Navigation
+- **[Meet Agust Islandia](https://www.gusti.com/about.html)** - Full bio, influences, career highlights
+- **[Lyrics & Stories](https://www.gusti.com/lyrics.html)** - Central hub for all 30+ lyric pages
+- **[Press & News](https://www.gusti.com/press.html)** - Milestones, releases, press contact
+- **Global Navigation** - Hamburger menu on all 35 pages with collapsible sections
+
+### Technical Features
+- **Enhanced SEO**: Complete Schema.org markup on 30+ pages (MusicComposition, MusicRecording, MusicAlbum)
+- **AI Optimization**: Comprehensive llms.txt file for AI crawlers
 - **Bilingual Support**: Spanish/English content with proper language markup
-- **Accessibility**: WCAG compliant, dark mode support, keyboard navigation
+- **Accessibility**: WCAG 2.1 AA compliant, dark mode, keyboard navigation, skip links
+- **Performance**: WebP images, optimized CSS/JS, fast loading
+
+## Site Structure
+
+```
+www.gusti.com/
+├── index.html                          # Homepage
+├── about.html                          # Bio & background (NEW)
+├── press.html                          # Press & milestones (NEW)
+├── lyrics.html                         # Lyrics hub (NEW)
+│
+├── Singles/
+│   ├── gay-and-proud.html
+│   ├── my-fire.html
+│   └── feel-alive.html
+│
+├── The Unseen Chorus Musical/
+│   ├── the-unseen-chorus.html          # Album page
+│   ├── just-an-advisory.html           # Track 1
+│   ├── two-of-us.html                  # Track 2
+│   ├── phone-glow.html                 # Track 3
+│   ├── ... (tracks 4-26)
+│   └── come-out-of-the-dark.html       # Track 27 (finale)
+│
+└── Assets/
+    ├── navigation.css                  # Global nav styles (NEW)
+    ├── navigation.js                   # Nav functionality (NEW)
+    ├── style-optimized.css             # Main styles
+    ├── dark-mode.js                    # Theme toggle
+    ├── llms.txt                        # AI crawler data
+    └── sitemap.xml                     # SEO sitemap
+```
 
 ## Documentation
 
 ### For Developers
-- **[SEO_IMPLEMENTATION.md](SEO_IMPLEMENTATION.md)** - Complete SEO strategy, Schema.org patterns, and implementation guide
-- **[OPTIMIZATION.md](OPTIMIZATION.md)** - Code optimization documentation and architecture
-- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick reference for common tasks and CSS variables
-- **[DARK_MODE_IMPLEMENTATION.md](DARK_MODE_IMPLEMENTATION.md)** - Dark mode implementation details
+- **[NAVIGATION.md](NAVIGATION.md)** - Navigation system architecture and usage
+- **[SEO_IMPLEMENTATION.md](SEO_IMPLEMENTATION.md)** - Complete SEO strategy, Schema.org patterns
+- **[OPTIMIZATION.md](OPTIMIZATION.md)** - Code optimization and performance
+- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick reference for common tasks
+- **[DARK_MODE_IMPLEMENTATION.md](DARK_MODE_IMPLEMENTATION.md)** - Dark mode details
 
 ### For Content Updates
-- **Adding New Songs**: See [SEO_IMPLEMENTATION.md](SEO_IMPLEMENTATION.md) Section 14 (complete checklist)
-- **Updating Styles**: See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for CSS variable reference
-- **Schema.org Markup**: See [SEO_IMPLEMENTATION.md](SEO_IMPLEMENTATION.md) Section 5 for complete pattern
+- **[LYRICS_CHECKLIST.md](LYRICS_CHECKLIST.md)** - Step-by-step workflow for adding songs
+- **Adding New Songs**: Complete checklist with Schema.org patterns
+- **Updating Navigation**: Edit `navigation-template.html`, then apply to all pages
+- **Schema.org Markup**: Full patterns in SEO_IMPLEMENTATION.md Section 5
 
 ## Technical Stack
 
-- **Frontend**: Semantic HTML5, CSS3 with variables, Vanilla JavaScript
-- **SEO**: Schema.org (MusicComposition, MusicRecording), OpenGraph, Twitter Cards
-- **Accessibility**: WCAG 2.1 AA compliant, ARIA labels, skip links
-- **Optimization**: WebP images, lazy loading, CSS/JS minification-ready
-- **Hosting**: GitHub Pages
-- **Analytics**: Privacy-respecting (no tracking cookies)
+- **Frontend**: Semantic HTML5, CSS3 with CSS variables, Vanilla JavaScript
+- **Navigation**: Responsive hamburger menu with collapsible sections
+- **SEO**: Schema.org (MusicComposition, MusicRecording, MusicAlbum, Person)
+- **Meta Tags**: OpenGraph, Twitter Cards, music-specific properties
+- **Accessibility**: WCAG 2.1 AA, ARIA labels, keyboard navigation, skip links
+- **Images**: WebP format with fallbacks, optimized album artwork
+- **Hosting**: GitHub Pages with custom domain
+- **Analytics**: Privacy-respecting (Google Analytics with consent mode)
 
-## Key Files
+## Key Files & Their Purpose
 
-- `index.html` - Homepage with full discography
-- `llms.txt` - AI crawler optimization file
-- `style-optimized.css` - Main stylesheet with CSS variables
+### HTML Pages (35 total)
+- `index.html` - Homepage with discography
+- `about.html` - Artist bio and background
+- `press.html` - Press, news, and milestones
+- `lyrics.html` - Central lyrics hub
+- `the-unseen-chorus.html` - Album landing page
+- 27 individual track pages for The Unseen Chorus
+- 3 singles pages (Gay and Proud, My Fire, Feel Alive)
+
+### CSS & JavaScript
+- `style-optimized.css` - Main stylesheet (CSS variables, responsive)
+- `navigation.css` - Global navigation styles
 - `dark-mode.js` - Theme toggle functionality
-- `sitemap.xml` - SEO sitemap for search engines
-- Song lyric pages: `gay-and-proud.html`, `my-fire.html`, `feel-alive.html`, `come-out-of-the-dark.html`
-- Album landing pages: `the-unseen-chorus.html`
+- `navigation.js` - Menu toggle, collapsible sections, active states
+
+### SEO & Metadata
+- `llms.txt` - AI crawler optimization (detailed artist/work descriptions)
+- `sitemap.xml` - XML sitemap for search engines (all 35 pages)
+- Schema.org JSON-LD on every page
+
+### Assets
+- `the-unseen-chorus-cover.webp` - Album artwork (optimized, 1200x1200)
+- `agust_islandia.jpg` - Artist photo
+- `favicon-*.png` - Favicon variants
+
+## Recent Major Updates
+
+### February 28, 2026
+- ✅ Added global hamburger navigation to all 35 pages
+- ✅ Created about.html, press.html, lyrics.html
+- ✅ Updated llms.txt with complete musical information
+- ✅ Integrated album artwork across all musical pages
+
+### February 27-28, 2026
+- ✅ Created all 27 lyric pages for The Unseen Chorus
+- ✅ Updated album page with accurate 3-act story arc
+- ✅ Revised themes based on actual lyrics content
+- ✅ Updated sitemap.xml with all pages
+- ✅ Full Schema.org markup on 30+ pages
+
+## Navigation System
+
+The site features a **global hamburger menu** (☰) in the top-left corner on all pages:
+
+**Structure:**
+- 🏠 Home
+- 👤 Meet Agust Islandia (About)
+- 🎵 Music (collapsible sections)
+  - Singles & Pride Anthems
+  - The Unseen Chorus (27 tracks - expandable)
+- 📝 Lyrics & Stories
+- 📰 Press & News
+- 🔗 Listen / Links (Spotify, Apple Music, TikTok, Contact)
+
+**Features:**
+- Responsive slide-out drawer
+- Auto-expands sections containing current page
+- Keyboard accessible (Escape to close)
+- Dark mode aware
+- Click-outside-to-close overlay
+
+## Statistics
+
+- **35 HTML pages** across the site
+- **30+ song pages** with full lyrics
+- **27 tracks** in The Unseen Chorus musical
+- **540,000+ TikTok views** on Gay and Proud
+- **60,000 daily streams** milestone achieved
+- **100% Schema.org compliant** - all music pages fully enriched
 
 ## Contact
 
@@ -63,5 +172,6 @@ His music blends humor, heart, and bold storytelling with dance energy, celebrat
 
 ---
 
-**Last Updated**: February 27, 2026
+**Last Updated**: February 28, 2026
 **License**: All lyrics © 2025 Agust Smari Bjarkarson. All rights reserved.
+**Built with**: HTML5, CSS3, Vanilla JavaScript - No frameworks, fully semantic, accessible, and optimized for search.

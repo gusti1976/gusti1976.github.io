@@ -4,8 +4,8 @@
 
 This document outlines the SEO strategies, implementation patterns, and best practices used on www.gusti.com to establish it as the **authoritative source** for Agust Islandia's LGBTQ+ music and lyrics.
 
-**Last Updated:** February 27, 2026
-**Status:** Production implementation complete
+**Last Updated:** February 28, 2026
+**Status:** Production implementation complete - 35 pages, full navigation system
 
 ---
 
@@ -104,15 +104,110 @@ h1 {
 
 ---
 
+## 3.5. Global Navigation System
+
+### Hamburger Menu Implementation
+**Added:** February 28, 2026
+**Deployed to:** All 35 HTML pages
+
+**Structure:**
+- Fixed-position hamburger button (top-left corner)
+- Slide-out drawer navigation
+- Collapsible sections for organization
+- Keyboard accessible (Escape to close)
+- Click-outside-to-close overlay
+
+**Files:**
+- `navigation.css` - Complete navigation styles (268 lines)
+- `navigation.js` - Toggle functionality, active states, collapsible sections
+- Included on every HTML page via `<link>` and `<script>` tags
+
+**Navigation Hierarchy:**
+```
+🏠 Home
+👤 Meet Agust Islandia (About)
+🎵 Music (collapsible)
+  ├─ Singles & Pride Anthems
+  │   ├─ Gay and Proud
+  │   ├─ My Fire (Mi Fuego)
+  │   └─ Feel Alive
+  └─ The Unseen Chorus (27 tracks - collapsible)
+      ├─ Album Overview
+      ├─ 1. Just an Advisory
+      ├─ ... (tracks 2-26)
+      └─ 27. Come Out of the Dark
+📝 Lyrics & Stories
+📰 Press & News
+🔗 Listen / Links (Spotify, Apple Music, TikTok, Contact)
+```
+
+**SEO Benefits:**
+- Internal linking across all 35 pages
+- Keyword-rich navigation labels
+- Auto-expands section containing current page
+- Improves crawlability and site structure
+- Clear information architecture for search engines
+
+**Accessibility Features:**
+- ARIA labels and expanded states
+- Keyboard navigation support
+- Skip-link positioning adjusted for hamburger
+- Focus management on open/close
+
+**Implementation Pattern:**
+```html
+<!-- In every HTML page -->
+<link rel="stylesheet" href="navigation.css">
+
+<button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu">
+  <span></span><span></span><span></span>
+</button>
+
+<nav class="nav-drawer" id="nav-drawer">
+  <!-- Full navigation structure -->
+</nav>
+
+<div class="nav-overlay" id="nav-overlay"></div>
+
+<script src="navigation.js"></script>
+```
+
+**CSS Variables Used:**
+```css
+var(--color-bg-primary)
+var(--color-bg-secondary)
+var(--color-text-primary)
+var(--color-primary-blue)
+var(--radius-md)
+```
+
+---
+
 ## 4. Song/Lyric Page Architecture
 
 ### File Structure
 All song pages follow consistent naming and structure:
 ```
+# Core Pages (5)
+/index.html
+/about.html
+/press.html
+/lyrics.html
+/the-unseen-chorus.html
+
+# Singles (3)
 /gay-and-proud.html
 /feel-alive.html
-/come-out-of-the-dark.html
 /my-fire.html
+
+# The Unseen Chorus Musical Tracks (27)
+/just-an-advisory.html
+/two-of-us.html
+/phone-glow.html
+... (tracks 4-26)
+/come-out-of-the-dark.html
+
+# Total: 35 HTML pages
 ```
 
 ### Standard Page Sections
@@ -123,14 +218,22 @@ Every song page includes these sections in order:
    - Canonical URL
    - Favicons
    - Schema.org structured data (MusicComposition + MusicRecording)
+   - Links to style-optimized.css and navigation.css
 
-2. **Header**
+2. **Body Navigation** (NEW - February 28, 2026)
+   - Skip link for accessibility
+   - Hamburger menu toggle button
+   - Global navigation drawer
+   - Navigation overlay
+   - Scripts: dark-mode.js and navigation.js
+
+3. **Header**
    - Song title (H1)
    - Subtitle describing song type (H2 with .subtitle-large class)
    - Artist credit with real name
    - Hero CTAs (Spotify + Apple Music buttons)
 
-3. **Main Content**
+4. **Main Content**
    - Song Information (ul list with metadata)
    - About the Song (context and meaning)
    - Lyrics (full text in styled `<pre>` block with colored border)
@@ -139,7 +242,7 @@ Every song page includes these sections in order:
    - Listen & Follow (streaming links)
    - More Songs by Agust Islandia (cross-linking to 3 other songs)
 
-4. **Footer**
+5. **Footer**
    - Copyright year (2026)
    - Artist name
 
@@ -628,6 +731,7 @@ Handles:
 
 ### Current Sitemap Structure
 **Location:** `/sitemap.xml`
+**Total Pages:** 35 HTML pages
 
 All pages included with priority and update frequency:
 ```xml
@@ -650,9 +754,9 @@ All pages included with priority and update frequency:
 
 ### Priority Guidelines
 - **1.0** - Homepage only
-- **0.9** - Lyric pages (high SEO value)
-- **0.8** - (reserved for future: artist bio page, contact page)
-- **0.7** - (reserved for future: album tracklist pages)
+- **0.9** - Individual lyric pages (high SEO value - 30 pages)
+- **0.8** - Core pages: about.html, press.html, lyrics.html, the-unseen-chorus.html (4 pages)
+- **0.7** - Secondary pages (reserved for future expansions)
 
 ### Update Frequency
 - **Homepage** - `weekly` (new releases, discography updates)
@@ -722,23 +826,36 @@ Test sitemap before committing:
 ## Summary
 
 This SEO implementation establishes www.gusti.com as:
-1. **The authoritative source** for Agust Islandia's lyrics
+1. **The authoritative source** for Agust Islandia's lyrics (30+ lyric pages)
 2. **AI-friendly** with llms.txt and complete Schema.org markup
 3. **First-mover advantage** for LGBTQ+ anthem lyrics
 4. **Technically superior** to major lyric sites
 5. **Future-proof** with consistent patterns and documentation
+6. **Highly organized** with global navigation across all 35 pages
+7. **Entity-building** with dedicated about, press, and lyrics hub pages
 
 **Key Success Factors:**
 - Complete lyrics (not excerpts)
 - Bilingual support
 - Rich structured data
 - Name disambiguation
-- Cross-linking strategy
+- Cross-linking strategy via global navigation
 - Mobile-first responsive design
 - Accessibility compliance
+- Information architecture optimized for search engines
+- Global navigation system for improved crawlability
+
+**Current Statistics:**
+- **35 HTML pages** total
+- **30+ song pages** with full lyrics and Schema.org markup
+- **27 tracks** from The Unseen Chorus musical
+- **3 singles** with individual pages
+- **4 core pages** (about, press, lyrics hub, album page)
+- **100% Schema.org compliant** across all music pages
+- **Global navigation** deployed to all pages
 
 ---
 
-**Document Version:** 1.0
-**Last Updated:** February 27, 2026
+**Document Version:** 2.0
+**Last Updated:** February 28, 2026
 **Maintained By:** Documentation reflects production implementation

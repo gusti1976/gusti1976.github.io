@@ -4,8 +4,8 @@
 
 This document provides comprehensive guidelines for managing lyrics on www.gusti.com, covering single songs, multi-song albums, and the decision-making process for creating dedicated lyric pages.
 
-**Last Updated:** February 27, 2026
-**Related Docs:** SEO_IMPLEMENTATION.md (Section 14: Adding New Song Page Checklist)
+**Last Updated:** February 28, 2026
+**Related Docs:** SEO_IMPLEMENTATION.md (Section 14: Adding New Song Page Checklist), NAVIGATION.md
 
 ---
 
@@ -97,6 +97,11 @@ This document provides comprehensive guidelines for managing lyrics on www.gusti
 - [ ] Follow [SEO_IMPLEMENTATION.md Section 14](SEO_IMPLEMENTATION.md) complete checklist
 - [ ] Create `/song-name.html` file (use lowercase, hyphens for spaces)
 - [ ] Copy structure from existing song page (gay-and-proud.html is good template)
+- [ ] **IMPORTANT:** Include navigation system (already in template):
+  - Skip link: `<a href="#main-content" class="skip-link">Skip to main content</a>`
+  - Link to navigation.css in `<head>`
+  - Hamburger button, nav drawer, overlay after `<body>` tag
+  - Script tag for navigation.js before `</body>`
 - [ ] Update all head section meta tags
 - [ ] Add **complete Schema.org markup** with full lyrics text
 - [ ] Choose unique border color for lyrics section
@@ -128,7 +133,15 @@ This document provides comprehensive guidelines for managing lyrics on www.gusti
 - [ ] Add relevant keywords to "Keywords for AI Understanding"
 - [ ] Update "Last Updated" date at bottom
 
-#### 7. Update Sitemap
+#### 7. Update Global Navigation (if needed)
+- [ ] Check if song should be added to navigation menu
+- [ ] For singles: Add to "Singles & Pride Anthems" section
+- [ ] For musical tracks: Usually skip (27 tracks already in "The Unseen Chorus" submenu)
+- [ ] If adding: Update navigation-template.html first
+- [ ] Then run Python script to update all 35 pages, OR manually update
+- [ ] See NAVIGATION.md for detailed instructions
+
+#### 8. Update Sitemap
 - [ ] Add new page to `/sitemap.xml`
 - [ ] Set `<loc>` to full URL: `https://www.gusti.com/song-name.html`
 - [ ] Set `<lastmod>` to today's date (YYYY-MM-DD)
@@ -136,13 +149,15 @@ This document provides comprehensive guidelines for managing lyrics on www.gusti
 - [ ] Set `<priority>` to `0.9` (high priority for lyric pages)
 - [ ] Update homepage `<lastmod>` date in sitemap
 
-#### 8. Test Everything
+#### 9. Test Everything
 - [ ] Validate Schema.org markup with [Google Rich Results Test](https://search.google.com/test/rich-results)
 - [ ] Validate sitemap.xml with [XML Sitemap Validator](https://www.xml-sitemaps.com/validate-xml-sitemap.html)
+- [ ] **Test navigation:** Hamburger menu opens/closes, links work, active state shows
+- [ ] **Test keyboard navigation:** Escape key closes menu, Tab navigation works
 - [ ] Check all internal links work (lyric page ↔ homepage ↔ other songs)
 - [ ] Verify Spotify and Apple Music links open correctly
-- [ ] Test on mobile (responsive layout, buttons, info bubbles)
-- [ ] Test on desktop (tooltips, hover effects)
+- [ ] Test on mobile (responsive layout, buttons, info bubbles, navigation drawer)
+- [ ] Test on desktop (tooltips, hover effects, navigation)
 - [ ] Hard refresh (Cmd+Shift+R) to clear cache
 - [ ] Check browser console (F12) for any errors
 
@@ -558,12 +573,13 @@ Each song page shows 3 OTHER songs in "More Songs" section.
 ### For New Single Release:
 ```
 ☐ Get complete lyrics and metadata
-☐ Create /song-name.html with full Schema.org
+☐ Create /song-name.html with full Schema.org (include navigation!)
 ☐ Add to index.html discography with link
 ☐ Update cross-links on all existing lyric pages
+☐ Update global navigation if needed (see NAVIGATION.md)
 ☐ Update llms.txt
 ☐ Update sitemap.xml with new page
-☐ Test everything (including sitemap validation)
+☐ Test everything (Schema, sitemap, navigation functionality)
 ```
 
 ### For Album Track Selection:
@@ -598,7 +614,7 @@ If you encounter scenarios not covered in this checklist:
 
 ---
 
-**Document Version:** 1.0
-**Last Updated:** February 27, 2026
+**Document Version:** 2.0
+**Last Updated:** February 28, 2026
 **Maintained By:** Site documentation reflects current best practices
-**Related Docs:** SEO_IMPLEMENTATION.md, QUICK_REFERENCE.md, README.md
+**Related Docs:** SEO_IMPLEMENTATION.md, NAVIGATION.md, QUICK_REFERENCE.md, README.md
