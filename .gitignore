@@ -1,0 +1,14 @@
+# Personal data - DO NOT commit
+DNA/
+genome_*.txt
+passport*.pdf
+*.pdf
+
+# Development files
+START_HERE.txt
+DARK_MODE_SUMMARY.txt
+schema_validation_report.txt
+unseen-chorus-tracklist.txt
+
+# macOS
+.DS_Store
