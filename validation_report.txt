@@ -1,0 +1,28 @@
+HTML VALIDATION REPORT
+Generated: 2026-03-01
+Total files: 60
+Errors: 8
+Warnings: 3
+
+ERRORS:
+
+google46e00271f9de7d83.html:
+  • Missing <title>
+  • Missing lang attribute on <html>
+  • Missing charset meta tag
+  • Missing viewport meta tag
+
+navigation-template.html:
+  • Missing <title>
+  • Missing lang attribute on <html>
+  • Missing charset meta tag
+  • Missing viewport meta tag
+
+WARNINGS:
+
+google46e00271f9de7d83.html:
+  • Missing <h1>
+  • No navigation found
+
+navigation-template.html:
+  • Missing <h1>
