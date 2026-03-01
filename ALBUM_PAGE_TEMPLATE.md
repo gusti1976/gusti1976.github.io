@@ -23,8 +23,8 @@ This document defines the standard format for all album/musical pages on www.gus
     .song-card {
       display: block;
       padding: var(--spacing-md);
-      background: var(--color-bg-secondary, rgba(255, 255, 255, 0.05));
-      border: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid var(--color-border-light);
       border-radius: var(--radius-md);
       text-decoration: none;
       color: var(--color-text-primary);
@@ -32,9 +32,10 @@ This document defines the standard format for all album/musical pages on www.gus
       font-size: 0.95rem;
     }
     .song-card:hover {
-      background: var(--color-bg-hover, rgba(255, 255, 255, 0.08));
+      background: rgba(0, 0, 0, 0.04);
       border-color: var(--color-primary-blue);
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--color-shadow);
     }
   </style>
 </section>
