@@ -1,0 +1,327 @@
+Schema.org Validation Report
+Generated: 2026-03-01
+
+Total pages: 52
+Perfect: 0
+Errors: 0
+Warnings: 213
+
+
+WARNINGS:
+
+a-bar-in-my-pocket.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+and-i-had-him.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+can-you-host.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+circle-of-chairs.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+come-out-of-the-dark.html:
+  • lyrics missing 'inLanguage'
+
+could-this-be-it.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+dark-room-desire.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+ding-a-ling-a-ling.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+empty-mornings.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+endless-tabs.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+every-day-is-a-wonder.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+every-single-day.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+feel-alive.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+
+first-session.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+gay-and-proud.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+
+gaycation.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+he-left-me.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+i-am-in-love.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+is-there-a-guidebook.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+is-this-real.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+just-an-advisory.html:
+  • lyrics missing 'inLanguage'
+  • inAlbum missing 'datePublished'
+
+like-i-have-known-you.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+maybe-i-took-it-too-far.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+maybe-its-me.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+mirrors-in-the-mind.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+my-fire.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+
+next-time-i-see-him.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+not-broken-anymore.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+not-supposed-to.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+our-place-finally.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+phone-glow.html:
+  • lyrics missing 'inLanguage'
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+pornhub-paradise.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+riot-in-the-night.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+rock-bottom.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+signed-and-sealed.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+so-what-do-we-do.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+steam-and-shadows.html:
+  • lyrics missing 'inLanguage'
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+table-for-two.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+ten-years-strong.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+the-awakening.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+the-fairys-waltz.html:
+  • lyrics missing 'inLanguage'
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+the-first-argument.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+the-floor-is-mine.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+the-grindr-carol.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+the-ramble.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+the-spiral-extended.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+the-spiral-original.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+the-unseen-chorus-title-track.html:
+  • Missing 'lyricist' field
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'name'
+  • recordedAs missing 'byArtist'
+  • recordedAs missing 'inAlbum'
+
+two-of-us.html:
+  • lyrics missing 'inLanguage'
+  • inAlbum missing 'datePublished'
+
+were-not-just-friends.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+what-app-though.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
+
+what-do-we-do-with-forever.html:
+  • lyrics missing 'inLanguage'
+  • recordedAs missing 'position' (track number)
+  • byArtist missing 'sameAs' links
+  • inAlbum missing 'datePublished'
