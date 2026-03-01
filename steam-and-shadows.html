@@ -92,9 +92,112 @@
     }
   }
   </script>
+  <link rel="stylesheet" href="navigation.css">
 </head>
 
 <body>
+<!-- Hamburger Toggle Button -->
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- Navigation Drawer -->
+<nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
+  <!-- Home Section -->
+  <a href="/" class="nav-link">
+    <span class="nav-icon">🏠</span>
+    Home
+  </a>
+
+  <!-- Music Section -->
+  <div class="nav-section-header">Music</div>
+
+  <!-- The Unseen Chorus (Collapsible) -->
+  <div class="nav-collapsible">
+    <button class="nav-collapsible-trigger" aria-expanded="false">
+      <span>
+        <span class="nav-icon">🎭</span>
+        The Unseen Chorus
+      </span>
+      <span class="arrow">▶</span>
+    </button>
+    <div class="nav-collapsible-content">
+      <a href="/the-unseen-chorus.html">Album Overview</a>
+      <a href="/just-an-advisory.html">1. Just an Advisory</a>
+      <a href="/two-of-us.html">2. Two of Us</a>
+      <a href="/phone-glow.html">3. Phone Glow</a>
+      <a href="/the-fairys-waltz.html">4. The Fairy's Waltz</a>
+      <a href="/steam-and-shadows.html">5. Steam & Shadows</a>
+      <a href="/the-ramble.html">6. The Ramble</a>
+      <a href="/riot-in-the-night.html">7. Riot in the Night</a>
+      <a href="/dark-room-desire.html">8. Dark Room Desire</a>
+      <a href="/empty-mornings.html">9. Empty Mornings</a>
+      <a href="/a-bar-in-my-pocket.html">10. A Bar in My Pocket</a>
+      <a href="/can-you-host.html">11. Can You Host?</a>
+      <a href="/he-left-me.html">12. He Left Me</a>
+      <a href="/pornhub-paradise.html">13. Pornhub Paradise</a>
+      <a href="/endless-tabs.html">14. Endless Tabs</a>
+      <a href="/maybe-i-took-it-too-far.html">15. Maybe I Took It Too Far</a>
+      <a href="/signed-and-sealed.html">16. Signed and Sealed</a>
+      <a href="/the-floor-is-mine.html">17. The Floor Is Mine</a>
+      <a href="/rock-bottom.html">18. Rock Bottom</a>
+      <a href="/first-session.html">19. First Session</a>
+      <a href="/circle-of-chairs.html">20. Circle of Chairs</a>
+      <a href="/mirrors-in-the-mind.html">21. Mirrors in the Mind</a>
+      <a href="/not-supposed-to.html">22. Not Supposed To</a>
+      <a href="/table-for-two.html">23. Table for Two</a>
+      <a href="/not-broken-anymore.html">24. Not Broken Anymore</a>
+      <a href="/ten-years-strong.html">25. Ten Years Strong</a>
+      <a href="/the-unseen-chorus-title-track.html">26. The Unseen Chorus</a>
+      <a href="/come-out-of-the-dark.html">27. Come Out of the Dark</a>
+    </div>
+  </div>
+
+  <!-- Other Singles -->
+  <a href="/gay-and-proud.html" class="nav-link">
+    <span class="nav-icon">🏳️‍🌈</span>
+    Gay and Proud
+  </a>
+
+  <a href="/my-fire.html" class="nav-link">
+    <span class="nav-icon">🔥</span>
+    My Fire (Mi Fuego)
+  </a>
+
+  <a href="/feel-alive.html" class="nav-link">
+    <span class="nav-icon">✨</span>
+    Feel Alive
+  </a>
+
+  <!-- Links Section -->
+  <div class="nav-section-header">Connect</div>
+
+  <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer" class="nav-link">
+    <span class="nav-icon">🎵</span>
+    Spotify
+  </a>
+
+  <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer" class="nav-link">
+    <span class="nav-icon">🍎</span>
+    Apple Music
+  </a>
+
+  <a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer" class="nav-link">
+    <span class="nav-icon">📱</span>
+    TikTok
+  </a>
+
+  <a href="mailto:agust@arcticsea.com" class="nav-link">
+    <span class="nav-icon">✉️</span>
+    Contact
+  </a>
+</nav>
+
+<!-- Overlay (closes menu when clicked) -->
+<div class="nav-overlay" id="nav-overlay"></div>
+
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <div class="page">
@@ -237,5 +340,6 @@
   </div>
 
   <script src="dark-mode.js"></script>
+  <script src="navigation.js"></script>
 </body>
 </html>
