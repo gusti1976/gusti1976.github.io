@@ -1,178 +1,314 @@
-# Album Page Template - Standard Format
+# Song Lyric Page Template - Standard Format
 
-This document defines the standard format for all album/musical pages on www.gusti.com.
+This document defines the standard format for all individual song/lyric pages on www.gusti.com.
 
-## Standard Sections (In Order)
-
-### 1. Complete Track Listing
-
-**Format:** Grid of clickable song cards
-
-```html
-<section>
-  <h2>Complete Track Listing</h2>
-  <p style="margin-bottom: var(--spacing-lg);">Click any track to view full lyrics and song details:</p>
-
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--spacing-md);">
-    <a href="/song-filename.html" class="song-card">1. Song Title (M:SS)</a>
-    <a href="/song-filename.html" class="song-card">2. Song Title (M:SS)</a>
-    <!-- etc. -->
-  </div>
-
-  <style>
-    .song-card {
-      display: block;
-      padding: var(--spacing-md);
-      background: rgba(0, 0, 0, 0.02);
-      border: 1px solid var(--color-border-light);
-      border-radius: var(--radius-md);
-      text-decoration: none;
-      color: var(--color-text-primary);
-      transition: all 0.2s ease;
-      font-size: 0.95rem;
-    }
-    .song-card:hover {
-      background: rgba(0, 0, 0, 0.04);
-      border-color: var(--color-primary-blue);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px var(--color-shadow);
-    }
-  </style>
-</section>
-```
-
-**Features:**
-- Responsive grid layout (250px minimum card width)
-- Automatic columns based on screen width
-- Hover effects: lift, border color change
-- Format: `Track#. Song Title (Duration)`
-- Duration format: `M:SS` (e.g., `3:25` not `3:5`)
-
-### 2. Listen & Stream
-
-**Format:** SVG icon buttons (Spotify and Apple Music)
-
-```html
-<section>
-  <h2>Listen & Stream</h2>
-  <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; justify-content: center; margin-top: var(--spacing-lg);">
-    <a href="[SPOTIFY_ALBUM_URL]" class="btn-icon spotify" target="_blank" rel="noopener" title="Listen on Spotify">
-      <svg class="icon-svg" fill="white">
-        <use href="#spotify-icon"/>
-      </svg>
-    </a>
-    <a href="[APPLE_MUSIC_ALBUM_URL]" class="btn-icon apple" target="_blank" rel="noopener" title="Listen on Apple Music">
-      <svg class="icon-svg" fill="white">
-        <use href="#apple-icon"/>
-      </svg>
-    </a>
-  </div>
-</section>
-```
-
-**Features:**
-- SVG icons from Simple Icons (official brand logos)
-- Green Spotify button (#1DB954)
-- Red/pink Apple Music button (#FC3C44)
-- Centered layout
-- Hover effects: lift, scale, glow
-- Always include title attribute for accessibility
-
-**Important:** Never use emoji or text inside the buttons - only SVG icons
-
-### 3. Themes & Messages
-
-**Format:** Unordered list with bolded theme names
-
-```html
-<section>
-  <h2>Themes & Messages</h2>
-  <ul style="line-height: 1.8;">
-    <li><strong>Theme Name:</strong> Description of theme</li>
-    <li><strong>Theme Name:</strong> Description of theme</li>
-    <!-- etc. -->
-  </ul>
-</section>
-```
-
-## Required Elements on All Album Pages
-
-### SVG Icon Definitions
-
-Must be included after `<body>` tag:
-
-```html
-<!-- SVG Icon Definitions - Simple Icons (Official Brand Logos) -->
-<svg style="display: none;" aria-hidden="true">
-  <defs>
-    <symbol id="spotify-icon" viewBox="0 0 24 24">
-      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-    </symbol>
-    <symbol id="apple-icon" viewBox="0 0 24 24">
-      <path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536a1.88 1.88 0 011.038-2.022c.323-.16.67-.25 1.018-.324.378-.082.758-.153 1.134-.24.274-.063.457-.23.51-.516a.904.904 0 00.02-.193c0-1.815 0-3.63-.002-5.443a.725.725 0 00-.026-.185c-.04-.15-.15-.243-.304-.234-.16.01-.318.035-.475.066-.76.15-1.52.303-2.28.456l-2.325.47-1.374.278c-.016.003-.032.01-.048.013-.277.077-.377.203-.39.49-.002.042 0 .086 0 .13-.002 2.602 0 5.204-.003 7.805 0 .42-.047.836-.215 1.227-.278.64-.77 1.04-1.434 1.233-.35.1-.71.16-1.075.172-.96.036-1.755-.6-1.92-1.544-.14-.812.23-1.685 1.154-2.075.357-.15.73-.232 1.108-.31.287-.06.575-.116.86-.177.383-.083.583-.323.6-.714v-.15c0-2.96 0-5.922.002-8.882 0-.123.013-.25.042-.37.07-.285.273-.448.546-.518.255-.066.515-.112.774-.165.733-.15 1.466-.296 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.403.22-.043.442-.088.663-.106.31-.025.523.17.554.482.008.073.012.148.012.223.002 1.91.002 3.822 0 5.732z"/>
-    </symbol>
-  </defs>
-</svg>
-```
-
-## Examples
-
-### Reference Pages
-
-- **Swipe Me to the Moon**: `/swipe-me-to-the-moon.html` - Primary reference
-- **The Unseen Chorus**: `/the-unseen-chorus.html` - Updated to match standard
-
-## CSS Variables Used
-
-From `style-optimized.css`:
-
-- `--spacing-sm`: Small spacing
-- `--spacing-md`: Medium spacing (default)
-- `--spacing-lg`: Large spacing
-- `--spacing-xl`: Extra large spacing
-- `--radius-sm`: Small border radius
-- `--radius-md`: Medium border radius
-- `--radius-lg`: Large border radius
-- `--color-bg-secondary`: Secondary background
-- `--color-bg-hover`: Hover background
-- `--color-border`: Border color
-- `--color-text-primary`: Primary text color
-- `--color-text-secondary`: Secondary text color
-- `--color-primary-blue`: Primary blue accent
-- `--color-spotify`: Spotify green (#1DB954)
-- `--color-spotify-hover`: Spotify green hover
-- `--color-apple`: Apple Music red (#FC3C44)
-- `--color-apple-hover`: Apple Music red hover
-
-## Button Classes
-
-From `style-optimized.css`:
-
-- `.btn-icon`: Base icon button class
-- `.btn-icon.spotify`: Spotify-specific styling
-- `.btn-icon.apple`: Apple Music-specific styling
-- `.icon-svg`: SVG icon sizing (18x18px)
-
-## Don'ts
-
-❌ Don't use emoji in streaming buttons
-❌ Don't use text labels inside icon buttons
-❌ Don't use `<ol>` or `<ul>` for track listings
-❌ Don't use inline blue link colors - use song-card class
-❌ Don't use different grid layouts or card styles
-❌ Don't forget duration format (M:SS)
-
-## Do's
-
-✅ Use grid layout for track listings
-✅ Use SVG icons from Simple Icons
-✅ Use consistent spacing variables
-✅ Use hover effects on song cards
-✅ Use proper duration formatting (3:05 not 3:5)
-✅ Include title attributes on buttons
-✅ Center the Listen & Stream buttons
+**Reference page:** `/just-an-advisory.html`
 
 ---
 
-**Last Updated:** 2026-03-01
-**Standard Version:** 1.0
+## Head Section
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="max-image-preview:large">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="color-scheme" content="light dark">
+
+  <title>[Song Title] Lyrics - Agust Islandia | [Album Name]</title>
+  <link rel="canonical" href="https://www.gusti.com/[filename].html">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+
+  <meta name="description" content="Full lyrics to '[Song Title]' from [Album Name] by Agust Islandia. [Brief description.]">
+
+  <meta property="og:title" content="[Song Title] Lyrics - [Album Name]">
+  <meta property="og:site_name" content="Agust Islandia">
+  <meta property="og:description" content="[Brief description for social sharing.]">
+  <meta property="og:type" content="music.song">
+  <meta property="og:url" content="https://www.gusti.com/[filename].html">
+  <meta property="og:image" content="https://www.gusti.com/[album-cover].webp">
+  <meta property="music:musician" content="https://www.gusti.com/">
+  <meta property="music:release_date" content="YYYY-MM-DD">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="[Song Title] Lyrics - [Album Name]">
+  <meta name="twitter:description" content="[One-line lyric or description.]">
+  <meta name="twitter:image" content="https://www.gusti.com/[album-cover].webp">
+
+  <link rel="stylesheet" href="style-optimized.css">
+
+  <!-- Schema.org Structured Data - see Schema section below -->
+  <script type="application/ld+json">...</script>
+
+  <link rel="stylesheet" href="navigation.css">
+</head>
+```
+
+---
+
+## Body Structure (In Order)
+
+```html
+<body>
+<!-- 1. Hamburger nav toggle -->
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- 2. Navigation drawer (full nav here) -->
+<nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
+  ...
+</nav>
+
+<!-- 3. Overlay -->
+<div class="nav-overlay" id="nav-overlay"></div>
+
+<!-- 4. Skip link (after overlay, before .page) -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="page">
+  <!-- 5. Theme toggle (sun + moon SVG) -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+    <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Sun icon (shown in dark mode) -->
+      <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" id="sun-icon" style="display: none;"/>
+      <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" style="display: none;"/>
+      <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" style="display: none;"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" style="display: none;"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" style="display: none;"/>
+      <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" style="display: none;"/>
+      <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" style="display: none;"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" style="display: none;"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" style="display: none;"/>
+      <!-- Moon icon (shown in light mode) -->
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/>
+    </svg>
+  </button>
+
+  <!-- 6. Header -->
+  <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
+    <nav style="margin-bottom: var(--spacing-lg);">
+      <a href="/[album-filename].html" style="font-weight: 600;">← Back to [Album Name]</a>
+    </nav>
+    <h1>[Song Title]</h1>
+    <p class="subtitle">Track [N] from <strong>[Album Name]</strong></p>
+    <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
+    <div class="hero-cta" style="margin-top: var(--spacing-xl);">
+      <a href="[SPOTIFY_ALBUM_URL]" class="btn-primary" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
+      <a href="[APPLE_MUSIC_ALBUM_URL]" class="btn-secondary" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- Section 1: Lyrics -->
+    <section>
+      <h2>Lyrics</h2>
+      <div class="lyrics">
+        <p>Verse line<br>Verse line<br>Verse line<br>Verse line</p>
+        <p><strong>Chorus line<br>Chorus line</strong></p>
+        <p><em>Spoken/stage direction line</em></p>
+      </div>
+    </section>
+
+    <!-- Section 2: About the Song -->
+    <section>
+      <h2>About the Song</h2>
+      <p>[Description of the song, its context, and significance.]</p>
+    </section>
+
+    <!-- Section 3: Song Details (6 fields) -->
+    <section>
+      <h2>Song Details</h2>
+      <ul style="line-height: 1.8;">
+        <li><strong>Album:</strong> <a href="/[album-filename].html">[Album Name]</a></li>
+        <li><strong>Track Number:</strong> [N] of [Total]</li>
+        <li><strong>Duration:</strong> M:SS</li>
+        <li><strong>Release Date:</strong> [Month Day, Year]</li>
+        <li><strong>Genre:</strong> Musical Theatre, LGBTQ+ Music</li>
+        <li><strong>Writer/Composer:</strong> Agust Smari Bjarkarson (Agust Islandia)</li>
+      </ul>
+    </section>
+
+    <!-- Section 4: Themes -->
+    <section>
+      <h2>Themes</h2>
+      <ul style="line-height: 1.8;">
+        <li><strong>Theme Name:</strong> Description</li>
+        <li><strong>Theme Name:</strong> Description</li>
+      </ul>
+    </section>
+
+    <!-- Section 5: More Songs from [Album] -->
+    <section>
+      <h2>More Songs from [Album Name]</h2>
+      <ul style="line-height: 1.8;">
+        <li><strong><a href="/[song].html">[Song Title]</a></strong> - Track [N]: [Brief description]</li>
+        <li><strong><a href="/[song].html">[Song Title]</a></strong> - Track [N]: [Brief description]</li>
+        <li><strong><a href="/[song].html">[Song Title]</a></strong> - Track [N]: [Brief description]</li>
+      </ul>
+      <p><a href="/[album-filename].html">← View complete tracklist</a></p>
+    </section>
+
+  </main>
+
+  <footer>© 2026 <strong>Agust Smari Bjarkarson</strong></footer>
+</div>
+
+<script src="dark-mode.js"></script>
+<script src="navigation.js"></script>
+</body>
+```
+
+---
+
+## Lyrics Formatting Rules
+
+Use `<div class="lyrics">` with `<p>` tags — never `<pre>`.
+
+| Element | Use for |
+|---|---|
+| `<p>plain text</p>` | Regular verses |
+| `<p><strong>text</strong></p>` | Chorus lines |
+| `<p><em>text</em></p>` | Spoken lines / stage directions |
+| `<br>` inside `<p>` | Line breaks within a stanza |
+| Blank `<p>` between stanzas | Stanza breaks |
+
+---
+
+## Song Details Fields (All 6 Required)
+
+1. **Album:** linked to album overview page
+2. **Track Number:** `N of Total` (e.g., `1 of 27`)
+3. **Duration:** `M:SS` format (e.g., `3:05` not `3:5`)
+4. **Release Date:** written out (e.g., `October 6, 2025`)
+5. **Genre:** `Musical Theatre, LGBTQ+ Music`
+6. **Writer/Composer:** `Agust Smari Bjarkarson (Agust Islandia)`
+
+---
+
+## Schema.org JSON-LD Template
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "MusicComposition",
+  "name": "[Song Title]",
+  "image": "https://www.gusti.com/[album-cover].webp",
+  "composer": {
+    "@type": "Person",
+    "name": "Agust Smari Bjarkarson",
+    "alternateName": "Agust Islandia",
+    "url": "https://www.gusti.com/",
+    "sameAs": [
+      "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+      "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+      "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
+    ]
+  },
+  "lyricist": {
+    "@type": "Person",
+    "name": "Agust Smari Bjarkarson",
+    "alternateName": "Agust Islandia"
+  },
+  "lyrics": {
+    "@type": "CreativeWork",
+    "text": "[Full lyrics as plain text]",
+    "inLanguage": "en-US"
+  },
+  "inLanguage": "en",
+  "datePublished": "YYYY-MM-DD",
+  "genre": ["Musical Theatre", "LGBTQ+ Music", "Gay Musical", "Theatrical Pop"],
+  "keywords": "[relevant keywords]",
+  "isPartOf": {
+    "@type": "MusicAlbum",
+    "name": "[Album Name]",
+    "image": "https://www.gusti.com/[album-cover].webp",
+    "byArtist": {
+      "@type": "MusicGroup",
+      "name": "Agust Islandia",
+      "url": "https://www.gusti.com/",
+      "sameAs": [
+        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+        "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"
+      ]
+    }
+  },
+  "recordedAs": {
+    "@type": "MusicRecording",
+    "name": "[Song Title]",
+    "image": "https://www.gusti.com/[album-cover].webp",
+    "position": "[track number]",
+    "duration": "PT[M]M[SS]S",
+    "byArtist": {
+      "@type": "MusicGroup",
+      "name": "Agust Islandia",
+      "url": "https://www.gusti.com/",
+      "sameAs": [
+        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+        "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"
+      ]
+    },
+    "inAlbum": {
+      "@type": "MusicAlbum",
+      "name": "[Album Name]",
+      "url": "https://www.gusti.com/[album-filename].html",
+      "datePublished": "YYYY-MM-DD"
+    },
+    "url": "[SPOTIFY_ALBUM_URL]"
+  }
+}
+```
+
+**Duration format:** ISO 8601 — `PT2M42S` = 2:42, `PT1M32S` = 1:32
+
+---
+
+## Reference Pages
+
+- **Primary reference:** `/just-an-advisory.html` — The Unseen Chorus, Track 1
+- **The Unseen Chorus album covers:** `the-unseen-chorus-cover.webp`
+- **Swipe Me to the Moon album covers:** `swipe-me-to-the-moon-cover.webp` *(check actual filename)*
+
+### Album URLs
+- The Unseen Chorus Spotify: `https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p`
+- The Unseen Chorus Apple Music: `https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786`
+- The Unseen Chorus release date: `2025-10-06`
+- Swipe Me to the Moon release date: `2025-07-18`
+
+---
+
+## Do's
+
+✅ Use `just-an-advisory.html` as the reference for all new song pages
+✅ Include both Spotify (btn-primary) and Apple Music (btn-secondary) buttons in header
+✅ Include "Written and Composed by" subtitle in header
+✅ Use `<div class="lyrics">` with `<p>` tags, never `<pre>`
+✅ Use `<strong>` for chorus lines, `<em>` for spoken/stage direction lines
+✅ Include all 6 fields in Song Details
+✅ Include Themes section
+✅ Include "More Songs from..." section with 3 specific tracks + link to full tracklist
+✅ Use M:SS duration format (e.g., `3:05` not `3:5`)
+✅ Include full Schema.org JSON-LD with lyricist, recordedAs, position, inLanguage
+✅ Include all meta tags: robots, theme-color, color-scheme, Twitter cards, og:type=music.song
+
+## Don'ts
+
+❌ Don't use `<pre>` for lyrics
+❌ Don't omit the Apple Music button
+❌ Don't omit "Written and Composed by" subtitle
+❌ Don't use only 3 fields in Song Details — always use all 6
+❌ Don't skip the Themes section
+❌ Don't skip the "More Songs from..." section
+❌ Don't use the simple moon-only theme toggle — use the full sun+moon SVG
+
+---
+
+**Last Updated:** 2026-03-02
+**Standard Version:** 2.0
+**Reference Page:** `/just-an-advisory.html`
