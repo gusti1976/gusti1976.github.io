@@ -310,7 +310,7 @@
         </p>
 
         <div style="margin-top: var(--spacing-lg);">
-          <h3 style="color: var(--color-primary-blue); margin-bottom: var(--spacing-sm);">Radical Honesty</h3>
+          <h3 class="values-heading">Radical Honesty</h3>
           <p style="line-height: 1.8; margin-left: var(--spacing-md);">
             Songs like "Pornhub Paradise" and "Can You Host?" don't shy away from uncomfortable truths about hookup culture,
             addiction, and the toll of apps on our mental health and relationships. We value truth-telling over comfort,
@@ -319,7 +319,7 @@
         </div>
 
         <div style="margin-top: var(--spacing-lg);">
-          <h3 style="color: var(--color-primary-blue); margin-bottom: var(--spacing-sm);">Resilience Through Adversity</h3>
+          <h3 class="values-heading">Resilience Through Adversity</h3>
           <p style="line-height: 1.8; margin-left: var(--spacing-md);">
             From Stonewall riots ("Riot in the Night") to personal rock bottoms ("Rock Bottom"), these lyrics chronicle
             survival against systems designed to break us. We don't just survive—we rise, transform, and thrive.
@@ -328,7 +328,7 @@
         </div>
 
         <div style="margin-top: var(--spacing-lg);">
-          <h3 style="color: var(--color-primary-blue); margin-bottom: var(--spacing-sm);">Love as Revolutionary Act</h3>
+          <h3 class="values-heading">Love as Revolutionary Act</h3>
           <p style="line-height: 1.8; margin-left: var(--spacing-md);">
             "Ten Years Strong" celebrates a decade of queer love. "Like I Have Known You" captures the magic of connection
             in a cynical world. In a society that told us our love was sinful, illegal, or diseased, <strong>choosing to love
@@ -337,7 +337,7 @@
         </div>
 
         <div style="margin-top: var(--spacing-lg);">
-          <h3 style="color: var(--color-primary-blue); margin-bottom: var(--spacing-sm);">Community Accountability</h3>
+          <h3 class="values-heading">Community Accountability</h3>
           <p style="line-height: 1.8; margin-left: var(--spacing-md);">
             "The Unseen Chorus" challenges our community to examine how dating apps and porn addiction have reshaped gay culture.
             It's not about shame—it's about asking: <em>Are we building the community we want? Are we treating each other with dignity?</em>
@@ -346,7 +346,7 @@
         </div>
 
         <div style="margin-top: var(--spacing-lg);">
-          <h3 style="color: var(--color-primary-blue); margin-bottom: var(--spacing-sm);">Joy as Defiance</h3>
+          <h3 class="values-heading">Joy as Defiance</h3>
           <p style="line-height: 1.8; margin-left: var(--spacing-md);">
             "Feel Alive" and "Gay and Proud" aren't just dance anthems—they're celebrations of queer joy in a world that wants us
             somber and apologetic. Dancing, singing, loving loudly: these are political acts. <strong>Our joy is our resistance</strong>,
@@ -460,6 +460,14 @@
           border-color: var(--color-primary-blue);
           transform: translateY(-2px);
         }
+        .values-heading {
+          color: var(--color-primary-blue);
+          margin-bottom: var(--spacing-sm);
+        }
+        @media (prefers-color-scheme: dark) {
+          .values-heading { color: #6eb3ff; }
+        }
+        html[data-theme="dark"] .values-heading { color: #6eb3ff; }
       </style>
     </main>
 
