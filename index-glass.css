@@ -283,6 +283,46 @@ body::after {
   fill: currentColor;
 }
 
+.artist-bio-section {
+  padding: 0 40px 46px;
+}
+
+.artist-bio-card {
+  border-radius: 20px;
+  border: 1px solid rgba(117, 145, 214, 0.36);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.43));
+  box-shadow: 0 14px 28px rgba(31, 43, 80, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.artist-bio-photo {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(115, 145, 212, 0.4);
+  box-shadow: 0 10px 20px rgba(31, 43, 80, 0.18);
+}
+
+.artist-bio-content h2 {
+  margin: 0 0 10px;
+  color: #152f5f;
+}
+
+.artist-bio-content p {
+  margin: 0 0 12px;
+  color: #445981;
+  line-height: 1.75;
+}
+
+.artist-bio-content p:last-child {
+  margin-bottom: 0;
+}
+
 .album-card {
   border-radius: 20px;
   background: var(--glass-bg-strong);
@@ -352,7 +392,8 @@ footer {
   }
 
   .glass-grid,
-  .album-row {
+  .album-row,
+  .artist-bio-section {
     padding-left: 26px;
     padding-right: 26px;
   }
@@ -376,6 +417,14 @@ footer {
 
   .release-links {
     width: 100%;
+  }
+
+  .artist-bio-card {
+    grid-template-columns: 1fr;
+  }
+
+  .artist-bio-photo {
+    max-width: 360px;
   }
 }
 
@@ -451,4 +500,17 @@ html[data-theme="dark"] .stream-btn.apple {
   background: #fc3c44;
   border-color: #fc3c44;
   color: #ffffff;
+}
+
+html[data-theme="dark"] .artist-bio-card {
+  background: linear-gradient(145deg, rgba(21, 29, 46, 0.72), rgba(21, 29, 46, 0.56));
+  border-color: rgba(131, 155, 219, 0.3);
+}
+
+html[data-theme="dark"] .artist-bio-content h2 {
+  color: #eef4ff;
+}
+
+html[data-theme="dark"] .artist-bio-content p {
+  color: #a8bddf;
 }
