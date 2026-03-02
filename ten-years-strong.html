@@ -13,16 +13,20 @@
       try {
         var t = localStorage.getItem("agust-islandia-theme");
         var h = document.documentElement;
+        var isDark = false;
         if (t === "dark" || t === "light") {
           h.setAttribute("data-theme", t);
           h.classList.toggle("dark-mode", t === "dark");
+          isDark = (t === "dark");
         } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
           h.setAttribute("data-theme", "dark");
           h.classList.add("dark-mode");
+          isDark = true;
         } else {
           h.setAttribute("data-theme", "light");
           h.classList.remove("dark-mode");
         }
+        h.style.colorScheme = isDark ? "dark" : "light";
       } catch (e) {}
     })();
   </script>
