@@ -404,6 +404,17 @@
   <link rel="stylesheet" href="index-glass.css">
 </head>
 <body>
+  <svg style="display: none;" aria-hidden="true">
+    <defs>
+      <symbol id="spotify-icon" viewBox="0 0 24 24">
+        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+      </symbol>
+      <symbol id="apple-icon" viewBox="0 0 24 24">
+        <path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536a1.88 1.88 0 011.038-2.022c.323-.16.67-.25 1.018-.324.378-.082.758-.153 1.134-.24.274-.063.457-.23.51-.516a.904.904 0 00.02-.193c0-1.815 0-3.63-.002-5.443a.725.725 0 00-.026-.185c-.04-.15-.15-.243-.304-.234-.16.01-.318.035-.475.066-.76.15-1.52.303-2.28.456l-2.325.47-1.374.278c-.016.003-.032.01-.048.013-.277.077-.377.203-.39.49-.002.042 0 .086 0 .13-.002 2.602 0 5.204-.003 7.805 0 .42-.047.836-.215 1.227-.278.64-.77 1.04-1.434 1.233-.35.1-.71.16-1.075.172-.96.036-1.755-.6-1.92-1.544-.14-.812.23-1.685 1.154-2.075.357-.15.73-.232 1.108-.31.287-.06.575-.116.86-.177.383-.083.583-.323.6-.714v-.15c0-2.96 0-5.922.002-8.882 0-.123.013-.25.042-.37.07-.285.273-.448.546-.518.255-.066.515-.112.774-.165.733-.15 1.466-.296 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.403.22-.043.442-.088.663-.106.31-.025.523.17.554.482.008.073.012.148.012.223.002 1.91.002 3.822 0 5.732z"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -458,40 +469,41 @@
 
     <header class="glass-hero">
       <div>
-        <span class="hero-kicker">Official Artist Site • New Visual Era</span>
-        <h1>Agust Islandia<br>in Glass</h1>
+        <span class="hero-kicker">Official Site • Agust Smari Bjarkarson</span>
+        <h1>Agust Islandia<br>LGBTQ+ Pop & Musical Theatre</h1>
         <p>
-          A fresh frontpage concept for <strong>gusti.com</strong>: modern glass surfaces, strong typography,
-          and cleaner hierarchy for discovering the music, stories, and stage worlds of Agust Smari Bjarkarson.
+          Agust Islandia is the artist project of <strong>Agust Smari Bjarkarson</strong>, an Icelandic songwriter and producer creating
+          queer pop records and full-length gay musicals. Explore albums, singles, and complete lyric pages centered on
+          queer love, identity, recovery, and chosen family.
         </p>
         <div class="hero-actions">
-          <a class="hero-btn primary" href="/lyrics.html">Explore Lyrics</a>
-          <a class="hero-btn secondary" href="/the-unseen-chorus.html">Enter The Unseen Chorus</a>
+          <a class="hero-btn primary" href="/the-unseen-chorus.html">Listen to The Unseen Chorus</a>
           <a class="hero-btn secondary" href="/swipe-me-to-the-moon.html">Open Swipe Me to the Moon</a>
+          <a class="hero-btn secondary" href="/lyrics.html">Browse Full Lyrics</a>
         </div>
       </div>
 
       <div class="hero-stat-cloud" aria-label="Key highlights">
-        <div class="stat-pill"><strong>52+</strong><span>Lyric pages live</span></div>
+        <div class="stat-pill"><strong>50+</strong><span>Lyrics pages published</span></div>
         <div class="stat-pill"><strong>2</strong><span>Full gay musicals</span></div>
-        <div class="stat-pill"><strong>Apple-first</strong><span>Menu link priority</span></div>
-        <div class="stat-pill"><strong>Glass UI</strong><span>Dark + light optimized</span></div>
+        <div class="stat-pill"><strong>5</strong><span>Featured release pages</span></div>
+        <div class="stat-pill"><strong>Worldwide</strong><span>Streaming on Apple & Spotify</span></div>
       </div>
     </header>
 
     <main id="main-content">
       <section class="glass-grid">
         <article class="glass-card">
-          <h3>Clearer Discovery</h3>
-          <p>The top-level flow now emphasizes albums and lyrics first, while detailed browsing is one tap deeper.</p>
+          <h3>Album-Led Experience</h3>
+          <p>Start with the major works, then move into individual tracks and lyrics without losing the larger story arc.</p>
         </article>
         <article class="glass-card">
-          <h3>Story-Forward Layout</h3>
-          <p>Visual rhythm is built around musical narratives, not dense link stacks, so users scan faster on mobile.</p>
+          <h3>Lyrics as Living Archive</h3>
+          <p>Each song page preserves full text and context, turning the catalog into a searchable archive of queer storytelling.</p>
         </article>
         <article class="glass-card">
-          <h3>Platform Priority</h3>
-          <p>Listen section prioritizes Apple Music, then Spotify, then TikTok, matching your strategic preference.</p>
+          <h3>Direct Listening Paths</h3>
+          <p>Navigation prioritizes Apple Music and Spotify so visitors can go from discovery to streaming in one click.</p>
         </article>
       </section>
 
@@ -500,7 +512,7 @@
           <img class="album-cover" src="/the-unseen-chorus-cover.webp" alt="The Unseen Chorus album artwork" loading="lazy">
           <div class="album-body">
             <h2>The Unseen Chorus</h2>
-            <p>27-track queer musical arc: infidelity, rupture, recovery, and hard-won tenderness.</p>
+            <p>A 27-track gay musical released October 6, 2025, tracing betrayal, compulsion, shame, healing, and recommitment.</p>
             <div class="mini-links">
               <a href="/the-unseen-chorus.html">Album Page</a>
               <a href="/just-an-advisory.html">Track 1</a>
@@ -513,12 +525,34 @@
           <img class="album-cover" src="/swipe-me-to-the-moon-cover.webp" alt="Swipe Me to the Moon album artwork" loading="lazy">
           <div class="album-body">
             <h2>Swipe Me to the Moon</h2>
-            <p>Digital-age romance rendered as musical theatre, from first ping to emotional consequence.</p>
+            <p>A 22-track musical released July 18, 2025, following queer love from first swipe to commitment, grief, and renewal.</p>
             <div class="mini-links">
               <a href="/swipe-me-to-the-moon.html">Album Page</a>
               <a href="/the-awakening.html">Track 1</a>
               <a href="/the-grindr-carol.html">Track 3</a>
             </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="discography-section" aria-label="Full discography">
+        <article class="glass-card discography-card">
+          <h2>Full Discography</h2>
+          <p>Complete release catalog for Agust Islandia (Agust Smari Bjarkarson).</p>
+          <div class="discography-list">
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="/the-unseen-chorus.html"><strong>The Unseen Chorus (A Gay Musical)</strong><span>2025 • Album</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="/swipe-me-to-the-moon.html"><strong>Swipe Me to the Moon (A Gay Musical)</strong><span>2025 • Album</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/swipe-me-to-the-moon-a-gay-musical/1833359480" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/48aiyJl8LaWvG7mRheH8Ky" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="/gay-and-proud.html"><strong>Gay and Proud / Gay y Orgulloso</strong><span>2025 • Single</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/out-and-proud/1836369950" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/3OVBPFRTSyL1wxJbjBkv7x" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="/my-fire.html"><strong>My Fire (Mi Fuego)</strong><span>2025 • Single</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="/feel-alive.html"><strong>Feel Alive</strong><span>2025 • Single</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/album/feel-alive-single/1844031485" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/19KSa1M1r9pV4RFpYj2iGJ" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="https://musicbrainz.org/release/e6d82601-088a-4052-9eb0-b6c8397fee4b" target="_blank" rel="noopener noreferrer"><strong>Pride Around the World</strong><span>2025 • Single</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/pride-around-the-world-single/1834268047" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/1GMOoz45QL3Yer9Yx1tJYj" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="https://musicbrainz.org/release/69c306b2-cff2-4ec1-b760-5d98c6c342bc" target="_blank" rel="noopener noreferrer"><strong>Pride on the Seas</strong><span>2025 • Single</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/pride-on-the-seas-single/1832629718" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/0auDUhna6t34Xgx3Q1FlJa" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="https://musicbrainz.org/release/bad25d00-0d02-4922-8278-9f583ea6eb36" target="_blank" rel="noopener noreferrer"><strong>Pride Month 2025</strong><span>2025 • EP</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/pride-month-2025-ep/1827272560" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/2gJsNkTxkF5zJhFiKtjXsk" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="https://musicbrainz.org/release/649c1433-9170-41f6-9369-4858e8f88995" target="_blank" rel="noopener noreferrer"><strong>Bless This Mess</strong><span>2025 • Single</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/bless-this-mess-single/1831807697" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/3R8ebW1HRFJr6BNs80Q10O" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="https://musicbrainz.org/release/0639ef23-c0cb-458b-826c-2aa94be11bd7" target="_blank" rel="noopener noreferrer"><strong>Peach and Purple</strong><span>2025 • Single</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/peach-and-purple-single/1830614759" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/7wPE5efhLGm4QhBhzt9vOM" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="https://musicbrainz.org/release/d9da9d43-a29a-42e5-871a-ac20c9990e48" target="_blank" rel="noopener noreferrer"><strong>Yogurt</strong><span>2025 • Single</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/yogurt-single/1830482188" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/3hsviubnVHs2IIHHOOEfgd" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="https://musicbrainz.org/release/f20220ac-f8c4-417b-a68e-ac6b7d9f8464" target="_blank" rel="noopener noreferrer"><strong>Cowboys</strong><span>2025 • EP</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/album/cowboys-ep/1834409818" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/album/2YcVvOmG9Yfm35ZLHKN5RW" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
+            <div class="discography-item"><div class="discography-meta"><a class="discography-title" href="https://musicbrainz.org/release/6f67b77a-9cb6-4e3b-bc21-e90016dc4ece" target="_blank" rel="noopener noreferrer"><strong>The Gay Mormon Musical</strong><span>2025 • Album</span></a></div><div class="release-stream"><a class="btn-icon apple" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener" title="Listen on Apple Music"><svg class="icon-svg" fill="white"><use href="#apple-icon"/></svg></a><a class="btn-icon spotify" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer" title="Listen on Spotify"><svg class="icon-svg" fill="white"><use href="#spotify-icon"/></svg></a></div></div>
           </div>
         </article>
       </section>
