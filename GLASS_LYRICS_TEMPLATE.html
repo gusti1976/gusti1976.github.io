@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{meta_description}}">
+  <link rel="canonical" href="https://www.gusti.com/{{song_slug}}.html">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
   <meta name="color-scheme" content="light dark">
@@ -18,6 +20,53 @@
         h.style.colorScheme = isDark ? "dark" : "light";
       } catch (e) {}
     })();
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicComposition",
+  "name": "{{song_title}}",
+  "inLanguage": "en",
+  "composer": {
+    "@type": "Person",
+    "name": "Agust Smari Bjarkarson",
+    "alternateName": "Agust Islandia",
+    "url": "https://www.gusti.com/"
+  },
+  "lyricist": {
+    "@type": "Person",
+    "name": "Agust Smari Bjarkarson",
+    "alternateName": "Agust Islandia"
+  },
+  "lyrics": {
+    "@type": "CreativeWork",
+    "text": "{{lyrics_text}}",
+    "inLanguage": "en-US"
+  },
+  "isPartOf": {
+    "@type": "MusicAlbum",
+    "name": "{{album_title}}",
+    "url": "https://www.gusti.com/{{album_slug}}.html",
+    "datePublished": "{{album_release_date_iso}}"
+  },
+  "recordedAs": {
+    "@type": "MusicRecording",
+    "name": "{{song_title}}",
+    "position": "{{track_number}}",
+    "duration": "{{duration_iso}}",
+    "inAlbum": {
+      "@type": "MusicAlbum",
+      "name": "{{album_title}}",
+      "url": "https://www.gusti.com/{{album_slug}}.html",
+      "datePublished": "{{album_release_date_iso}}"
+    },
+    "byArtist": {
+      "@type": "MusicGroup",
+      "name": "Agust Islandia",
+      "url": "https://www.gusti.com/"
+    }
+  }
+}
   </script>
   <title>The Awakening - Glass Lyrics Page Proposal</title>
   <link rel="stylesheet" href="style-optimized.css">
@@ -51,8 +100,8 @@
         <a class="song-btn spotify" href="#">Spotify</a>
       </div>
     </div>
-    <aside class="song-meta-card">
-      <h2>Song Snapshot</h2>
+    <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+      <h2 id="song-snapshot-title">Song Snapshot</h2>
       <div class="snapshot-grid">
         <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">July 18, 2025</span></div>
         <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">2:42</span></div>
@@ -63,8 +112,8 @@
   </header>
 
   <main id="main-content" class="song-layout">
-    <section class="panel">
-      <h3>Full Lyrics</h3>
+    <section class="panel" aria-labelledby="full-lyrics-title">
+      <h3 id="full-lyrics-title">Full Lyrics</h3>
       <div class="lyric-lines">
         <p>Okay<br>So I've been thinking<br>Like really thinking<br>And I think I might be<br>No, I know I'm</p>
         <p><strong>Oh yeah, I'm gay<br>And I love it babe</strong><br>Like a rainbow on a rocket ship<br>With glitter on my grave</p>
@@ -74,15 +123,15 @@
       </div>
     </section>
 
-    <aside class="panel">
-      <h3>Why This Song Matters</h3>
+    <aside class="panel" aria-labelledby="song-matters-title">
+      <h3 id="song-matters-title">Why This Song Matters</h3>
       <p>As the opener, this track anchors the entire musical in self-acceptance before conflict enters. It frames desire, fear, and humor in one move.</p>
-      <h3>Next In Story</h3>
-      <div class="next-list">
+      <h3 id="next-story-title">Next In Story</h3>
+      <nav class="next-list" aria-labelledby="next-story-title">
         <a href="#">2. What App, Though?</a>
         <a href="#">3. The Grindr Carol</a>
         <a href="#">4. Ding-A-Ling-A-Ling</a>
-      </div>
+      </nav>
     </aside>
   </main>
 
