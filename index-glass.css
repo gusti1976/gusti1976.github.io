@@ -303,7 +303,9 @@ body::after {
 }
 
 .artist-bio-photo-inline {
-  width: 180px;
+  width: 180px !important;
+  max-width: 180px !important;
+  height: auto !important;
   float: left;
   margin: 4px 16px 10px 0;
   border-radius: 12px;
@@ -421,7 +423,8 @@ footer {
     float: none;
     display: block;
     margin: 2px 0 12px;
-    width: 160px;
+    width: 160px !important;
+    max-width: 160px !important;
   }
 }
 
