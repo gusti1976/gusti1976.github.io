@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        var isDark = false;
+        if (t === "dark" || t === "light") { h.setAttribute("data-theme", t); h.classList.toggle("dark-mode", t === "dark"); isDark = (t === "dark"); }
+        else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) { h.setAttribute("data-theme", "dark"); h.classList.add("dark-mode"); isDark = true; }
+        else { h.setAttribute("data-theme", "light"); h.classList.remove("dark-mode"); }
+        h.style.colorScheme = isDark ? "dark" : "light";
+      } catch (e) {}
+    })();
+  </script>
+  <title>The Awakening - Glass Lyrics Page Proposal</title>
+  <link rel="stylesheet" href="style-optimized.css">
+  <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
+</head>
+<body>
+<button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
+  <a href="#" class="nav-link">Home</a>
+  <a href="#" class="nav-link">Listen on Apple Music</a>
+  <div class="nav-collapsible"><button class="nav-collapsible-trigger" aria-expanded="false"><span>Music</span><span class="arrow">▶</span></button><div class="nav-collapsible-content"><a href="#">Swipe Me to the Moon</a><a href="#">The Unseen Chorus</a></div></div>
+  <a href="#" class="nav-link">Lyrics</a><a href="#" class="nav-link">About</a><a href="#" class="nav-link">Press</a>
+</nav>
+<div class="nav-overlay" id="nav-overlay"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="page">
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+    <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display:none"/><path id="sun-rays" d="M12 1v2m0 18v2M1 12h2m18 0h2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" style="display:none"/><path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+  </button>
+
+  <header class="song-hero">
+    <div>
+      <span class="song-kicker">Track 1 • Swipe Me to the Moon</span>
+      <h1>The Awakening</h1>
+      <p class="song-sub">A coming-out overture that moves from internal doubt to celebratory queer self-recognition, then snaps into the musical's dating-app plotline.</p>
+      <div class="song-actions">
+        <a class="song-btn apple" href="#">Apple Music</a>
+        <a class="song-btn spotify" href="#">Spotify</a>
+      </div>
+    </div>
+    <aside class="song-meta-card">
+      <h2>Song Snapshot</h2>
+      <div class="snapshot-grid">
+        <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">July 18, 2025</span></div>
+        <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">2:42</span></div>
+        <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">Coming out, queer joy, urgency</span></div>
+        <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson</span></div>
+      </div>
+    </aside>
+  </header>
+
+  <main id="main-content" class="song-layout">
+    <section class="panel">
+      <h3>Full Lyrics</h3>
+      <div class="lyric-lines">
+        <p>Okay<br>So I've been thinking<br>Like really thinking<br>And I think I might be<br>No, I know I'm</p>
+        <p><strong>Oh yeah, I'm gay<br>And I love it babe</strong><br>Like a rainbow on a rocket ship<br>With glitter on my grave</p>
+        <p>I love boys in eyeliner<br>And boys in big ol' boots<br>I love soft ones, sweet ones<br>And mean ones in expensive suits</p>
+        <p><strong>Oh yeah, I'm gay and I own this ride</strong><br>I've been closeted for years, now I'm gay with pride</p>
+        <p>Wait<br>Holy fuck<br><br>I need a date<br>Yesterday</p>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <h3>Why This Song Matters</h3>
+      <p>As the opener, this track anchors the entire musical in self-acceptance before conflict enters. It frames desire, fear, and humor in one move.</p>
+      <h3>Next In Story</h3>
+      <div class="next-list">
+        <a href="#">2. What App, Though?</a>
+        <a href="#">3. The Grindr Carol</a>
+        <a href="#">4. Ding-A-Ling-A-Ling</a>
+      </div>
+    </aside>
+  </main>
+
+  <footer>© 2026 Agust Smari Bjarkarson</footer>
+</div>
+
+<script src="dark-mode.js"></script>
+<script src="navigation.js"></script>
+</body>
+</html>
