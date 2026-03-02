@@ -122,6 +122,7 @@
 </script>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
 </head>
 
 <body>
@@ -191,23 +192,34 @@
       </svg>
     </button>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
-      <nav style="margin-bottom: var(--spacing-lg);">
-        <a href="/swipe-me-to-the-moon.html" style="font-weight: 600;">← Back to Swipe Me to the Moon</a>
-      </nav>
-      <h1>The Awakening</h1>
-      <p class="subtitle">Track 1 from <strong>Swipe Me to the Moon (A Gay Musical)</strong></p>
-      <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
-      <div class="hero-cta" style="margin-top: var(--spacing-xl);">
-        <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" class="btn-primary" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
-        <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" class="btn-secondary" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
+        <header class="song-hero">
+      <div>
+        <nav style="margin-bottom: var(--spacing-lg);">
+          <a href="/swipe-me-to-the-moon.html" style="font-weight: 600;">← Back to Swipe Me to the Moon</a>
+        </nav>
+        <span class="song-kicker">Track 1 • Swipe Me to the Moon (A Gay Musical)</span>
+        <h1>The Awakening</h1>
+        <p class="song-sub">Track 1 from Swipe Me to the Moon (A Gay Musical)</p>
+        <div class="song-actions">
+          <a class="song-btn apple" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="song-btn spotify" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
+        </div>
       </div>
+      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+        <h2 id="song-snapshot-title">Song Snapshot</h2>
+        <div class="snapshot-grid">
+          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">July 18, 2025</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">2:42</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">Coming Out, Queer Joy, Self-Acceptance</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson (Agust Islandia)</span></div>
+        </div>
+      </aside>
     </header>
 
-    <main id="main-content">
-      <section>
-        <h2>Lyrics</h2>
-        <div class="lyrics">
+        <main id="main-content" class="song-layout">
+      <section class="panel" aria-labelledby="full-lyrics-title">
+        <h3 id="full-lyrics-title">Full Lyrics</h3>
+        <div class="lyric-lines">
           <p><em>Okay<br>So I've been thinking<br>Like really thinking<br>And I think I might be<br>No, I know I'm</em></p>
           <p><strong>Oh yeah, I'm gay<br>And I love it babe<br>Like a rainbow on a rocket ship<br>With glitter on my grave</strong></p>
           <p>I love boys in eyeliner<br>And boys in big ol' boots<br>I love soft ones, sweet ones<br>And mean ones in expensive suits</p>
@@ -219,47 +231,21 @@
         </div>
       </section>
 
-      <section>
-        <h2>About the Song</h2>
-        <p>
+      <aside class="panel" aria-labelledby="song-matters-title">
+        <h3 id="song-matters-title">Why This Song Matters</h3>
+                <p>
           <strong>"The Awakening"</strong> opens Swipe Me to the Moon with a burst of joyful self-discovery. The protagonist finally admits what he has always known: he is gay, and he loves it. The song moves from hesitant inner monologue to full-throated celebration, capturing the electric relief of coming out to oneself.
         </p>
         <p>
           The lyrics paint a vivid picture of queer joy — drag brunches, Berlin karaoke bars, crying at Pixar — before landing with a perfect comic twist: now that he knows who he is, he urgently needs a date. It sets up the entire musical's dating-app journey with humor and heart.
         </p>
-      </section>
-
-      <section>
-        <h2>Song Details</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Album:</strong> <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon (A Gay Musical)</a></li>
-          <li><strong>Track Number:</strong> 1 of 22</li>
-          <li><strong>Duration:</strong> 2:42</li>
-          <li><strong>Release Date:</strong> July 18, 2025</li>
-          <li><strong>Genre:</strong> Musical Theatre, LGBTQ+ Music</li>
-          <li><strong>Writer/Composer:</strong> Agust Smari Bjarkarson (Agust Islandia)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Themes</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Coming Out:</strong> The private moment of finally acknowledging one's sexuality out loud</li>
-          <li><strong>Queer Joy:</strong> Celebrating gay identity through drag, music, and unabashed pride</li>
-          <li><strong>Self-Acceptance:</strong> "It took me years to feel this free, to say it out loud and finally be me"</li>
-          <li><strong>Comic Relief:</strong> The humor of going from profound realization to immediately needing a date</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>More Songs from Swipe Me to the Moon</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/what-app-though.html">What App, Though?</a></strong> - Track 2: The overwhelming search for the right dating app</li>
-          <li><strong><a href="/could-this-be-it.html">Could This Be It?</a></strong> - Track 5: Daring to hope a match might be real</li>
-          <li><strong><a href="/i-am-in-love.html">I Am in Love!</a></strong> - Track 10: The triumphant declaration of finding true love</li>
-        </ul>
-        <p><a href="/swipe-me-to-the-moon.html">← View complete tracklist</a></p>
-      </section>
+        <h3 id="next-story-title">Next In Story</h3>
+        <nav class="next-list" aria-labelledby="next-story-title">
+          <a href="/what-app-though.html">What App, Though?</a>
+          <a href="/could-this-be-it.html">Could This Be It?</a>
+          <a href="/i-am-in-love.html">I Am in Love!</a>
+        </nav>
+      </aside>
     </main>
 
     <footer>

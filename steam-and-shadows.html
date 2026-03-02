@@ -130,6 +130,7 @@
 </script>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
 </head>
 
 <body>
@@ -198,25 +199,34 @@
       </svg>
     </button>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
-      <nav style="margin-bottom: var(--spacing-lg);">
-        <a href="/the-unseen-chorus.html" style="font-weight: 600;">← Back to The Unseen Chorus</a>
-      </nav>
-
-      <h1>Steam & Shadows</h1>
-      <p class="subtitle">Track 5 from <strong>The Unseen Chorus (A Gay Musical)</strong></p>
-      <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
-
-      <div class="hero-cta" style="margin-top: var(--spacing-xl);">
-        <a href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" class="btn-primary" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
-        <a href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" class="btn-secondary" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
+        <header class="song-hero">
+      <div>
+        <nav style="margin-bottom: var(--spacing-lg);">
+          <a href="/the-unseen-chorus.html" style="font-weight: 600;">← Back to The Unseen Chorus</a>
+        </nav>
+        <span class="song-kicker">Track 5 • The Unseen Chorus (A Gay Musical)</span>
+        <h1>Steam & Shadows</h1>
+        <p class="song-sub">Track 5 from The Unseen Chorus (A Gay Musical)</p>
+        <div class="song-actions">
+          <a class="song-btn apple" href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="song-btn spotify" href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer">Spotify</a>
+        </div>
       </div>
+      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+        <h2 id="song-snapshot-title">Song Snapshot</h2>
+        <div class="snapshot-grid">
+          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">October 6, 2025</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">4:19</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">Bathhouse Culture, Anonymity, Loss of Self</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson (Agust Islandia)</span></div>
+        </div>
+      </aside>
     </header>
 
-    <main id="main-content">
-      <section>
-        <h2>Lyrics</h2>
-        <div class="lyrics">
+        <main id="main-content" class="song-layout">
+      <section class="panel" aria-labelledby="full-lyrics-title">
+        <h3 id="full-lyrics-title">Full Lyrics</h3>
+        <div class="lyric-lines">
           <p>
             Steam rises off the tiles<br>
             Shadows stretch across the wall<br>
@@ -264,9 +274,9 @@
         </div>
       </section>
 
-      <section>
-        <h2>About the Song</h2>
-        <p>
+      <aside class="panel" aria-labelledby="song-matters-title">
+        <h3 id="song-matters-title">Why This Song Matters</h3>
+                <p>
           <strong>"Steam & Shadows"</strong> takes the protagonist from digital infidelity to physical
           encounters in a gay bathhouse or steam room. The song is visceral and explicit, capturing the
           atmosphere of anonymous sexual encounters in spaces specifically designed for them.
@@ -276,44 +286,13 @@
           loss of self. "I tell myself it's just a place to breathe / But my body knows better" shows
           the protagonist's self-deception giving way to physical compulsion.
         </p>
-        <p>
-          The refrain "Already gone" signals a point of no return—the protagonist has crossed from
-          emotional betrayal to physical action, losing himself in the anonymity that bathhouses provide.
-        </p>
-      </section>
-
-      <section>
-        <h2>Song Details</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Album:</strong> <a href="/the-unseen-chorus.html">The Unseen Chorus (A Gay Musical)</a></li>
-          <li><strong>Track Number:</strong> 5 of 27</li>
-          <li><strong>Duration:</strong> 4:19</li>
-          <li><strong>Release Date:</strong> October 6, 2025</li>
-          <li><strong>Genre:</strong> Musical Theatre, LGBTQ+ Music</li>
-          <li><strong>Writer/Composer:</strong> Agust Smari Bjarkarson (Agust Islandia)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Themes</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Bathhouse Culture:</strong> Gay saunas and steam rooms as sexual spaces</li>
-          <li><strong>Anonymity:</strong> "Mouths I don't see / Neither of us cared for names"</li>
-          <li><strong>Loss of Self:</strong> "Already gone" - surrendering to compulsion</li>
-          <li><strong>Physical Escalation:</strong> From phone to physical encounters</li>
-          <li><strong>Self-Deception:</strong> "Just a place to breathe / But my body knows better"</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>More Songs from The Unseen Chorus</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/the-ramble.html">The Ramble</a></strong> - Track 6: Public cruising in Central Park</li>
-          <li><strong><a href="/dark-room-desire.html">Dark Room Desire</a></strong> - Track 8: Further descent into anonymous encounters</li>
-          <li><strong><a href="/rock-bottom.html">Rock Bottom</a></strong> - Track 18: The lowest point of addiction</li>
-        </ul>
-        <p><a href="/the-unseen-chorus.html">← View complete tracklist</a></p>
-      </section>
+        <h3 id="next-story-title">Next In Story</h3>
+        <nav class="next-list" aria-labelledby="next-story-title">
+          <a href="/the-ramble.html">The Ramble</a>
+          <a href="/dark-room-desire.html">Dark Room Desire</a>
+          <a href="/rock-bottom.html">Rock Bottom</a>
+        </nav>
+      </aside>
     </main>
 
     <footer>

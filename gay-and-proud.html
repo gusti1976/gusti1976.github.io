@@ -128,6 +128,7 @@
 </script>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
 </head>
 <body>
 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -182,31 +183,34 @@
     </svg>
   </button>
 
-  <header>
-    <h1>Gay and Proud</h1>
-    <p class="subtitle">A bilingual LGBTQ+ pride anthem by Agust Islandia celebrating visibility, solidarity, and unapologetic queer joy.</p>
-  </header>
-
-  <main id="main-content">
-    <section class="grid-2">
-      <article class="card">
-        <img class="hero-media album-cover-full" src="agust_islandia.jpg" alt="Gay and Proud single artwork" loading="lazy">
-        <p><strong>Artist:</strong> Agust Islandia<br><strong>Release Date:</strong> September 11, 2025<br><strong>Format:</strong> Bilingual Single</p>
-
-        <h2>Story Arc</h2>
-        <p><strong>Gay and Proud</strong> is written as a public declaration song: it moves from silence to collective voice. The opening lines center visibility and refusal of shame, framing queer identity as lived truth rather than negotiation.</p>
-        <p>Its middle sections expand from individual confidence to community unity, using chant-like hooks designed for Pride events, live crowds, and social video sharing. The repeated slogan language makes the song both personal testimony and movement anthem.</p>
-        <p>The bilingual framing and direct lyrical messaging position the track as a contemporary queer pride document focused on liberation, dignity, and solidarity across borders.</p>
-
-        <div class="btn-row">
-          <a class="btn primary" href="https://music.apple.com/us/song/gay-and-proud/1836369954" target="_blank" rel="noopener noreferrer">Apple Music</a>
-          <a class="btn secondary" href="https://open.spotify.com/track/7iZPhOQWME9W36NNLyQJrr" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <header class="song-hero">
+      <div>
+        <nav style="margin-bottom: var(--spacing-lg);">
+          <a href="/lyrics.html" style="font-weight: 600;">← Back to Lyrics</a>
+        </nav>
+        <span class="song-kicker">A bilingual LGBTQ+ pride anthem by Agust Islandia celebrating visibility, solidarity, and unapologetic queer joy.</span>
+        <h1>Gay and Proud</h1>
+        <p class="song-sub">A bilingual LGBTQ+ pride anthem by Agust Islandia celebrating visibility, solidarity, and unapologetic queer joy.</p>
+        <div class="song-actions">
+          <a class="song-btn apple" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="song-btn spotify" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
         </div>
-      </article>
+      </div>
+      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+        <h2 id="song-snapshot-title">Song Snapshot</h2>
+        <div class="snapshot-grid">
+          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">September 11, 2025</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">7:40</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">LGBTQ+ storytelling</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson</span></div>
+        </div>
+      </aside>
+    </header>
 
-      <article class="card">
-        <h2>Lyrics (English)</h2>
-        <div class="lyrics">
+    <main id="main-content" class="song-layout">
+      <section class="panel" aria-labelledby="full-lyrics-title">
+        <h3 id="full-lyrics-title">Full Lyrics</h3>
+        <div class="lyric-lines">
           <p>I'm gay proud and out loud<br>No more whispers I stand in the crowd<br>Raise my colors break every chain<br>Love is love and it won't be tamed<br>I'm gay proud and out loud<br>Hear my heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud</p>
           <p>Oh oh oh out and free<br>Ah ah ah sing with me<br>La la la proud and true<br>This is love breaking through</p>
           <p>We are one the world's out loud<br>Side by side we own this town<br>Hand in hand our voices rise<br>Stronger together no disguise</p>
@@ -217,16 +221,17 @@
           <p>No regrets we're here to stay<br>Louder still the future's ours<br>Shining bright a million stars</p>
           <p>We're gay proud and out loud<br>No more whispers we stand in the crowd<br>Raise our colors break every chain<br>Love is love and it won't be tamed<br>We're gay proud and out loud<br>Hear our heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud<br>Gay proud and out loud<br>Gay proud and out loud</p>
         </div>
+      </section>
 
-        <h2>Letra (Espanol)</h2>
-        <div class="lyrics">
-          <p>Soy gay con orgullo y en voz<br>Ya sin susurros me alzo de pie<br>Alzo mis colores rompo el candado<br>El amor es amor nunca sera domado<br>Soy gay con orgullo y en voz<br>Late mi corazon con trueno y son<br>Cada voz se une sin ser callado<br>Gay y orgulloso declarado</p>
-          <p>Oh oh oh libertad<br>Ah ah ah ven y cantar<br>La la la con verdad<br>Este amor va a brillar</p>
-          <p>Somos uno el mundo alzar<br>Lado a lado juntos sin parar<br>Mano a mano la voz se alza<br>Mas fuertes juntos sin amenaza</p>
-        </div>
-      </article>
-    </section>
-  </main>
+      <aside class="panel" aria-labelledby="song-matters-title">
+        <h3 id="song-matters-title">Why This Song Matters</h3>
+                <p>This song is part of Agust Islandia's lyric archive and narrative catalog.</p>
+        <h3 id="next-story-title">Next In Story</h3>
+        <nav class="next-list" aria-labelledby="next-story-title">
+          <a href="/lyrics.html">Browse all lyrics</a>
+        </nav>
+      </aside>
+    </main>
 
   <footer>© 2026 Agust Smari Bjarkarson</footer>
 </div>

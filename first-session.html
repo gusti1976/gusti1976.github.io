@@ -135,6 +135,7 @@
 </script>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
 </head>
 
 <body>
@@ -204,23 +205,34 @@
       </svg>
     </button>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
-      <nav style="margin-bottom: var(--spacing-lg);">
-        <a href="/the-unseen-chorus.html" style="font-weight: 600;">← Back to The Unseen Chorus</a>
-      </nav>
-      <h1>First Session</h1>
-      <p class="subtitle">Track 19 from <strong>The Unseen Chorus (A Gay Musical)</strong></p>
-      <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
-      <div class="hero-cta" style="margin-top: var(--spacing-xl);">
-        <a href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" class="btn-primary" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
-        <a href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" class="btn-secondary" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
+        <header class="song-hero">
+      <div>
+        <nav style="margin-bottom: var(--spacing-lg);">
+          <a href="/the-unseen-chorus.html" style="font-weight: 600;">← Back to The Unseen Chorus</a>
+        </nav>
+        <span class="song-kicker">Track 19 • The Unseen Chorus (A Gay Musical)</span>
+        <h1>First Session</h1>
+        <p class="song-sub">Track 19 from The Unseen Chorus (A Gay Musical)</p>
+        <div class="song-actions">
+          <a class="song-btn apple" href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="song-btn spotify" href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer">Spotify</a>
+        </div>
       </div>
+      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+        <h2 id="song-snapshot-title">Song Snapshot</h2>
+        <div class="snapshot-grid">
+          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">October 6, 2025</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">3:59</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">Seeking Help, Shame and the Mask, The Power of Words</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson (Agust Islandia)</span></div>
+        </div>
+      </aside>
     </header>
 
-    <main id="main-content">
-      <section>
-        <h2>Lyrics</h2>
-        <div class="lyrics">
+        <main id="main-content" class="song-layout">
+      <section class="panel" aria-labelledby="full-lyrics-title">
+        <h3 id="full-lyrics-title">Full Lyrics</h3>
+        <div class="lyric-lines">
           <p>
             I know this is the next step for me<br>
             But do I really need therapy
@@ -265,48 +277,21 @@
         </div>
       </section>
 
-      <section>
-        <h2>About the Song</h2>
-        <p>
+      <aside class="panel" aria-labelledby="song-matters-title">
+        <h3 id="song-matters-title">Why This Song Matters</h3>
+                <p>
           <strong>"First Session"</strong> captures the terrifying yet necessary moment of walking into therapy for the first time. The protagonist wrestles with doubt — "do I really need therapy?" — while the physical details of an oversized chair and too-wide room convey vulnerability and smallness in the face of healing.
         </p>
         <p>
           The song's repeated question, <em>"If I speak aloud will I breathe again?"</em>, drives home the musical's core belief: that breaking silence is the first act of survival. By the final lines, doubt gives way to the fragile, hopeful possibility of belonging.
         </p>
-      </section>
-
-      <section>
-        <h2>Song Details</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Album:</strong> <a href="/the-unseen-chorus.html">The Unseen Chorus (A Gay Musical)</a></li>
-          <li><strong>Track Number:</strong> 19 of 27</li>
-          <li><strong>Duration:</strong> 3:59</li>
-          <li><strong>Release Date:</strong> October 6, 2025</li>
-          <li><strong>Genre:</strong> Musical Theatre, LGBTQ+ Music</li>
-          <li><strong>Writer/Composer:</strong> Agust Smari Bjarkarson (Agust Islandia)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Themes</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Seeking Help:</strong> The courage it takes to enter therapy for the first time</li>
-          <li><strong>Shame and the Mask:</strong> "I say I'm fine but the mask feels thin" — the cost of hiding pain</li>
-          <li><strong>The Power of Words:</strong> Speaking aloud as the first act of healing</li>
-          <li><strong>Vulnerability:</strong> Sitting with discomfort rather than running from it</li>
-          <li><strong>Hope:</strong> "Maybe I belong here / Maybe I can start" — tentative but real</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>More Songs from The Unseen Chorus</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/rock-bottom.html">Rock Bottom</a></strong> - Track 18: The moment of hitting the lowest point before seeking help</li>
-          <li><strong><a href="/circle-of-chairs.html">Circle of Chairs</a></strong> - Track 20: Finding community in a 12-step meeting</li>
-          <li><strong><a href="/mirrors-in-the-mind.html">Mirrors in the Mind</a></strong> - Track 21: Walking the road of recovery one step at a time</li>
-        </ul>
-        <p><a href="/the-unseen-chorus.html">← View complete tracklist</a></p>
-      </section>
+        <h3 id="next-story-title">Next In Story</h3>
+        <nav class="next-list" aria-labelledby="next-story-title">
+          <a href="/rock-bottom.html">Rock Bottom</a>
+          <a href="/circle-of-chairs.html">Circle of Chairs</a>
+          <a href="/mirrors-in-the-mind.html">Mirrors in the Mind</a>
+        </nav>
+      </aside>
     </main>
 
     <footer>

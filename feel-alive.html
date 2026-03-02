@@ -128,6 +128,7 @@
 </script>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
 </head>
 <body>
 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -182,31 +183,34 @@
     </svg>
   </button>
 
-  <header>
-    <h1>Feel Alive</h1>
-    <p class="subtitle">A high-energy dance single by Agust Islandia focused on joy, movement, connection, and euphoric release.</p>
-  </header>
-
-  <main id="main-content">
-    <section class="grid-2">
-      <article class="card">
-        <img class="hero-media album-cover-full" src="agust_islandia.jpg" alt="Feel Alive single artwork" loading="lazy">
-        <p><strong>Artist:</strong> Agust Islandia<br><strong>Release Year:</strong> 2025<br><strong>Genre:</strong> EDM / Dance Pop</p>
-
-        <h2>Story Arc</h2>
-        <p><strong>Feel Alive</strong> is written as a kinetic uplift track built around repetition, momentum, and communal chorus lines. Its structure favors emotional acceleration over narrative complexity, mirroring dancefloor escalation.</p>
-        <p>The verses move from individual sensation toward shared celebration, with recurring phrases designed for crowd participation and playlist retention. The language remains intentionally direct to keep focus on embodied energy and optimism.</p>
-        <p>Within the broader discography, the song functions as a release valve: joy-forward queer-pop framing that balances heavier theatrical material with immediacy and movement.</p>
-
-        <div class="btn-row">
-          <a class="btn primary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-          <a class="btn secondary" href="https://open.spotify.com/track/0123456789abcdefghij" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <header class="song-hero">
+      <div>
+        <nav style="margin-bottom: var(--spacing-lg);">
+          <a href="/lyrics.html" style="font-weight: 600;">← Back to Lyrics</a>
+        </nav>
+        <span class="song-kicker">Single • Lyrics</span>
+        <h1>Feel Alive</h1>
+        <p class="song-sub">A high-energy dance single by Agust Islandia focused on joy, movement, connection, and euphoric release.</p>
+        <div class="song-actions">
+          <a class="song-btn apple" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="song-btn spotify" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
         </div>
-      </article>
+      </div>
+      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+        <h2 id="song-snapshot-title">Song Snapshot</h2>
+        <div class="snapshot-grid">
+          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">2025</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">2:55</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">LGBTQ+ storytelling</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson</span></div>
+        </div>
+      </aside>
+    </header>
 
-      <article class="card">
-        <h2>Lyrics</h2>
-        <div class="lyrics">
+    <main id="main-content" class="song-layout">
+      <section class="panel" aria-labelledby="full-lyrics-title">
+        <h3 id="full-lyrics-title">Full Lyrics</h3>
+        <div class="lyric-lines">
           <p>Hands up high, we touch the sky<br>Na-na-na, I feel alive<br>Na-na-na, love in my life<br>Good vibes only all the time</p>
           <p>Love is shining, yours and mine<br>Na-na-na, I feel alive<br>Love is shining in my life<br>Dancing free, just you and me</p>
           <p>Every step, pure energy<br>Smiles all around, the world's in tune<br>Every day feels like June<br>Good vibes only all the time</p>
@@ -214,9 +218,17 @@
           <p>Na-na-na, I feel alive<br>Na-na-na, I feel alive<br>Na-na-na, I feel alive<br>Na-na-na, I feel alive</p>
           <p>Na-na-na, I feel alive<br>Na-na-na, I feel alive<br>Na-na-na, I feel alive</p>
         </div>
-      </article>
-    </section>
-  </main>
+      </section>
+
+      <aside class="panel" aria-labelledby="song-matters-title">
+        <h3 id="song-matters-title">Why This Song Matters</h3>
+                <p>This song is part of Agust Islandia's lyric archive and narrative catalog.</p>
+        <h3 id="next-story-title">Next In Story</h3>
+        <nav class="next-list" aria-labelledby="next-story-title">
+          <a href="/lyrics.html">Browse all lyrics</a>
+        </nav>
+      </aside>
+    </main>
 
   <footer>© 2026 Agust Smari Bjarkarson</footer>
 </div>

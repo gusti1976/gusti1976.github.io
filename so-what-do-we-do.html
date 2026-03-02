@@ -121,6 +121,7 @@
 </script>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
 </head>
 
 <body>
@@ -190,23 +191,34 @@
       </svg>
     </button>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
-      <nav style="margin-bottom: var(--spacing-lg);">
-        <a href="/swipe-me-to-the-moon.html" style="font-weight: 600;">← Back to Swipe Me to the Moon</a>
-      </nav>
-      <h1>So, What Do We Do?</h1>
-      <p class="subtitle">Track 12 from <strong>Swipe Me to the Moon (A Gay Musical)</strong></p>
-      <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
-      <div class="hero-cta" style="margin-top: var(--spacing-xl);">
-        <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" class="btn-primary" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
-        <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" class="btn-secondary" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
+        <header class="song-hero">
+      <div>
+        <nav style="margin-bottom: var(--spacing-lg);">
+          <a href="/swipe-me-to-the-moon.html" style="font-weight: 600;">← Back to Swipe Me to the Moon</a>
+        </nav>
+        <span class="song-kicker">Track 12 • Swipe Me to the Moon (A Gay Musical)</span>
+        <h1>So, What Do We Do?</h1>
+        <p class="song-sub">Track 12 from Swipe Me to the Moon (A Gay Musical)</p>
+        <div class="song-actions">
+          <a class="song-btn apple" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="song-btn spotify" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
+        </div>
       </div>
+      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+        <h2 id="song-snapshot-title">Song Snapshot</h2>
+        <div class="snapshot-grid">
+          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">July 18, 2025</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">3:25</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">First Time Intimacy, Vulnerability, Consent & Care</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson (Agust Islandia)</span></div>
+        </div>
+      </aside>
     </header>
 
-    <main id="main-content">
-      <section>
-        <h2>Lyrics</h2>
-        <div class="lyrics">
+        <main id="main-content" class="song-layout">
+      <section class="panel" aria-labelledby="full-lyrics-title">
+        <h3 id="full-lyrics-title">Full Lyrics</h3>
+        <div class="lyric-lines">
           <p>
             Okay so uh do you want to go to my place or<br>
             Yes I mean yes definitely yes<br>
@@ -258,48 +270,21 @@
         </div>
       </section>
 
-      <section>
-        <h2>About the Song</h2>
-        <p>
+      <aside class="panel" aria-labelledby="song-matters-title">
+        <h3 id="song-matters-title">Why This Song Matters</h3>
+                <p>
           <strong>"So, What Do We Do?"</strong> is Track 12 of Swipe Me to the Moon, capturing the tender, comedic awkwardness of a first sexual encounter between two gay men who have never done this before. The song is full of vulnerability, laughter, and genuine connection.
         </p>
         <p>
           What makes the song so powerful is its honesty — neither character knows the "rules," and in that uncertainty they discover something more valuable: someone who sees them completely and still wants more. The closing lines are among the most celebrated in the musical.
         </p>
-      </section>
-
-      <section>
-        <h2>Song Details</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Album:</strong> <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon (A Gay Musical)</a></li>
-          <li><strong>Track Number:</strong> 12 of 22</li>
-          <li><strong>Duration:</strong> 3:25</li>
-          <li><strong>Release Date:</strong> July 18, 2025</li>
-          <li><strong>Genre:</strong> Musical Theatre, LGBTQ+ Music</li>
-          <li><strong>Writer/Composer:</strong> Agust Smari Bjarkarson (Agust Islandia)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Themes</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>First Time Intimacy:</strong> The nervousness and comedy of navigating sex for the first time</li>
-          <li><strong>Vulnerability:</strong> "I've never actually done this before / Wait same you too"</li>
-          <li><strong>Consent & Care:</strong> "He asked if I was okay like twice" — genuine mutual care</li>
-          <li><strong>Authenticity:</strong> Rejecting the movie-perfect version of intimacy for something real and messy</li>
-          <li><strong>Joy:</strong> "It was weird and warm and totally right"</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>More Songs from Swipe Me to the Moon</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/every-day-is-a-wonder.html">Every Day Is a Wonder</a></strong> - Track 13: The joy and heat of a relationship in full bloom</li>
-          <li><strong><a href="/the-first-argument.html">The First Argument</a></strong> - Track 14: Trust, jealousy, and a dating app left on the phone</li>
-          <li><strong><a href="/our-place-finally.html">Our Place, Finally!</a></strong> - Track 15: Moving in together and building a home</li>
-        </ul>
-        <p><a href="/swipe-me-to-the-moon.html">← View complete tracklist</a></p>
-      </section>
+        <h3 id="next-story-title">Next In Story</h3>
+        <nav class="next-list" aria-labelledby="next-story-title">
+          <a href="/every-day-is-a-wonder.html">Every Day Is a Wonder</a>
+          <a href="/the-first-argument.html">The First Argument</a>
+          <a href="/our-place-finally.html">Our Place, Finally!</a>
+        </nav>
+      </aside>
     </main>
 
     <footer>

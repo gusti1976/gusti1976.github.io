@@ -131,6 +131,7 @@
 </script>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
 </head>
 <body>
 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -185,31 +186,34 @@
     </svg>
   </button>
 
-  <header>
-    <h1>My Fire (Mi Fuego)</h1>
-    <p class="subtitle">A bilingual queer love anthem by Agust Islandia about devotion, intimacy, and the promise of never facing life alone.</p>
-  </header>
-
-  <main id="main-content">
-    <section class="grid-2">
-      <article class="card">
-        <img class="hero-media album-cover-full" src="agust_islandia.jpg" alt="My Fire (Mi Fuego) single artwork" loading="lazy">
-        <p><strong>Artist:</strong> Agust Islandia<br><strong>Release Year:</strong> 2025<br><strong>Format:</strong> Bilingual Single</p>
-
-        <h2>Story Arc</h2>
-        <p><strong>My Fire (Mi Fuego)</strong> is built around a shared-language love vow: two voices, two linguistic registers, one emotional commitment. The track uses English-Spanish code-switching to stage intimacy in real time.</p>
-        <p>Its core line, <em>Nunca solos / Never alone</em>, frames the relationship as mutual shelter through uncertainty, distance, and conflict. Repetition functions as emotional architecture, turning the chorus into a promise rather than only a hook.</p>
-        <p>As part of the broader catalog, the song expands queer storytelling beyond struggle narratives and centers sustained tenderness, partnership, and chosen permanence.</p>
-
-        <div class="btn-row">
-          <a class="btn primary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-          <a class="btn secondary" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <header class="song-hero">
+      <div>
+        <nav style="margin-bottom: var(--spacing-lg);">
+          <a href="/lyrics.html" style="font-weight: 600;">← Back to Lyrics</a>
+        </nav>
+        <span class="song-kicker">A bilingual queer love anthem by Agust Islandia about devotion, intimacy, and the promise of never facing life alone.</span>
+        <h1>My Fire (Mi Fuego)</h1>
+        <p class="song-sub">A bilingual queer love anthem by Agust Islandia about devotion, intimacy, and the promise of never facing life alone.</p>
+        <div class="song-actions">
+          <a class="song-btn apple" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="song-btn spotify" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
         </div>
-      </article>
+      </div>
+      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+        <h2 id="song-snapshot-title">Song Snapshot</h2>
+        <div class="snapshot-grid">
+          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">2025</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">4:40</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">LGBTQ+ storytelling</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson</span></div>
+        </div>
+      </aside>
+    </header>
 
-      <article class="card">
-        <h2>Lyrics</h2>
-        <div class="lyrics">
+    <main id="main-content" class="song-layout">
+      <section class="panel" aria-labelledby="full-lyrics-title">
+        <h3 id="full-lyrics-title">Full Lyrics</h3>
+        <div class="lyric-lines">
           <p>Esto es para los amantes, para los suenos<br>Para el fuego que cargamos juntos<br>Y para todos los que avanzan sin miedo<br>Le doy mi fuego a ti, mi corazon, mi fuego</p>
           <p>Mi fuego, mi amor<br>Con cada respiro que toco, le digo tu nombre<br>Tu nombre, mi amor<br>A traves de cada lucha, a traves del espacio desconocido</p>
           <p>Nunca solos. Nunca solos<br>Te asegurare que nunca te alegraras<br>Nunca solos. Nunca solos<br>Dia y noche, la noche y el dia</p>
@@ -229,9 +233,17 @@
           <p>Now we're standing stronger than we've ever been<br>Every battle fought, every place we've been<br>Donde sea<br>Contigo</p>
           <p>Nunca solos. Never alone</p>
         </div>
-      </article>
-    </section>
-  </main>
+      </section>
+
+      <aside class="panel" aria-labelledby="song-matters-title">
+        <h3 id="song-matters-title">Why This Song Matters</h3>
+                <p>This song is part of Agust Islandia's lyric archive and narrative catalog.</p>
+        <h3 id="next-story-title">Next In Story</h3>
+        <nav class="next-list" aria-labelledby="next-story-title">
+          <a href="/lyrics.html">Browse all lyrics</a>
+        </nav>
+      </aside>
+    </main>
 
   <footer>© 2026 Agust Smari Bjarkarson</footer>
 </div>

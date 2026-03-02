@@ -131,6 +131,7 @@
 </script>
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <link rel="stylesheet" href="glass-lyrics-template.css">
 </head>
 
 <body>
@@ -199,25 +200,34 @@
       </svg>
     </button>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
-      <nav style="margin-bottom: var(--spacing-lg);">
-        <a href="/the-unseen-chorus.html" style="font-weight: 600;">← Back to The Unseen Chorus</a>
-      </nav>
-
-      <h1>Phone Glow</h1>
-      <p class="subtitle">Track 3 from <strong>The Unseen Chorus (A Gay Musical)</strong></p>
-      <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
-
-      <div class="hero-cta" style="margin-top: var(--spacing-xl);">
-        <a href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" class="btn-primary" target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
-        <a href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" class="btn-secondary" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
+        <header class="song-hero">
+      <div>
+        <nav style="margin-bottom: var(--spacing-lg);">
+          <a href="/the-unseen-chorus.html" style="font-weight: 600;">← Back to The Unseen Chorus</a>
+        </nav>
+        <span class="song-kicker">Track 3 • The Unseen Chorus (A Gay Musical)</span>
+        <h1>Phone Glow</h1>
+        <p class="song-sub">Track 3 from The Unseen Chorus (A Gay Musical)</p>
+        <div class="song-actions">
+          <a class="song-btn apple" href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="song-btn spotify" href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer">Spotify</a>
+        </div>
       </div>
+      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
+        <h2 id="song-snapshot-title">Song Snapshot</h2>
+        <div class="snapshot-grid">
+          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">October 6, 2025</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">3:25</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">App Addiction, Deception, Dual Reality</span></div>
+          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson (Agust Islandia)</span></div>
+        </div>
+      </aside>
     </header>
 
-    <main id="main-content">
-      <section>
-        <h2>Lyrics</h2>
-        <div class="lyrics">
+        <main id="main-content" class="song-layout">
+      <section class="panel" aria-labelledby="full-lyrics-title">
+        <h3 id="full-lyrics-title">Full Lyrics</h3>
+        <div class="lyric-lines">
           <p>
             The room is dark<br>
             His breath beside me<br>
@@ -272,9 +282,9 @@
         </div>
       </section>
 
-      <section>
-        <h2>About the Song</h2>
-        <p>
+      <aside class="panel" aria-labelledby="song-matters-title">
+        <h3 id="song-matters-title">Why This Song Matters</h3>
+                <p>
           <strong>"Phone Glow"</strong> deepens the betrayal introduced in "Two of Us." The protagonist
           is now fully immersed in late-night app scrolling, lying awake next to his sleeping partner,
           consumed by an endless stream of profiles and messages.
@@ -285,40 +295,13 @@
           the addictive, compulsive nature of hookup apps and the self-deception that enables betrayal:
           "Tomorrow I'll be good today."
         </p>
-      </section>
-
-      <section>
-        <h2>Song Details</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Album:</strong> <a href="/the-unseen-chorus.html">The Unseen Chorus (A Gay Musical)</a></li>
-          <li><strong>Track Number:</strong> 3 of 27</li>
-          <li><strong>Duration:</strong> 3:25</li>
-          <li><strong>Release Date:</strong> October 6, 2025</li>
-          <li><strong>Genre:</strong> Musical Theatre, LGBTQ+ Music</li>
-          <li><strong>Writer/Composer:</strong> Agust Smari Bjarkarson (Agust Islandia)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Themes</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>App Addiction:</strong> Endless scrolling, compulsive swiping</li>
-          <li><strong>Deception:</strong> "Phone glow hides the first big lie"</li>
-          <li><strong>Dual Reality:</strong> Love sleeping beside, betrayal in hand</li>
-          <li><strong>Self-Delusion:</strong> "Tomorrow I'll be good today"</li>
-          <li><strong>Physical Symptoms:</strong> "Thumb keeps scrolling eyes run dry"</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>More Songs from The Unseen Chorus</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/two-of-us.html">Two of Us</a></strong> - Track 2: Where the betrayal begins</li>
-          <li><strong><a href="/a-bar-in-my-pocket.html">A Bar in My Pocket</a></strong> - Track 10: The app addiction escalates</li>
-          <li><strong><a href="/endless-tabs.html">Endless Tabs</a></strong> - Track 14: When apps lead to porn addiction</li>
-        </ul>
-        <p><a href="/the-unseen-chorus.html">← View complete tracklist</a></p>
-      </section>
+        <h3 id="next-story-title">Next In Story</h3>
+        <nav class="next-list" aria-labelledby="next-story-title">
+          <a href="/two-of-us.html">Two of Us</a>
+          <a href="/a-bar-in-my-pocket.html">A Bar in My Pocket</a>
+          <a href="/endless-tabs.html">Endless Tabs</a>
+        </nav>
+      </aside>
     </main>
 
     <footer>
