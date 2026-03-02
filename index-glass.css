@@ -263,11 +263,18 @@ body::after {
 }
 
 .stream-btn.apple {
-  color: #0f172a;
+  background: #fc3c44;
+  border-color: #fc3c44;
+  color: #ffffff;
 }
 
 .stream-btn.spotify {
   color: #1db954;
+}
+
+.stream-btn.apple:hover {
+  background: #ff4757;
+  border-color: #ff4757;
 }
 
 .stream-icon {
@@ -325,10 +332,13 @@ body::after {
   background: rgba(255, 255, 255, 0.55);
 }
 
-/* Disable inherited gradient hover underline from style-optimized.css */
-.page a:hover::after {
+/* Disable inherited legacy hover underline from style-optimized.css */
+.page a:hover::after,
+.page a:not(.btn-icon):hover::after,
+.discography-section a:hover::after {
   content: none !important;
   display: none !important;
+  background: none !important;
 }
 
 footer {
@@ -438,5 +448,7 @@ html[data-theme="dark"] .stream-btn {
 }
 
 html[data-theme="dark"] .stream-btn.apple {
-  color: #eff6ff;
+  background: #fc3c44;
+  border-color: #fc3c44;
+  color: #ffffff;
 }
