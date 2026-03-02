@@ -4,8 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="max-image-preview:large">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
   <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        var isDark = false;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+          isDark = (t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+          isDark = true;
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+        h.style.colorScheme = isDark ? "dark" : "light";
+      } catch (e) {}
+    })();
+  </script>
 
   <title>The Unseen Chorus - A Gay Musical | Agust Islandia | Full Album & Tracklist</title>
   <link rel="canonical" href="https://www.gusti.com/the-unseen-chorus.html">
@@ -38,63 +62,52 @@
   <!-- Schema.org Structured Data for Album -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "MusicAlbum",
-    "name": "The Unseen Chorus, A Gay Musical",
-    "image": "https://www.gusti.com/the-unseen-chorus-cover.webp",
-    "albumProductionType": "http://schema.org/StudioAlbum",
-    "albumReleaseType": "http://schema.org/AlbumRelease",
-    "byArtist": {
-      "@type": "MusicGroup",
-      "name": "Agust Islandia",
-      "alternateName": "Agust Smari Bjarkarson",
-      "url": "https://www.gusti.com/",
-      "sameAs": [
-        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
-        "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
-        "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
-      ]
-    },
-    "datePublished": "2025-10-06",
-    "numTracks": 27,
-    "duration": "PT80M",
-    "inLanguage": "en",
-    "genre": ["Musical Theatre", "Pop", "LGBTQ+ Music", "Gay Musical"],
-    "keywords": "gay musical, LGBTQ+ theatre, musical theatre, queer musical, coming out musical, addiction recovery, mental health, gay community, hookup culture, infidelity, Stonewall",
-    "description": "The Unseen Chorus – A Gay Musical is an unflinching theatrical work that confronts how the gay community has drifted in the age of apps and online porn, where infidelity has become widespread, promiscuity is often celebrated, and desire is fueled by the constant pursuit of the next, seemingly better partner.",
-    "url": "https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786",
+  "@context": "https://schema.org",
+  "@type": "MusicAlbum",
+  "name": "The Unseen Chorus (A Gay Musical)",
+  "image": "https://www.gusti.com/the-unseen-chorus-cover.webp",
+  "albumProductionType": "http://schema.org/StudioAlbum",
+  "albumReleaseType": "http://schema.org/AlbumRelease",
+  "byArtist": {
+    "@type": "MusicGroup",
+    "name": "Agust Islandia",
+    "alternateName": "Agust Smari Bjarkarson",
+    "url": "https://www.gusti.com/",
     "sameAs": [
-      "https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p",
-      "https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786",
-      "https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c"
+      "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+      "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+      "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
     ]
-  }
+  },
+  "datePublished": "2025-10-06",
+  "numTracks": 27,
+  "duration": "PT1H23M19S",
+  "inLanguage": "en",
+  "genre": [
+    "Musical Theatre",
+    "Pop",
+    "LGBTQ+ Music",
+    "Gay Musical"
+  ],
+  "keywords": "gay musical, LGBTQ+ theatre, musical theatre, queer musical, coming out musical, addiction recovery, mental health, gay community, hookup culture, infidelity, Stonewall",
+  "description": "The Unseen Chorus – A Gay Musical is an unflinching theatrical work that confronts how the gay community has drifted in the age of apps and online porn, where infidelity has become widespread, promiscuity is often celebrated, and desire is fueled by the constant pursuit of the next, seemingly better partner.",
+  "url": "https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786",
+  "sameAs": [
+    "https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p",
+    "https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786",
+    "https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c"
+  ]
+}
   </script>
   <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="glass-site.css">
 </head>
 
 <body>
-  <!-- SVG Icon Definitions - Simple Icons (Official Brand Logos) -->
-  <svg style="display: none;" aria-hidden="true">
-    <defs>
-      <symbol id="spotify-icon" viewBox="0 0 24 24">
-        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-      </symbol>
-      <symbol id="apple-icon" viewBox="0 0 24 24">
-        <path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536a1.88 1.88 0 011.038-2.022c.323-.16.67-.25 1.018-.324.378-.082.758-.153 1.134-.24.274-.063.457-.23.51-.516a.904.904 0 00.02-.193c0-1.815 0-3.63-.002-5.443a.725.725 0 00-.026-.185c-.04-.15-.15-.243-.304-.234-.16.01-.318.035-.475.066-.76.15-1.52.303-2.28.456l-2.325.47-1.374.278c-.016.003-.032.01-.048.013-.277.077-.377.203-.39.49-.002.042 0 .086 0 .13-.002 2.602 0 5.204-.003 7.805 0 .42-.047.836-.215 1.227-.278.64-.77 1.04-1.434 1.233-.35.1-.71.16-1.075.172-.96.036-1.755-.6-1.92-1.544-.14-.812.23-1.685 1.154-2.075.357-.15.73-.232 1.108-.31.287-.06.575-.116.86-.177.383-.083.583-.323.6-.714v-.15c0-2.96 0-5.922.002-8.882 0-.123.013-.25.042-.37.07-.285.273-.448.546-.518.255-.066.515-.112.774-.165.733-.15 1.466-.296 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.403.22-.043.442-.088.663-.106.31-.025.523.17.554.482.008.073.012.148.012.223.002 1.91.002 3.822 0 5.732z"/>
-      </symbol>
-    </defs>
-  </svg>
-
-
-<!-- Hamburger Toggle Button -->
 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
+  <span></span><span></span><span></span>
 </button>
 
-<!-- Navigation Drawer -->
 <nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
   <a href="/" class="nav-link">Home</a>
 
@@ -130,275 +143,78 @@
   </div>
 </nav>
 
-<!-- Overlay (closes menu when clicked) -->
 <div class="nav-overlay" id="nav-overlay"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="page">
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+  <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+    <path id="sun-rays" d="M12 1v2m0 18v2M1 12h2m18 0h2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+    <path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"/>
+  </svg>
+</button>
+  <header>
+    <h1>The Unseen Chorus</h1>
+    <p class="subtitle">The Unseen Chorus is a 27-track LGBTQ+ gay musical by Agust Islandia, released October 6, 2025, exploring infidelity, addiction, shame, recovery, loyalty, and queer love in the digital age.</p>
+  </header>
 
-  <div class="page">
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle"
-            id="theme-toggle"
-            aria-label="Toggle dark mode"
-            title="Toggle dark/light mode">
-      <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Sun icon (shown in dark mode) -->
-        <circle cx="12" cy="12" r="5"
-                stroke="currentColor" stroke-width="2" fill="none" id="sun-icon" style="display: none;"/>
-        <line x1="12" y1="1" x2="12" y2="3"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="12" y1="21" x2="12" y2="23"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="1" y1="12" x2="3" y2="12"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="21" y1="12" x2="23" y2="12"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <!-- Moon icon (shown in light mode) -->
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/>
-      </svg>
-    </button>
+  <main id="main-content">
+    <section class="grid-2">
+      <article class="card">
+        <img class="hero-media album-cover-full" src="the-unseen-chorus-cover.webp" alt="The Unseen Chorus album cover artwork" loading="lazy">
+        <p><strong>Artist:</strong> Agust Islandia<br><strong>Release Date:</strong> October 6, 2025<br><strong>Tracks:</strong> 27</p>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
-      <nav style="margin-bottom: var(--spacing-lg);">
-        <a href="/" style="font-weight: 600;">← Back to Home</a>
-      </nav>
+        <h2>Story Arc</h2>
+        <p><strong>The Unseen Chorus</strong> is structured as a full three-act gay musical narrative about modern queer relationship strain in the app era. The opening movement charts emotional distance, secrecy, and the first cracks in trust. Desire becomes fragmented into parallel lives, and intimacy begins to split from commitment.</p>
+        <p>In the middle movement, the story deepens into compulsive behavior, digital excess, and the emotional consequences of infidelity. Songs map the cycle of denial, escalation, and collapse, including themes of hookup culture, shame, and social isolation. This section is intentionally unflinching: it frames addiction and relational trauma as lived realities rather than abstract morality.</p>
+        <p>The final movement shifts toward accountability, recovery, and reconstruction. Characters move from blame toward truth-telling, from fragmentation toward mutual care, and from performance toward vulnerability. The closing tracks position loyalty and chosen love as difficult, active practices. As a complete work, the album functions as both queer pop theatre and a lyrical archive of community tensions in the 2020s.</p>
 
-      <picture style="display: block; margin: 0 auto var(--spacing-xl);">
-        <img src="the-unseen-chorus-cover.webp"
-             alt="The Unseen Chorus - A Gay Musical album cover"
-             width="300"
-             height="300"
-             style="border-radius: var(--radius-lg); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);">
-      </picture>
-
-      <h1>The Unseen Chorus</h1>
-      <h2 class="subtitle-large">A Gay Musical</h2>
-      <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
-
-      <div class="hero-cta" style="margin-top: var(--spacing-xl);">
-        <a href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p"
-           class="btn-primary"
-           target="_blank"
-           rel="noopener noreferrer">
-          Listen on Spotify
-        </a>
-        <a href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786"
-           class="btn-secondary"
-           target="_blank"
-           rel="noopener noreferrer">
-          Listen on Apple Music
-        </a>
-      </div>
-    </header>
-
-    <main id="main-content">
-      <section>
-        <h2>Album Information</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Title:</strong> The Unseen Chorus, A Gay Musical</li>
-          <li><strong>Artist:</strong> Agust Islandia (Agust Smari Bjarkarson)</li>
-          <li><strong>Release Date:</strong> October 6, 2025</li>
-          <li><strong>Tracks:</strong> 27 songs</li>
-          <li><strong>Total Runtime:</strong> ~80 minutes</li>
-          <li><strong>Genre:</strong> Musical Theatre, Pop, LGBTQ+ Music</li>
-          <li><strong>Format:</strong> Digital Media</li>
-          <li><strong>Barcode:</strong> 199742064330</li>
-          <li><strong>Written by:</strong> Agust Smari Bjarkarson</li>
-          <li><strong>Composed by:</strong> Agust Smari Bjarkarson</li>
-          <li><strong>Produced by:</strong> Agust Smari Bjarkarson</li>
-          <li><strong>Label:</strong> Agust Islandia (Independent)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>About the Musical</h2>
-        <p>
-          <strong>"The Unseen Chorus – A Gay Musical"</strong> is an unflinching theatrical work that confronts
-          how the gay community has drifted in the age of apps and online porn, where infidelity has become
-          widespread, promiscuity is often celebrated, and desire is fueled by the constant pursuit of the next,
-          seemingly better partner.
-        </p>
-        <p>
-          Through its narrative and music, the production highlights this vicious cycle while urging reflection
-          and change. It serves as both a mirror and a challenge, asking individuals and the community alike to
-          pause, look inward, and reclaim values of <strong>love, honesty, and loyalty</strong>.
-        </p>
-        <p>
-          Written and composed by <strong>Agust Smari Bjarkarson</strong> (performing as Agust Islandia),
-          this groundbreaking musical tells a complete story: from the first swipe of infidelity through addiction's
-          rock bottom, to recovery and redemptive love. It addresses the "unseen" struggles within the gay community:
-          <strong>sexual compulsion, porn addiction, mental health challenges, relationship betrayal, and the search for genuine connection</strong>
-          in an era dominated by dating apps and hookup culture.
-        </p>
-        <p>
-          Ultimately, the musical dares audiences to rise above the noise and imagine something truer, stronger,
-          and more human. It's a call to action for the LGBTQ+ community to reclaim intimacy, authenticity, and lasting love.
-        </p>
-      </section>
-
-      <section>
-        <h2>The Story</h2>
-        <p>
-          <strong>The Unseen Chorus</strong> follows a complete narrative arc across 27 songs, chronicling one man's
-          journey from loving relationship through sexual addiction to recovery and redemptive love:
-        </p>
-        <p>
-          <strong>Act I: The Descent (Tracks 1-11)</strong><br>
-          A man in a committed relationship begins secretly using hookup apps late at night ("Phone Glow"). What starts
-          as digital infidelity escalates to bathhouse encounters ("Steam & Shadows"), public cruising in Central Park's
-          Ramble, and dark room hookups. Historical songs like "The Fairy's Waltz" and "Riot in the Night (Stonewall)"
-          contextualize this within LGBTQ+ history. The spiral peaks when his partner catches him in their own bed with
-          another man ("Can You Host?").
-        </p>
-        <p>
-          <strong>Act II: Rock Bottom (Tracks 12-18)</strong><br>
-          His partner leaves ("He Left Me"). Alone, he descends into porn addiction ("Pornhub Paradise," "Endless Tabs"),
-          experiencing porn-induced erectile dysfunction ("Maybe I Took It Too Far"). Divorce papers arrive ("Signed and Sealed").
-          He spirals completely out of control ("The Floor Is Mine") until hitting absolute rock bottom, questioning if this
-          is the end ("Rock Bottom").
-        </p>
-        <p>
-          <strong>Act III: Recovery & Redemption (Tracks 19-27)</strong><br>
-          He begins therapy ("First Session") and attends his first Sex Addicts Anonymous meeting, identifying as an addict
-          ("Circle of Chairs"). The recovery journey is painful but transformative ("Mirrors in the Mind"). Against the rules,
-          he falls for another person in recovery ("Not Supposed To"). They share their darkest secrets on a vulnerable first
-          date ("Table for Two") and find healing together ("Not Broken Anymore"). Ten years later, he proposes ("Ten Years Strong").
-          The title track reprises the journey, and the finale ("Come Out of the Dark") is an anthem urging others to come out
-          of shame and addiction.
-        </p>
-      </section>
-
-            <section>
-        <h2>Complete Track Listing</h2>
-        <p style="margin-bottom: var(--spacing-lg);">Click any track to view full lyrics and song details:</p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--spacing-md);">
-          <a href="/just-an-advisory.html" class="song-card">1. Just an Advisory (1:32)</a>
-          <a href="/two-of-us.html" class="song-card">2. Two of Us (3:35)</a>
-          <a href="/phone-glow.html" class="song-card">3. Phone Glow (3:25)</a>
-          <a href="/the-fairys-waltz.html" class="song-card">4. The Fairy's Waltz (2:29)</a>
-          <a href="/steam-and-shadows.html" class="song-card">5. Steam & Shadows (4:19)</a>
-          <a href="/the-ramble.html" class="song-card">6. The Ramble (3:19)</a>
-          <a href="/riot-in-the-night.html" class="song-card">7. Riot in the Night (Stonewall) (3:10)</a>
-          <a href="/dark-room-desire.html" class="song-card">8. Dark Room Desire (3:36)</a>
-          <a href="/empty-mornings.html" class="song-card">9. Empty Mornings (4:24)</a>
-          <a href="/a-bar-in-my-pocket.html" class="song-card">10. A Bar in My Pocket (2:22)</a>
-          <a href="/can-you-host.html" class="song-card">11. Can You Host? (3:42)</a>
-          <a href="/he-left-me.html" class="song-card">12. He Left Me (3:02)</a>
-          <a href="/pornhub-paradise.html" class="song-card">13. Pornhub Paradise (3:21)</a>
-          <a href="/endless-tabs.html" class="song-card">14. Endless Tabs (3:19)</a>
-          <a href="/maybe-i-took-it-too-far.html" class="song-card">15. Maybe I Took It Too Far (2:25)</a>
-          <a href="/signed-and-sealed.html" class="song-card">16. Signed and Sealed (3:44)</a>
-          <a href="/the-floor-is-mine.html" class="song-card">17. The Floor Is Mine (2:08)</a>
-          <a href="/rock-bottom.html" class="song-card">18. Rock Bottom (2:21)</a>
-          <a href="/first-session.html" class="song-card">19. First Session (3:59)</a>
-          <a href="/circle-of-chairs.html" class="song-card">20. Circle of Chairs (3:12)</a>
-          <a href="/mirrors-in-the-mind.html" class="song-card">21. Mirrors in the Mind (2:53)</a>
-          <a href="/not-supposed-to.html" class="song-card">22. Not Supposed To (1:41)</a>
-          <a href="/table-for-two.html" class="song-card">23. Table for Two (2:27)</a>
-          <a href="/not-broken-anymore.html" class="song-card">24. Not Broken Anymore (3:24)</a>
-          <a href="/ten-years-strong.html" class="song-card">25. Ten Years Strong (2:48)</a>
-          <a href="/the-unseen-chorus-title-track.html" class="song-card">26. The Unseen Chorus (4:03)</a>
-          <a href="/come-out-of-the-dark.html" class="song-card">27. Come Out of the Dark (2:39)</a>
+        <div class="btn-row">
+          <a class="btn primary" href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="btn secondary" href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer">Spotify</a>
         </div>
+      </article>
 
-        <style>
-          .song-card {
-            display: block;
-            padding: var(--spacing-md);
-            background: rgba(0, 0, 0, 0.02);
-            border: 1px solid var(--color-border-light);
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            color: var(--color-text-primary);
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-          }
-          .song-card:hover {
-            background: rgba(0, 0, 0, 0.04);
-            border-color: var(--color-primary-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--color-shadow);
-          }
-        </style>
-      </section>
+      <article class="card">
+        <h2>Full Tracklist (Lyrics)</h2>
+        <ol>
+          <li><a href="/just-an-advisory.html">Just an Advisory</a></li>
+          <li><a href="/two-of-us.html">Two of Us</a></li>
+          <li><a href="/phone-glow.html">Phone Glow</a></li>
+          <li><a href="/the-fairys-waltz.html">The Fairy's Waltz</a></li>
+          <li><a href="/steam-and-shadows.html">Steam & Shadows</a></li>
+          <li><a href="/the-ramble.html">The Ramble</a></li>
+          <li><a href="/riot-in-the-night.html">Riot in the Night</a></li>
+          <li><a href="/dark-room-desire.html">Dark Room Desire</a></li>
+          <li><a href="/empty-mornings.html">Empty Mornings</a></li>
+          <li><a href="/a-bar-in-my-pocket.html">A Bar in My Pocket</a></li>
+          <li><a href="/can-you-host.html">Can You Host?</a></li>
+          <li><a href="/he-left-me.html">He Left Me</a></li>
+          <li><a href="/pornhub-paradise.html">Pornhub Paradise</a></li>
+          <li><a href="/endless-tabs.html">Endless Tabs</a></li>
+          <li><a href="/maybe-i-took-it-too-far.html">Maybe I Took It Too Far</a></li>
+          <li><a href="/signed-and-sealed.html">Signed and Sealed</a></li>
+          <li><a href="/the-floor-is-mine.html">The Floor Is Mine</a></li>
+          <li><a href="/rock-bottom.html">Rock Bottom</a></li>
+          <li><a href="/first-session.html">First Session</a></li>
+          <li><a href="/circle-of-chairs.html">Circle of Chairs</a></li>
+          <li><a href="/mirrors-in-the-mind.html">Mirrors in the Mind</a></li>
+          <li><a href="/not-supposed-to.html">Not Supposed To</a></li>
+          <li><a href="/table-for-two.html">Table for Two</a></li>
+          <li><a href="/not-broken-anymore.html">Not Broken Anymore</a></li>
+          <li><a href="/ten-years-strong.html">Ten Years Strong</a></li>
+          <li><a href="/the-unseen-chorus-title-track.html">The Unseen Chorus</a></li>
+          <li><a href="/come-out-of-the-dark.html">Come Out of the Dark</a></li>
+        </ol>
+      </article>
+    </section>
+  </main>
 
+  <footer>© 2026 Agust Smari Bjarkarson</footer>
+</div>
 
-      <section>
-        <h2>Themes & Messages</h2>
-        <p>
-          The Unseen Chorus explores critical themes affecting the modern LGBTQ+ community:
-        </p>
-        <ul style="line-height: 1.8;">
-          <li><strong>Infidelity & Betrayal:</strong> How apps have normalized casual betrayal - from "just a swipe" to full affairs</li>
-          <li><strong>Sexual Addiction:</strong> Anonymous hookups in bathhouses, dark rooms, and public cruising spots</li>
-          <li><strong>Porn Addiction:</strong> Escalation from apps to endless tabs, erectile dysfunction, and isolation</li>
-          <li><strong>Relationship Collapse:</strong> The moment of discovery ("Can You Host?"), abandonment, and divorce</li>
-          <li><strong>Rock Bottom:</strong> Complete loss of self, despair, and the question "This can't be the end of me"</li>
-          <li><strong>Recovery Journey:</strong> Therapy, 12-step meetings (Sex Addicts Anonymous), vulnerability, and healing</li>
-          <li><strong>Redemptive Love:</strong> Finding connection in recovery, 10-year commitment, and marriage proposal</li>
-          <li><strong>LGBTQ+ History:</strong> Stonewall uprising, Bowery drag balls, and the lineage of queer resilience</li>
-          <li><strong>Coming Out:</strong> Not just sexuality, but addiction, shame, and truth - "Come out of the dark tonight"</li>
-          <li><strong>Community Accountability:</strong> An urgent call for the LGBTQ+ community to examine hookup culture's toll</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Critical Reception & Impact</h2>
-        <p>
-          <strong>The Unseen Chorus</strong> represents a bold departure from traditional LGBTQ+ narratives.
-          Rather than focusing solely on coming-out stories or romance, this musical confronts uncomfortable
-          truths about modern gay life with honesty and compassion.
-        </p>
-        <p>
-          The work challenges both individuals and the community to examine patterns of behavior that have
-          become normalized but may be causing harm. It's not a condemnation but an invitation to imagine
-          healthier, more authentic ways of living and loving.
-        </p>
-      </section>
-
-      <section>
-        <h2>Listen & Stream</h2>
-        <p>Stream the complete musical on all major platforms:</p>
-        <ul style="line-height: 1.8;">
-          <li><a href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer"><strong>Spotify</strong></a></li>
-          <li><a href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener noreferrer"><strong>Apple Music</strong></a></li>
-          <li><a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer"><strong>TikTok</strong> (@gusticeland)</a></li>
-        </ul>
-        <p>
-          Follow <strong>Agust Islandia</strong> for more LGBTQ+ musical theatre and queer anthems:
-          <a href="https://www.gusti.com">www.gusti.com</a>
-        </p>
-      </section>
-
-      <section>
-        <h2>More LGBTQ+ Music by Agust Islandia</h2>
-        <p>Explore more queer anthems with full lyrics:</p>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/gay-and-proud.html">Gay and Proud</a></strong> - Viral LGBTQ+ Pride anthem (540K+ TikTok views, bilingual)</li>
-          <li><strong><a href="/my-fire.html">My Fire (Mi Fuego)</a></strong> - Bilingual LGBTQ+ love anthem (English/Spanish)</li>
-          <li><strong><a href="/feel-alive.html">Feel Alive</a></strong> - High-energy EDM dance anthem</li>
-        </ul>
-        <p><a href="/">← Back to full discography</a></p>
-      </section>
-    </main>
-
-    <footer>
-      © 2026 <strong>Agust Smari Bjarkarson</strong>
-    </footer>
-  </div>
-
-  <!-- Dark Mode Toggle Script -->
-  <script src="dark-mode.js"></script>
-  <script src="navigation.js"></script>
+<script src="dark-mode.js"></script>
+<script src="navigation.js"></script>
 </body>
 </html>

@@ -4,8 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="max-image-preview:large">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
   <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <title>My Fire (Mi Fuego) Lyrics - Agust Islandia | Bilingual LGBTQ+ Love Song</title>
   <link rel="canonical" href="https://www.gusti.com/my-fire.html">
@@ -56,18 +76,16 @@
     "name": "Agust Smari Bjarkarson",
     "alternateName": "Agust Islandia"
   },
-  "iswcCode": "",
   "lyrics": {
     "@type": "CreativeWork",
     "text": "Esto es para los amantes, para los sueños\nPara el fuego que cargamos juntos\nY para todos los que avanzan sin miedo\nLe doy mi fuego a ti, mi corazón, mi fuego\n\nMi fuego, mi amor\nCon cada respiro que toco, le digo tu nombre\nTu nombre, mi amor\nA través de cada lucha, a través del espacio desconocido\n\nNunca solos. Nunca solos\nTe aseguraré que nunca te alegrarás\nNunca solos. Nunca solos\nDía y noche, la noche y el día\n\nLe doy mi fuego a ti, mi corazón, mi fuego\nMi fuego, mi amor\nCon cada respiro que toco, le digo tu nombre\nTu nombre, mi amor\n\nA través de cada lucha, a través del espacio desconocido\nNunca solos. Nunca solos\nYou say nunca solos\nI say never alone\n\nYou say este es nuestro fuego\nI say this is our fire\nHands up, we're stronger together\nJuntos siempre\n\nThis love is forever\nPor siempre, siempre\nLe doy mi fuego a ti, mi corazón, mi fuego\nMi fuego, mi amor\n\nCon cada respiro que toco, le digo tu nombre\nTu nombre, mi amor\nA través de cada lucha, a través del espacio desconocido\nNunca solos. Nunca solos\n\nTe aseguraré que nunca solos\nNunca solos. Nunca solos\nCuerpos cerrados\nNo hay miedo esta noche\n\nTenemos la oscuridad\nTenemos la luz\nCada toque\nFlujo eléctrico\n\nEste es nuestro mundo y lo dejamos mostrar\n¿Qué se ve?\n¿Qué se siente?\nNunca solos\n\nNunca solos\nNunca solos\nNunca solos\nYou say nunca solos\n\nI say never alone\nYou say este es nuestro juego\nI say this is our fire\nWe light up the night\n\nBrillamos sin temor\nThe love that we have\nEso no es un amor\nI'm giving my fire to you\n\nMy heart, my flame\nMi fuego, mi amor\nWith every breath I take, I speak your name\nTu nombre, mi amor\n\nA través de cada lucha, a través del espacio desconocido\nNunca solos. Nunca solos\nI'll make sure you're never alone\nNunca solos. Nunca solos\n\nNow we're standing stronger than we've ever been\nEvery battle fought, every place we've been\nDonde sea\nContigo\n\nNunca solos. Never alone",
     "inLanguage": "en-US"
   },
-  "musicalKey": "",
   "inLanguage": [
     "en",
     "es"
   ],
-  "datePublished": "2025",
+  "datePublished": "2025-09-15",
   "genre": [
     "Pop",
     "LGBTQ+ Music",
@@ -89,46 +107,32 @@
         "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"
       ]
     },
-    "duration": "",
+    "duration": "PT4M40S",
     "inAlbum": {
       "@type": "MusicAlbum",
-      "name": "My Fire (Mi Fuego) - Single",
-      "datePublished": "2025",
-      "image": "https://www.gusti.com/agust_islandia.jpg"
+      "name": "My Fire (Mi Fuego)",
+      "datePublished": "2025-09-15",
+      "image": "https://www.gusti.com/agust_islandia.jpg",
+      "url": "https://musicbrainz.org/release/e85f8a86-8e18-4093-b97b-9f06e0953b34"
     },
-    "isrcCode": "",
     "recordingOf": {
       "@id": "#song"
-    },
-    "position": "17"
-  }
+    }
+  },
+  "@id": "#song",
+  "sameAs": [
+    "https://musicbrainz.org/release/e85f8a86-8e18-4093-b97b-9f06e0953b34"
+  ]
 }
 </script>
   <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="glass-site.css">
 </head>
-
 <body>
-  <!-- SVG Icon Definitions - Simple Icons (Official Brand Logos) -->
-  <svg style="display: none;" aria-hidden="true">
-    <defs>
-      <symbol id="spotify-icon" viewBox="0 0 24 24">
-        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-      </symbol>
-      <symbol id="apple-icon" viewBox="0 0 24 24">
-        <path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536a1.88 1.88 0 011.038-2.022c.323-.16.67-.25 1.018-.324.378-.082.758-.153 1.134-.24.274-.063.457-.23.51-.516a.904.904 0 00.02-.193c0-1.815 0-3.63-.002-5.443a.725.725 0 00-.026-.185c-.04-.15-.15-.243-.304-.234-.16.01-.318.035-.475.066-.76.15-1.52.303-2.28.456l-2.325.47-1.374.278c-.016.003-.032.01-.048.013-.277.077-.377.203-.39.49-.002.042 0 .086 0 .13-.002 2.602 0 5.204-.003 7.805 0 .42-.047.836-.215 1.227-.278.64-.77 1.04-1.434 1.233-.35.1-.71.16-1.075.172-.96.036-1.755-.6-1.92-1.544-.14-.812.23-1.685 1.154-2.075.357-.15.73-.232 1.108-.31.287-.06.575-.116.86-.177.383-.083.583-.323.6-.714v-.15c0-2.96 0-5.922.002-8.882 0-.123.013-.25.042-.37.07-.285.273-.448.546-.518.255-.066.515-.112.774-.165.733-.15 1.466-.296 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.403.22-.043.442-.088.663-.106.31-.025.523.17.554.482.008.073.012.148.012.223.002 1.91.002 3.822 0 5.732z"/>
-      </symbol>
-    </defs>
-  </svg>
-
-
-<!-- Hamburger Toggle Button -->
 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
+  <span></span><span></span><span></span>
 </button>
 
-<!-- Navigation Drawer -->
 <nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
   <a href="/" class="nav-link">Home</a>
 
@@ -164,285 +168,70 @@
   </div>
 </nav>
 
-<!-- Overlay (closes menu when clicked) -->
 <div class="nav-overlay" id="nav-overlay"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="page">
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+    <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+      <path id="sun-rays" d="M12 1v2m0 18v2M1 12h2m18 0h2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+      <path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"/>
+    </svg>
+  </button>
 
-  <div class="page">
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle"
-            id="theme-toggle"
-            aria-label="Toggle dark mode"
-            title="Toggle dark/light mode">
-      <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Sun icon (shown in dark mode) -->
-        <circle cx="12" cy="12" r="5"
-                stroke="currentColor" stroke-width="2" fill="none" id="sun-icon" style="display: none;"/>
-        <line x1="12" y1="1" x2="12" y2="3"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="12" y1="21" x2="12" y2="23"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="1" y1="12" x2="3" y2="12"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="21" y1="12" x2="23" y2="12"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <!-- Moon icon (shown in light mode) -->
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/>
-      </svg>
-    </button>
+  <header>
+    <h1>My Fire (Mi Fuego)</h1>
+    <p class="subtitle">A bilingual queer love anthem by Agust Islandia about devotion, intimacy, and the promise of never facing life alone.</p>
+  </header>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
-      <nav style="margin-bottom: var(--spacing-lg);">
-        <a href="/" style="font-weight: 600;">← Back to Home</a>
-      </nav>
+  <main id="main-content">
+    <section class="grid-2">
+      <article class="card">
+        <img class="hero-media album-cover-full" src="agust_islandia.jpg" alt="My Fire (Mi Fuego) single artwork" loading="lazy">
+        <p><strong>Artist:</strong> Agust Islandia<br><strong>Release Year:</strong> 2025<br><strong>Format:</strong> Bilingual Single</p>
 
-      <h1>My Fire (Mi Fuego)</h1>
-      <h2 class="subtitle-large">Bilingual LGBTQ+ Love Anthem by Agust Islandia</h2>
-      <p class="subtitle">Written and Performed by <strong>Agust Smari Bjarkarson</strong></p>
+        <h2>Story Arc</h2>
+        <p><strong>My Fire (Mi Fuego)</strong> is built around a shared-language love vow: two voices, two linguistic registers, one emotional commitment. The track uses English-Spanish code-switching to stage intimacy in real time.</p>
+        <p>Its core line, <em>Nunca solos / Never alone</em>, frames the relationship as mutual shelter through uncertainty, distance, and conflict. Repetition functions as emotional architecture, turning the chorus into a promise rather than only a hook.</p>
+        <p>As part of the broader catalog, the song expands queer storytelling beyond struggle narratives and centers sustained tenderness, partnership, and chosen permanence.</p>
 
-      <div class="hero-cta" style="margin-top: var(--spacing-xl);">
-        <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG"
-           class="btn-primary"
-           target="_blank"
-           rel="noopener noreferrer">
-          Listen on Spotify
-        </a>
-        <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"
-           class="btn-secondary"
-           target="_blank"
-           rel="noopener noreferrer">
-          Listen on Apple Music
-        </a>
-      </div>
-          <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
-
-
-    <main id="main-content">
-      <section>
-        <h2>Song Details</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Album:</strong> <a href="/the-unseen-chorus.html">The Unseen Chorus (A Gay Musical)</a></li>
-          <li><strong>Title:</strong> My Fire (Mi Fuego)</li>
-          <li><strong>Artist:</strong> Agust Islandia (Agust Smari Bjarkarson)</li>
-          <li><strong>Release Date:</strong> 2025</li>
-          <li><strong>Genre:</strong> Pop, Latin Pop, LGBTQ+ Music, Bilingual</li>
-          <li><strong>Languages:</strong> English & Spanish (Code-Switching)</li>
-          <li><strong>Themes:</strong> Queer Love, Passion, Togetherness, Never Alone</li>
-          <li><strong>Written by:</strong> Agust Smari Bjarkarson</li>
-          <li><strong>Produced by:</strong> Agust Smari Bjarkarson</li>
-          <li><strong>Label:</strong> Agust Islandia (Independent)</li>
-        
-          <li><strong>Track Number:</strong> See track listing</li>
-        
-          <li><strong>Duration:</strong> See streaming platforms</li>
-        
-          <li><strong>Writer/Composer:</strong> Agust Smari Bjarkarson (Agust Islandia)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>About the Song</h2>
-        <p>
-          <strong>"My Fire (Mi Fuego)"</strong> is a passionate bilingual love song that seamlessly blends
-          <strong>English and Spanish</strong> to create an intimate anthem about <strong>queer love, devotion, and togetherness</strong>.
-          The song's central message - <em>"Nunca solos / Never alone"</em> - speaks to the profound connection
-          between lovers who face the world united.
-        </p>
-        <p>
-          Written and produced by <strong>Agust Smari Bjarkarson</strong> (performing as Agust Islandia),
-          "My Fire" uses the metaphor of <strong>fire (fuego)</strong> to represent passion, warmth, and the
-          shared energy between two people in love. The bilingual structure creates a beautiful call-and-response
-          dynamic: <em>"You say nunca solos / I say never alone"</em> - two voices, two languages, one love.
-        </p>
-        <p>
-          The song opens with a dedication: <em>"Esto es para los amantes, para los sueños"</em>
-          (This is for the lovers, for the dreams) - positioning queer love as something worth celebrating,
-          worth fighting for. Lines like <em>"Para todos los que avanzan sin miedo"</em>
-          (For all those who move forward without fear) speak to the courage required to love openly and authentically.
-        </p>
-        <p>
-          Perfect for <strong>LGBTQ+ weddings, Pride celebrations, or any moment celebrating queer romance</strong>,
-          "My Fire (Mi Fuego)" is both intimate and universal - a love song that speaks to anyone who has found
-          their person and promises: <em>"I'll make sure you're never alone."</em>
-        </p>
-      </section>
-
-      <section>
-        <h2>Lyrics</h2>
-
-        <div class="lyrics">
-        <p>Esto es para los amantes, para los sueños<br>Para el fuego que cargamos juntos<br>Y para todos los que avanzan sin miedo<br>Le doy mi fuego a ti, mi corazón, mi fuego</p>
-        <p>Mi fuego, mi amor<br>Con cada respiro que toco, le digo tu nombre<br>Tu nombre, mi amor<br>A través de cada lucha, a través del espacio desconocido</p>
-        <p>Nunca solos. Nunca solos<br>Te aseguraré que nunca te alegrarás<br>Nunca solos. Nunca solos<br>Día y noche, la noche y el día</p>
-        <p>Le doy mi fuego a ti, mi corazón, mi fuego<br>Mi fuego, mi amor<br>Con cada respiro que toco, le digo tu nombre<br>Tu nombre, mi amor</p>
-        <p>A través de cada lucha, a través del espacio desconocido<br>Nunca solos. Nunca solos<br>You say nunca solos<br>I say never alone</p>
-        <p>You say este es nuestro fuego<br>I say this is our fire<br>Hands up, we're stronger together<br>Juntos siempre</p>
-        <p>This love is forever<br>Por siempre, siempre<br>Le doy mi fuego a ti, mi corazón, mi fuego<br>Mi fuego, mi amor</p>
-        <p>Con cada respiro que toco, le digo tu nombre<br>Tu nombre, mi amor<br>A través de cada lucha, a través del espacio desconocido<br>Nunca solos. Nunca solos</p>
-        <p>Te aseguraré que nunca solos<br>Nunca solos. Nunca solos<br>Cuerpos cerrados<br>No hay miedo esta noche</p>
-        <p>Tenemos la oscuridad<br>Tenemos la luz<br>Cada toque<br>Flujo eléctrico</p>
-        <p>Este es nuestro mundo y lo dejamos mostrar<br>¿Qué se ve?<br>¿Qué se siente?<br>Nunca solos</p>
-        <p>Nunca solos<br>Nunca solos<br>Nunca solos<br>You say nunca solos</p>
-        <p>I say never alone<br>You say este es nuestro juego<br>I say this is our fire<br>We light up the night</p>
-        <p>Brillamos sin temor<br>The love that we have<br>Eso no es un amor<br>I'm giving my fire to you</p>
-        <p>My heart, my flame<br>Mi fuego, mi amor<br>With every breath I take, I speak your name<br>Tu nombre, mi amor</p>
-        <p>A través de cada lucha, a través del espacio desconocido<br>Nunca solos. Nunca solos<br>I'll make sure you're never alone<br>Nunca solos. Nunca solos</p>
-        <p>Now we're standing stronger than we've ever been<br>Every battle fought, every place we've been<br>Donde sea<br>Contigo</p>
-        <p>Nunca solos. Never alone</p>
-      </div>
-
-        <p style="margin-top: var(--spacing-md); font-size: 0.9rem; color: var(--color-text-secondary);">
-          <strong>Lyrics © 2025 Agust Smari Bjarkarson. All rights reserved.</strong><br>
-          Written and performed by Agust Smari Bjarkarson (Agust Islandia)
-        </p>
-      </section>
-
-      <section>
-        <h2>Themes</h2>
-        <p>
-          "My Fire (Mi Fuego)" explores beautiful themes of queer love and connection:
-        </p>
-        <ul style="line-height: 1.8;">
-          <li><strong>Passionate Love:</strong> "Le doy mi fuego a ti" (I give my fire to you) - Total devotion and passion</li>
-          <li><strong>Never Alone:</strong> "Nunca solos" repeated throughout - Promise of constant companionship</li>
-          <li><strong>Bilingual Unity:</strong> Code-switching between Spanish/English represents two becoming one</li>
-          <li><strong>Courage in Love:</strong> "Para todos los que avanzan sin miedo" (For all who move forward without fear)</li>
-          <li><strong>Shared Journey:</strong> "A través de cada lucha" (Through every struggle) - Facing life together</li>
-          <li><strong>Stronger Together:</strong> "Hands up, we're stronger together / Juntos siempre"</li>
-          <li><strong>Eternal Love:</strong> "This love is forever / Por siempre, siempre"</li>
-          <li><strong>Electric Connection:</strong> "Cada toque / Flujo eléctrico" (Every touch / Electric flow)</li>
-          <li><strong>Fearless Expression:</strong> "Brillamos sin temor" (We shine without fear)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Key Spanish Phrases Explained</h2>
-        <ul style="line-height: 1.8;">
-          <li>
-            <strong>"Esto es para los amantes, para los sueños"</strong><br>
-            This is for the lovers, for the dreams
-          </li>
-          <li>
-            <strong>"Para el fuego que cargamos juntos"</strong><br>
-            For the fire we carry together
-          </li>
-          <li>
-            <strong>"Para todos los que avanzan sin miedo"</strong><br>
-            For all those who move forward without fear
-          </li>
-          <li>
-            <strong>"Le doy mi fuego a ti, mi corazón, mi fuego"</strong><br>
-            I give my fire to you, my heart, my fire
-          </li>
-          <li>
-            <strong>"Con cada respiro que toco, le digo tu nombre"</strong><br>
-            With every breath I take, I speak your name
-          </li>
-          <li>
-            <strong>"Nunca solos"</strong><br>
-            Never alone (repeated as the song's central promise)
-          </li>
-          <li>
-            <strong>"Juntos siempre"</strong><br>
-            Together always
-          </li>
-          <li>
-            <strong>"Brillamos sin temor"</strong><br>
-            We shine without fear
-          </li>
-          <li>
-            <strong>"Donde sea, contigo"</strong><br>
-            Wherever, with you
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Bilingual Love: Why Code-Switching Matters</h2>
-        <p>
-          The song's use of <strong>code-switching</strong> (alternating between Spanish and English) is not just
-          stylistic - it's deeply meaningful for LGBTQ+ representation:
-        </p>
-        <ul style="line-height: 1.8;">
-          <li><strong>Cultural Bridge:</strong> Connects English and Spanish-speaking queer communities</li>
-          <li><strong>Dual Identity:</strong> Reflects the experience of bilingual/bicultural LGBTQ+ individuals</li>
-          <li><strong>Call and Response:</strong> "You say nunca solos / I say never alone" - Two voices in harmony</li>
-          <li><strong>Inclusivity:</strong> Makes LGBTQ+ love songs accessible to Latinx community</li>
-          <li><strong>Authenticity:</strong> Natural language mixing reflects how many bilingual people actually communicate</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Perfect For</h2>
-        <ul style="line-height: 1.8;">
-          <li>💒 <strong>LGBTQ+ Weddings</strong> - First dance, ceremony music</li>
-          <li>🏳️‍🌈 <strong>Pride Celebrations</strong> - Celebrating queer love</li>
-          <li>💕 <strong>Anniversary Celebrations</strong> - Romantic milestones</li>
-          <li>🎵 <strong>Bilingual Playlists</strong> - Spanish/English love songs</li>
-          <li>🌍 <strong>Latinx Pride Events</strong> - Celebrating queer Latinx identity</li>
-          <li>❤️ <strong>Valentine's Day</strong> - Queer couples' celebration</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Listen & Follow</h2>
-        <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-top: var(--spacing-md);">
-          <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" class="btn-icon spotify" target="_blank" rel="noopener" title="Listen on Spotify">
-            <svg class="icon-svg" fill="white">
-              <use href="#spotify-icon"/>
-            </svg>
-          </a>
-          <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" class="btn-icon apple" target="_blank" rel="noopener" title="Listen on Apple Music">
-            <svg class="icon-svg" fill="white">
-              <use href="#apple-icon"/>
-            </svg>
-          </a>
+        <div class="btn-row">
+          <a class="btn primary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="btn secondary" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
         </div>
-        <p>
-          Follow <strong>Agust Islandia</strong> for more bilingual LGBTQ+ music and queer love anthems:
-          <a href="https://www.gusti.com">www.gusti.com</a>
-        </p>
-      </section>
+      </article>
 
-      <section>
-        <h2>More Songs by Agust Islandia</h2>
-        <p>Explore more LGBTQ+ music with full lyrics:</p>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/come-out-of-the-dark.html">Come Out of the Dark</a></strong> - Musical theatre anthem about recovery and coming out</li>
-          <li><strong><a href="/feel-alive.html">Feel Alive</a></strong> - High-energy EDM dance anthem</li>
-          <li><strong><a href="/gay-and-proud.html">Gay and Proud</a></strong> - Viral LGBTQ+ Pride anthem (540K+ TikTok views, bilingual)</li>
-        </ul>
-        <p><a href="/">← Back to full discography</a></p>
-      </section>
-    
-      <section>
-        <h2>More Songs from The Unseen Chorus (A Gay Musical)</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/the-unseen-chorus.html">Album Overview</a></strong> - Explore the full tracklist and story context.</li>
-          <li><strong><a href="/lyrics.html">Lyrics Hub</a></strong> - Browse all lyric pages.</li>
-          <li><strong><a href="/index.html">Homepage</a></strong> - Discography and latest releases.</li>
-        </ul>
-        <p><a href="/the-unseen-chorus.html">← View complete tracklist</a></p>
-      </section>
-</main>
+      <article class="card">
+        <h2>Lyrics</h2>
+        <div class="lyrics">
+          <p>Esto es para los amantes, para los suenos<br>Para el fuego que cargamos juntos<br>Y para todos los que avanzan sin miedo<br>Le doy mi fuego a ti, mi corazon, mi fuego</p>
+          <p>Mi fuego, mi amor<br>Con cada respiro que toco, le digo tu nombre<br>Tu nombre, mi amor<br>A traves de cada lucha, a traves del espacio desconocido</p>
+          <p>Nunca solos. Nunca solos<br>Te asegurare que nunca te alegraras<br>Nunca solos. Nunca solos<br>Dia y noche, la noche y el dia</p>
+          <p>Le doy mi fuego a ti, mi corazon, mi fuego<br>Mi fuego, mi amor<br>Con cada respiro que toco, le digo tu nombre<br>Tu nombre, mi amor</p>
+          <p>A traves de cada lucha, a traves del espacio desconocido<br>Nunca solos. Nunca solos<br>You say nunca solos<br>I say never alone</p>
+          <p>You say este es nuestro fuego<br>I say this is our fire<br>Hands up, we're stronger together<br>Juntos siempre</p>
+          <p>This love is forever<br>Por siempre, siempre<br>Le doy mi fuego a ti, mi corazon, mi fuego<br>Mi fuego, mi amor</p>
+          <p>Con cada respiro que toco, le digo tu nombre<br>Tu nombre, mi amor<br>A traves de cada lucha, a traves del espacio desconocido<br>Nunca solos. Nunca solos</p>
+          <p>Te asegurare que nunca solos<br>Nunca solos. Nunca solos<br>Cuerpos cerrados<br>No hay miedo esta noche</p>
+          <p>Tenemos la oscuridad<br>Tenemos la luz<br>Cada toque<br>Flujo electrico</p>
+          <p>Este es nuestro mundo y lo dejamos mostrar<br>Que se ve?<br>Que se siente?<br>Nunca solos</p>
+          <p>Nunca solos<br>Nunca solos<br>Nunca solos<br>You say nunca solos</p>
+          <p>I say never alone<br>You say este es nuestro juego<br>I say this is our fire<br>We light up the night</p>
+          <p>Brillamos sin temor<br>The love that we have<br>Eso no es un amor<br>I'm giving my fire to you</p>
+          <p>My heart, my flame<br>Mi fuego, mi amor<br>With every breath I take, I speak your name<br>Tu nombre, mi amor</p>
+          <p>A traves de cada lucha, a traves del espacio desconocido<br>Nunca solos. Nunca solos<br>I'll make sure you're never alone<br>Nunca solos. Nunca solos</p>
+          <p>Now we're standing stronger than we've ever been<br>Every battle fought, every place we've been<br>Donde sea<br>Contigo</p>
+          <p>Nunca solos. Never alone</p>
+        </div>
+      </article>
+    </section>
+  </main>
 
-    <footer>
-      © 2026 <strong>Agust Smari Bjarkarson</strong>
-    </footer>
-  </div>
+  <footer>© 2026 Agust Smari Bjarkarson</footer>
+</div>
 
-  <!-- Dark Mode Toggle Script -->
-  <script src="dark-mode.js"></script>
-  <script src="navigation.js"></script>
+<script src="dark-mode.js"></script>
+<script src="navigation.js"></script>
 </body>
 </html>

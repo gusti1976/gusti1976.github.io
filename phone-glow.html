@@ -4,8 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="max-image-preview:large">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
   <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <title>Phone Glow Lyrics - Agust Islandia | The Unseen Chorus Musical</title>
   <link rel="canonical" href="https://www.gusti.com/phone-glow.html">
@@ -106,6 +126,7 @@
 }
 </script>
   <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="glass-site.css">
 </head>
 
 <body>

@@ -4,8 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="max-image-preview:large">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
   <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <title>Gay and Proud Lyrics (English & Spanish) - Agust Islandia | LGBTQ+ Pride Anthem</title>
   <link rel="canonical" href="https://www.gusti.com/gay-and-proud.html">
@@ -37,6 +57,7 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@id": "#song",
   "@type": "MusicComposition",
   "name": "Gay and Proud",
   "image": "https://www.gusti.com/agust_islandia.jpg",
@@ -56,13 +77,11 @@
     "name": "Agust Smari Bjarkarson",
     "alternateName": "Agust Islandia"
   },
-  "iswcCode": "",
   "lyrics": {
     "@type": "CreativeWork",
     "text": "I'm gay proud and out loud\nNo more whispers I stand in the crowd\nRaise my colors break every chain\nLove is love and it won't be tamed\nI'm gay proud and out loud\nHear my heartbeat it's thunder and sound\nEvery voice we're stronger unbowed\nGay proud and out loud\n\nOh oh oh out and free\nAh ah ah sing with me\nLa la la proud and true\nThis is love breaking through\n\nWe are one the world's out loud\nSide by side we own this town\nHand in hand our voices rise\nStronger together no disguise\n\nI'm gay proud and out loud\nNo more whispers I stand in the crowd\nRaise my colors break every chain\nLove is love and it won't be tamed\nI'm gay proud and out loud\nHear my heartbeat it's thunder and sound\nEvery voice we're stronger unbowed\nGay proud and out loud\n\nOh oh oh rainbow skies\nAh ah ah love won't hide\nLa la la proud and free\nThis is us our destiny\n\nWe are one the world's out loud\nSide by side we own this town\nHand in hand our voices rise\nStronger together no disguise\n\nI'm gay proud and out loud\nNo more whispers I stand in the crowd\nRaise my colors break every chain\nLove is love and it won't be tamed\nI'm gay proud and out loud\nHear my heartbeat it's thunder and sound\nEvery voice we're stronger unbowed\nGay proud and out loud\n\nNo regrets we're here to stay\nLouder still the future's ours\nShining bright a million stars\n\nWe're gay proud and out loud\nNo more whispers we stand in the crowd\nRaise our colors break every chain\nLove is love and it won't be tamed\nWe're gay proud and out loud\nHear our heartbeat it's thunder and sound\nEvery voice we're stronger unbowed\nGay proud and out loud\nGay proud and out loud\nGay proud and out loud",
     "inLanguage": "en-US"
   },
-  "musicalKey": "",
   "inLanguage": "en",
   "datePublished": "2025-09-11",
   "genre": [
@@ -85,47 +104,32 @@
         "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"
       ]
     },
-    "duration": "PT3M44S",
+    "duration": "PT7M40S",
     "url": "https://open.spotify.com/track/7iZPhOQWME9W36NNLyQJrr",
     "inAlbum": {
       "@type": "MusicAlbum",
-      "name": "Gay and Proud / Gay y Orgulloso - Single",
+      "name": "Gay and Proud / Gay y Orgulloso",
       "datePublished": "2025-09-11",
-      "image": "https://www.gusti.com/agust_islandia.jpg"
+      "image": "https://www.gusti.com/agust_islandia.jpg",
+      "url": "https://musicbrainz.org/release/22149f1e-72c9-48d1-8d2a-9fc58e7583a3"
     },
-    "isrcCode": "",
     "recordingOf": {
       "@id": "#song"
-    },
-    "position": "14"
-  }
+    }
+  },
+  "sameAs": [
+    "https://musicbrainz.org/release/22149f1e-72c9-48d1-8d2a-9fc58e7583a3"
+  ]
 }
 </script>
   <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="glass-site.css">
 </head>
-
 <body>
-  <!-- SVG Icon Definitions - Simple Icons (Official Brand Logos) -->
-  <svg style="display: none;" aria-hidden="true">
-    <defs>
-      <symbol id="spotify-icon" viewBox="0 0 24 24">
-        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-      </symbol>
-      <symbol id="apple-icon" viewBox="0 0 24 24">
-        <path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536a1.88 1.88 0 011.038-2.022c.323-.16.67-.25 1.018-.324.378-.082.758-.153 1.134-.24.274-.063.457-.23.51-.516a.904.904 0 00.02-.193c0-1.815 0-3.63-.002-5.443a.725.725 0 00-.026-.185c-.04-.15-.15-.243-.304-.234-.16.01-.318.035-.475.066-.76.15-1.52.303-2.28.456l-2.325.47-1.374.278c-.016.003-.032.01-.048.013-.277.077-.377.203-.39.49-.002.042 0 .086 0 .13-.002 2.602 0 5.204-.003 7.805 0 .42-.047.836-.215 1.227-.278.64-.77 1.04-1.434 1.233-.35.1-.71.16-1.075.172-.96.036-1.755-.6-1.92-1.544-.14-.812.23-1.685 1.154-2.075.357-.15.73-.232 1.108-.31.287-.06.575-.116.86-.177.383-.083.583-.323.6-.714v-.15c0-2.96 0-5.922.002-8.882 0-.123.013-.25.042-.37.07-.285.273-.448.546-.518.255-.066.515-.112.774-.165.733-.15 1.466-.296 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.403.22-.043.442-.088.663-.106.31-.025.523.17.554.482.008.073.012.148.012.223.002 1.91.002 3.822 0 5.732z"/>
-      </symbol>
-    </defs>
-  </svg>
-
-
-<!-- Hamburger Toggle Button -->
 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
+  <span></span><span></span><span></span>
 </button>
 
-<!-- Navigation Drawer -->
 <nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
   <a href="/" class="nav-link">Home</a>
 
@@ -161,225 +165,68 @@
   </div>
 </nav>
 
-<!-- Overlay (closes menu when clicked) -->
 <div class="nav-overlay" id="nav-overlay"></div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="page">
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+    <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+      <path id="sun-rays" d="M12 1v2m0 18v2M1 12h2m18 0h2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+      <path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"/>
+    </svg>
+  </button>
 
-  <div class="page">
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle"
-            id="theme-toggle"
-            aria-label="Toggle dark mode"
-            title="Toggle dark/light mode">
-      <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Sun icon (shown in dark mode) -->
-        <circle cx="12" cy="12" r="5"
-                stroke="currentColor" stroke-width="2" fill="none" id="sun-icon" style="display: none;"/>
-        <line x1="12" y1="1" x2="12" y2="3"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="12" y1="21" x2="12" y2="23"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="1" y1="12" x2="3" y2="12"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="21" y1="12" x2="23" y2="12"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <!-- Moon icon (shown in light mode) -->
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/>
-      </svg>
-    </button>
+  <header>
+    <h1>Gay and Proud</h1>
+    <p class="subtitle">A bilingual LGBTQ+ pride anthem by Agust Islandia celebrating visibility, solidarity, and unapologetic queer joy.</p>
+  </header>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
-      <nav style="margin-bottom: var(--spacing-lg);">
-        <a href="/" style="font-weight: 600;">← Back to Home</a>
-      </nav>
+  <main id="main-content">
+    <section class="grid-2">
+      <article class="card">
+        <img class="hero-media album-cover-full" src="agust_islandia.jpg" alt="Gay and Proud single artwork" loading="lazy">
+        <p><strong>Artist:</strong> Agust Islandia<br><strong>Release Date:</strong> September 11, 2025<br><strong>Format:</strong> Bilingual Single</p>
 
-      <h1>Gay and Proud</h1>
-      <h2 class="subtitle-large">LGBTQ+ Pride Anthem by Agust Islandia</h2>
-      <p class="subtitle">Written and Performed by <strong>Agust Smari Bjarkarson</strong></p>
+        <h2>Story Arc</h2>
+        <p><strong>Gay and Proud</strong> is written as a public declaration song: it moves from silence to collective voice. The opening lines center visibility and refusal of shame, framing queer identity as lived truth rather than negotiation.</p>
+        <p>Its middle sections expand from individual confidence to community unity, using chant-like hooks designed for Pride events, live crowds, and social video sharing. The repeated slogan language makes the song both personal testimony and movement anthem.</p>
+        <p>The bilingual framing and direct lyrical messaging position the track as a contemporary queer pride document focused on liberation, dignity, and solidarity across borders.</p>
 
-      <div class="hero-cta" style="margin-top: var(--spacing-xl);">
-        <a href="https://open.spotify.com/track/7iZPhOQWME9W36NNLyQJrr"
-           class="btn-primary"
-           target="_blank"
-           rel="noopener noreferrer">
-          Listen on Spotify
-        </a>
-        <a href="https://music.apple.com/us/song/gay-and-proud/1836369954"
-           class="btn-secondary"
-           target="_blank"
-           rel="noopener noreferrer">
-          Listen on Apple Music
-        </a>
-      </div>
-          <p class="subtitle">Written and Composed by <strong>Agust Smari Bjarkarson</strong> (Agust Islandia)</p>
-
-
-    <main id="main-content">
-      <section>
-        <h2>Song Details</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong>Album:</strong> <a href="/the-unseen-chorus.html">The Unseen Chorus (A Gay Musical)</a></li>
-          <li><strong>Title:</strong> Gay and Proud / Gay y Orgulloso (Bilingual Single)</li>
-          <li><strong>Artist:</strong> Agust Islandia (Agust Smari Bjarkarson)</li>
-          <li><strong>Release Date:</strong> September 11, 2025</li>
-          <li><strong>Duration:</strong> 3:44 (each version)</li>
-          <li><strong>Genre:</strong> Pop, Dance, LGBTQ+ Pride Anthem</li>
-          <li><strong>Languages:</strong> English & Spanish (Español)</li>
-          <li><strong>Written by:</strong> Agust Smari Bjarkarson</li>
-          <li><strong>Produced by:</strong> Agust Smari Bjarkarson</li>
-          <li><strong>Label:</strong> Agust Islandia (Independent)</li>
-        
-          <li><strong>Track Number:</strong> See track listing</li>
-        
-          <li><strong>Writer/Composer:</strong> Agust Smari Bjarkarson (Agust Islandia)</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>About the Song</h2>
-        <p>
-          <strong>"Gay and Proud"</strong> is a thunderous LGBTQ+ pride anthem that declares
-          <em>"No more whispers, I stand in the crowd."</em> Released in 2025, this empowering single
-          became a viral sensation on TikTok with over <strong>540,000 views</strong>, establishing
-          itself as a defining gay pride anthem for the LGBTQ+ community worldwide.
-        </p>
-        <p>
-          The song celebrates <strong>coming out loud and proud</strong> with soaring choruses,
-          rainbow imagery, and the rallying cry <em>"Love is love and it won't be tamed."</em>
-          Through infectious dance energy and bold storytelling, "Gay and Proud" has become an
-          anthem for <strong>queer visibility, community strength, and unapologetic self-acceptance</strong>.
-        </p>
-        <p>
-          Written and produced by <strong>Agust Smari Bjarkarson</strong> (performing as Agust Islandia),
-          the track combines powerful lyrics about gay pride with an infectious dance beat,
-          making it perfect for <strong>Pride Month celebrations</strong> and <strong>LGBTQ+ events</strong>.
-        </p>
-        <p>
-          <strong>Watch the viral TikTok video:</strong>
-          <a href="https://www.tiktok.com/@gusticeland/video/7548743371280403717"
-             target="_blank"
-             rel="noopener noreferrer">
-            @gusticeland on TikTok
-          </a>
-        </p>
-      </section>
-
-      <section>
-        <h2>Lyrics</h2>
-
-        <div class="lyrics">
-        <p>I'm gay proud and out loud<br>No more whispers I stand in the crowd<br>Raise my colors break every chain<br>Love is love and it won't be tamed<br>I'm gay proud and out loud<br>Hear my heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud</p>
-        <p>Oh oh oh out and free<br>Ah ah ah sing with me<br>La la la proud and true<br>This is love breaking through</p>
-        <p>We are one the world's out loud<br>Side by side we own this town<br>Hand in hand our voices rise<br>Stronger together no disguise</p>
-        <p>I'm gay proud and out loud<br>No more whispers I stand in the crowd<br>Raise my colors break every chain<br>Love is love and it won't be tamed<br>I'm gay proud and out loud<br>Hear my heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud</p>
-        <p>Oh oh oh rainbow skies<br>Ah ah ah love won't hide<br>La la la proud and free<br>This is us our destiny</p>
-        <p>We are one the world's out loud<br>Side by side we own this town<br>Hand in hand our voices rise<br>Stronger together no disguise</p>
-        <p>I'm gay proud and out loud<br>No more whispers I stand in the crowd<br>Raise my colors break every chain<br>Love is love and it won't be tamed<br>I'm gay proud and out loud<br>Hear my heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud</p>
-        <p>No regrets we're here to stay<br>Louder still the future's ours<br>Shining bright a million stars</p>
-        <p>We're gay proud and out loud<br>No more whispers we stand in the crowd<br>Raise our colors break every chain<br>Love is love and it won't be tamed<br>We're gay proud and out loud<br>Hear our heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud<br>Gay proud and out loud<br>Gay proud and out loud</p>
-      </div>
-
-        <p style="margin-top: var(--spacing-md); font-size: 0.9rem; color: var(--color-text-secondary);">
-          <strong>Lyrics © 2025 Agust Smari Bjarkarson. All rights reserved.</strong><br>
-          Written and performed by Agust Smari Bjarkarson (Agust Islandia)
-        </p>
-      </section>
-
-      <section>
-        <h2>Letra - Gay y Orgulloso (Versión en Español)</h2>
-
-        <div class="lyrics">
-        <p>Soy gay con orgullo y en voz<br>Ya sin susurros me alzo de pie<br>Alzo mis colores rompo el candado<br>El amor es amor nunca será domado<br>Soy gay con orgullo y en voz<br>Late mi corazón con trueno y son<br>Cada voz se une sin ser callado<br>Gay y orgulloso declarado</p>
-        <p>Oh oh oh libertad<br>Ah ah ah ven y cantar<br>La la la con verdad<br>Este amor va a brillar</p>
-        <p>Somos uno el mundo alzar<br>Lado a lado juntos sin parar<br>Mano a mano la voz se alza<br>Más fuertes juntos sin amenaza</p>
-        <p>Soy gay con orgullo y en voz<br>Ya sin susurros me alzo de pie<br>Alzo mis colores rompo el candado<br>El amor es amor nunca será domado<br>Soy gay con orgullo y en voz<br>Late mi corazón con trueno y son<br>Cada voz se une sin ser callado<br>Gay y orgulloso declarado</p>
-        <p>Oh oh oh cielos de color<br>Ah ah ah gana el amor<br>La la la orgullo y fe<br>Este destino es para ti y para mí</p>
-        <p>Somos uno el mundo alzar<br>Lado a lado juntos sin parar<br>Mano a mano la voz se alza<br>Más fuertes juntos sin amenaza</p>
-        <p>Soy gay con orgullo y en voz<br>Ya sin susurros me alzo de pie<br>Alzo mis colores rompo el candado<br>El amor es amor nunca será domado<br>Soy gay con orgullo y en voz<br>Late mi corazón con trueno y son<br>Cada voz se une sin ser callado<br>Gay y orgulloso declarado</p>
-        <p>Sin temor aquí estaré<br>Más y más fuerte venceré<br>Brillan alto estrellas mil<br>Nuestro futuro libre al fin</p>
-        <p>Somos gay con orgullo y en voz<br>Ya sin susurros nos alzamos de pie<br>Alzamos colores rompemos candado<br>El amor es amor nunca será domado<br>Somos gay con orgullo y en voz<br>Late nuestro corazón con trueno y son<br>Cada voz se une sin ser callado<br>Gay y orgulloso declarado<br>Gay y orgulloso declarado<br>Gay y orgulloso declarado</p>
-      </div>
-
-        <p style="margin-top: var(--spacing-md); font-size: 0.9rem; color: var(--color-text-secondary);">
-          <strong>Letra © 2025 Agust Smari Bjarkarson. Todos los derechos reservados.</strong><br>
-          Escrita e interpretada por Agust Smari Bjarkarson (Agust Islandia)
-        </p>
-      </section>
-
-      <section>
-        <h2>Themes</h2>
-        <p>
-          "Gay and Proud" explores powerful themes central to the LGBTQ+ experience:
-        </p>
-        <ul style="line-height: 1.8;">
-          <li><strong>Coming Out:</strong> "No more whispers, I stand in the crowd" - The journey from hiding to visibility</li>
-          <li><strong>Self-Acceptance:</strong> Embracing queer identity with pride and confidence</li>
-          <li><strong>Community Strength:</strong> "We are one" - The power of LGBTQ+ solidarity</li>
-          <li><strong>Love Without Limits:</strong> "Love is love and it won't be tamed" - Universal love and equality</li>
-          <li><strong>Pride Celebration:</strong> Rainbow imagery and unapologetic joy</li>
-          <li><strong>Defiance & Liberation:</strong> "Break every chain" - Freedom from societal constraints</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Listen & Follow</h2>
-        <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-top: var(--spacing-md);">
-          <a href="https://open.spotify.com/track/7iZPhOQWME9W36NNLyQJrr" class="btn-icon spotify" target="_blank" rel="noopener" title="Listen on Spotify">
-            <svg class="icon-svg" fill="white">
-              <use href="#spotify-icon"/>
-            </svg>
-          </a>
-          <a href="https://music.apple.com/us/song/gay-and-proud/1836369954" class="btn-icon apple" target="_blank" rel="noopener" title="Listen on Apple Music">
-            <svg class="icon-svg" fill="white">
-              <use href="#apple-icon"/>
-            </svg>
-          </a>
+        <div class="btn-row">
+          <a class="btn primary" href="https://music.apple.com/us/song/gay-and-proud/1836369954" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="btn secondary" href="https://open.spotify.com/track/7iZPhOQWME9W36NNLyQJrr" target="_blank" rel="noopener noreferrer">Spotify</a>
         </div>
-        <p>
-          Follow <strong>Agust Islandia</strong> for more LGBTQ+ music, Pride anthems, and queer musical theatre:
-          <a href="https://www.gusti.com">www.gusti.com</a>
-        </p>
-      </section>
+      </article>
 
-      <section>
-        <h2>More Songs by Agust Islandia</h2>
-        <p>Explore more LGBTQ+ music with full lyrics:</p>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/my-fire.html">My Fire (Mi Fuego)</a></strong> - Bilingual LGBTQ+ love anthem (English/Spanish)</li>
-          <li><strong><a href="/come-out-of-the-dark.html">Come Out of the Dark</a></strong> - Musical theatre anthem about recovery and coming out</li>
-          <li><strong><a href="/feel-alive.html">Feel Alive</a></strong> - High-energy EDM dance anthem</li>
-        </ul>
-        <p><a href="/">← Back to full discography</a></p>
-      </section>
-    
-      <section>
-        <h2>More Songs from The Unseen Chorus (A Gay Musical)</h2>
-        <ul style="line-height: 1.8;">
-          <li><strong><a href="/the-unseen-chorus.html">Album Overview</a></strong> - Explore the full tracklist and story context.</li>
-          <li><strong><a href="/lyrics.html">Lyrics Hub</a></strong> - Browse all lyric pages.</li>
-          <li><strong><a href="/index.html">Homepage</a></strong> - Discography and latest releases.</li>
-        </ul>
-        <p><a href="/the-unseen-chorus.html">← View complete tracklist</a></p>
-      </section>
-</main>
+      <article class="card">
+        <h2>Lyrics (English)</h2>
+        <div class="lyrics">
+          <p>I'm gay proud and out loud<br>No more whispers I stand in the crowd<br>Raise my colors break every chain<br>Love is love and it won't be tamed<br>I'm gay proud and out loud<br>Hear my heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud</p>
+          <p>Oh oh oh out and free<br>Ah ah ah sing with me<br>La la la proud and true<br>This is love breaking through</p>
+          <p>We are one the world's out loud<br>Side by side we own this town<br>Hand in hand our voices rise<br>Stronger together no disguise</p>
+          <p>I'm gay proud and out loud<br>No more whispers I stand in the crowd<br>Raise my colors break every chain<br>Love is love and it won't be tamed<br>I'm gay proud and out loud<br>Hear my heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud</p>
+          <p>Oh oh oh rainbow skies<br>Ah ah ah love won't hide<br>La la la proud and free<br>This is us our destiny</p>
+          <p>We are one the world's out loud<br>Side by side we own this town<br>Hand in hand our voices rise<br>Stronger together no disguise</p>
+          <p>I'm gay proud and out loud<br>No more whispers I stand in the crowd<br>Raise my colors break every chain<br>Love is love and it won't be tamed<br>I'm gay proud and out loud<br>Hear my heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud</p>
+          <p>No regrets we're here to stay<br>Louder still the future's ours<br>Shining bright a million stars</p>
+          <p>We're gay proud and out loud<br>No more whispers we stand in the crowd<br>Raise our colors break every chain<br>Love is love and it won't be tamed<br>We're gay proud and out loud<br>Hear our heartbeat it's thunder and sound<br>Every voice we're stronger unbowed<br>Gay proud and out loud<br>Gay proud and out loud<br>Gay proud and out loud</p>
+        </div>
 
-    <footer>
-      © 2026 <strong>Agust Smari Bjarkarson</strong>
-    </footer>
-  </div>
+        <h2>Letra (Espanol)</h2>
+        <div class="lyrics">
+          <p>Soy gay con orgullo y en voz<br>Ya sin susurros me alzo de pie<br>Alzo mis colores rompo el candado<br>El amor es amor nunca sera domado<br>Soy gay con orgullo y en voz<br>Late mi corazon con trueno y son<br>Cada voz se une sin ser callado<br>Gay y orgulloso declarado</p>
+          <p>Oh oh oh libertad<br>Ah ah ah ven y cantar<br>La la la con verdad<br>Este amor va a brillar</p>
+          <p>Somos uno el mundo alzar<br>Lado a lado juntos sin parar<br>Mano a mano la voz se alza<br>Mas fuertes juntos sin amenaza</p>
+        </div>
+      </article>
+    </section>
+  </main>
 
-  <!-- Dark Mode Toggle Script -->
-  <script src="dark-mode.js"></script>
-  <script src="navigation.js"></script>
+  <footer>© 2026 Agust Smari Bjarkarson</footer>
+</div>
+
+<script src="dark-mode.js"></script>
+<script src="navigation.js"></script>
 </body>
 </html>

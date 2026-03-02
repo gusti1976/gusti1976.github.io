@@ -1,6 +1,6 @@
 HTML VALIDATION REPORT
 Generated: 2026-03-01
-Total files: 60
+Total files: 61
 Errors: 8
 Warnings: 3
 

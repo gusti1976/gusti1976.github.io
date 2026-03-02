@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="max-image-preview:large">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
+  <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <title>{{album_title}} | {{album_type}} | Agust Islandia</title>
+  <link rel="canonical" href="https://www.gusti.com/{{album_slug}}.html">
+  <meta name="description" content="{{seo_description}}">
+
+  <meta property="og:title" content="{{album_title}} | {{album_type}}">
+  <meta property="og:site_name" content="Agust Islandia">
+  <meta property="og:description" content="{{seo_description}}">
+  <meta property="og:type" content="music.album">
+  <meta property="og:url" content="https://www.gusti.com/{{album_slug}}.html">
+  <meta property="og:image" content="https://www.gusti.com/{{cover_image}}">
+  <meta property="music:musician" content="https://www.gusti.com/">
+  <meta property="music:release_date" content="{{release_date_iso}}">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{album_title}} | {{album_type}}">
+  <meta name="twitter:description" content="{{seo_description}}">
+  <meta name="twitter:image" content="https://www.gusti.com/{{cover_image}}">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="glass-site.css">
+</head>
+<body>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- Reuse your global nav snippet -->
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
+    {{nav_html}}
+  </nav>
+
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="page">
+    <header>
+      <h1>{{album_title}}</h1>
+      <p class="subtitle">{{album_subtitle_seo}}</p>
+    </header>
+
+    <main id="main-content">
+      <section class="grid-2">
+        <article class="card">
+          <img
+            class="hero-media"
+            src="{{cover_image}}"
+            alt="{{cover_alt}}"
+            loading="lazy"
+            style="aspect-ratio: 1 / 1; object-fit: contain; background: rgba(255,255,255,0.45);">
+
+          <p>
+            <strong>Artist:</strong> Agust Islandia<br>
+            <strong>Release Date:</strong> {{release_date_human}}<br>
+            <strong>Tracks:</strong> {{track_count}}
+          </p>
+
+          <h2>Story Arc</h2>
+          <p>{{story_arc_paragraph_1}}</p>
+          <p>{{story_arc_paragraph_2}}</p>
+          <p>{{story_arc_paragraph_3}}</p>
+
+          <div class="btn-row">
+            <a class="btn primary" href="{{apple_music_url}}" target="_blank" rel="noopener noreferrer">Apple Music</a>
+            <a class="btn secondary" href="{{spotify_url}}" target="_blank" rel="noopener noreferrer">Spotify</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Full Tracklist (Lyrics)</h2>
+          <ol>
+            {{#tracks}}
+            <li><a href="{{url}}">{{title}}</a></li>
+            {{/tracks}}
+          </ol>
+        </article>
+      </section>
+    </main>
+
+    <footer>© 2026 Agust Smari Bjarkarson</footer>
+  </div>
+
+  <script src="dark-mode.js"></script>
+  <script src="navigation.js"></script>
+</body>
+</html>
