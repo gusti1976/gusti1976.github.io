@@ -13,6 +13,86 @@
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <style>
+    .about-page {
+      max-width: 1120px;
+    }
+
+    .about-hero {
+      text-align: center;
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      border-radius: var(--radius);
+      border: 1px solid rgba(160, 181, 228, 0.58);
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.58));
+      box-shadow: 0 20px 40px rgba(18, 34, 71, 0.14);
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::before {
+      content: "";
+      position: absolute;
+      inset: -30% -15%;
+      background: radial-gradient(circle at 20% 15%, rgba(111, 157, 255, 0.22), transparent 45%),
+        radial-gradient(circle at 80% 25%, rgba(255, 159, 196, 0.16), transparent 42%);
+      pointer-events: none;
+    }
+
+    .about-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .about-panel {
+      border-radius: var(--radius);
+      border: 1px solid rgba(160, 181, 228, 0.58);
+      background: var(--glass-strong);
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(18, 34, 71, 0.08);
+    }
+
+    .about-panel h2 {
+      margin-bottom: 10px;
+    }
+
+    .about-panel p {
+      margin: 0 0 12px;
+    }
+
+    .about-panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-panel ul {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    .about-panel-wide {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    html[data-theme="dark"] .about-hero,
+    html.dark-mode .about-hero {
+      background: linear-gradient(150deg, rgba(18, 29, 53, 0.86), rgba(15, 24, 43, 0.74));
+      border-color: rgba(120, 147, 209, 0.46);
+      box-shadow: 0 24px 44px rgba(4, 8, 18, 0.42);
+    }
+  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -63,18 +143,18 @@
 <!-- Overlay (closes menu when clicked) -->
 <div class="nav-overlay" id="nav-overlay"></div>
 
-  <div class="page">
+  <div class="page about-page">
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
       <svg class="theme-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/></svg>
     </button>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
+    <header class="about-hero">
       <h1>Meet Agust Islandia</h1>
       <p class="subtitle">Icelandic Queer Pop Artist & Musical Theatre Composer</p>
     </header>
 
-    <main id="main-content">
-      <section>
+    <main id="main-content" class="about-grid">
+      <section class="about-panel about-panel-wide">
         <h2>About Agust Smari Bjarkarson</h2>
         <p>
           <strong>Agust Smari Bjarkarson</strong>, performing as <strong>Agust Islandia</strong>, is an Icelandic queer pop artist and musical theatre composer from Reykjavik. Born August 26, 1976, Agust creates music that unapologetically celebrates queer life, queer love, and Pride.
@@ -84,14 +164,14 @@
         </p>
       </section>
 
-      <section>
+      <section class="about-panel">
         <h2>Musical Influences</h2>
         <p>
           Agust's work is deeply influenced by queer-affirming musical theatre, particularly <strong>Rent</strong>, <strong>Moulin Rouge! The Musical</strong>, and <strong>Hair</strong>. These groundbreaking works inspired him to create his own theatrical narratives that center LGBTQ+ experiences with honesty, compassion, and unflinching truth.
         </p>
       </section>
 
-      <section>
+      <section class="about-panel">
         <h2>Mission & Vision</h2>
         <p>
           "I am just starting, so my bucket list is still wide open. I want to create bigger productions, collaborate with inspiring artists, and keep pushing myself creatively."
@@ -101,9 +181,9 @@
         </p>
       </section>
 
-      <section>
+      <section class="about-panel">
         <h2>Career Highlights</h2>
-        <ul style="line-height: 1.8;">
+        <ul>
           <li><strong>Viral Breakthrough:</strong> "Gay and Proud" reached 540,000+ TikTok views and became an LGBTQ+ community anthem</li>
           <li><strong>Complete Musical:</strong> "The Unseen Chorus" - 27 tracks, 80 minutes, addressing addiction and recovery</li>
           <li><strong>Milestone:</strong> 60,000 daily streams achieved</li>
@@ -112,14 +192,14 @@
         </ul>
       </section>
 
-      <section>
+      <section class="about-panel">
         <h2>Based in Reykjavik, Iceland</h2>
         <p>
           Creating from Reykjavik, Agust brings an Icelandic perspective to LGBTQ+ music and musical theatre, contributing to the global conversation about queer identity, love, and community.
         </p>
       </section>
 
-      <section>
+      <section class="about-panel">
         <h2>Get in Touch</h2>
         <p>
           Available for Pride festivals, LGBTQ+ events, and live performances.
