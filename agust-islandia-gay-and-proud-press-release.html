@@ -96,6 +96,23 @@
     }
     .release-body p { margin: 0 0 var(--spacing-md); }
     .release-links a { word-break: break-word; }
+
+    html[data-theme="dark"] .press-release-hero,
+    html.dark-mode .press-release-hero {
+      background: linear-gradient(150deg, rgba(18, 29, 53, 0.86), rgba(15, 24, 43, 0.74));
+      border-color: rgba(120, 147, 209, 0.46);
+      box-shadow: 0 24px 44px rgba(4, 8, 18, 0.42);
+    }
+
+    html[data-theme="dark"] .release-thumb,
+    html.dark-mode .release-thumb {
+      border-color: rgba(120, 147, 209, 0.46);
+    }
+
+    html[data-theme="dark"] .release-meta,
+    html.dark-mode .release-meta {
+      color: var(--ink-muted);
+    }
   </style>
 </head>
 <body>
