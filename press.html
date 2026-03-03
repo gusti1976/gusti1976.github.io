@@ -12,6 +12,98 @@
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css">
+  <style>
+    .press-page {
+      max-width: 1120px;
+    }
+
+    .press-hero {
+      text-align: center;
+      padding: var(--spacing-2xl) var(--spacing-lg);
+      border-radius: var(--radius);
+      border: 1px solid rgba(160, 181, 228, 0.58);
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.58));
+      box-shadow: 0 20px 40px rgba(18, 34, 71, 0.14);
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .press-hero::before {
+      content: "";
+      position: absolute;
+      inset: -30% -15%;
+      background: radial-gradient(circle at 20% 15%, rgba(111, 157, 255, 0.22), transparent 45%),
+        radial-gradient(circle at 80% 25%, rgba(255, 159, 196, 0.16), transparent 42%);
+      pointer-events: none;
+    }
+
+    .press-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .press-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .press-panel {
+      border-radius: var(--radius);
+      border: 1px solid rgba(160, 181, 228, 0.58);
+      background: var(--glass-strong);
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(18, 34, 71, 0.08);
+    }
+
+    .press-panel h2 {
+      margin-bottom: 10px;
+    }
+
+    .press-panel p {
+      margin: 0 0 12px;
+    }
+
+    .press-panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .press-panel ul {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    .press-panel-wide {
+      grid-column: 1 / -1;
+    }
+
+    .press-news-item {
+      margin-bottom: var(--spacing-xl);
+      padding-bottom: var(--spacing-xl);
+      border-bottom: 1px solid rgba(160, 181, 228, 0.58);
+    }
+
+    .press-news-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    @media (max-width: 900px) {
+      .press-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    html[data-theme="dark"] .press-hero,
+    html.dark-mode .press-hero {
+      background: linear-gradient(150deg, rgba(18, 29, 53, 0.86), rgba(15, 24, 43, 0.74));
+      border-color: rgba(120, 147, 209, 0.46);
+      box-shadow: 0 24px 44px rgba(4, 8, 18, 0.42);
+    }
+  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -62,21 +154,21 @@
 <!-- Overlay (closes menu when clicked) -->
 <div class="nav-overlay" id="nav-overlay"></div>
 
-  <div class="page">
+  <div class="page press-page">
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
       <svg class="theme-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/></svg>
     </button>
 
-    <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
+    <header class="press-hero">
       <h1>Press & News</h1>
       <p class="subtitle">Latest Milestones & Releases from Agust Islandia</p>
     </header>
 
-    <main id="main-content">
-      <section>
+    <main id="main-content" class="press-grid">
+      <section class="press-panel press-panel-wide">
         <h2>Recent Milestones</h2>
         
-        <article style="margin-bottom: var(--spacing-xl); padding-bottom: var(--spacing-xl); border-bottom: 1px solid var(--color-border);">
+        <article class="press-news-item">
           <h3>October 2025 - "The Unseen Chorus" Musical Released</h3>
           <p><strong>Release Date:</strong> October 6, 2025</p>
           <p>
@@ -88,7 +180,7 @@
           <p><a href="/the-unseen-chorus.html">Read more about The Unseen Chorus →</a></p>
         </article>
 
-        <article style="margin-bottom: var(--spacing-xl); padding-bottom: var(--spacing-xl); border-bottom: 1px solid var(--color-border);">
+        <article class="press-news-item">
           <h3>September 2025 - "Gay and Proud" Goes Viral</h3>
           <p><strong>TikTok Milestone:</strong> 540,000+ Views</p>
           <p>
@@ -97,7 +189,7 @@
           <p><a href="/gay-and-proud.html">View full lyrics →</a></p>
         </article>
 
-        <article style="margin-bottom: var(--spacing-xl); padding-bottom: var(--spacing-xl); border-bottom: 1px solid var(--color-border);">
+        <article class="press-news-item">
           <h3>Streaming Milestone - 60,000 Daily Streams</h3>
           <p>
             Agust Islandia's music catalog reached a significant milestone of 60,000 daily streams across all platforms, demonstrating growing connection with queer listeners and allies worldwide.
@@ -105,9 +197,9 @@
         </article>
       </section>
 
-      <section>
+      <section class="press-panel">
         <h2>2025 Releases</h2>
-        <ul style="line-height: 1.8;">
+        <ul>
           <li><strong>The Unseen Chorus, A Gay Musical</strong> (October 6, 2025) - 27 tracks</li>
           <li><strong>Gay and Proud / Gay y Orgulloso</strong> (September 11, 2025) - Bilingual Pride anthem</li>
           <li><strong>My Fire (Mi Fuego)</strong> (2025) - Bilingual love song</li>
@@ -118,7 +210,7 @@
         </ul>
       </section>
 
-      <section>
+      <section class="press-panel">
         <h2>Press Contact</h2>
         <p>
           For press inquiries, interviews, and booking information:
@@ -128,7 +220,7 @@
         </p>
       </section>
 
-      <section>
+      <section class="press-panel press-panel-wide">
         <h2>Artist Bio & Photos</h2>
         <p>
           <strong>Short Bio:</strong> Agust Smari Bjarkarson (Agust Islandia) is an Icelandic queer pop artist and musical theatre composer from Reykjavik, creating LGBTQ+ anthems and groundbreaking gay musicals.
