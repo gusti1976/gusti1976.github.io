@@ -29,6 +29,13 @@ html, body {
   align-items: start;
 }
 
+.song-hero > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+}
+
 .song-kicker {
   display: inline-block;
   border-radius: 999px;
@@ -231,5 +238,6 @@ html[data-theme="dark"] .snapshot-value { color: #d9e8ff; }
 
 @media (max-width: 920px) {
   .song-hero, .song-layout { grid-template-columns: 1fr; padding-left: 24px; padding-right: 24px; }
+  .song-hero > div { justify-content: flex-start; }
   .snapshot-grid { grid-template-columns: 1fr; }
 }
