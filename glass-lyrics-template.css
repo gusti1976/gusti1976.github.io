@@ -113,7 +113,7 @@ html, body {
 }
 
 .song-meta-card img {
-  width: min(100%, 140px) !important;
+  width: min(100%, 320px) !important;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
