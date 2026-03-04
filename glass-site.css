@@ -167,8 +167,8 @@ header h1 {
 
 .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .btn { text-decoration: none; border-radius: 999px; padding: 10px 14px; font-weight: 700; font-size: .9rem; }
-.btn.primary { color: white; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
-.btn.secondary { color: #173266; border: 1px solid rgba(104,129,201,.6); background: rgba(255,255,255,.65); }
+.btn.primary { color: #fff; background: #fc3c44; border: 1px solid #fc3c44; }
+.btn.secondary { color: #fff; background: #1db954; border: 1px solid #1db954; }
 
 .hero-media { width: 100%; border-radius: 14px; aspect-ratio: 16/9; object-fit: cover; }
 .album-cover-full {
