@@ -29,6 +29,10 @@ html, body {
   align-items: start;
 }
 
+.song-hero.snapshot-moved {
+  grid-template-columns: 1fr;
+}
+
 .song-kicker {
   display: inline-block;
   border-radius: 999px;
@@ -151,8 +155,15 @@ html, body {
 }
 
 .song-layout > section,
-.song-layout > aside {
+.song-layout > aside,
+.song-layout > .song-right-column {
   margin: 0;
+}
+
+.song-right-column {
+  display: grid;
+  gap: 16px;
+  align-content: start;
 }
 
 .panel {
@@ -231,5 +242,6 @@ html[data-theme="dark"] .snapshot-value { color: #d9e8ff; }
 
 @media (max-width: 920px) {
   .song-hero, .song-layout { grid-template-columns: 1fr; padding-left: 24px; padding-right: 24px; }
+  .song-right-column { grid-template-columns: 1fr; }
   .snapshot-grid { grid-template-columns: 1fr; }
 }

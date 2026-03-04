@@ -14,6 +14,8 @@
   }
 
   function initNavigation() {
+    normalizeSongLayout();
+
     const navToggle = document.getElementById('nav-toggle');
     const navDrawer = document.getElementById('nav-drawer');
     const navOverlay = document.getElementById('nav-overlay');
@@ -111,6 +113,32 @@
             }
           }
         }
+      });
+    }
+
+    function normalizeSongLayout() {
+      const layouts = document.querySelectorAll('.song-layout');
+
+      layouts.forEach(function(layout) {
+        if (layout.dataset.normalized === 'true') return;
+
+        const page = layout.closest('.page') || document;
+        const hero = page.querySelector('.song-hero');
+        if (!hero) return;
+
+        const snapshot = hero.querySelector('.song-meta-card');
+        const lyricsPanel = layout.querySelector('section.panel');
+        const mattersPanel = layout.querySelector('aside.panel');
+        if (!snapshot || !lyricsPanel || !mattersPanel) return;
+
+        const rightColumn = document.createElement('div');
+        rightColumn.className = 'song-right-column';
+        layout.insertBefore(rightColumn, mattersPanel);
+        rightColumn.appendChild(snapshot);
+        rightColumn.appendChild(mattersPanel);
+
+        hero.classList.add('snapshot-moved');
+        layout.dataset.normalized = 'true';
       });
     }
   }
