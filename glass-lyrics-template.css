@@ -108,7 +108,16 @@ html, body {
 
 .snapshot-grid {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+}
+
+.song-meta-card img {
+  width: min(100%, 200px) !important;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 10px !important;
 }
 
 .snapshot-item {
@@ -222,4 +231,5 @@ html[data-theme="dark"] .snapshot-value { color: #d9e8ff; }
 
 @media (max-width: 920px) {
   .song-hero, .song-layout { grid-template-columns: 1fr; padding-left: 24px; padding-right: 24px; }
+  .snapshot-grid { grid-template-columns: 1fr; }
 }
