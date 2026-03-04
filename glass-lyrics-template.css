@@ -23,11 +23,10 @@ html, body {
 
 .song-hero {
   padding: 76px 36px 28px;
-  position: relative;
-}
-
-.song-hero > div {
-  max-width: calc(100% - 360px);
+  display: grid;
+  grid-template-columns: 1.2fr .85fr;
+  gap: 18px;
+  align-items: start;
 }
 
 .song-kicker {
@@ -87,11 +86,7 @@ html, body {
   border: 1px solid rgba(255,255,255,.42);
   background: var(--glass-bg);
   box-shadow: 0 14px 24px rgba(30, 44, 79, 0.12);
-  padding: 17px;
-  position: absolute;
-  top: 76px;
-  right: 36px;
-  width: 320px;
+  padding: 14px;
 }
 
 .song-meta-card h2 {
@@ -118,7 +113,7 @@ html, body {
 }
 
 .song-meta-card img {
-  width: min(100%, 200px) !important;
+  width: min(100%, 140px) !important;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
@@ -235,13 +230,6 @@ html[data-theme="dark"] .snapshot-item {
 html[data-theme="dark"] .snapshot-value { color: #d9e8ff; }
 
 @media (max-width: 920px) {
-  .song-hero { padding-left: 24px; padding-right: 24px; }
-  .song-hero > div { max-width: none; }
-  .song-meta-card {
-    position: static;
-    width: auto;
-    margin-top: 14px;
-  }
-  .song-layout { grid-template-columns: 1fr; padding-left: 24px; padding-right: 24px; }
+  .song-hero, .song-layout { grid-template-columns: 1fr; padding-left: 24px; padding-right: 24px; }
   .snapshot-grid { grid-template-columns: 1fr; }
 }
