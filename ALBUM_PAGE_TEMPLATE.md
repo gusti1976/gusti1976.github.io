@@ -179,6 +179,9 @@ Use `<div class="lyrics">` with `<p>` tags — never `<pre>`.
 | `<br>` inside `<p>` | Line breaks within a stanza |
 | Blank `<p>` between stanzas | Stanza breaks |
 
+Guardrail:
+- Never leave a literal `\n` after `<br>` in rendered HTML. Use `<br>` only, followed by the next lyric line text or normal indentation whitespace. A visible `\n` on the page means the lyric HTML was escaped incorrectly during generation or paste cleanup.
+
 ---
 
 ## Song Details Fields (All 6 Required)

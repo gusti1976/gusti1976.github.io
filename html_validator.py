@@ -118,6 +118,9 @@ class HTMLValidator(HTMLParser):
         # Check track duration formatting
         self.validate_duration_format(content)
 
+        # Check for rendered lyric escape artifacts
+        self.validate_lyric_rendering(content)
+
         return self.errors, self.warnings
 
     def validate_duration_format(self, content):
@@ -143,6 +146,11 @@ class HTMLValidator(HTMLParser):
                 if error_msg not in found_errors:
                     self.errors.append(error_msg)
                     found_errors.add(error_msg)
+
+    def validate_lyric_rendering(self, content):
+        """Check for literal escape sequences accidentally rendered in lyric HTML."""
+        if '<div class="lyric-lines">' in content and re.search(r'<br>\\n', content):
+            self.errors.append("Rendered lyric artifact: literal \\n appears after <br> in lyric HTML")
 
     def validate_schemas(self):
         """Validate Schema.org JSON-LD"""
@@ -217,7 +225,14 @@ def validate_internal_links(base_dir, all_files):
 
 def main():
     base_dir = Path("/Users/gusti/gusti1976.github.io")
-    html_files = sorted(base_dir.glob("*.html"))
+    excluded_files = {
+        "google46e00271f9de7d83.html",  # Google site verification token file
+        "navigation-template.html",     # Reusable snippet/template, not a standalone page
+    }
+    html_files = sorted(
+        filepath for filepath in base_dir.glob("*.html")
+        if filepath.name not in excluded_files
+    )
 
     print(f"🔍 Validating {len(html_files)} HTML files...\n")
 

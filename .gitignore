@@ -9,6 +9,8 @@ START_HERE.txt
 DARK_MODE_SUMMARY.txt
 schema_validation_report.txt
 unseen-chorus-tracklist.txt
+AGENT_MEMORY.md
+LOCAL_NOTES*.md
 
 # macOS
 .DS_Store
