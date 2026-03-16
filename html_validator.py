@@ -9,6 +9,7 @@ import re
 from pathlib import Path
 from html.parser import HTMLParser
 from collections import defaultdict
+from urllib.parse import urlparse
 
 class HTMLValidator(HTMLParser):
     def __init__(self, filepath):
@@ -27,6 +28,14 @@ class HTMLValidator(HTMLParser):
         self.has_viewport = False
         self.has_charset = False
         self.navigation_found = False
+
+    @staticmethod
+    def is_valid_url(value):
+        """Return True for absolute HTTP(S) URLs."""
+        if not isinstance(value, str) or not value:
+            return False
+        parsed = urlparse(value)
+        return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
     def handle_starttag(self, tag, attrs):
         attrs_dict = dict(attrs)
@@ -115,6 +124,9 @@ class HTMLValidator(HTMLParser):
         # Validate Schema.org
         self.validate_schemas()
 
+        # Page-class-specific schema checks
+        self.validate_page_class_rules(content)
+
         # Check track duration formatting
         self.validate_duration_format(content)
 
@@ -170,6 +182,7 @@ class HTMLValidator(HTMLParser):
                 self.errors.append("Schema missing @type")
 
             self.validate_single_schema(schema)
+            self.validate_schema_urls(schema)
 
     def validate_single_schema(self, schema):
         """Validate a single schema object"""
@@ -191,16 +204,89 @@ class HTMLValidator(HTMLParser):
                         duration = recorded['duration']
                         if duration and not re.match(r'^PT\d+M\d+S$', duration):
                             self.errors.append(f"Invalid duration format: {duration}")
+                    if 'sameAs' in recorded and not self.schema_field_has_only_urls(recorded['sameAs']):
+                        self.errors.append("MusicRecording sameAs contains non-URL values")
+                    if 'url' in recorded and not self.is_valid_url(recorded['url']):
+                        self.errors.append("MusicRecording url is not a valid absolute URL")
+            if 'sameAs' in schema and not self.schema_field_has_only_urls(schema['sameAs']):
+                self.errors.append("MusicComposition sameAs contains non-URL values")
 
         elif schema_type == 'MusicAlbum':
             if 'name' not in schema:
                 self.errors.append("MusicAlbum missing 'name'")
             if 'byArtist' not in schema:
                 self.warnings.append("MusicAlbum missing 'byArtist'")
+            if 'sameAs' in schema and not self.schema_field_has_only_urls(schema['sameAs']):
+                self.errors.append("MusicAlbum sameAs contains non-URL values")
 
         elif schema_type == 'Person':
             if 'name' not in schema:
                 self.errors.append("Person schema missing 'name'")
+            if 'sameAs' in schema and not self.schema_field_has_only_urls(schema['sameAs']):
+                self.errors.append("Person sameAs contains non-URL values")
+
+    def schema_field_has_only_urls(self, value):
+        """Validate string/list schema URL fields."""
+        if isinstance(value, str):
+            return self.is_valid_url(value)
+        if isinstance(value, list):
+            return all(self.is_valid_url(item) for item in value)
+        return False
+
+    def validate_schema_urls(self, schema):
+        """Recursively validate url and sameAs fields across schema objects."""
+        if isinstance(schema, dict):
+            for key, value in schema.items():
+                if key == 'url' and not self.is_valid_url(value):
+                    self.errors.append("Schema url field is not a valid absolute URL")
+                elif key == 'sameAs' and not self.schema_field_has_only_urls(value):
+                    self.errors.append("Schema sameAs field contains non-URL values")
+                else:
+                    self.validate_schema_urls(value)
+        elif isinstance(schema, list):
+            for item in schema:
+                self.validate_schema_urls(item)
+
+    def validate_page_class_rules(self, content):
+        """Apply page-type-specific schema expectations."""
+        is_lyrics_page = '<div class="lyric-lines">' in content
+        has_music_composition = any(
+            isinstance(schema, dict) and schema.get('@type') == 'MusicComposition'
+            for schema in self.schemas
+        )
+        has_music_album = any(
+            isinstance(schema, dict) and schema.get('@type') == 'MusicAlbum'
+            for schema in self.schemas
+        )
+
+        if is_lyrics_page:
+            if not has_music_composition:
+                self.errors.append("Lyrics page missing MusicComposition schema")
+                return
+
+            composition = next(
+                (schema for schema in self.schemas
+                 if isinstance(schema, dict) and schema.get('@type') == 'MusicComposition'),
+                None
+            )
+            if isinstance(composition, dict):
+                if 'recordedAs' not in composition:
+                    self.warnings.append("Lyrics page MusicComposition missing recordedAs")
+                elif not isinstance(composition.get('recordedAs'), dict):
+                    self.errors.append("Lyrics page recordedAs must be an object")
+                elif composition['recordedAs'].get('@type') != 'MusicRecording':
+                    self.errors.append("Lyrics page recordedAs must be MusicRecording")
+
+                if 'lyrics' not in composition:
+                    self.errors.append("Lyrics page MusicComposition missing lyrics object")
+
+        is_album_page = (
+            '<h2>Full Tracklist' in content or
+            '<h2>Tracklist' in content or
+            '<ol>' in content and 'Tracks:' in content and 'class="lyric-lines"' not in content
+        )
+        if is_album_page and not has_music_album:
+            self.warnings.append("Album/release page missing MusicAlbum schema")
 
 def validate_internal_links(base_dir, all_files):
     """Check if internal links point to existing files"""
@@ -228,6 +314,8 @@ def main():
     excluded_files = {
         "google46e00271f9de7d83.html",  # Google site verification token file
         "navigation-template.html",     # Reusable snippet/template, not a standalone page
+        "GLASS_ALBUM_TEMPLATE.html",    # Reusable template, not a standalone page
+        "GLASS_LYRICS_TEMPLATE.html",   # Reusable template, not a standalone page
     }
     html_files = sorted(
         filepath for filepath in base_dir.glob("*.html")
