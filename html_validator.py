@@ -316,6 +316,7 @@ def main():
         "navigation-template.html",     # Reusable snippet/template, not a standalone page
         "GLASS_ALBUM_TEMPLATE.html",    # Reusable template, not a standalone page
         "GLASS_LYRICS_TEMPLATE.html",   # Reusable template, not a standalone page
+        "review-album-artwork.html",    # Temporary internal review page
     }
     html_files = sorted(
         filepath for filepath in base_dir.glob("*.html")
