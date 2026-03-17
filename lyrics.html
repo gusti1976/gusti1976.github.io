@@ -43,67 +43,110 @@
   <meta property="og:title" content="Song Lyrics & Stories - Agust Islandia"><meta property="og:description" content="Browse song lyrics and stories from Agust Islandia (Agust Smari Bjarkarson), including tracks from gay musicals, singles, and Pride-era releases.">
   <meta property="og:url" content="https://www.gusti.com/lyrics.html">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "CollectionPage",
-        "@id": "https://www.gusti.com/lyrics.html#webpage",
-        "url": "https://www.gusti.com/lyrics.html",
-        "name": "Song Lyrics & Stories | Agust Islandia",
-        "description": "Official lyrics archive for Agust Islandia, including songs from albums, singles, and musicals.",
-        "inLanguage": "en-US",
-        "about": {
-          "@id": "https://www.gusti.com/#agust-person"
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://www.gusti.com/lyrics.html#webpage",
+      "url": "https://www.gusti.com/lyrics.html",
+      "name": "Song Lyrics & Stories | Agust Islandia",
+      "description": "Browse song lyrics and stories from Agust Islandia (Agust Smari Bjarkarson), including tracks from gay musicals, singles, and Pride-era releases.",
+      "isPartOf": {
+        "@id": "https://www.gusti.com/#website"
+      },
+      "about": {
+        "@id": "https://www.gusti.com/#agust-person"
+      },
+      "mainEntity": {
+        "@id": "https://www.gusti.com/lyrics.html#lyrics-list"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://www.gusti.com/lyrics.html#cover-image"
+      },
+      "breadcrumb": {
+        "@id": "https://www.gusti.com/lyrics.html#breadcrumb"
+      },
+      "publisher": {
+        "@id": "https://www.gusti.com/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.gusti.com/#website",
+      "name": "Agust Islandia",
+      "url": "https://www.gusti.com/",
+      "publisher": {
+        "@id": "https://www.gusti.com/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.gusti.com/#organization",
+      "name": "Agust Islandia",
+      "url": "https://www.gusti.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.gusti.com/android-chrome-192x192.png"
+      },
+      "sameAs": [
+        "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+        "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.gusti.com/lyrics.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.gusti.com/"
         },
-        "mainEntity": {
-          "@id": "https://www.gusti.com/lyrics.html#lyrics-list"
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Lyrics",
+          "item": "https://www.gusti.com/lyrics.html"
         }
-      },
-      {
-        "@type": "ItemList",
-        "@id": "https://www.gusti.com/lyrics.html#lyrics-list",
-        "name": "Agust Islandia Lyrics Collections",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "The Unseen Chorus (A Gay Musical)",
-            "url": "https://www.gusti.com/the-unseen-chorus.html"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Swipe Me to the Moon (A Gay Musical)",
-            "url": "https://www.gusti.com/swipe-me-to-the-moon.html"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Cowboys EP",
-            "url": "https://www.gusti.com/cowboys.html"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Pride Anthems & Singles",
-            "url": "https://www.gusti.com/gay-and-proud.html"
-          }
-        ]
-      },
-      {
-        "@type": "Person",
-        "@id": "https://www.gusti.com/#agust-person",
-        "name": "Agust Smari Bjarkarson",
-        "alternateName": "Agust Islandia",
-        "url": "https://www.gusti.com/"
-      }
-    ]
-  }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://www.gusti.com/lyrics.html#cover-image",
+      "url": "https://www.gusti.com/gay-and-proud-cover.webp",
+      "contentUrl": "https://www.gusti.com/gay-and-proud-cover.webp",
+      "caption": "Cover image for the Agust Islandia lyrics archive",
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.gusti.com/#agust-person",
+      "name": "Agust Smari Bjarkarson",
+      "alternateName": "Agust Islandia",
+      "url": "https://www.gusti.com/",
+      "sameAs": [
+        "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+        "https://www.tiktok.com/@gusticeland",
+        "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://www.gusti.com/lyrics.html#lyrics-list",
+      "name": "Agust Islandia Lyrics Collections"
+    }
+  ]
+}
   </script>
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css">
-  <link rel="stylesheet" href="glass-site.css?v=20260304e">
+  <link rel="stylesheet" href="glass-site.css?v=20260317a">
 <meta property="og:type" content="website"><meta property="og:image" content="https://www.gusti.com/gay-and-proud-cover.webp"></head>
 <body>
   {% include navigation.html %}

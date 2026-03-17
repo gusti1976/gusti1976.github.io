@@ -51,60 +51,171 @@
 
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css">
-  <link rel="stylesheet" href="glass-site.css?v=20260304e">
+  <link rel="stylesheet" href="glass-site.css?v=20260317a">
 
-  <script type="application/ld+json">{
-    "@context": "https://schema.org",
-    "@type": "MusicAlbum",
-    "name": "Peach and Purple",
-    "url": "https://www.gusti.com/peach-and-purple.html",
-    "image": "https://www.gusti.com/peach-and-purple-cover.webp",
-    "datePublished": "2025-08-01",
-    "inLanguage": "en",
-    "numTracks": 1,
-    "countryOfOrigin": "XW",
-    "albumProductionType": "Single",
-    "genre": ["Pop"],
-    "identifier": [
-      {"@type": "PropertyValue", "propertyID": "MusicBrainz Release ID", "value": "0639ef23-c0cb-458b-826c-2aa94be11bd7"},
-      {"@type": "PropertyValue", "propertyID": "MusicBrainz Release Group ID", "value": "b140d233-184e-4f70-97b4-5e5e3f33a990"},
-      {"@type": "PropertyValue", "propertyID": "Barcode", "value": "199508998497"},
-      {"@type": "PropertyValue", "propertyID": "MusicBrainz Release Status", "value": "Official"}
-    ],
-    "recordLabel": {
-      "@type": "Organization",
-      "name": "Agust Islandia",
-      "sameAs": "https://musicbrainz.org/label/ca66ad85-7842-4a0b-b95b-b969d54eea85"
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.gusti.com/peach-and-purple.html#webpage",
+      "url": "https://www.gusti.com/peach-and-purple.html",
+      "name": "Peach and Purple Lyrics | Agust Islandia",
+      "description": "Full lyrics for Peach and Purple by Agust Islandia, released August 1, 2025.",
+      "isPartOf": {
+        "@id": "https://www.gusti.com/#website"
+      },
+      "mainEntity": {
+        "@id": "https://www.gusti.com/peach-and-purple.html#schema"
+      },
+      "breadcrumb": {
+        "@id": "https://www.gusti.com/peach-and-purple.html#breadcrumb"
+      },
+      "publisher": {
+        "@id": "https://www.gusti.com/#organization"
+      },
+      "inLanguage": "en-US",
+      "primaryImageOfPage": {
+        "@id": "https://www.gusti.com/peach-and-purple.html#cover-image"
+      }
     },
-    "byArtist": {
-      "@type": "Person",
-      "name": "Agust Smari Bjarkarson",
-      "alternateName": "Agust Islandia",
+    {
+      "@type": "WebSite",
+      "@id": "https://www.gusti.com/#website",
+      "name": "Agust Islandia",
       "url": "https://www.gusti.com/",
+      "publisher": {
+        "@id": "https://www.gusti.com/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.gusti.com/#organization",
+      "name": "Agust Islandia",
+      "url": "https://www.gusti.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.gusti.com/android-chrome-192x192.png"
+      },
       "sameAs": [
-        "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5",
         "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
-        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG"
+        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+        "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
       ]
     },
-    "track": [
-      {
-        "@type": "MusicRecording",
-        "name": "Peach and Purple",
-    "datePublished": "2025-08-01",
-        "position": "1",
-        "duration": "PT3M19S",
-        "identifier": [{"@type": "PropertyValue", "propertyID": "MusicBrainz Recording ID", "value": "6a5324da-fbc0-4e90-9ba9-7302a9b57ebe"}],
-        "sameAs": ["https://musicbrainz.org/recording/6a5324da-fbc0-4e90-9ba9-7302a9b57ebe"]
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.gusti.com/peach-and-purple.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.gusti.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Peach and Purple",
+          "item": "https://www.gusti.com/peach-and-purple.html"
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://www.gusti.com/peach-and-purple.html#cover-image",
+      "url": "https://www.gusti.com/peach-and-purple-cover.webp",
+      "contentUrl": "https://www.gusti.com/peach-and-purple-cover.webp",
+      "caption": "Peach and Purple",
+      "inLanguage": "en-US"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicAlbum",
+      "name": "Peach and Purple",
+      "url": "https://www.gusti.com/peach-and-purple.html",
+      "image": "https://www.gusti.com/peach-and-purple-cover.webp",
+      "datePublished": "2025-08-01",
+      "inLanguage": "en",
+      "numTracks": 1,
+      "countryOfOrigin": "XW",
+      "albumProductionType": "Single",
+      "genre": [
+        "Pop"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "MusicBrainz Release ID",
+          "value": "0639ef23-c0cb-458b-826c-2aa94be11bd7"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "MusicBrainz Release Group ID",
+          "value": "b140d233-184e-4f70-97b4-5e5e3f33a990"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Barcode",
+          "value": "199508998497"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "MusicBrainz Release Status",
+          "value": "Official"
+        }
+      ],
+      "recordLabel": {
+        "@type": "Organization",
+        "name": "Agust Islandia",
+        "sameAs": "https://musicbrainz.org/label/ca66ad85-7842-4a0b-b95b-b969d54eea85"
+      },
+      "byArtist": {
+        "@type": "Person",
+        "name": "Agust Smari Bjarkarson",
+        "alternateName": "Agust Islandia",
+        "url": "https://www.gusti.com/",
+        "sameAs": [
+          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5",
+          "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+          "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG"
+        ]
+      },
+      "track": [
+        {
+          "@type": "MusicRecording",
+          "name": "Peach and Purple",
+          "datePublished": "2025-08-01",
+          "position": "1",
+          "duration": "PT3M19S",
+          "identifier": [
+            {
+              "@type": "PropertyValue",
+              "propertyID": "MusicBrainz Recording ID",
+              "value": "6a5324da-fbc0-4e90-9ba9-7302a9b57ebe"
+            }
+          ],
+          "sameAs": [
+            "https://musicbrainz.org/recording/6a5324da-fbc0-4e90-9ba9-7302a9b57ebe"
+          ]
+        }
+      ],
+      "sameAs": [
+        "https://musicbrainz.org/release/0639ef23-c0cb-458b-826c-2aa94be11bd7",
+        "https://musicbrainz.org/release-group/b140d233-184e-4f70-97b4-5e5e3f33a990",
+        "https://music.apple.com/us/album/peach-and-purple-single/1830614759",
+        "https://open.spotify.com/album/7wPE5efhLGm4QhBhzt9vOM"
+      ],
+      "@id": "https://www.gusti.com/peach-and-purple.html#schema",
+      "mainEntityOfPage": {
+        "@id": "https://www.gusti.com/peach-and-purple.html#webpage"
       }
-    ],
-    "sameAs": [
-      "https://musicbrainz.org/release/0639ef23-c0cb-458b-826c-2aa94be11bd7",
-      "https://musicbrainz.org/release-group/b140d233-184e-4f70-97b4-5e5e3f33a990",
-      "https://music.apple.com/us/album/peach-and-purple-single/1830614759",
-      "https://open.spotify.com/album/7wPE5efhLGm4QhBhzt9vOM"
-    ]
-  }</script>
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   {% include navigation.html %}

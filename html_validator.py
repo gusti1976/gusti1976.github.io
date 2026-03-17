@@ -271,14 +271,21 @@ class HTMLValidator(HTMLParser):
 
     def validate_page_class_rules(self, content):
         """Apply page-type-specific schema expectations."""
+        flattened_schemas = []
+        for schema in self.schemas:
+            if isinstance(schema, dict) and '@graph' in schema and isinstance(schema['@graph'], list):
+                flattened_schemas.extend(item for item in schema['@graph'] if isinstance(item, dict))
+            elif isinstance(schema, dict):
+                flattened_schemas.append(schema)
+
         is_lyrics_page = '<div class="lyric-lines">' in content
         has_music_composition = any(
-            isinstance(schema, dict) and schema.get('@type') == 'MusicComposition'
-            for schema in self.schemas
+            schema.get('@type') == 'MusicComposition'
+            for schema in flattened_schemas
         )
         has_music_album = any(
-            isinstance(schema, dict) and schema.get('@type') == 'MusicAlbum'
-            for schema in self.schemas
+            schema.get('@type') == 'MusicAlbum'
+            for schema in flattened_schemas
         )
 
         if is_lyrics_page:
@@ -287,8 +294,7 @@ class HTMLValidator(HTMLParser):
                 return
 
             composition = next(
-                (schema for schema in self.schemas
-                 if isinstance(schema, dict) and schema.get('@type') == 'MusicComposition'),
+                (schema for schema in flattened_schemas if schema.get('@type') == 'MusicComposition'),
                 None
             )
             if isinstance(composition, dict):
