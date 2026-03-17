@@ -73,6 +73,18 @@
         "about": {
           "@id": "https://www.gusti.com/#agust-person"
         },
+        "mainEntity": {
+          "@id": "https://www.gusti.com/press.html#news-collection"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://www.gusti.com/press.html#cover-image"
+        },
+        "breadcrumb": {
+          "@id": "https://www.gusti.com/press.html#breadcrumb"
+        },
+        "publisher": {
+          "@id": "https://www.gusti.com/#organization"
+        },
         "inLanguage": "en-US"
       },
       {
@@ -80,6 +92,50 @@
         "@id": "https://www.gusti.com/#website",
         "name": "Agust Islandia",
         "url": "https://www.gusti.com/",
+        "publisher": {
+          "@id": "https://www.gusti.com/#organization"
+        },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://www.gusti.com/#organization",
+        "name": "Agust Islandia",
+        "url": "https://www.gusti.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.gusti.com/android-chrome-192x192.png"
+        },
+        "sameAs": [
+          "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+          "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.gusti.com/press.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.gusti.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Press",
+            "item": "https://www.gusti.com/press.html"
+          }
+        ]
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://www.gusti.com/press.html#cover-image",
+        "url": "https://www.gusti.com/gay-and-proud-cover.webp",
+        "contentUrl": "https://www.gusti.com/gay-and-proud-cover.webp",
+        "caption": "Cover art for Gay and Proud / Gay y Orgulloso by Agust Islandia",
         "inLanguage": "en-US"
       },
       {
@@ -88,6 +144,9 @@
         "name": "Agust Smari Bjarkarson",
         "alternateName": "Agust Islandia",
         "url": "https://www.gusti.com/",
+        "mainEntityOfPage": {
+          "@id": "https://www.gusti.com/press.html#webpage"
+        },
         "sameAs": [
           "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
           "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
@@ -96,48 +155,93 @@
         ]
       },
       {
+        "@type": "ItemList",
+        "@id": "https://www.gusti.com/press.html#news-collection",
+        "name": "Agust Islandia press milestones",
+        "itemListOrder": "https://schema.org/ItemListOrderDescending",
+        "numberOfItems": 3,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "https://www.gusti.com/press.html#syndication-release"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "https://www.gusti.com/press.html#unseen-chorus-release"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@id": "https://www.gusti.com/press.html#gay-and-proud-viral"
+            }
+          }
+        ]
+      },
+      {
         "@type": "NewsArticle",
         "@id": "https://www.gusti.com/press.html#syndication-release",
         "headline": "Official Syndication Release Published",
+        "url": "https://www.gusti.com/agust-islandia-gay-and-proud-press-release.html",
+        "description": "Official syndication-ready press release page published for Agust Islandia, centered on the public performance of Gay and Proud / Gay y Orgulloso and broader artist context.",
         "datePublished": "2026-03-01",
+        "dateModified": "2026-03-17",
+        "inLanguage": "en-US",
+        "image": {
+          "@id": "https://www.gusti.com/press.html#cover-image"
+        },
         "mainEntityOfPage": "https://www.gusti.com/agust-islandia-gay-and-proud-press-release.html",
         "author": {
           "@id": "https://www.gusti.com/#agust-person"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Agust Islandia",
-          "url": "https://www.gusti.com/"
+          "@id": "https://www.gusti.com/#organization"
         }
       },
       {
         "@type": "NewsArticle",
         "@id": "https://www.gusti.com/press.html#unseen-chorus-release",
         "headline": "The Unseen Chorus Musical Released",
+        "url": "https://www.gusti.com/the-unseen-chorus.html",
+        "description": "Announcement and release context for The Unseen Chorus, A Gay Musical, published as a flagship long-form work in the Agust Islandia catalog.",
         "datePublished": "2025-10-06",
+        "dateModified": "2026-03-17",
+        "inLanguage": "en-US",
+        "image": {
+          "@id": "https://www.gusti.com/press.html#cover-image"
+        },
         "mainEntityOfPage": "https://www.gusti.com/the-unseen-chorus.html",
         "author": {
           "@id": "https://www.gusti.com/#agust-person"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Agust Islandia",
-          "url": "https://www.gusti.com/"
+          "@id": "https://www.gusti.com/#organization"
         }
       },
       {
         "@type": "NewsArticle",
         "@id": "https://www.gusti.com/press.html#gay-and-proud-viral",
         "headline": "Gay and Proud Goes Viral",
+        "url": "https://www.gusti.com/gay-and-proud.html",
+        "description": "Press milestone marking the viral breakout of Gay and Proud / Gay y Orgulloso as a public-facing Pride release in the Agust Islandia catalog.",
         "datePublished": "2025-09-11",
+        "dateModified": "2026-03-17",
+        "inLanguage": "en-US",
+        "image": {
+          "@id": "https://www.gusti.com/press.html#cover-image"
+        },
         "mainEntityOfPage": "https://www.gusti.com/gay-and-proud.html",
         "author": {
           "@id": "https://www.gusti.com/#agust-person"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Agust Islandia",
-          "url": "https://www.gusti.com/"
+          "@id": "https://www.gusti.com/#organization"
         }
       }
     ]
