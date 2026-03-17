@@ -11,6 +11,28 @@
   --accent: #2f66ff;
   --accent-2: #1f4fd1;
   --radius: 18px;
+  --glass-btn-primary-bg: #163f95;
+  --glass-btn-primary-border: #163f95;
+  --glass-btn-primary-text: #ffffff;
+  --glass-btn-primary-hover-bg: #0f2f75;
+  --glass-btn-primary-hover-border: #0f2f75;
+  --glass-btn-primary-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 10px 22px rgba(19, 55, 136, 0.18);
+  --glass-btn-primary-hover-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 12px 26px rgba(19, 55, 136, 0.24);
+  --glass-btn-secondary-bg: rgba(255, 255, 255, 0.62);
+  --glass-btn-secondary-border: rgba(183, 199, 235, 0.72);
+  --glass-btn-secondary-text: var(--ink);
+  --glass-btn-secondary-hover-bg: rgba(255, 255, 255, 0.82);
+  --glass-btn-secondary-hover-border: rgba(160, 181, 228, 0.78);
+  --glass-btn-secondary-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62), 0 8px 18px rgba(31, 74, 162, 0.08);
+  --glass-btn-secondary-hover-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 10px 22px rgba(31, 74, 162, 0.12);
+  --glass-pill-bg: linear-gradient(180deg, rgba(73, 126, 242, 0.15), rgba(73, 126, 242, 0.08));
+  --glass-pill-border: rgba(41, 96, 211, 0.22);
+  --glass-pill-text: #163f95;
+  --glass-pill-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62), 0 8px 18px rgba(31, 74, 162, 0.08);
+  --glass-pill-hover-bg: linear-gradient(180deg, rgba(73, 126, 242, 0.22), rgba(73, 126, 242, 0.12));
+  --glass-pill-hover-border: rgba(30, 84, 197, 0.3);
+  --glass-pill-hover-text: #0f2b69;
+  --glass-pill-hover-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 10px 22px rgba(31, 74, 162, 0.12);
 }
 
 html,
@@ -170,6 +192,87 @@ header h1 {
 .btn.primary { color: #fff; background: #fc3c44; border: 1px solid #fc3c44; }
 .btn.secondary { color: #fff; background: #1db954; border: 1px solid #1db954; }
 
+.glass-btn,
+.glass-chip-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+}
+
+.glass-btn::after,
+.glass-btn:hover::after,
+.glass-btn:focus-visible::after,
+.glass-chip-link::after,
+.glass-chip-link:hover::after,
+.glass-chip-link:focus-visible::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+.glass-btn:hover,
+.glass-chip-link:hover {
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.glass-btn-primary {
+  color: var(--glass-btn-primary-text);
+  -webkit-text-fill-color: var(--glass-btn-primary-text);
+  background: var(--glass-btn-primary-bg);
+  border: 1px solid var(--glass-btn-primary-border);
+  box-shadow: var(--glass-btn-primary-shadow);
+}
+
+.glass-btn-primary:link,
+.glass-btn-primary:visited,
+.glass-btn-primary:hover,
+.glass-btn-primary:focus-visible,
+.glass-btn-primary:active {
+  color: var(--glass-btn-primary-text);
+  -webkit-text-fill-color: var(--glass-btn-primary-text);
+}
+
+.glass-btn-primary:hover {
+  background: var(--glass-btn-primary-hover-bg);
+  border-color: var(--glass-btn-primary-hover-border);
+  box-shadow: var(--glass-btn-primary-hover-shadow);
+}
+
+.glass-btn-secondary {
+  color: var(--glass-btn-secondary-text);
+  background: var(--glass-btn-secondary-bg);
+  border: 1px solid var(--glass-btn-secondary-border);
+  box-shadow: var(--glass-btn-secondary-shadow);
+}
+
+.glass-btn-secondary:hover {
+  color: var(--glass-btn-secondary-text);
+  background: var(--glass-btn-secondary-hover-bg);
+  border-color: var(--glass-btn-secondary-hover-border);
+  box-shadow: var(--glass-btn-secondary-hover-shadow);
+}
+
+.glass-chip-link {
+  color: var(--glass-pill-text);
+  background: var(--glass-pill-bg);
+  border: 1px solid var(--glass-pill-border);
+  box-shadow: var(--glass-pill-shadow);
+}
+
+.glass-chip-link:hover {
+  color: var(--glass-pill-hover-text);
+  background: var(--glass-pill-hover-bg);
+  border-color: var(--glass-pill-hover-border);
+  box-shadow: var(--glass-pill-hover-shadow);
+}
+
 .hero-media { width: 100%; border-radius: 14px; aspect-ratio: 16/9; object-fit: cover; }
 .album-cover-full {
   aspect-ratio: 1 / 1;
@@ -222,6 +325,28 @@ html.dark-mode {
   --border: rgba(95, 121, 178, 0.48);
   --accent: #78a1ff;
   --accent-2: #4f7ff0;
+  --glass-btn-primary-bg: #2752b8;
+  --glass-btn-primary-border: #3462cf;
+  --glass-btn-primary-text: #f8fbff;
+  --glass-btn-primary-hover-bg: #3261d3;
+  --glass-btn-primary-hover-border: #4675df;
+  --glass-btn-primary-shadow: inset 0 1px 0 rgba(210, 227, 255, 0.12), 0 12px 26px rgba(4, 8, 18, 0.28);
+  --glass-btn-primary-hover-shadow: inset 0 1px 0 rgba(220, 234, 255, 0.16), 0 14px 28px rgba(4, 8, 18, 0.34);
+  --glass-btn-secondary-bg: rgba(20, 30, 53, 0.72);
+  --glass-btn-secondary-border: rgba(101, 127, 184, 0.42);
+  --glass-btn-secondary-text: #edf3ff;
+  --glass-btn-secondary-hover-bg: rgba(27, 40, 70, 0.86);
+  --glass-btn-secondary-hover-border: rgba(127, 152, 212, 0.52);
+  --glass-btn-secondary-shadow: inset 0 1px 0 rgba(196, 217, 255, 0.08), 0 12px 26px rgba(4, 8, 18, 0.22);
+  --glass-btn-secondary-hover-shadow: inset 0 1px 0 rgba(210, 227, 255, 0.12), 0 14px 28px rgba(4, 8, 18, 0.28);
+  --glass-pill-bg: linear-gradient(180deg, rgba(52, 94, 183, 0.34), rgba(28, 49, 96, 0.34));
+  --glass-pill-border: rgba(116, 151, 227, 0.34);
+  --glass-pill-text: #eef4ff;
+  --glass-pill-shadow: inset 0 1px 0 rgba(196, 217, 255, 0.08), 0 12px 26px rgba(4, 8, 18, 0.22);
+  --glass-pill-hover-bg: linear-gradient(180deg, rgba(64, 112, 216, 0.42), rgba(35, 60, 116, 0.4));
+  --glass-pill-hover-border: rgba(137, 171, 242, 0.42);
+  --glass-pill-hover-text: #f8fbff;
+  --glass-pill-hover-shadow: inset 0 1px 0 rgba(210, 227, 255, 0.12), 0 14px 28px rgba(4, 8, 18, 0.28);
 }
 
 html[data-theme="dark"] body,
