@@ -158,52 +158,68 @@ body::after {
 }
 
 .glass-grid {
-  padding: 10px 40px 24px;
+  padding: 6px 40px 26px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
 .glass-card {
-  border-radius: 18px;
-  padding: 18px;
-  background: var(--glass-bg);
-  border: 1px solid rgba(255, 255, 255, 0.38);
-  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 22px 20px;
+  background: var(--glass-strong);
+  border: 1px solid rgba(160, 181, 228, 0.58);
+  box-shadow: 0 14px 30px rgba(18, 34, 71, 0.1);
+  backdrop-filter: blur(14px);
 }
 
 .glass-card h3 {
-  margin: 0 0 8px;
-  font-size: 1.05rem;
+  margin: 0 0 10px;
+  font-size: 1.08rem;
   color: #132a55;
+  letter-spacing: -0.01em;
 }
 
 .glass-card p {
   margin: 0;
   color: #485b85;
-  line-height: 1.6;
-  font-size: 0.93rem;
+  line-height: 1.72;
+  font-size: 0.95rem;
 }
 
 .album-row {
-  padding: 8px 40px 42px;
+  padding: 0 40px 26px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  gap: 20px;
 }
 
 .discography-section {
-  padding: 0 40px 42px;
+  margin: 0 40px 26px;
+  padding: 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(160, 181, 228, 0.58);
+  background: var(--glass-strong);
+  box-shadow: 0 14px 30px rgba(18, 34, 71, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .discography-head h2 {
   margin: 0 0 8px;
   color: #152f5f;
+  background: none;
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  letter-spacing: -0.01em;
+  padding: 0;
+  border: 0;
 }
 
 .discography-head p {
   margin: 0 0 14px;
   color: #465984;
+  line-height: 1.72;
 }
 
 .discography-list {
@@ -217,11 +233,11 @@ body::after {
   justify-content: space-between;
   align-items: center;
   gap: 14px;
-  padding: 13px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(117, 145, 214, 0.36);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.43));
-  box-shadow: 0 12px 24px rgba(31, 43, 80, 0.14);
+  padding: 15px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(160, 181, 228, 0.5);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.48));
+  box-shadow: 0 10px 22px rgba(31, 43, 80, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -236,11 +252,11 @@ body::after {
 }
 
 .release-main strong {
-  font-size: 0.94rem;
+  font-size: 0.98rem;
 }
 
 .release-main span {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: #4a618f;
 }
 
@@ -288,18 +304,24 @@ body::after {
 }
 
 .artist-bio-card {
-  border-radius: 20px;
-  border: 1px solid rgba(117, 145, 214, 0.36);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.43));
-  box-shadow: 0 14px 28px rgba(31, 43, 80, 0.14);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(160, 181, 228, 0.58);
+  background: var(--glass-strong);
+  box-shadow: 0 14px 30px rgba(18, 34, 71, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 24px;
 }
 
 .artist-bio-content h2 {
   margin: 0 0 10px;
   color: #152f5f;
+  background: none;
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  letter-spacing: -0.01em;
+  padding: 0;
+  border: 0;
 }
 
 .artist-bio-photo-inline {
@@ -324,11 +346,11 @@ body::after {
 }
 
 .album-card {
-  border-radius: 20px;
-  background: var(--glass-bg-strong);
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 22px;
+  background: var(--glass-strong);
+  border: 1px solid rgba(160, 181, 228, 0.58);
   overflow: hidden;
-  box-shadow: 0 16px 26px rgba(31, 43, 80, 0.16);
+  box-shadow: 0 14px 30px rgba(18, 34, 71, 0.1);
 }
 
 .album-cover {
@@ -339,19 +361,25 @@ body::after {
 }
 
 .album-body {
-  padding: 16px;
+  padding: 20px 20px 18px;
 }
 
 .album-body h2 {
   margin: 0 0 8px;
   font-size: 1.2rem;
   color: #152f5f;
+  background: none;
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  letter-spacing: -0.01em;
+  padding: 0;
+  border: 0;
 }
 
 .album-body p {
   margin: 0;
   color: #435680;
-  line-height: 1.65;
+  line-height: 1.72;
 }
 
 .mini-links {
@@ -364,12 +392,42 @@ body::after {
 .mini-links a {
   text-decoration: none;
   font-size: 0.86rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #143161;
-  padding: 8px 11px;
+  padding: 9px 13px;
   border-radius: 999px;
-  border: 1px solid rgba(110, 137, 206, 0.5);
-  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(41, 96, 211, 0.22);
+  background: linear-gradient(180deg, rgba(73, 126, 242, 0.15), rgba(73, 126, 242, 0.08));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62), 0 8px 18px rgba(31, 74, 162, 0.08);
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+}
+
+.mini-links a:hover {
+  color: #0f2b69;
+  background: linear-gradient(180deg, rgba(73, 126, 242, 0.22), rgba(73, 126, 242, 0.12));
+  border-color: rgba(30, 84, 197, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 10px 22px rgba(31, 74, 162, 0.12);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.discography-section h2,
+.artist-bio-content h2,
+.album-body h2 {
+  position: relative;
+}
+
+.discography-head {
+  margin-bottom: 14px;
+}
+
+.discography-section[aria-label="Gay and Proud featured player"] {
+  padding: 18px 18px 12px;
+}
+
+.discography-section[aria-label="Gay anthem highlights"] .discography-head,
+.discography-section[aria-label="Full discography"] .discography-head {
+  max-width: 64ch;
 }
 
 /* Disable inherited legacy hover underline from style-optimized.css */
@@ -452,7 +510,9 @@ html[data-theme="dark"] .stat-pill,
 html[data-theme="dark"] .glass-card,
 html[data-theme="dark"] .album-card,
 html[data-theme="dark"] .mini-links a,
-html[data-theme="dark"] .hero-btn.secondary {
+html[data-theme="dark"] .hero-btn.secondary,
+html[data-theme="dark"] .discography-section,
+html[data-theme="dark"] .artist-bio-card {
   background: rgba(21, 29, 46, 0.62);
   border-color: rgba(131, 155, 219, 0.35);
   color: #d8e6ff;
@@ -475,6 +535,8 @@ html[data-theme="dark"] .stat-pill strong {
 
 html[data-theme="dark"] .discography-head h2 {
   color: #eef4ff;
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
 html[data-theme="dark"] .discography-head p,
@@ -502,15 +564,32 @@ html[data-theme="dark"] .stream-btn.apple {
   color: #ffffff;
 }
 
-html[data-theme="dark"] .artist-bio-card {
-  background: linear-gradient(145deg, rgba(21, 29, 46, 0.72), rgba(21, 29, 46, 0.56));
-  border-color: rgba(131, 155, 219, 0.3);
-}
-
 html[data-theme="dark"] .artist-bio-content h2 {
   color: #eef4ff;
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
 
 html[data-theme="dark"] .artist-bio-content p {
   color: #a8bddf;
+}
+
+html[data-theme="dark"] .album-body h2 {
+  color: #eef4ff;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+html[data-theme="dark"] .mini-links a {
+  background: linear-gradient(180deg, rgba(52, 94, 183, 0.34), rgba(28, 49, 96, 0.34));
+  color: #eef4ff;
+  border-color: rgba(116, 151, 227, 0.34);
+  box-shadow: inset 0 1px 0 rgba(196, 217, 255, 0.08), 0 12px 26px rgba(4, 8, 18, 0.22);
+}
+
+html[data-theme="dark"] .mini-links a:hover {
+  color: #f8fbff;
+  background: linear-gradient(180deg, rgba(64, 112, 216, 0.42), rgba(35, 60, 116, 0.4));
+  border-color: rgba(137, 171, 242, 0.42);
+  box-shadow: inset 0 1px 0 rgba(210, 227, 255, 0.12), 0 14px 28px rgba(4, 8, 18, 0.28);
 }
