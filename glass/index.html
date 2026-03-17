@@ -1,11 +1,37 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="max-image-preview:large">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
   <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        var isDark = false;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+          isDark = (t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+          isDark = true;
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+        h.style.colorScheme = isDark ? "dark" : "light";
+      } catch (e) {}
+    })();
+  </script>
   <title>Agust Islandia | Glass Edition Frontpage</title>
   <link rel="canonical" href="https://www.gusti.com/glass/">
   <meta name="description" content="Agust Islandia official frontpage redesign with a modern glass aesthetic, featuring albums, lyrics, and latest queer pop musical projects.">
@@ -54,47 +80,7 @@
   </script>
 </head>
 <body>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-
-  <nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
-    <a href="/glass/" class="nav-link">Home</a>
-
-    <div class="nav-collapsible">
-      <button class="nav-collapsible-trigger" aria-expanded="false">
-        <span>Music</span>
-        <span class="arrow">▶</span>
-      </button>
-      <div class="nav-collapsible-content">
-        <a href="/the-unseen-chorus.html">The Unseen Chorus</a>
-        <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a>
-        <a href="/gay-and-proud.html">Gay and Proud</a>
-        <a href="/my-fire.html">My Fire (Mi Fuego)</a>
-        <a href="/feel-alive.html">Feel Alive</a>
-      </div>
-    </div>
-
-    <a href="/lyrics.html" class="nav-link">Lyrics &amp; Stories</a>
-    <a href="/about.html" class="nav-link">About</a>
-    <a href="/press.html" class="nav-link">Press &amp; News</a>
-
-    <div class="nav-collapsible">
-      <button class="nav-collapsible-trigger" aria-expanded="false">
-        <span>Listen &amp; Links</span>
-        <span class="arrow">▶</span>
-      </button>
-      <div class="nav-collapsible-content">
-        <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-        <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
-        <a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a>
-        <a href="mailto:agust@arcticsea.com">Contact</a>
-      </div>
-    </div>
-  </nav>
-
-  <div class="nav-overlay" id="nav-overlay"></div>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  {% include navigation.html %}
 
   <div class="page">
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">

@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -161,7 +163,8 @@
       }
     ],
     "sameAs": [
-      "https://musicbrainz.org/recording/4f21b5cd-2396-4d06-ad5b-91664df8f646"
+      "https://musicbrainz.org/recording/4f21b5cd-2396-4d06-ad5b-91664df8f646",
+      "https://music.apple.com/us/album/so-what-do-we-do/1833359480?i=1833359642&uo=4"
     ]
   },
   "identifier": [
@@ -188,7 +191,8 @@
   ],
   "sameAs": [
     "https://musicbrainz.org/release/312139ad-8449-4399-ae1a-35fe23de7ebf",
-    "https://musicbrainz.org/recording/4f21b5cd-2396-4d06-ad5b-91664df8f646"
+    "https://musicbrainz.org/recording/4f21b5cd-2396-4d06-ad5b-91664df8f646",
+    "https://music.apple.com/us/album/so-what-do-we-do/1833359480?i=1833359642&uo=4"
   ]
 }</script>
   <link rel="stylesheet" href="navigation.css?v=20260304d">
@@ -198,53 +202,7 @@
 
 <body>
 <!-- Hamburger Toggle Button -->
-<button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-<!-- Navigation Drawer -->
-<nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
-  <a href="/" class="nav-link">Home</a>
-  <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" class="nav-link" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
-
-  <div class="nav-collapsible">
-    <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Music</span>
-      <span class="arrow">▶</span>
-    </button>
-    <div class="nav-collapsible-content">
-      <a href="/the-unseen-chorus.html">The Unseen Chorus</a>
-      <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a>
-      <a href="/gay-and-proud.html">Gay and Proud</a>
-      <a href="/my-fire.html">My Fire (Mi Fuego)</a>
-      <a href="/feel-alive.html">Feel Alive</a>
-    </div>
-  </div>
-
-  <a href="/lyrics.html" class="nav-link">Lyrics</a>
-  <a href="/about.html" class="nav-link">About</a>
-  <a href="/press.html" class="nav-link">Press</a>
-
-  <div class="nav-collapsible">
-    <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Listen &amp; Links</span>
-      <span class="arrow">▶</span>
-    </button>
-    <div class="nav-collapsible-content">
-      <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-      <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
-      <a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a>
-      <a href="mailto:agust@arcticsea.com">Contact</a>
-    </div>
-  </div>
-</nav>
-
-<!-- Overlay (closes menu when clicked) -->
-<div class="nav-overlay" id="nav-overlay"></div>
-
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+{% include navigation.html %}
 
   <div class="page">
     <!-- Theme Toggle Button -->

@@ -1,14 +1,62 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="max-image-preview:large">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
+  <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        var isDark = false;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+          isDark = (t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+          isDark = true;
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+        h.style.colorScheme = isDark ? "dark" : "light";
+      } catch (e) {}
+    })();
+  </script>
+
   <title>Press | Agust Islandia News & Releases</title>
   <link rel="canonical" href="https://www.gusti.com/press.html">
+
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <meta name="description" content="Press updates, release milestones, and official news for Agust Islandia (Agust Smari Bjarkarson), including LGBTQ+ music highlights and media coverage.">
-  <meta property="og:title" content="Press & News - Agust Islandia"><meta property="og:description" content="Press updates, release milestones, and official news for Agust Islandia (Agust Smari Bjarkarson), including LGBTQ+ music highlights and media coverage.">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+
+  <meta name="description" content="Press updates, release milestones, and official news for Agust Islandia, including queer pop releases, musical projects, and artist milestones.">
+
+  <meta property="og:title" content="Press | Agust Islandia News & Releases">
+  <meta property="og:site_name" content="Agust Islandia">
+  <meta property="og:description" content="Official press updates, release milestones, and artist news for Agust Islandia.">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.gusti.com/press.html">
+  <meta property="og:image" content="https://www.gusti.com/gay-and-proud-cover.webp">
+  <meta property="og:image:alt" content="Cover art for Gay and Proud / Gay y Orgulloso by Agust Islandia">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Press | Agust Islandia News & Releases">
+  <meta name="twitter:description" content="Official press updates, release milestones, and artist news for Agust Islandia.">
+  <meta name="twitter:image" content="https://www.gusti.com/gay-and-proud-cover.webp">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -19,9 +67,47 @@
         "url": "https://www.gusti.com/press.html",
         "name": "Press | Agust Islandia News & Releases",
         "description": "Press updates, release milestones, and official news for Agust Islandia.",
-        "inLanguage": "en-US",
+        "isPartOf": {
+          "@id": "https://www.gusti.com/#website"
+        },
         "about": {
           "@id": "https://www.gusti.com/#agust-person"
+        },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.gusti.com/#website",
+        "name": "Agust Islandia",
+        "url": "https://www.gusti.com/",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.gusti.com/#agust-person",
+        "name": "Agust Smari Bjarkarson",
+        "alternateName": "Agust Islandia",
+        "url": "https://www.gusti.com/",
+        "sameAs": [
+          "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+          "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
+          "https://www.tiktok.com/@gusticeland",
+          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
+        ]
+      },
+      {
+        "@type": "NewsArticle",
+        "@id": "https://www.gusti.com/press.html#syndication-release",
+        "headline": "Official Syndication Release Published",
+        "datePublished": "2026-03-01",
+        "mainEntityOfPage": "https://www.gusti.com/agust-islandia-gay-and-proud-press-release.html",
+        "author": {
+          "@id": "https://www.gusti.com/#agust-person"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Agust Islandia",
+          "url": "https://www.gusti.com/"
         }
       },
       {
@@ -53,49 +139,201 @@
           "name": "Agust Islandia",
           "url": "https://www.gusti.com/"
         }
-      },
-      {
-        "@type": "Person",
-        "@id": "https://www.gusti.com/#agust-person",
-        "name": "Agust Smari Bjarkarson",
-        "alternateName": "Agust Islandia",
-        "url": "https://www.gusti.com/"
       }
     ]
   }
   </script>
+
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css?v=20260304e">
   <style>
     .press-page {
-      max-width: 1120px;
+      max-width: 1180px;
     }
 
     .press-hero {
-      text-align: center;
-      padding: var(--spacing-2xl) var(--spacing-lg);
-      border-radius: var(--radius);
-      border: 1px solid rgba(160, 181, 228, 0.58);
-      background: linear-gradient(140deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.58));
-      box-shadow: 0 20px 40px rgba(18, 34, 71, 0.14);
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 18px;
+      align-items: start;
       margin-bottom: 18px;
-      position: relative;
-      overflow: hidden;
     }
 
-    .press-hero::before {
+    .press-hero-copy,
+    .press-summary-card,
+    .press-panel {
+      align-self: start;
+      border-radius: var(--radius);
+      border: 1px solid rgba(160, 181, 228, 0.58);
+      background: var(--glass-strong);
+      box-shadow: 0 14px 30px rgba(18, 34, 71, 0.1);
+    }
+
+    .press-hero-copy {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.62));
+    }
+
+    .press-hero-copy::before {
       content: "";
       position: absolute;
-      inset: -30% -15%;
-      background: radial-gradient(circle at 20% 15%, rgba(111, 157, 255, 0.22), transparent 45%),
-        radial-gradient(circle at 80% 25%, rgba(255, 159, 196, 0.16), transparent 42%);
+      inset: -28% -18%;
+      background: radial-gradient(circle at 18% 18%, rgba(111, 157, 255, 0.24), transparent 42%),
+        radial-gradient(circle at 82% 22%, rgba(255, 159, 196, 0.18), transparent 40%),
+        radial-gradient(circle at 52% 100%, rgba(106, 217, 210, 0.14), transparent 38%);
       pointer-events: none;
     }
 
-    .press-hero > * {
+    .press-hero-copy > * {
       position: relative;
       z-index: 1;
+    }
+
+    .press-kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .press-hero-copy h1 {
+      margin-bottom: 10px;
+    }
+
+    .press-subtitle {
+      margin: 0 0 16px;
+      color: var(--ink-soft);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 58ch;
+    }
+
+    .press-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .press-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+    }
+
+    .press-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .press-btn::after,
+    .press-btn:hover::after,
+    .press-btn:focus-visible::after {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+    }
+
+    .press-btn-primary {
+      background: linear-gradient(135deg, #2d68ff, #4f88ff);
+      color: #fff;
+      border: 1px solid rgba(115, 156, 255, 0.9);
+      box-shadow: 0 10px 20px rgba(45, 104, 255, 0.22);
+    }
+
+    .press-btn-secondary {
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--ink);
+      border: 1px solid rgba(183, 199, 235, 0.72);
+    }
+
+    .press-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .press-highlight {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.56);
+      border: 1px solid rgba(183, 199, 235, 0.72);
+    }
+
+    .press-highlight strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+
+    .press-highlight span {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .press-summary-card {
+      display: flex;
+      flex-direction: column;
+      align-self: start;
+      margin-top: 28px;
+      padding: 22px;
+      gap: 16px;
+    }
+
+    .press-summary-card h2,
+    .press-panel h2,
+    .press-news-item h3 {
+      margin-bottom: 8px;
+    }
+
+    .press-summary-card p,
+    .press-panel p,
+    .press-panel li,
+    .press-news-item p {
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .press-summary-card > div:first-child p {
+      margin-bottom: 0;
+    }
+
+    .press-summary-card ul,
+    .press-panel ul {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    .press-summary-card ul {
+      display: grid;
+      gap: 10px;
+      padding-left: 0;
+      margin-top: 4px;
+      list-style: none;
+    }
+
+    .press-summary-card li {
+      display: block;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.56);
+      border: 1px solid rgba(183, 199, 235, 0.72);
+      line-height: 1.55;
     }
 
     .press-grid {
@@ -105,29 +343,7 @@
     }
 
     .press-panel {
-      border-radius: var(--radius);
-      border: 1px solid rgba(160, 181, 228, 0.58);
-      background: var(--glass-strong);
       padding: 18px;
-      box-shadow: 0 10px 24px rgba(18, 34, 71, 0.08);
-    }
-
-    .press-panel h2 {
-      margin-bottom: 10px;
-    }
-
-    .press-panel p {
-      margin: 0 0 12px;
-    }
-
-    .press-panel p:last-child {
-      margin-bottom: 0;
-    }
-
-    .press-panel ul {
-      margin: 0;
-      padding-left: 20px;
-      line-height: 1.8;
     }
 
     .press-panel-wide {
@@ -135,8 +351,8 @@
     }
 
     .press-news-item {
-      margin-bottom: var(--spacing-xl);
-      padding-bottom: var(--spacing-xl);
+      margin-bottom: 20px;
+      padding-bottom: 20px;
       border-bottom: 1px solid rgba(160, 181, 228, 0.58);
     }
 
@@ -146,77 +362,159 @@
       border-bottom: 0;
     }
 
+    .press-link-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .press-link-row a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #163f95;
+      font-weight: 700;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(183, 199, 235, 0.72);
+    }
+
+    .press-link-row a:hover {
+      color: #0f2b69;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .press-link-row a::after,
+    .press-link-row a:hover::after,
+    .press-link-row a:focus-visible::after {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+    }
+
+    @media (max-width: 980px) {
+      .press-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .press-highlights {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 900px) {
       .press-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    html[data-theme="dark"] .press-hero,
-    html.dark-mode .press-hero {
-      background: linear-gradient(150deg, rgba(18, 29, 53, 0.86), rgba(15, 24, 43, 0.74));
+    html[data-theme="dark"] .press-hero-copy,
+    html.dark-mode .press-hero-copy,
+    html[data-theme="dark"] .press-summary-card,
+    html.dark-mode .press-summary-card,
+    html[data-theme="dark"] .press-panel,
+    html.dark-mode .press-panel {
       border-color: rgba(120, 147, 209, 0.46);
-      box-shadow: 0 24px 44px rgba(4, 8, 18, 0.42);
+      box-shadow: 0 20px 38px rgba(4, 8, 18, 0.34);
+    }
+
+    html[data-theme="dark"] .press-hero-copy,
+    html.dark-mode .press-hero-copy {
+      background: linear-gradient(150deg, rgba(18, 29, 53, 0.88), rgba(15, 24, 43, 0.76));
+    }
+
+    html[data-theme="dark"] .press-highlight,
+    html.dark-mode .press-highlight {
+      background: rgba(20, 30, 53, 0.62);
+      border-color: rgba(101, 127, 184, 0.42);
+    }
+
+    html[data-theme="dark"] .press-btn-secondary,
+    html.dark-mode .press-btn-secondary {
+      background: rgba(20, 30, 53, 0.72);
+      color: var(--ink);
+      border-color: rgba(101, 127, 184, 0.42);
+    }
+
+    html[data-theme="dark"] .press-btn-primary,
+    html.dark-mode .press-btn-primary {
+      background: linear-gradient(135deg, #2d68ff, #5a8eff);
+      border-color: rgba(121, 161, 255, 0.92);
+      box-shadow: 0 12px 26px rgba(24, 76, 221, 0.3);
+    }
+
+    html[data-theme="dark"] .press-summary-card li,
+    html.dark-mode .press-summary-card li,
+    html[data-theme="dark"] .press-link-row a,
+    html.dark-mode .press-link-row a {
+      background: rgba(20, 30, 53, 0.72);
+      color: var(--ink);
+      border-color: rgba(101, 127, 184, 0.42);
     }
   </style>
-<meta property="og:type" content="website"><meta property="og:image" content="https://www.gusti.com/gay-and-proud-cover.webp"></head>
+</head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-<button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-<!-- Navigation Drawer -->
-<nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
-  <a href="/" class="nav-link">Home</a>
-  <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" class="nav-link" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
-
-  <div class="nav-collapsible">
-    <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Music</span>
-      <span class="arrow">▶</span>
-    </button>
-    <div class="nav-collapsible-content">
-      <a href="/the-unseen-chorus.html">The Unseen Chorus</a>
-      <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a>
-      <a href="/gay-and-proud.html">Gay and Proud</a>
-      <a href="/my-fire.html">My Fire (Mi Fuego)</a>
-      <a href="/feel-alive.html">Feel Alive</a>
-    </div>
-  </div>
-
-  <a href="/lyrics.html" class="nav-link">Lyrics</a>
-  <a href="/about.html" class="nav-link">About</a>
-  <a href="/press.html" class="nav-link">Press</a>
-
-  <div class="nav-collapsible">
-    <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Listen &amp; Links</span>
-      <span class="arrow">▶</span>
-    </button>
-    <div class="nav-collapsible-content">
-      <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-      <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
-      <a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a>
-      <a href="mailto:agust@arcticsea.com">Contact</a>
-    </div>
-  </div>
-</nav>
-
-<!-- Overlay (closes menu when clicked) -->
-<div class="nav-overlay" id="nav-overlay"></div>
+  {% include navigation.html %}
 
   <div class="page press-page">
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-      <svg class="theme-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/></svg>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+      <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+        <path id="sun-rays" d="M12 1v2m0 18v2M1 12h2m18 0h2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+        <path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"/>
+      </svg>
     </button>
 
     <header class="press-hero">
-      <h1>Press & News</h1>
-      <p class="subtitle">Latest Milestones & Releases from Agust Islandia</p>
+      <section class="press-hero-copy">
+        <span class="press-kicker">Press Center</span>
+        <h1>Press &amp; News</h1>
+        <p class="press-subtitle">
+          Official updates, release milestones, and artist-facing highlights for Agust Islandia. This page tracks the public story around releases, catalog growth, queer music coverage, and major artist moments.
+        </p>
+        <div class="press-actions">
+          <a class="press-btn press-btn-primary" href="/agust-islandia-gay-and-proud-press-release.html">Open press release</a>
+          <a class="press-btn press-btn-secondary" href="/about.html">Artist bio</a>
+          <a class="press-btn press-btn-secondary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+        </div>
+        <div class="press-highlights">
+          <div class="press-highlight">
+            <strong>2026</strong>
+            <span>Syndication-ready press materials published for outreach and indexing.</span>
+          </div>
+          <div class="press-highlight">
+            <strong>2025</strong>
+            <span>Major catalog expansion through musicals, singles, Pride releases, and lyrics.</span>
+          </div>
+          <div class="press-highlight">
+            <strong>Focus</strong>
+            <span>Queer pop visibility, full-archive documentation, and official release context.</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="press-summary-card" aria-labelledby="press-summary-title">
+        <div>
+          <h2 id="press-summary-title">Press Snapshot</h2>
+          <p>Use this page as the official landing point for release milestones, news references, and context around the expanding Agust Islandia catalog.</p>
+        </div>
+        <ul>
+          <li>Official press release page for syndication</li>
+          <li>Release milestones linked to core album and lyric pages</li>
+          <li>Artist bio and contact path for coverage inquiries</li>
+          <li>Structured archive supporting indexing and discovery</li>
+        </ul>
+        <div class="press-link-row">
+          <a href="/the-unseen-chorus.html">The Unseen Chorus</a>
+          <a href="/gay-and-proud.html">Gay and Proud</a>
+          <a href="/lyrics.html">Lyrics Archive</a>
+        </div>
+      </aside>
     </header>
 
     <main id="main-content" class="press-grid">
@@ -225,60 +523,57 @@
 
         <article class="press-news-item">
           <h3>March 2026 - Official Syndication Release Published</h3>
-          <p><strong>New Press URL:</strong> agust-islandia-gay-and-proud-press-release.html</p>
+          <p><strong>New Press URL:</strong> <code>agust-islandia-gay-and-proud-press-release.html</code></p>
           <p>
-            A dedicated syndication-ready press release page is now live with source links covering
-            the performance milestones for <strong>"Gay and Proud / Gay y Orgulloso"</strong>.
+            A dedicated syndication-ready press release page is now live with source links covering performance milestones for <strong>"Gay and Proud / Gay y Orgulloso"</strong> and the broader artist profile.
           </p>
           <p><a href="/agust-islandia-gay-and-proud-press-release.html">Open the full release →</a></p>
         </article>
-        
+
         <article class="press-news-item">
-          <h3>October 2025 - "The Unseen Chorus" Musical Released</h3>
+          <h3>October 2025 - The Unseen Chorus Musical Released</h3>
           <p><strong>Release Date:</strong> October 6, 2025</p>
           <p>
-            Agust Islandia released <strong>"The Unseen Chorus, A Gay Musical"</strong>, a groundbreaking 27-track, 80-minute theatrical work chronicling a journey from infidelity through sexual addiction to recovery and redemptive love. All 27 tracks now have full lyric pages available at www.gusti.com.
+            Agust Islandia released <strong>The Unseen Chorus, A Gay Musical</strong>, a 27-track theatrical work documenting a journey from infidelity through sexual addiction to recovery and redemptive love. The full site now supports the release with official lyrics and track-level pages.
           </p>
           <p>
-            The musical addresses gay community challenges including hookup app addiction, porn addiction, anonymous sex culture, relationship betrayal, divorce, and recovery through Sex Addicts Anonymous. Historical tracks include "Riot in the Night (Stonewall)" and "The Fairy's Waltz" (Bowery drag culture).
+            The project addresses hookup culture, anonymous sex, betrayal, divorce, shame, and recovery through explicitly queer storytelling rather than neutralized abstract pop writing.
           </p>
           <p><a href="/the-unseen-chorus.html">Read more about The Unseen Chorus →</a></p>
         </article>
 
         <article class="press-news-item">
-          <h3>September 2025 - "Gay and Proud" Goes Viral</h3>
-          <p><strong>TikTok Milestone:</strong> 540,000+ Views</p>
+          <h3>September 2025 - Gay and Proud Goes Viral</h3>
+          <p><strong>TikTok Milestone:</strong> 540,000+ views</p>
           <p>
-            The bilingual Pride anthem "Gay and Proud / Gay y Orgulloso" achieved viral status on TikTok, reaching over 540,000 views and becoming a defining LGBTQ+ community anthem. The song celebrates queer identity and self-acceptance in both English and Spanish.
+            The bilingual Pride anthem <strong>"Gay and Proud / Gay y Orgulloso"</strong> reached major visibility on TikTok and established itself as a defining public-facing release in the catalog.
           </p>
-          <p><a href="/gay-and-proud.html">View full lyrics →</a></p>
+          <p><a href="/gay-and-proud.html">View release page →</a></p>
         </article>
 
         <article class="press-news-item">
           <h3>Streaming Milestone - 60,000 Daily Streams</h3>
           <p>
-            Agust Islandia's music catalog reached a significant milestone of 60,000 daily streams across all platforms, demonstrating growing connection with queer listeners and allies worldwide.
+            The catalog reached a documented milestone of 60,000 daily streams across platforms, reinforcing that the project is growing beyond isolated single releases into a broader searchable body of work.
           </p>
         </article>
       </section>
 
       <section class="press-panel">
-        <h2>2025 Releases</h2>
+        <h2>Key Releases</h2>
         <ul>
-          <li><strong>The Unseen Chorus, A Gay Musical</strong> (October 6, 2025) - 27 tracks</li>
-          <li><strong>Gay and Proud / Gay y Orgulloso</strong> (September 11, 2025) - Bilingual Pride anthem</li>
-          <li><strong>My Fire (Mi Fuego)</strong> (2025) - Bilingual love song</li>
-          <li><strong>Feel Alive</strong> (2025) - EDM dance anthem</li>
-          <li><strong>Swipe Me to the Moon, A Gay Musical</strong> (2025) - 22-song musical</li>
-          <li><strong>Pride Month 2025 EP</strong> (2025) - Pride celebration collection</li>
-          <li><strong>Cowboys EP</strong> (2025) - Queer-themed Western subversion</li>
+          <li><strong>The Unseen Chorus</strong> (October 6, 2025) - 27-track gay musical</li>
+          <li><strong>Gay and Proud / Gay y Orgulloso</strong> (September 11, 2025) - bilingual Pride release</li>
+          <li><strong>Swipe Me to the Moon</strong> - queer narrative musical project</li>
+          <li><strong>Cowboys EP</strong> - queer western subversion and satire</li>
+          <li><strong>Feel Alive</strong> and <strong>My Fire (Mi Fuego)</strong> - singles expanding the public profile</li>
         </ul>
       </section>
 
       <section class="press-panel">
         <h2>Press Contact</h2>
         <p>
-          For press inquiries, interviews, and booking information:
+          For interviews, media features, Pride festival interest, booking context, and artist information:
         </p>
         <p>
           <strong>Email:</strong> <script>document.write('<'+'a'+' '+'h'+'r'+'e'+'f'+'='+"'"+'m'+'a'+'i'+'l'+'t'+'o'+':'+'a'+'g'+'u'+'s'+'t'+'@'+'a'+'r'+'c'+'t'+'i'+'c'+'s'+'e'+'a'+'.'+'c'+'o'+'m'+"'"+'>');document.write('a'+'g'+'u'+'s'+'t'+'@'+'a'+'r'+'c'+'t'+'i'+'c'+'s'+'e'+'a'+'.'+'c'+'o'+'m');document.write('<'+'/'+'a'+'>');</script><noscript>agust [at] arcticsea.com</noscript>
@@ -286,21 +581,22 @@
       </section>
 
       <section class="press-panel press-panel-wide">
-        <h2>Artist Bio & Photos</h2>
+        <h2>Press Assets &amp; Context</h2>
         <p>
-          <strong>Short Bio:</strong> Agust Smari Bjarkarson (Agust Islandia) is an Icelandic queer pop artist and musical theatre composer from Reykjavik, creating LGBTQ+ anthems and groundbreaking gay musicals.
+          The site now functions as a structured artist archive with official release pages, lyrics, artist biography, and metadata-backed music entities. That makes it useful both for listeners and for search/indexing systems trying to understand the catalog.
         </p>
-        <p>
-          <strong>Long Bio:</strong> <a href="/about.html">Visit About page →</a>
-        </p>
-        <p>
-          <strong>Artist Photo:</strong> Available for press use
-        </p>
+        <div class="press-link-row">
+          <a href="/about.html">Artist biography</a>
+          <a href="/lyrics.html">Lyrics index</a>
+          <a href="/the-unseen-chorus.html">Flagship release page</a>
+          <a href="/agust-islandia-gay-and-proud-press-release.html">Syndication release</a>
+        </div>
       </section>
     </main>
 
     <footer>© 2026 <strong>Agust Smari Bjarkarson</strong></footer>
   </div>
+
   <script src="dark-mode.js"></script>
   <script src="navigation.js"></script>
 </body>

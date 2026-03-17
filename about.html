@@ -1,15 +1,64 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="max-image-preview:large">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
+  <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        var isDark = false;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+          isDark = (t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+          isDark = true;
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+        h.style.colorScheme = isDark ? "dark" : "light";
+      } catch (e) {}
+    })();
+  </script>
+
   <title>Meet Agust Islandia | Agust Smari Bjarkarson</title>
   <link rel="canonical" href="https://www.gusti.com/about.html">
+
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <meta name="description" content="Meet Agust Islandia (Agust Smari Bjarkarson), an Icelandic queer pop artist and musical storyteller creating gay anthems and LGBTQ+ musicals.">
-  <meta property="og:title" content="Meet Agust Islandia - Queer Pop Artist & Musical Theatre Composer"><meta property="og:description" content="Meet Agust Islandia (Agust Smari Bjarkarson), an Icelandic queer pop artist and musical storyteller creating gay anthems and LGBTQ+ musicals.">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+
+  <meta name="description" content="Meet Agust Islandia (Agust Smari Bjarkarson), an Icelandic queer pop artist and musical storyteller creating gay anthems, queer musicals, and official lyric pages.">
+
+  <meta property="og:title" content="Meet Agust Islandia | Agust Smari Bjarkarson">
+  <meta property="og:site_name" content="Agust Islandia">
+  <meta property="og:description" content="About Agust Islandia, the Icelandic queer pop artist and musical storyteller behind gay anthems, LGBTQ+ musicals, and official lyric pages.">
+  <meta property="og:type" content="profile">
   <meta property="og:url" content="https://www.gusti.com/about.html">
   <meta property="og:image" content="https://www.gusti.com/agust_islandia.jpg">
+  <meta property="og:image:alt" content="Portrait of Agust Smari Bjarkarson, performing as Agust Islandia">
+  <meta property="og:locale" content="en_US">
+  <meta property="profile:first_name" content="Agust">
+  <meta property="profile:last_name" content="Bjarkarson">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Meet Agust Islandia | Agust Smari Bjarkarson">
+  <meta name="twitter:description" content="About Agust Islandia, the Icelandic queer pop artist and musical storyteller behind gay anthems, LGBTQ+ musicals, and official lyric pages.">
+  <meta name="twitter:image" content="https://www.gusti.com/agust_islandia.jpg">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -20,60 +69,270 @@
         "url": "https://www.gusti.com/about.html",
         "name": "Meet Agust Islandia | Agust Smari Bjarkarson",
         "description": "About Agust Islandia (Agust Smari Bjarkarson), an Icelandic queer pop artist and musical storyteller.",
+        "isPartOf": {
+          "@id": "https://www.gusti.com/#website"
+        },
+        "about": {
+          "@id": "https://www.gusti.com/#agust-person"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://www.gusti.com/about.html#portrait"
+        },
         "inLanguage": "en-US",
         "mainEntity": {
           "@id": "https://www.gusti.com/#agust-person"
         }
       },
       {
+        "@type": "WebSite",
+        "@id": "https://www.gusti.com/#website",
+        "name": "Agust Islandia",
+        "url": "https://www.gusti.com/",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://www.gusti.com/about.html#portrait",
+        "url": "https://www.gusti.com/agust_islandia.jpg",
+        "contentUrl": "https://www.gusti.com/agust_islandia.jpg",
+        "caption": "Portrait of Agust Smari Bjarkarson, performing as Agust Islandia",
+        "inLanguage": "en-US"
+      },
+      {
         "@type": "Person",
         "@id": "https://www.gusti.com/#agust-person",
         "name": "Agust Smari Bjarkarson",
         "alternateName": "Agust Islandia",
-        "url": "https://www.gusti.com/",
+        "birthDate": "1976-08-26",
+        "birthPlace": {
+          "@type": "Place",
+          "name": "Reykjavik, Iceland"
+        },
+        "nationality": "Icelandic",
+        "jobTitle": ["Singer-songwriter", "Composer", "Queer Pop Artist"],
+        "description": "Icelandic queer pop artist and musical storyteller creating gay anthems, full lyric pages, and LGBTQ+ musical theatre projects.",
         "image": "https://www.gusti.com/agust_islandia.jpg",
+        "url": "https://www.gusti.com/",
         "sameAs": [
           "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
           "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
           "https://www.tiktok.com/@gusticeland",
+          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5",
+          "https://www.discogs.com/artist/16616054-Agust-Smari-Bjarkarson"
+        ],
+        "memberOf": {
+          "@id": "https://www.gusti.com/#agust-islandia"
+        }
+      },
+      {
+        "@type": "MusicGroup",
+        "@id": "https://www.gusti.com/#agust-islandia",
+        "name": "Agust Islandia",
+        "url": "https://www.gusti.com/",
+        "member": {
+          "@id": "https://www.gusti.com/#agust-person"
+        },
+        "sameAs": [
+          "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
+          "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
           "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
         ]
       }
     ]
   }
   </script>
+
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="glass-site.css?v=20260304e">
   <style>
     .about-page {
-      max-width: 1120px;
+      max-width: 1180px;
     }
 
     .about-hero {
-      text-align: center;
-      padding: var(--spacing-2xl) var(--spacing-lg);
-      border-radius: var(--radius);
-      border: 1px solid rgba(160, 181, 228, 0.58);
-      background: linear-gradient(140deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.58));
-      box-shadow: 0 20px 40px rgba(18, 34, 71, 0.14);
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 18px;
+      align-items: start;
       margin-bottom: 18px;
-      position: relative;
-      overflow: hidden;
     }
 
-    .about-hero::before {
+    .about-hero-copy,
+    .about-portrait-card,
+    .about-panel {
+      align-self: start;
+      border-radius: var(--radius);
+      border: 1px solid rgba(160, 181, 228, 0.58);
+      background: var(--glass-strong);
+      box-shadow: 0 14px 30px rgba(18, 34, 71, 0.1);
+    }
+
+    .about-hero-copy {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.62));
+    }
+
+    .about-hero-copy::before {
       content: "";
       position: absolute;
-      inset: -30% -15%;
-      background: radial-gradient(circle at 20% 15%, rgba(111, 157, 255, 0.22), transparent 45%),
-        radial-gradient(circle at 80% 25%, rgba(255, 159, 196, 0.16), transparent 42%);
+      inset: -28% -18%;
+      background: radial-gradient(circle at 18% 18%, rgba(111, 157, 255, 0.24), transparent 42%),
+        radial-gradient(circle at 82% 22%, rgba(255, 159, 196, 0.18), transparent 40%),
+        radial-gradient(circle at 52% 100%, rgba(106, 217, 210, 0.14), transparent 38%);
       pointer-events: none;
     }
 
-    .about-hero > * {
+    .about-hero-copy > * {
       position: relative;
       z-index: 1;
+    }
+
+    .about-kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .about-hero-copy h1 {
+      margin-bottom: 10px;
+    }
+
+    .about-subtitle {
+      margin: 0 0 16px;
+      color: var(--ink-soft);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 54ch;
+    }
+
+    .about-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 0;
+    }
+
+    .about-stat {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.56);
+      border: 1px solid rgba(183, 199, 235, 0.72);
+    }
+
+    .about-stat strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+
+    .about-stat span {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .about-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .about-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+    }
+
+    .about-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .about-btn::after,
+    .about-btn:hover::after,
+    .about-btn:focus-visible::after {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+    }
+
+    .about-btn-primary {
+      background: #163f95;
+      color: #fff;
+      border: 1px solid #163f95;
+    }
+
+    .about-btn-secondary {
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--ink);
+      border: 1px solid rgba(183, 199, 235, 0.72);
+    }
+
+    .about-portrait-card {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      gap: 14px;
+      min-height: 100%;
+    }
+
+    .about-portrait-card img {
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .about-portrait-card h2,
+    .about-panel h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .about-portrait-card p,
+    .about-panel p,
+    .about-panel li {
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .about-portrait-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .about-portrait-meta div {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(183, 199, 235, 0.66);
+    }
+
+    .about-portrait-meta strong {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
     }
 
     .about-grid {
@@ -83,23 +342,11 @@
     }
 
     .about-panel {
-      border-radius: var(--radius);
-      border: 1px solid rgba(160, 181, 228, 0.58);
-      background: var(--glass-strong);
       padding: 18px;
-      box-shadow: 0 10px 24px rgba(18, 34, 71, 0.08);
     }
 
-    .about-panel h2 {
-      margin-bottom: 10px;
-    }
-
-    .about-panel p {
-      margin: 0 0 12px;
-    }
-
-    .about-panel p:last-child {
-      margin-bottom: 0;
+    .about-panel-wide {
+      grid-column: 1 / -1;
     }
 
     .about-panel ul {
@@ -108,133 +355,197 @@
       line-height: 1.8;
     }
 
-    .about-panel-wide {
-      grid-column: 1 / -1;
+    .about-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
     }
 
-    @media (max-width: 900px) {
-      .about-grid {
+    .about-links a {
+      color: #163f95;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .about-links a:hover {
+      color: #0f2b69;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 980px) {
+      .about-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .about-summary {
         grid-template-columns: 1fr;
       }
     }
 
-    html[data-theme="dark"] .about-hero,
-    html.dark-mode .about-hero {
-      background: linear-gradient(150deg, rgba(18, 29, 53, 0.86), rgba(15, 24, 43, 0.74));
+    @media (max-width: 900px) {
+      .about-grid,
+      .about-portrait-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    html[data-theme="dark"] .about-hero-copy,
+    html.dark-mode .about-hero-copy,
+    html[data-theme="dark"] .about-portrait-card,
+    html.dark-mode .about-portrait-card,
+    html[data-theme="dark"] .about-panel,
+    html.dark-mode .about-panel {
       border-color: rgba(120, 147, 209, 0.46);
-      box-shadow: 0 24px 44px rgba(4, 8, 18, 0.42);
+      box-shadow: 0 20px 38px rgba(4, 8, 18, 0.34);
+    }
+
+    html[data-theme="dark"] .about-hero-copy,
+    html.dark-mode .about-hero-copy {
+      background: linear-gradient(150deg, rgba(18, 29, 53, 0.88), rgba(15, 24, 43, 0.76));
+    }
+
+    html[data-theme="dark"] .about-stat,
+    html.dark-mode .about-stat,
+    html[data-theme="dark"] .about-portrait-meta div,
+    html.dark-mode .about-portrait-meta div {
+      background: rgba(20, 30, 53, 0.62);
+      border-color: rgba(101, 127, 184, 0.42);
+    }
+
+    html[data-theme="dark"] .about-btn-secondary,
+    html.dark-mode .about-btn-secondary {
+      background: rgba(20, 30, 53, 0.72);
+      color: var(--ink);
+      border-color: rgba(101, 127, 184, 0.42);
     }
   </style>
-<meta property="og:type" content="website"></head>
+</head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-<button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-<!-- Navigation Drawer -->
-<nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
-  <a href="/" class="nav-link">Home</a>
-  <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" class="nav-link" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
-
-  <div class="nav-collapsible">
-    <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Music</span>
-      <span class="arrow">▶</span>
-    </button>
-    <div class="nav-collapsible-content">
-      <a href="/the-unseen-chorus.html">The Unseen Chorus</a>
-      <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a>
-      <a href="/gay-and-proud.html">Gay and Proud</a>
-      <a href="/my-fire.html">My Fire (Mi Fuego)</a>
-      <a href="/feel-alive.html">Feel Alive</a>
-    </div>
-  </div>
-
-  <a href="/lyrics.html" class="nav-link">Lyrics</a>
-  <a href="/about.html" class="nav-link">About</a>
-  <a href="/press.html" class="nav-link">Press</a>
-
-  <div class="nav-collapsible">
-    <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Listen &amp; Links</span>
-      <span class="arrow">▶</span>
-    </button>
-    <div class="nav-collapsible-content">
-      <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-      <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
-      <a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a>
-      <a href="mailto:agust@arcticsea.com">Contact</a>
-    </div>
-  </div>
-</nav>
-
-<!-- Overlay (closes menu when clicked) -->
-<div class="nav-overlay" id="nav-overlay"></div>
+  {% include navigation.html %}
 
   <div class="page about-page">
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-      <svg class="theme-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/></svg>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+      <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+        <path id="sun-rays" d="M12 1v2m0 18v2M1 12h2m18 0h2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+        <path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"/>
+      </svg>
     </button>
 
     <header class="about-hero">
-      <h1>Meet Agust Islandia</h1>
-      <p class="subtitle">Icelandic Queer Pop Artist & Musical Theatre Composer</p>
+      <section class="about-hero-copy">
+        <span class="about-kicker">Artist Profile</span>
+        <h1>Meet Agust Islandia</h1>
+        <p class="about-subtitle">
+          Agust Smari Bjarkarson, performing as <strong>Agust Islandia</strong>, is an Icelandic queer pop artist and musical storyteller building a catalog of gay anthems, queer narrative albums, and full lyric pages grounded in identity, desire, struggle, and resilience.
+        </p>
+        <div class="about-actions">
+          <a class="about-btn about-btn-primary" href="/lyrics.html">Read the lyrics</a>
+          <a class="about-btn about-btn-secondary" href="/press.html">Open press page</a>
+          <a class="about-btn about-btn-secondary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
+        </div>
+        <div class="about-summary">
+          <div class="about-stat">
+            <strong>Origin</strong>
+            <span>Reykjavik, Iceland, writing queer stories into pop and musical theatre.</span>
+          </div>
+          <div class="about-stat">
+            <strong>Signature Work</strong>
+            <span><em>The Unseen Chorus</em>, <em>Swipe Me to the Moon</em>, and bilingual Pride releases.</span>
+          </div>
+          <div class="about-stat">
+            <strong>Focus</strong>
+            <span>Same-sex love, Pride, recovery, identity, satire, and emotional honesty.</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="about-portrait-card" aria-labelledby="about-portrait-title">
+        <div>
+          <span class="about-kicker">Artist Snapshot</span>
+          <h2 id="about-portrait-title">Quick reference</h2>
+          <p>Independent Icelandic artist project spanning singles, concept releases, theatrical pop, and official lyric documentation across the site.</p>
+        </div>
+        <img src="/agust_islandia.jpg" alt="Portrait of Agust Smari Bjarkarson, performing as Agust Islandia" loading="eager">
+        <div class="about-portrait-meta">
+          <div>
+            <strong>Artist Name</strong>
+            <span>Agust Islandia</span>
+          </div>
+          <div>
+            <strong>Legal Name</strong>
+            <span>Agust Smari Bjarkarson</span>
+          </div>
+          <div>
+            <strong>Base</strong>
+            <span>Reykjavik, Iceland</span>
+          </div>
+          <div>
+            <strong>Disciplines</strong>
+            <span>Pop, musicals, lyrics, queer storytelling</span>
+          </div>
+        </div>
+      </aside>
     </header>
 
     <main id="main-content" class="about-grid">
       <section class="about-panel about-panel-wide">
         <h2>About Agust Smari Bjarkarson</h2>
         <p>
-          <strong>Agust Smari Bjarkarson</strong>, performing as <strong>Agust Islandia</strong>, is an Icelandic queer pop artist and musical theatre composer from Reykjavik. Born August 26, 1976, Agust creates music that unapologetically celebrates queer life, queer love, and Pride.
+          <strong>Agust Smari Bjarkarson</strong>, performing as <strong>Agust Islandia</strong>, creates music that unapologetically centers queer life, queer love, self-acceptance, and the emotional complexity of modern gay experience. The project moves between pop songwriting, theatrical storytelling, satire, and vulnerable confessional material.
         </p>
         <p>
-          His work spans from viral LGBTQ+ anthems like <strong>"Gay and Proud"</strong> (540,000+ TikTok views) to groundbreaking full-length musicals like <strong>"The Unseen Chorus"</strong>, a 27-track theatrical work addressing sexual addiction, recovery, and redemptive love in the gay community.
-        </p>
-      </section>
-
-      <section class="about-panel">
-        <h2>Musical Influences</h2>
-        <p>
-          Agust's work is deeply influenced by queer-affirming musical theatre, particularly <strong>Rent</strong>, <strong>Moulin Rouge! The Musical</strong>, and <strong>Hair</strong>. These groundbreaking works inspired him to create his own theatrical narratives that center LGBTQ+ experiences with honesty, compassion, and unflinching truth.
+          His catalog ranges from Pride-facing anthems like <strong>"Gay and Proud / Gay y Orgulloso"</strong> to larger narrative works like <strong>"The Unseen Chorus"</strong>, a full-length gay musical addressing addiction, shame, recovery, and the search for redemptive connection.
         </p>
       </section>
 
       <section class="about-panel">
-        <h2>Mission & Vision</h2>
+        <h2>Musical Direction</h2>
         <p>
-          "I am just starting, so my bucket list is still wide open. I want to create bigger productions, collaborate with inspiring artists, and keep pushing myself creatively."
+          The work blends pop accessibility with musical-theatre structure. Songs are often designed to stand on their own while still contributing to a wider narrative world, particularly on the album and lyric pages that document track-by-track context.
         </p>
         <p>
-          Agust's music centers LGBTQ+ experiences with themes of same-sex relationships, queer identity, coming out stories, Pride community, self-acceptance, and LGBTQ+ visibility. His work serves as both celebration and challenge—honoring queer resilience while urging the community toward healthier, more authentic ways of living and loving.
+          Recurring influences include emotionally direct songwriting, theatrical momentum, and queer-centered storytelling that does not flatten difficult material into generic uplift.
+        </p>
+      </section>
+
+      <section class="about-panel">
+        <h2>Mission &amp; Vision</h2>
+        <p>
+          The project aims to make queer stories visible in formats that are both searchable and artistically coherent: official release pages, complete lyrics, musical cycles, and song worlds that speak plainly about desire, community, conflict, and growth.
+        </p>
+        <p>
+          The long-term direction is larger productions, stronger collaborations, and a catalog that keeps expanding without losing specificity or emotional risk.
         </p>
       </section>
 
       <section class="about-panel">
         <h2>Career Highlights</h2>
         <ul>
-          <li><strong>Viral Breakthrough:</strong> "Gay and Proud" reached 540,000+ TikTok views and became an LGBTQ+ community anthem</li>
-          <li><strong>Complete Musical:</strong> "The Unseen Chorus" - 27 tracks, 80 minutes, addressing addiction and recovery</li>
-          <li><strong>Milestone:</strong> 60,000 daily streams achieved</li>
-          <li><strong>Growing Catalog:</strong> Multiple musical theatre albums exploring queer narratives</li>
-          <li><strong>Global Reach:</strong> Connecting with queer listeners and allies worldwide</li>
+          <li><strong>Viral breakthrough:</strong> "Gay and Proud" reached major visibility on TikTok and became a community-facing Pride anthem.</li>
+          <li><strong>Full musical release:</strong> <em>The Unseen Chorus</em> established a large-form theatrical work with complete lyrics published online.</li>
+          <li><strong>Expanding catalog:</strong> Singles, bilingual releases, satire, and multiple concept-driven projects continue to widen the site and discography.</li>
+          <li><strong>Searchable canon:</strong> The website functions as a structured archive for lyrics, releases, artist identity, and official metadata.</li>
         </ul>
       </section>
 
       <section class="about-panel">
-        <h2>Based in Reykjavik, Iceland</h2>
+        <h2>Based in Reykjavik</h2>
         <p>
-          Creating from Reykjavik, Agust brings an Icelandic perspective to LGBTQ+ music and musical theatre, contributing to the global conversation about queer identity, love, and community.
+          Creating from Reykjavik, Agust brings an Icelandic perspective into LGBTQ+ pop and musical storytelling while writing for a wider international audience of queer listeners and allies.
         </p>
+        <div class="about-links">
+          <a href="/the-unseen-chorus.html">The Unseen Chorus</a>
+          <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a>
+          <a href="/gay-and-proud.html">Gay and Proud</a>
+        </div>
       </section>
 
       <section class="about-panel">
-        <h2>Get in Touch</h2>
+        <h2>Contact &amp; Availability</h2>
         <p>
-          Available for Pride festivals, LGBTQ+ events, and live performances.
+          Available for Pride festivals, LGBTQ+ events, features, interviews, and artist-related press inquiries.
         </p>
         <p>
           <strong>Email:</strong> <script>document.write('<'+'a'+' '+'h'+'r'+'e'+'f'+'='+"'"+'m'+'a'+'i'+'l'+'t'+'o'+':'+'a'+'g'+'u'+'s'+'t'+'@'+'a'+'r'+'c'+'t'+'i'+'c'+'s'+'e'+'a'+'.'+'c'+'o'+'m'+"'"+'>');document.write('a'+'g'+'u'+'s'+'t'+'@'+'a'+'r'+'c'+'t'+'i'+'c'+'s'+'e'+'a'+'.'+'c'+'o'+'m');document.write('<'+'/'+'a'+'>');</script><noscript>agust [at] arcticsea.com</noscript>
@@ -244,6 +555,7 @@
 
     <footer>© 2026 <strong>Agust Smari Bjarkarson</strong></footer>
   </div>
+
   <script src="dark-mode.js"></script>
   <script src="navigation.js"></script>
 </body>

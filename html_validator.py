@@ -11,6 +11,28 @@ from html.parser import HTMLParser
 from collections import defaultdict
 from urllib.parse import urlparse
 
+
+def read_html_file(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
+    if content.startswith("---\n"):
+        parts = content.split("---\n", 2)
+        if len(parts) == 3:
+            content = parts[2]
+    base_dir = Path("/Users/gusti/gusti1976.github.io")
+    include_pattern = re.compile(r'{%\s*include\s+([^\s%]+)\s*%}')
+
+    def replace_include(match):
+        include_name = match.group(1)
+        include_path = base_dir / "_includes" / include_name
+        if include_path.exists():
+            with open(include_path, 'r', encoding='utf-8') as include_file:
+                return include_file.read()
+        return match.group(0)
+
+    content = include_pattern.sub(replace_include, content)
+    return content
+
 class HTMLValidator(HTMLParser):
     def __init__(self, filepath):
         super().__init__()
@@ -293,8 +315,7 @@ def validate_internal_links(base_dir, all_files):
     broken_links = defaultdict(list)
 
     for filepath in all_files:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
+        content = read_html_file(filepath)
 
         # Find all href links
         links = re.findall(r'href=["\'](/[^"\']+\.html)["\']', content)
@@ -340,8 +361,7 @@ def main():
     file_warnings = {}
 
     for filepath in html_files:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
+        content = read_html_file(filepath)
 
         validator = HTMLValidator(filepath)
         errors, warnings = validator.validate(content)

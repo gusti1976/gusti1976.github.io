@@ -1,11 +1,44 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="max-image-preview:large">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
+  <meta name="color-scheme" content="light dark">
+
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem("agust-islandia-theme");
+        var h = document.documentElement;
+        var isDark = false;
+        if (t === "dark" || t === "light") {
+          h.setAttribute("data-theme", t);
+          h.classList.toggle("dark-mode", t === "dark");
+          isDark = (t === "dark");
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          h.setAttribute("data-theme", "dark");
+          h.classList.add("dark-mode");
+          isDark = true;
+        } else {
+          h.setAttribute("data-theme", "light");
+          h.classList.remove("dark-mode");
+        }
+        h.style.colorScheme = isDark ? "dark" : "light";
+      } catch (e) {}
+    })();
+  </script>
+
   <title>Song Lyrics & Stories | Agust Islandia</title>
   <link rel="canonical" href="https://www.gusti.com/lyrics.html">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
   <meta name="description" content="Browse song lyrics and stories from Agust Islandia (Agust Smari Bjarkarson), including tracks from gay musicals, singles, and Pride-era releases.">
   <meta property="og:title" content="Song Lyrics & Stories - Agust Islandia"><meta property="og:description" content="Browse song lyrics and stories from Agust Islandia (Agust Smari Bjarkarson), including tracks from gay musicals, singles, and Pride-era releases.">
   <meta property="og:url" content="https://www.gusti.com/lyrics.html">
@@ -73,57 +106,15 @@
   <link rel="stylesheet" href="glass-site.css?v=20260304e">
 <meta property="og:type" content="website"><meta property="og:image" content="https://www.gusti.com/gay-and-proud-cover.webp"></head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-<button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
-</button>
-
-<!-- Navigation Drawer -->
-<nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
-  <a href="/" class="nav-link">Home</a>
-  <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" class="nav-link" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
-
-  <div class="nav-collapsible">
-    <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Music</span>
-      <span class="arrow">▶</span>
-    </button>
-    <div class="nav-collapsible-content">
-      <a href="/the-unseen-chorus.html">The Unseen Chorus</a>
-      <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a>
-      <a href="/gay-and-proud.html">Gay and Proud</a>
-      <a href="/my-fire.html">My Fire (Mi Fuego)</a>
-      <a href="/feel-alive.html">Feel Alive</a>
-    </div>
-  </div>
-
-  <a href="/lyrics.html" class="nav-link">Lyrics</a>
-  <a href="/about.html" class="nav-link">About</a>
-  <a href="/press.html" class="nav-link">Press</a>
-
-  <div class="nav-collapsible">
-    <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Listen &amp; Links</span>
-      <span class="arrow">▶</span>
-    </button>
-    <div class="nav-collapsible-content">
-      <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-      <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
-      <a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a>
-      <a href="mailto:agust@arcticsea.com">Contact</a>
-    </div>
-  </div>
-</nav>
-
-<!-- Overlay (closes menu when clicked) -->
-<div class="nav-overlay" id="nav-overlay"></div>
+  {% include navigation.html %}
 
   <div class="page">
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-      <svg class="theme-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/></svg>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+      <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+        <path id="sun-rays" d="M12 1v2m0 18v2M1 12h2m18 0h2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
+        <path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"/>
+      </svg>
     </button>
 
     <header style="text-align: center; padding: var(--spacing-2xl) var(--spacing-lg);">
