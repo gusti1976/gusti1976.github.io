@@ -146,7 +146,7 @@
 
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css">
-  <link rel="stylesheet" href="glass-site.css?v=20260304e">
+  <link rel="stylesheet" href="glass-site.css?v=20260317a">
   <style>
     .press-page {
       max-width: 1180px;
@@ -217,6 +217,7 @@
     .press-actions {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 10px;
       margin-top: 18px;
     }
@@ -383,21 +384,74 @@
     .press-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .press-grid > section {
+      padding: 0;
+      margin: 0;
     }
 
     .press-panel {
-      padding: 18px;
+      padding: 0;
+      overflow: hidden;
+      background: var(--glass-strong);
+      border: 1px solid rgba(160, 181, 228, 0.58);
+      box-shadow: 0 14px 30px rgba(18, 34, 71, 0.1);
+    }
+
+    .press-panel-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 24px;
     }
 
     .press-panel-wide {
       grid-column: 1 / -1;
     }
 
+    .press-panel h2 {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      background-image: none;
+      -webkit-text-fill-color: currentColor;
+      color: var(--ink);
+      font-size: 1.18rem;
+      letter-spacing: -0.01em;
+    }
+
+    .press-panel p,
+    .press-panel li,
+    .press-news-item p {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    .press-panel-wide p,
+    .press-panel-wide ul,
+    .press-panel-wide .press-link-row,
+    .press-panel-wide .press-news-item {
+      max-width: none;
+    }
+
+    .press-panel:not(.press-panel-wide) p,
+    .press-panel:not(.press-panel-wide) ul,
+    .press-panel:not(.press-panel-wide) .press-link-row {
+      max-width: 64ch;
+    }
+
     .press-news-item {
       margin-bottom: 20px;
       padding-bottom: 20px;
       border-bottom: 1px solid rgba(160, 181, 228, 0.58);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .press-news-item:last-child {
@@ -415,27 +469,49 @@
     }
 
     .press-link-row a {
-      display: inline-flex;
-      align-items: center;
       min-height: 38px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      color: #163f95;
-      font-weight: 700;
-      text-decoration: none;
-      background: rgba(255, 255, 255, 0.58);
-      border: 1px solid rgba(183, 199, 235, 0.72);
     }
 
-    .press-link-row a:hover {
-      color: #0f2b69;
-      text-decoration: none;
-      transform: translateY(-1px);
+    .press-panel ul {
+      margin: 0;
+      padding: 2px 0 0;
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      line-height: 1.8;
+    }
+
+    .press-panel li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .press-panel li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.82em;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(126, 168, 255, 0.6);
+      transform: translateY(-50%);
     }
 
     .press-link-row a::after,
     .press-link-row a:hover::after,
     .press-link-row a:focus-visible::after {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+    }
+
+    .press-panel a::after,
+    .press-panel a:hover::after,
+    .press-panel a:focus-visible::after,
+    .press-news-item a::after,
+    .press-news-item a:hover::after,
+    .press-news-item a:focus-visible::after {
       content: none !important;
       display: none !important;
       background: none !important;
@@ -482,6 +558,11 @@
       border-color: rgba(101, 127, 184, 0.42);
     }
 
+    html[data-theme="dark"] .press-panel h2,
+    html.dark-mode .press-panel h2 {
+      color: #f8fbff;
+    }
+
     html[data-theme="dark"] .press-btn-secondary,
     html.dark-mode .press-btn-secondary {
       background: rgba(20, 30, 53, 0.72);
@@ -509,6 +590,11 @@
       color: var(--ink);
       border-color: rgba(101, 127, 184, 0.42);
       box-shadow: inset 0 1px 0 rgba(170, 194, 255, 0.08);
+    }
+
+    html[data-theme="dark"] .press-panel li::before,
+    html.dark-mode .press-panel li::before {
+      background: rgba(137, 177, 255, 0.82);
     }
   </style>
 </head>
@@ -573,6 +659,7 @@
 
     <main id="main-content" class="press-grid">
       <section class="press-panel press-panel-wide">
+        <div class="press-panel-inner">
         <h2>Recent Milestones</h2>
 
         <article class="press-news-item">
@@ -611,9 +698,11 @@
             The catalog reached a documented milestone of 60,000 daily streams across platforms, reinforcing that the project is growing beyond isolated single releases into a broader searchable body of work.
           </p>
         </article>
+        </div>
       </section>
 
       <section class="press-panel">
+        <div class="press-panel-inner">
         <h2>Key Releases</h2>
         <ul>
           <li><strong>The Unseen Chorus</strong> (October 6, 2025) - 27-track gay musical</li>
@@ -622,9 +711,11 @@
           <li><strong>Cowboys EP</strong> - queer western subversion and satire</li>
           <li><strong>Feel Alive</strong> and <strong>My Fire (Mi Fuego)</strong> - singles expanding the public profile</li>
         </ul>
+        </div>
       </section>
 
       <section class="press-panel">
+        <div class="press-panel-inner">
         <h2>Press Contact</h2>
         <p>
           For interviews, media features, Pride festival interest, booking context, and artist information:
@@ -632,18 +723,21 @@
         <p>
           <strong>Email:</strong> <script>document.write('<'+'a'+' '+'h'+'r'+'e'+'f'+'='+"'"+'m'+'a'+'i'+'l'+'t'+'o'+':'+'a'+'g'+'u'+'s'+'t'+'@'+'a'+'r'+'c'+'t'+'i'+'c'+'s'+'e'+'a'+'.'+'c'+'o'+'m'+"'"+'>');document.write('a'+'g'+'u'+'s'+'t'+'@'+'a'+'r'+'c'+'t'+'i'+'c'+'s'+'e'+'a'+'.'+'c'+'o'+'m');document.write('<'+'/'+'a'+'>');</script><noscript>agust [at] arcticsea.com</noscript>
         </p>
+        </div>
       </section>
 
       <section class="press-panel press-panel-wide">
+        <div class="press-panel-inner">
         <h2>Press Assets &amp; Context</h2>
         <p>
           The site now functions as a structured artist archive with official release pages, lyrics, artist biography, and metadata-backed music entities. That makes it useful both for listeners and for search/indexing systems trying to understand the catalog.
         </p>
         <div class="press-link-row">
-          <a href="/about.html">Artist biography</a>
-          <a href="/lyrics.html">Lyrics index</a>
-          <a href="/the-unseen-chorus.html">Flagship release page</a>
-          <a href="/agust-islandia-gay-and-proud-press-release.html">Syndication release</a>
+          <a class="glass-chip-link" href="/about.html">Artist biography</a>
+          <a class="glass-chip-link" href="/lyrics.html">Lyrics index</a>
+          <a class="glass-chip-link" href="/the-unseen-chorus.html">Flagship release page</a>
+          <a class="glass-chip-link" href="/agust-islandia-gay-and-proud-press-release.html">Syndication release</a>
+        </div>
         </div>
       </section>
     </main>
