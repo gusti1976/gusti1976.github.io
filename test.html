@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom T-Piece Sprite Test</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      background:
+        radial-gradient(ellipse at 20% 20%, #c8d8ff 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 10%, #e8c8f0 0%, transparent 40%),
+        linear-gradient(135deg, #8fa8d8 0%, #9fa3d4 50%, #a8aad0 100%);
+      font-family: -apple-system, system-ui, sans-serif;
+      color: #1a2a4a;
+    }
+
+    h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      opacity: 0.7;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 20px;
+      padding: 32px 40px;
+      box-shadow: 0 8px 32px rgba(80,100,180,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <h1>Custom T-Piece Sprite — Preview</h1>
+
+  <div class="card">
+    <div class="label">Full Piece</div>
+    <canvas id="full"></canvas>
+  </div>
+
+  <div class="card">
+    <div class="label">Bottom Block Detail — Groove Close-up</div>
+    <canvas id="zoom"></canvas>
+  </div>
+
+  <script>
+    const CELL = 52;
+
+    // ─── Shape definition ───────────────────────────────
+    // Top bar : 4 blocks LEFT + 1 center + 4 blocks RIGHT = 9 wide
+    // Stem    : single center block below the bar
+    // Bottom block (stem) has a half-circle groove on its bottom face.
+    //
+    //  ■ ■ ■ ■ ■ ■ ■ ■ ■   ← row 0  (9 blocks)
+    //          ■             ← row 1  (center only, col 4)
+    //          ⌣             ← groove on bottom of that block
+
+    const SHAPE = [
+      [1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [0, 0, 0, 0, 1, 0, 0, 0, 0],
+    ];
+
+    const COLS = SHAPE[0].length;   // 9
+    const ROWS = SHAPE.length;      // 2
+    const STEM_ROW = 1;
+    const STEM_COL = 4;
+
+    // ─── Colour palette (light brown glass) ─────────────
+    const C_FILL    = 'rgba(185, 128, 55, 0.88)';
+    const C_SHINE   = 'rgba(255, 210, 130, 0.65)';
+    const C_EDGE    = 'rgba(255, 255, 255, 0.38)';
+    const C_SHADOW  = 'rgba(90, 50, 10, 0.28)';
+    const C_GROOVE  = 'rgba(60, 30, 5, 0.55)';
+
+    // ─── Draw a single Tetris block ──────────────────────
+    // If grooveBottom is true, a half-circle notch is cut from the bottom edge.
+    function drawBlock(ctx, bx, by, grooveBottom) {
+      const r = 5;       // corner radius
+      const gr = CELL * 0.28;  // groove radius (28 % of cell)
+      const gcx = bx + CELL / 2;
+      const gcy = by + CELL;
+
+      ctx.save();
+
+      if (grooveBottom) {
+        // Build a clipping path: square block minus the bottom semicircle
+        ctx.beginPath();
+        // Top-left → top-right (rounded top corners only)
+        ctx.moveTo(bx + r, by);
+        ctx.lineTo(bx + CELL - r, by);
+        ctx.arcTo(bx + CELL, by, bx + CELL, by + r, r);
+        // Right side down to bottom-right of block
+        ctx.lineTo(bx + CELL, gcy);
+        // Walk left along bottom to the right edge of the groove
+        ctx.lineTo(gcx + gr, gcy);
+        // Arc the groove upward (counterclockwise = digs INTO the block)
+        ctx.arc(gcx, gcy, gr, 0, Math.PI, true);
+        // Continue left to bottom-left corner
+        ctx.lineTo(bx, gcy);
+        // Left side back up
+        ctx.lineTo(bx, by + r);
+        ctx.arcTo(bx, by, bx + r, by, r);
+        ctx.closePath();
+      } else {
+        // Plain rounded rectangle
+        ctx.beginPath();
+        ctx.roundRect(bx, by, CELL, CELL, r);
+      }
+
+      // Main fill
+      ctx.fillStyle = C_FILL;
+      ctx.fill();
+
+      // Inner stroke / edge highlight
+      ctx.strokeStyle = C_EDGE;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Specular top shine (top ~30 % of block)
+      ctx.beginPath();
+      ctx.roundRect(bx + 4, by + 3, CELL - 8, CELL * 0.3, [3, 3, 6, 6]);
+      ctx.fillStyle = C_SHINE;
+      ctx.fill();
+
+      // Bottom shadow strip (skip if groove, it handles itself)
+      if (!grooveBottom) {
+        ctx.beginPath();
+        ctx.roundRect(bx + 2, by + CELL - 6, CELL - 4, 5, [0, 0, 3, 3]);
+        ctx.fillStyle = C_SHADOW;
+        ctx.fill();
+      }
+
+      // Groove shadow arc if needed
+      if (grooveBottom) {
+        ctx.beginPath();
+        ctx.arc(gcx, gcy, gr, 0, Math.PI, true);
+        ctx.strokeStyle = C_GROOVE;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    // ─── Full piece canvas ───────────────────────────────
+    (function() {
+      const PAD = 20;
+      const cv = document.getElementById('full');
+      cv.width  = COLS * CELL + PAD * 2;
+      cv.height = ROWS * CELL + PAD * 2;
+      const ctx = cv.getContext('2d');
+
+      for (let row = 0; row < ROWS; row++) {
+        for (let col = 0; col < COLS; col++) {
+          if (!SHAPE[row][col]) continue;
+          const isGroove = (row === STEM_ROW && col === STEM_COL);
+          drawBlock(ctx, PAD + col * CELL, PAD + row * CELL, isGroove);
+        }
+      }
+    })();
+
+    // ─── Close-up of the grooved bottom block ────────────
+    (function() {
+      const ZOOM = 3;
+      const S = CELL * ZOOM;
+      const PAD = 24;
+      const cv = document.getElementById('zoom');
+      cv.width  = S + PAD * 2;
+      cv.height = S + PAD * 2;
+      const ctx = cv.getContext('2d');
+      ctx.scale(ZOOM, ZOOM);
+      drawBlock(ctx, PAD / ZOOM, PAD / ZOOM, true);
+    })();
+  </script>
+</body>
+</html>
