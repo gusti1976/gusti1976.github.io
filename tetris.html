@@ -2203,7 +2203,7 @@ async function maybeSaveScore(score, level, lines) {
     const tr = (TRANSLATIONS[currentLang] || TRANSLATIONS.en);
     if (score > prev) {
       await ref.set({
-        displayName: fbUser.displayName || 'Anonymous',
+        displayName: (fbUser.displayName || 'Anonymous').split(' ')[0],
         photoURL:    fbUser.photoURL    || '',
         score, level, lines,
         updatedAt:   firebase.firestore.FieldValue.serverTimestamp(),
