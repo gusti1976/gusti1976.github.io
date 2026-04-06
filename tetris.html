@@ -892,6 +892,24 @@ function sndGameOver() {
   sweep(c, 'sine', 220, 55, 0.10, t + 0.66, 0.55);
 }
 
+function sndSecret() {
+  // Magical arrival fanfare: low thud → shimmering rise → sparkling crown
+  const c = getACtx(), t = c.currentTime;
+  // Low cinematic thud
+  osc(c, 'sine', 60, 0.28, t, 0.25);
+  noise(c, 0.10, t, 0.18);
+  // Rising chord arpeggio (C maj7: C4 E4 G4 B4 C5)
+  [261.6, 329.6, 392.0, 493.9, 523.2].forEach((f, i) => {
+    osc(c, 'triangle', f, 0.16, t + 0.18 + i * 0.075, 0.45);
+  });
+  // Sparkling high shimmer
+  [1047, 1319, 1568, 2093].forEach((f, i) => {
+    osc(c, 'sine', f, 0.07, t + 0.60 + i * 0.05, 0.12);
+  });
+  // Bright sweep tail
+  sweep(c, 'sine', 880, 1760, 0.10, t + 0.85, 0.40);
+}
+
 // ── Dispatcher ──
 
 const SOUNDS = {
@@ -899,7 +917,7 @@ const SOUNDS = {
   hardDrop: sndHardDrop, lock: sndLock, hold: sndHold,
   clear1: sndClear1, clear2: sndClear2, clear3: sndClear3,
   clear4: sndClear4, backToBack: sndBackToBack,
-  levelUp: sndLevelUp, gameOver: sndGameOver,
+  levelUp: sndLevelUp, gameOver: sndGameOver, secret: sndSecret,
 };
 
 function playSound(id) {
@@ -964,8 +982,27 @@ const PIECES = {
   Z: { color: 'rgba(255,60,60,0.82)',   cells: [[[-1,-1],[-1,0],[0,0],[0,1]],[[0,0],[1,0],[-1,1],[0,1]],[[-1,-1],[-1,0],[0,0],[0,1]],[[0,0],[1,0],[-1,1],[0,1]]] },
   J: { color: 'rgba(40,100,255,0.82)',  cells: [[[0,-1],[0,0],[0,1],[-1,-1]],[[-1,0],[0,0],[1,0],[-1,1]],[[0,-1],[0,0],[0,1],[1,1]],[[-1,0],[0,0],[1,0],[1,-1]]] },
   L: { color: 'rgba(255,140,0,0.82)',   cells: [[[0,-1],[0,0],[0,1],[-1,1]],[[-1,0],[0,0],[1,0],[1,1]],[[0,-1],[0,0],[0,1],[1,-1]],[[-1,0],[0,0],[1,0],[-1,-1]]] },
+  // ── Secret wide-T piece ──
+  // Bar: 3 wide (cols -1, 0, +1) | Stem: 4 deep (rows 1-4)
+  // Cell index 6 (row+4, col+0) is the pink grooved bottom block.
+  W: {
+    color: 'rgba(185,128,55,0.88)',
+    cellColors: (function(){
+      const row = [
+        'rgba(185,128,55,0.88)','rgba(185,128,55,0.88)','rgba(185,128,55,0.88)',
+        'rgba(185,128,55,0.88)','rgba(185,128,55,0.88)','rgba(185,128,55,0.88)',
+        'rgba(235,100,155,0.90)',
+      ];
+      return [row, row, row, row];
+    })(),
+    cells: (function(){
+      const shape = [[0,-1],[0,0],[0,1],[1,0],[2,0],[3,0],[4,0]];
+      return [shape, shape, shape, shape];
+    })(),
+  },
 };
-const PIECE_KEYS = Object.keys(PIECES);
+// Standard 7 pieces only — W is injected separately by randomPiece()
+const PIECE_KEYS = ['I','O','T','S','Z','J','L'];
 
 // Scoring
 const LINE_SCORES = [0, 100, 300, 500, 800];
@@ -991,6 +1028,7 @@ const pauseBadge     = document.getElementById('pause-badge');
 // ── Game state ──
 let board, current, ghost, nextQueue, holdPiece, canHold;
 let score, level, lines, best;
+let lastWasSpecial = false;
 let gameRunning, paused, dropTimer, dropInterval;
 let animId;
 
@@ -1007,6 +1045,12 @@ function init() {
 }
 
 function randomPiece() {
+  // ~10% chance of the secret W piece, but never twice in a row
+  if (!lastWasSpecial && Math.random() < 0.10) {
+    lastWasSpecial = true;
+    return 'W';
+  }
+  lastWasSpecial = false;
   return PIECE_KEYS[Math.floor(Math.random() * PIECE_KEYS.length)];
 }
 
@@ -1016,11 +1060,13 @@ function spawnPiece() {
   current = {
     key,
     color: PIECES[key].color,
+    cellColors: PIECES[key].cellColors || null,
     cells: PIECES[key].cells,
     rot: 0,
     row: 1,
     col: Math.floor(COLS / 2),
   };
+  if (key === 'W') playSound('secret');
   canHold = true;
   calcGhost();
   if (!isValid(current)) {
@@ -1101,8 +1147,8 @@ function holdAction() {
 
 function lockPiece() {
   playSound('lock');
-  getCells(current).forEach(([r, c]) => {
-    board[r][c] = current.color;
+  getCells(current).forEach(([r, c], i) => {
+    board[r][c] = current.cellColors ? current.cellColors[current.rot][i] : current.color;
   });
   clearLines();
   spawnPiece();
@@ -1264,7 +1310,10 @@ function draw() {
     });
 
     // Current piece
-    getCells(current).forEach(([r, c]) => drawCell(ctx, r, c, current.color));
+    getCells(current).forEach(([r, c], i) => {
+      const color = current.cellColors ? current.cellColors[current.rot][i] : current.color;
+      drawCell(ctx, r, c, color);
+    });
   }
 }
 
@@ -1288,9 +1337,10 @@ function drawNext() {
   nCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
   queue.forEach((key, i) => {
     const sectionH = nextCanvas.height / 3;
-    // Draw each in a section
     nCtx.save();
     nCtx.translate(0, i * sectionH);
+    // Secret piece — show nothing (it's a surprise)
+    if (key === 'W') { nCtx.restore(); return; }
     const piece = PIECES[key];
     const cells = piece.cells[0];
     const cellSize = 20;
@@ -1330,6 +1380,7 @@ function startGame() {
   paused = false;
   dropInterval = 1000;
   lastClearWasTetris = false;
+  lastWasSpecial = false;
   initCellSize();
   init();
   draw();
