@@ -1,9 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glass Tetris</title>
+  <title>Out and Proud Tetris — by Agust Islandia</title>
+  <meta name="description" content="A classic Tetris game with an Apple Liquid Glass look and feel, created by Agust Smari Bjarkarson (Agust Islandia). Play in English, Portuguese, or Spanish.">
+  <meta name="author" content="Agust Smari Bjarkarson">
+  <meta name="keywords" content="Tetris, Agust Islandia, Agust Smari Bjarkarson, glass game, browser game">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Out and Proud Tetris — by Agust Islandia">
+  <meta property="og:description" content="Classic Tetris with an Apple Liquid Glass look, by Agust Smari Bjarkarson.">
+  <meta property="og:url" content="https://gusti1976.github.io/tetris.html">
+  <meta property="og:site_name" content="Agust Islandia">
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Out and Proud Tetris — by Agust Islandia">
+  <meta name="twitter:description" content="Classic Tetris with an Apple Liquid Glass look, by Agust Smari Bjarkarson.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://gusti1976.github.io/tetris.html">
+
+  <!-- Schema.org VideoGame -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Out and Proud Tetris",
+    "alternateName": "Glass Tetris",
+    "description": "A classic Tetris game with an Apple Liquid Glass look and feel, featuring a working scoring system, hold piece, ghost piece, and support for English, Portuguese, and Spanish.",
+    "url": "https://gusti1976.github.io/tetris.html",
+    "author": {
+      "@type": "Person",
+      "name": "Agust Smari Bjarkarson",
+      "alternateName": "Agust Islandia",
+      "url": "https://gusti1976.github.io"
+    },
+    "genre": ["Puzzle", "Arcade"],
+    "gamePlatform": "Web Browser",
+    "playMode": "SinglePlayer",
+    "applicationCategory": "Game",
+    "inLanguage": ["en", "pt", "pt-BR", "es"],
+    "isAccessibleForFree": true,
+    "publisher": {
+      "@type": "Person",
+      "name": "Agust Smari Bjarkarson",
+      "alternateName": "Agust Islandia"
+    }
+  }
+  </script>
   <style>
     :root {
       --bg-a: #c8d8ff;
@@ -523,6 +570,7 @@ let currentLang = detectLang();
 function t(key) { return TRANSLATIONS[currentLang][key] || TRANSLATIONS.en[key]; }
 
 function applyLang() {
+  document.getElementById('html-root').lang = currentLang;
   // Simple text nodes (data-i18n targets)
   ['lbl-hold','lbl-score','lbl-level','lbl-lines','lbl-best','lbl-next','lbl-controls'].forEach(id => {
     document.getElementById(id).textContent = t(id);
