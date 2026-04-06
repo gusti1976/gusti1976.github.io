@@ -759,11 +759,30 @@ function getACtx() {
 }
 
 // Unlock AudioContext on first user gesture (required by browser autoplay policy).
-// Returns a Promise that resolves once the context is running.
+// Safari (iOS + macOS) needs a silent buffer played during the gesture — resume()
+// alone is not enough on WebKit. We also handle the 'interrupted' state that
+// Safari uses when a phone call or tab-switch suspends audio.
 function unlockAudio() {
   const ctx = getACtx();
+  // Play a silent 1-frame buffer synchronously inside the gesture.
+  // This is the WebKit-specific unlock ritual — without it, iOS stays silent.
+  try {
+    const buf = ctx.createBuffer(1, 1, 22050);
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.connect(ctx.destination);
+    src.start(0);
+  } catch(e) {}
   if (ctx.state === 'running') return Promise.resolve(ctx);
   return ctx.resume().then(() => ctx);
+}
+
+// Small forward offset added to all scheduled note times.
+// Safari's currentTime can be 0 immediately after resume(); scheduling at
+// exactly 0 puts notes "in the past" which WebKit drops silently.
+// Chrome ignores the tiny offset so this is safe everywhere.
+function audioNow() {
+  return getACtx().currentTime + 0.008;
 }
 
 // ── Shared helpers ──
@@ -809,50 +828,50 @@ function noise(ctx, vol, t0, dur) {
 // ── Individual sounds ──
 
 function sndMove() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   osc(c, 'sine', 110, 0.06, t, 0.025);
 }
 
 function sndRotate() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   sweep(c, 'square', 280, 520, 0.07, t, 0.06);
 }
 
 function sndSoftDrop() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   osc(c, 'sine', 80, 0.05, t, 0.02);
 }
 
 function sndHardDrop() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   osc(c, 'sine', 55, 0.22, t, 0.18);
   noise(c, 0.12, t, 0.12);
 }
 
 function sndLock() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   noise(c, 0.14, t, 0.07);
   osc(c, 'square', 160, 0.08, t, 0.05);
 }
 
 function sndHold() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   sweep(c, 'sine', 400, 200, 0.09, t, 0.06);
 }
 
 function sndClear1() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   sweep(c, 'triangle', 440, 880, 0.18, t, 0.28);
 }
 
 function sndClear2() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   sweep(c, 'triangle', 440, 880,  0.18, t,        0.18);
   sweep(c, 'triangle', 550, 1100, 0.18, t + 0.14, 0.22);
 }
 
 function sndClear3() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   sweep(c, 'triangle', 380, 760,  0.18, t,        0.15);
   sweep(c, 'triangle', 500, 1000, 0.18, t + 0.12, 0.15);
   sweep(c, 'triangle', 660, 1320, 0.18, t + 0.24, 0.20);
@@ -860,7 +879,7 @@ function sndClear3() {
 
 function sndClear4() {
   // Triumphant fanfare — 3-note chord + rising tail
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   [261.6, 329.6, 392, 523.2].forEach((f, i) => {
     osc(c, 'triangle', f, 0.14, t + i * 0.07, 0.55);
   });
@@ -870,7 +889,7 @@ function sndClear4() {
 function sndBackToBack() {
   // Fanfare + sparkle arpeggio overlay
   sndClear4();
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   [784, 988, 1175, 1568].forEach((f, i) => {
     osc(c, 'sine', f, 0.10, t + 0.38 + i * 0.08, 0.12);
   });
@@ -878,14 +897,14 @@ function sndBackToBack() {
 }
 
 function sndLevelUp() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   [330, 415, 523, 660].forEach((f, i) => {
     osc(c, 'triangle', f, 0.13, t + i * 0.1, 0.18);
   });
 }
 
 function sndGameOver() {
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   [523, 415, 330, 262].forEach((f, i) => {
     osc(c, 'triangle', f, 0.15, t + i * 0.22, 0.30);
   });
@@ -894,7 +913,7 @@ function sndGameOver() {
 
 function sndExplosion() {
   // Deep cinematic boom + scatter burst
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   osc(c, 'sine',  40,  0.45, t,        0.35);
   osc(c, 'sine',  55,  0.30, t + 0.03, 0.28);
   noise(c,         0.35, t,        0.18);
@@ -907,7 +926,7 @@ function sndExplosion() {
 
 function sndSecret() {
   // Magical arrival fanfare: low thud → shimmering rise → sparkling crown
-  const c = getACtx(), t = c.currentTime;
+  const c = getACtx(), t = audioNow();
   // Low cinematic thud
   osc(c, 'sine', 60, 0.28, t, 0.25);
   noise(c, 0.10, t, 0.18);
@@ -936,12 +955,14 @@ const SOUNDS = {
 function playSound(id) {
   if (muted) return;
   const ctx = getACtx();
-  if (ctx.state === 'suspended') {
-    ctx.resume().then(() => {
-      try { SOUNDS[id] && SOUNDS[id](); } catch(e) { console.warn('sound error', id, e); }
-    });
-  } else {
+  const fire = () => {
     try { SOUNDS[id] && SOUNDS[id](); } catch(e) { console.warn('sound error', id, e); }
+  };
+  // 'suspended' = normal autoplay hold; 'interrupted' = Safari-specific (call/tab switch)
+  if (ctx.state === 'running') {
+    fire();
+  } else {
+    ctx.resume().then(fire);
   }
 }
 
