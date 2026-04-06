@@ -67,15 +67,35 @@
       bottom: -100px; right: -100px;
     }
 
-    h1 {
+    .hero {
       position: relative;
       z-index: 2;
-      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 22px;
+      line-height: 1;
+    }
+
+    .hero-subtitle {
+      display: block;
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--ink);
-      margin-bottom: 18px;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(15,34,71,0.7);
+      margin-bottom: 4px;
+    }
+
+    .hero-title {
+      display: block;
+      font-size: 3.6rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #1a3a8f 0%, #7b2fff 50%, #ff3a8c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      filter: drop-shadow(0 2px 8px rgba(120,60,255,0.25));
     }
 
     /* ── Glass panel mixin ── */
@@ -278,7 +298,10 @@
 </head>
 <body>
 
-<h1>Glass Tetris</h1>
+<div class="hero">
+  <span class="hero-subtitle">Out and Proud</span>
+  <span class="hero-title">TETRIS</span>
+</div>
 
 <div id="wrapper">
 
