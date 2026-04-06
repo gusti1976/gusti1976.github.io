@@ -2220,14 +2220,16 @@ async function loadMiniLeaderboard() {
     const snap = await db.collection('scores').orderBy('score', 'desc').limit(5).get();
     list.innerHTML = '';
     if (snap.empty) { list.innerHTML = '<li><span class="ml-rank">–</span><span class="ml-body">No scores yet</span></li>'; return; }
-    snap.forEach((doc, i) => {
+    let miniI = 0;
+    snap.forEach(doc => {
       const d = doc.data();
       const li = document.createElement('li');
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
       const firstName = (d.displayName || d.name || 'Anon').split(' ')[0];
       const pts = Math.floor(Number(d.score) || 0);
-      li.innerHTML = `<span class="ml-rank">${i+1}</span><span class="ml-body">${pts.toLocaleString()} · ${firstName}</span>`;
+      li.innerHTML = `<span class="ml-rank">${miniI+1}</span><span class="ml-body">${pts.toLocaleString()} · ${firstName}</span>`;
       list.appendChild(li);
+      miniI++;
     });
   } catch(e) { console.warn('Mini LB error', e); }
 }
@@ -2245,17 +2247,19 @@ async function loadLeaderboard() {
       list.innerHTML = '<li style="justify-content:center;opacity:.6">No scores yet</li>';
       return;
     }
-    snap.forEach((doc, i) => {
+    let lbI = 0;
+    snap.forEach(doc => {
       const d  = doc.data();
       const li = document.createElement('li');
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
       const firstName = (d.displayName || d.name || 'Anonymous').split(' ')[0];
       const pts = Math.floor(Number(d.score) || 0);
       li.innerHTML = `
-        <span class="lb-rank">${i + 1}</span>
+        <span class="lb-rank">${lbI + 1}</span>
         <span class="lb-name">${firstName}</span>
         <span class="lb-score">${pts.toLocaleString()}</span>`;
       list.appendChild(li);
+      lbI++;
     });
   } catch (e) {
     list.innerHTML = '<li style="justify-content:center;opacity:.6">Could not load scores</li>';
