@@ -350,6 +350,90 @@
     /* Level colour-tint on the body background */
     body { transition: background 1.2s ease; }
 
+    /* ── Mobile layout (≤ 640px) ── */
+    #touch-hint { display: none; }
+
+    @media (max-width: 640px) {
+      body {
+        overflow-y: auto;
+        overflow-x: hidden;
+        justify-content: flex-start;
+        padding: 10px 0 24px;
+        gap: 0;
+      }
+
+      .hero {
+        margin-bottom: 8px;
+      }
+
+      .hero-title { font-size: 2.4rem; }
+
+      #wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+      }
+
+      /* Stats strip — left panel reflows above the board */
+      #left-panel {
+        order: -1;
+        width: calc(100vw - 24px);
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 14px;
+        gap: 0;
+      }
+
+      /* Hide Hold canvas on mobile */
+      #left-panel > .panel-section:first-child { display: none; }
+
+      #left-panel .panel-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+
+      #left-panel .panel-value { font-size: 1.1rem; }
+      #left-panel .panel-label { font-size: 9px; }
+
+      /* Right panel — show next piece only, hide controls */
+      #right-panel {
+        order: 1;
+        width: calc(100vw - 24px);
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        border-radius: 14px;
+        gap: 12px;
+      }
+
+      /* Hide controls text on mobile */
+      #right-panel > .panel-section:last-child { display: none; }
+
+      /* Shorter next-piece canvas — show one piece only */
+      #nextCanvas { height: 80px; }
+
+      /* Board tighter padding */
+      #board-wrap { padding: 8px; }
+
+      /* Touch hint shown on mobile */
+      #touch-hint {
+        display: block;
+        position: relative;
+        z-index: 2;
+        font-size: 0.65rem;
+        color: rgba(13,26,51,0.42);
+        margin-top: 6px;
+        letter-spacing: 0.03em;
+        text-align: center;
+      }
+    }
+
     /* ── Language dropdown ── */
     #lang-dropdown {
       position: relative;
@@ -511,6 +595,8 @@
 
 </div>
 
+<div id="touch-hint" data-i18n="touchHint">Swipe to move · Tap to rotate · Swipe ↓ to drop</div>
+
 <script>
 // ─────────────────────────────────────────────
 //  TETRIS ENGINE
@@ -536,6 +622,7 @@ const TRANSLATIONS = {
     gameOver:      'Game Over',
     playAgain:     'Play Again',
     ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Move<br><kbd>↑</kbd> Rotate<br><kbd>↓</kbd> Soft drop<br><kbd>Space</kbd> Hard drop<br><kbd>C</kbd> Hold<br><kbd>P</kbd> Pause<br><kbd>M</kbd> Mute',
+    touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop',
     finalTpl:      (s, lv, ln) => `Score: ${s} · Level ${lv} · ${ln} lines`,
   },
   pt: {
@@ -553,6 +640,7 @@ const TRANSLATIONS = {
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar de Novo',
     ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rodar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Queda rápida<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Mudo',
+    touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓',
     finalTpl:      (s, lv, ln) => `Pontos: ${s} · Nível ${lv} · ${ln} linhas`,
   },
   'pt-br': {
@@ -570,6 +658,7 @@ const TRANSLATIONS = {
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar Novamente',
     ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Girar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Queda rápida<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausar<br><kbd>M</kbd> Mudo',
+    touchHint:     'Deslize para mover · Toque para girar · Deslize ↓',
     finalTpl:      (s, lv, ln) => `Pontos: ${s} · Nível ${lv} · ${ln} linhas`,
   },
   es: {
@@ -587,6 +676,7 @@ const TRANSLATIONS = {
     gameOver:      'Fin del Juego',
     playAgain:     'Jugar de Nuevo',
     ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rotar<br><kbd>↓</kbd> Caída suave<br><kbd>Space</kbd> Caída rápida<br><kbd>C</kbd> Retener<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Silencio',
+    touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓',
     finalTpl:      (s, lv, ln) => `Puntos: ${s} · Nivel ${lv} · ${ln} líneas`,
   },
 };
@@ -821,7 +911,35 @@ function toggleMute() {
 // ─────────────────────────────────────────────
 
 const COLS = 10, ROWS = 20;
-const CELL = 30; // px per cell
+let CELL = 30; // px per cell — recalculated on mobile by initCellSize()
+
+function initCellSize() {
+  if (window.innerWidth <= 640) {
+    const availW = window.innerWidth - 32;   // 16px margin each side
+    const availH = window.innerHeight - 230; // reserve hero + stats strip + next strip
+    CELL = Math.min(
+      Math.floor(availW / COLS),
+      Math.floor(availH / ROWS),
+      30 // never exceed desktop cell size
+    );
+    CELL = Math.max(CELL, 16); // floor so cells stay tappable
+  } else {
+    CELL = 30;
+  }
+  boardCanvas.width  = CELL * COLS;
+  boardCanvas.height = CELL * ROWS;
+}
+
+// Debounced resize — only redraws, doesn't restart game
+let _resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => {
+    initCellSize();
+    draw(); drawNext(); drawHold();
+  }, 150);
+});
+// initCellSize() is called inside startGame() — not here, as boardCanvas isn't defined yet
 
 // Piece definitions — colors must be literal rgba() strings; Canvas cannot resolve CSS variables
 const PIECES = {
@@ -1198,6 +1316,7 @@ function startGame() {
   paused = false;
   dropInterval = 1000;
   lastClearWasTetris = false;
+  initCellSize();
   init();
   draw();
   drawNext();
