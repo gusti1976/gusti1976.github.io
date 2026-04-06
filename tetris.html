@@ -2224,8 +2224,9 @@ async function loadMiniLeaderboard() {
       const d = doc.data();
       const li = document.createElement('li');
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
-      const firstName = (d.displayName || 'Anon').split(' ')[0];
-      li.innerHTML = `<span class="ml-rank">${i+1}</span><span class="ml-body">${(d.score||0).toLocaleString()} · ${firstName}</span>`;
+      const firstName = (d.displayName || d.name || 'Anon').split(' ')[0];
+      const pts = Math.floor(Number(d.score) || 0);
+      li.innerHTML = `<span class="ml-rank">${i+1}</span><span class="ml-body">${pts.toLocaleString()} · ${firstName}</span>`;
       list.appendChild(li);
     });
   } catch(e) { console.warn('Mini LB error', e); }
@@ -2248,11 +2249,12 @@ async function loadLeaderboard() {
       const d  = doc.data();
       const li = document.createElement('li');
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
-      const firstName = (d.displayName || 'Anonymous').split(' ')[0];
+      const firstName = (d.displayName || d.name || 'Anonymous').split(' ')[0];
+      const pts = Math.floor(Number(d.score) || 0);
       li.innerHTML = `
         <span class="lb-rank">${i + 1}</span>
         <span class="lb-name">${firstName}</span>
-        <span class="lb-score">${(d.score || 0).toLocaleString()}</span>`;
+        <span class="lb-score">${pts.toLocaleString()}</span>`;
       list.appendChild(li);
     });
   } catch (e) {
