@@ -493,7 +493,21 @@ const TRANSLATIONS = {
   },
 };
 
-let currentLang = 'en';
+// Detect browser language; fall back to 'en' if not supported
+function detectLang() {
+  const supported = Object.keys(TRANSLATIONS);
+  const candidates = navigator.languages || [navigator.language || 'en'];
+  for (const raw of candidates) {
+    const code = raw.toLowerCase();
+    if (code.startsWith('pt-br') || code === 'pt_br') return 'pt-br';
+    if (code.startsWith('pt'))                          return 'pt';
+    if (code.startsWith('es'))                          return 'es';
+    if (code.startsWith('en'))                          return 'en';
+  }
+  return 'en';
+}
+
+let currentLang = detectLang();
 
 function t(key) { return TRANSLATIONS[currentLang][key] || TRANSLATIONS.en[key]; }
 
@@ -521,7 +535,10 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   });
 });
 
-// Apply default language on load
+// Activate the detected language button and apply
+document.querySelectorAll('.lang-btn').forEach(b => {
+  b.classList.toggle('active', b.dataset.lang === currentLang);
+});
 applyLang();
 
 // ─────────────────────────────────────────────
