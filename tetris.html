@@ -5,30 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Glass Tetris</title>
   <style>
-    :root {
-      --bg-a: #c8d8ff;
-      --bg-b: #e8c8f0;
-      --bg-c: #c8f0ee;
-      --ink: #0d1a33;
-      --ink-soft: #2a3d6a;
-      --glass: rgba(255,255,255,0.55);
-      --glass-strong: rgba(255,255,255,0.72);
-      --glass-border: rgba(255,255,255,0.7);
-      --glass-shadow: rgba(80,100,180,0.18);
-      --radius: 20px;
-      --accent: #3b6fff;
-
-      /* Piece colors — translucent glass tints */
-      --c-i: rgba(0,200,255,0.72);
-      --c-o: rgba(255,210,0,0.72);
-      --c-t: rgba(180,60,255,0.72);
-      --c-s: rgba(0,220,100,0.72);
-      --c-z: rgba(255,60,60,0.72);
-      --c-j: rgba(40,100,255,0.72);
-      --c-l: rgba(255,140,0,0.72);
-      --c-ghost: rgba(200,220,255,0.22);
-    }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -39,14 +15,14 @@
       align-items: center;
       justify-content: center;
       background:
-        radial-gradient(ellipse at 10% 15%, var(--bg-a) 0%, transparent 40%),
-        radial-gradient(ellipse at 90% 8%, var(--bg-b) 0%, transparent 38%),
-        radial-gradient(ellipse at 50% 90%, var(--bg-c) 0%, transparent 38%),
+        radial-gradient(ellipse at 10% 15%, #c8d8ff 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 8%,  #e8c8f0 0%, transparent 38%),
+        radial-gradient(ellipse at 50% 90%, #c8f0ee 0%, transparent 38%),
         linear-gradient(135deg, #8fa8d8 0%, #9fa3d4 50%, #a8aad0 100%);
       overflow: hidden;
+      transition: background 1.2s ease;
     }
 
-    /* Floating orbs for depth */
     body::before, body::after {
       content: '';
       position: fixed;
@@ -68,82 +44,51 @@
     }
 
     h1 {
-      position: relative;
-      z-index: 2;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--ink);
-      margin-bottom: 18px;
+      position: relative; z-index: 2;
+      font-size: 2rem; font-weight: 700; letter-spacing: -0.5px;
+      color: #0d1a33; margin-bottom: 18px;
       text-shadow: 0 1px 0 rgba(255,255,255,0.6);
     }
 
-    /* ── Glass panel mixin ── */
     .glass-panel {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 20px;
       backdrop-filter: blur(28px) saturate(180%);
       -webkit-backdrop-filter: blur(28px) saturate(180%);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.75),
         inset 0 -1px 0 rgba(0,0,30,0.06),
-        0 16px 48px var(--glass-shadow),
+        0 16px 48px rgba(80,100,180,0.18),
         0 4px 12px rgba(0,0,60,0.08);
     }
 
-    /* ── Layout ── */
     #wrapper {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
+      position: relative; z-index: 2;
+      display: flex; align-items: flex-start; gap: 14px;
     }
 
-    /* ── Side panels ── */
     .side-panel {
-      width: 130px;
-      padding: 16px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      width: 130px; padding: 16px 14px;
+      display: flex; flex-direction: column; gap: 14px;
     }
 
-    .panel-section {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .panel-section { display: flex; flex-direction: column; gap: 6px; }
 
     .panel-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      opacity: 0.7;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #2a3d6a; opacity: 0.7;
     }
 
-    .panel-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1;
-    }
+    .panel-value { font-size: 1.5rem; font-weight: 700; color: #0d1a33; line-height: 1; }
 
-    /* Mini preview canvas (next / hold) */
     .mini-canvas {
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.5);
       background: rgba(255,255,255,0.2);
     }
 
-    /* ── Main board ── */
-    #board-wrap {
-      position: relative;
-      padding: 12px;
-    }
+    #board-wrap { position: relative; padding: 12px; }
 
     #board {
       display: block;
@@ -152,128 +97,48 @@
       background: rgba(20,30,70,0.18);
     }
 
-    /* ── Overlay screens ── */
     .overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      border-radius: calc(var(--radius) - 2px);
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+      border-radius: 18px;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       background: rgba(200,215,255,0.35);
       z-index: 10;
     }
-
     .overlay.hidden { display: none; }
+    .overlay h2 { font-size: 2rem; font-weight: 700; color: #0d1a33; text-shadow: 0 1px 0 rgba(255,255,255,0.5); }
+    .overlay p  { font-size: 0.9rem; color: #2a3d6a; text-align: center; max-width: 200px; line-height: 1.4; }
 
-    .overlay h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--ink);
-      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    }
-
-    .overlay p {
-      font-size: 0.9rem;
-      color: var(--ink-soft);
-      text-align: center;
-      max-width: 200px;
-      line-height: 1.4;
-    }
-
-    /* ── Glass button ── */
     .btn {
-      padding: 10px 26px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      font-family: inherit;
-      color: #fff;
+      padding: 10px 26px; font-size: 0.92rem; font-weight: 600;
+      font-family: inherit; color: #fff;
       background: linear-gradient(160deg, rgba(60,110,255,0.9), rgba(40,80,210,0.95));
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 50px;
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.3),
-        0 8px 20px rgba(40,80,210,0.35);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 8px 20px rgba(40,80,210,0.35);
       transition: transform 0.1s, box-shadow 0.1s;
-      letter-spacing: 0.2px;
     }
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 12px 28px rgba(40,80,210,0.45);
-    }
+    .btn:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 12px 28px rgba(40,80,210,0.45); }
     .btn:active { transform: translateY(0); }
 
-    /* ── Controls hint ── */
-    #controls-hint {
-      position: relative;
-      z-index: 2;
-      margin-top: 14px;
-      padding: 10px 20px;
-      font-size: 0.78rem;
-      color: var(--ink-soft);
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    #controls-hint span {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
     kbd {
-      display: inline-block;
-      padding: 1px 6px;
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(200,210,240,0.7);
-      border-radius: 5px;
-      font-family: inherit;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--ink);
+      display: inline-block; padding: 1px 6px;
+      background: rgba(255,255,255,0.55); border: 1px solid rgba(200,210,240,0.7);
+      border-radius: 5px; font-family: inherit; font-size: 0.75rem; font-weight: 600; color: #0d1a33;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(0,0,40,0.08);
     }
 
-    /* ── Line-clear flash ── */
-    @keyframes lineClear {
-      0%   { opacity: 1; }
-      50%  { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    .line-flash { animation: lineClear 0.25s ease; }
-
-    /* ── Paused badge ── */
     #pause-badge {
-      position: absolute;
-      top: 16px; left: 50%;
-      transform: translateX(-50%);
-      padding: 4px 14px;
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(255,255,255,0.7);
-      border-radius: 50px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--ink);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 5;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
+      position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+      padding: 4px 14px; background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.7); border-radius: 50px;
+      font-size: 0.78rem; font-weight: 600; color: #0d1a33;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      z-index: 5; pointer-events: none; opacity: 0; transition: opacity 0.2s;
     }
     #pause-badge.visible { opacity: 1; }
-
-    /* Level colour-tint on the body background */
-    body { transition: background 1.2s ease; }
   </style>
 </head>
 <body>
@@ -282,8 +147,8 @@
 
 <div id="wrapper">
 
-  <!-- Left panel: Hold + Stats -->
-  <div class="side-panel glass-panel" id="left-panel">
+  <!-- Left panel -->
+  <div class="side-panel glass-panel">
     <div class="panel-section">
       <div class="panel-label">Hold</div>
       <canvas class="mini-canvas" id="holdCanvas" width="100" height="100"></canvas>
@@ -310,15 +175,11 @@
   <div class="glass-panel" id="board-wrap">
     <div id="pause-badge">PAUSED</div>
     <canvas id="board" width="300" height="600"></canvas>
-
-    <!-- Start overlay -->
     <div class="overlay" id="startOverlay">
       <h2>Glass Tetris</h2>
       <p>Classic Tetris with a Liquid Glass look</p>
       <button class="btn" id="startBtn">Start Game</button>
     </div>
-
-    <!-- Game over overlay -->
     <div class="overlay hidden" id="gameOverOverlay">
       <h2>Game Over</h2>
       <p id="finalScore"></p>
@@ -326,23 +187,21 @@
     </div>
   </div>
 
-  <!-- Right panel: Next + Controls -->
-  <div class="side-panel glass-panel" id="right-panel">
+  <!-- Right panel -->
+  <div class="side-panel glass-panel">
     <div class="panel-section">
       <div class="panel-label">Next</div>
       <canvas class="mini-canvas" id="nextCanvas" width="100" height="220"></canvas>
     </div>
-    <div class="panel-section" style="margin-top:auto;">
+    <div class="panel-section" style="margin-top:8px;">
       <div class="panel-label">Controls</div>
-      <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">
-        <div style="font-size:0.72rem;color:var(--ink-soft);line-height:1.6;">
-          <kbd>←</kbd><kbd>→</kbd> Move<br>
-          <kbd>↑</kbd> Rotate<br>
-          <kbd>↓</kbd> Soft drop<br>
-          <kbd>Space</kbd> Hard drop<br>
-          <kbd>C</kbd> Hold<br>
-          <kbd>P</kbd> Pause
-        </div>
+      <div style="font-size:0.72rem;color:#2a3d6a;line-height:2;margin-top:4px;">
+        <kbd>←</kbd><kbd>→</kbd> Move<br>
+        <kbd>↑</kbd> Rotate<br>
+        <kbd>↓</kbd> Soft drop<br>
+        <kbd>Space</kbd> Hard drop<br>
+        <kbd>C</kbd> Hold<br>
+        <kbd>P</kbd> Pause
       </div>
     </div>
   </div>
@@ -350,127 +209,126 @@
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-//  TETRIS ENGINE
-// ─────────────────────────────────────────────
+// ── Constants ──
+const COLS = 10, ROWS = 20, CELL = 30;
 
-const COLS = 10, ROWS = 20;
-const CELL = 30; // px per cell
-
-// Piece definitions (rotations as flat arrays of [row,col] offsets from pivot)
-const PIECES = {
-  I: { color: 'var(--c-i)', cells: [[[0,-1],[0,0],[0,1],[0,2]],[[-1,0],[0,0],[1,0],[2,0]],[[0,-1],[0,0],[0,1],[0,2]],[[-1,0],[0,0],[1,0],[2,0]]] },
-  O: { color: 'var(--c-o)', cells: [[[0,0],[0,1],[1,0],[1,1]],[[0,0],[0,1],[1,0],[1,1]],[[0,0],[0,1],[1,0],[1,1]],[[0,0],[0,1],[1,0],[1,1]]] },
-  T: { color: 'var(--c-t)', cells: [[[0,-1],[0,0],[0,1],[-1,0]],[[-1,0],[0,0],[1,0],[0,1]],[[0,-1],[0,0],[0,1],[1,0]],[[-1,0],[0,0],[1,0],[0,-1]]] },
-  S: { color: 'var(--c-s)', cells: [[[0,-1],[0,0],[-1,0],[-1,1]],[[-1,0],[0,0],[0,1],[1,1]],[[0,-1],[0,0],[-1,0],[-1,1]],[[-1,0],[0,0],[0,1],[1,1]]] },
-  Z: { color: 'var(--c-z)', cells: [[[-1,-1],[-1,0],[0,0],[0,1]],[[0,0],[1,0],[-1,1],[0,1]],[[-1,-1],[-1,0],[0,0],[0,1]],[[0,0],[1,0],[-1,1],[0,1]]] },
-  J: { color: 'var(--c-j)', cells: [[[0,-1],[0,0],[0,1],[-1,-1]],[[-1,0],[0,0],[1,0],[-1,1]],[[0,-1],[0,0],[0,1],[1,1]],[[-1,0],[0,0],[1,0],[1,-1]]] },
-  L: { color: 'var(--c-l)', cells: [[[0,-1],[0,0],[0,1],[-1,1]],[[-1,0],[0,0],[1,0],[1,1]],[[0,-1],[0,0],[0,1],[1,-1]],[[-1,0],[0,0],[1,0],[-1,-1]]] },
+// Piece colors as actual rgba strings (Canvas can't resolve CSS variables)
+const COLORS = {
+  I: 'rgba(0,200,255,0.82)',
+  O: 'rgba(255,210,0,0.82)',
+  T: 'rgba(180,60,255,0.82)',
+  S: 'rgba(0,210,100,0.82)',
+  Z: 'rgba(255,60,60,0.82)',
+  J: 'rgba(40,100,255,0.82)',
+  L: 'rgba(255,140,0,0.82)',
 };
-const PIECE_KEYS = Object.keys(PIECES);
 
-// Scoring
+// Each piece: array of 4 rotations, each rotation is [row,col] offsets from pivot
+const SHAPES = {
+  I: [[[0,-1],[0,0],[0,1],[0,2]],  [[-1,0],[0,0],[1,0],[2,0]],  [[1,-1],[1,0],[1,1],[1,2]],  [[-1,1],[0,1],[1,1],[2,1]]],
+  O: [[[0,0],[0,1],[1,0],[1,1]],   [[0,0],[0,1],[1,0],[1,1]],   [[0,0],[0,1],[1,0],[1,1]],   [[0,0],[0,1],[1,0],[1,1]]],
+  T: [[[-1,0],[0,-1],[0,0],[0,1]], [[0,0],[0,1],[1,0],[-1,0]],  [[0,-1],[0,0],[0,1],[1,0]],  [[-1,0],[0,-1],[0,0],[1,0]]],
+  S: [[[-1,0],[-1,1],[0,-1],[0,0]],[[-1,0],[0,0],[0,1],[1,1]],  [[-1,0],[-1,1],[0,-1],[0,0]],[[-1,0],[0,0],[0,1],[1,1]]],
+  Z: [[[-1,-1],[-1,0],[0,0],[0,1]],[[-1,1],[0,0],[0,1],[1,0]],  [[-1,-1],[-1,0],[0,0],[0,1]],[[-1,1],[0,0],[0,1],[1,0]]],
+  J: [[[-1,-1],[0,-1],[0,0],[0,1]],[[-1,0],[0,0],[1,0],[1,1]],  [[0,-1],[0,0],[0,1],[1,1]],  [[-1,-1],[-1,0],[0,0],[1,0]]],
+  L: [[[-1,1],[0,-1],[0,0],[0,1]], [[-1,0],[0,0],[1,0],[1,-1]], [[0,-1],[0,0],[0,1],[1,-1]],  [[-1,0],[-1,1],[0,0],[1,0]]],
+};
+const KEYS = Object.keys(SHAPES);
 const LINE_SCORES = [0, 100, 300, 500, 800];
 
-// ── Canvas contexts ──
+// ── Canvas elements ──
 const boardCanvas = document.getElementById('board');
-const ctx = boardCanvas.getContext('2d');
-const nextCanvas = document.getElementById('nextCanvas');
-const nCtx = nextCanvas.getContext('2d');
-const holdCanvas = document.getElementById('holdCanvas');
-const hCtx = holdCanvas.getContext('2d');
+const ctx  = boardCanvas.getContext('2d');
+const nCvs = document.getElementById('nextCanvas');
+const nCtx = nCvs.getContext('2d');
+const hCvs = document.getElementById('holdCanvas');
+const hCtx = hCvs.getContext('2d');
 
 // ── UI elements ──
-const scoreEl  = document.getElementById('score');
-const levelEl  = document.getElementById('level');
-const linesEl  = document.getElementById('lines');
-const bestEl   = document.getElementById('best');
-const finalEl  = document.getElementById('finalScore');
-const startOverlay   = document.getElementById('startOverlay');
-const gameOverOverlay= document.getElementById('gameOverOverlay');
-const pauseBadge     = document.getElementById('pause-badge');
+const scoreEl = document.getElementById('score');
+const levelEl = document.getElementById('level');
+const linesEl = document.getElementById('lines');
+const bestEl  = document.getElementById('best');
+const finalEl = document.getElementById('finalScore');
+const startOverlay    = document.getElementById('startOverlay');
+const gameOverOverlay = document.getElementById('gameOverOverlay');
+const pauseBadge      = document.getElementById('pause-badge');
 
-// ── Game state ──
-let board, current, ghost, nextQueue, holdPiece, canHold;
+// ── State ──
+let board, current, ghost, nextQueue, holdKey, canHold;
 let score, level, lines, best;
-let gameRunning, paused, dropTimer, dropInterval;
-let animId;
+let gameRunning = false, paused = false;
+let dropTimer = null, dropInterval = 1000;
 
-function init() {
-  board = Array.from({length: ROWS}, () => Array(COLS).fill(null));
-  nextQueue = [randomPiece(), randomPiece(), randomPiece()];
-  holdPiece = null;
-  canHold = true;
-  score = 0; level = 1; lines = 0;
-  best = parseInt(localStorage.getItem('tetris_best') || '0');
-  bestEl.textContent = best;
-  updateUI();
-  spawnPiece();
+// ── Helpers ──
+function rnd() { return KEYS[Math.floor(Math.random() * KEYS.length)]; }
+
+function getCells(key, rot, row, col) {
+  return SHAPES[key][rot].map(([dr, dc]) => [row + dr, col + dc]);
 }
 
-function randomPiece() {
-  return PIECE_KEYS[Math.floor(Math.random() * PIECE_KEYS.length)];
+function isValid(key, rot, row, col) {
+  return getCells(key, rot, row, col).every(
+    ([r, c]) => r >= 0 && r < ROWS && c >= 0 && c < COLS && !board[r][c]
+  );
+}
+
+// ── Init ──
+function init() {
+  board = Array.from({length: ROWS}, () => Array(COLS).fill(null));
+  nextQueue = [rnd(), rnd(), rnd()];
+  holdKey = null; canHold = true;
+  score = 0; level = 1; lines = 0;
+  best = parseInt(localStorage.getItem('tg_best') || '0');
+  bestEl.textContent = best.toLocaleString();
+  spawnPiece();
+  updateUI();
 }
 
 function spawnPiece() {
   const key = nextQueue.shift();
-  nextQueue.push(randomPiece());
-  current = {
-    key,
-    color: PIECES[key].color,
-    cells: PIECES[key].cells,
-    rot: 0,
-    row: 1,
-    col: Math.floor(COLS / 2),
-  };
+  nextQueue.push(rnd());
+  current = { key, rot: 0, row: 1, col: Math.floor(COLS / 2) };
   canHold = true;
   calcGhost();
-  if (!isValid(current)) {
+  if (!isValid(current.key, current.rot, current.row, current.col)) {
     endGame();
   }
 }
 
 function calcGhost() {
   ghost = {...current};
-  while (isValid({...ghost, row: ghost.row + 1})) ghost.row++;
+  while (isValid(ghost.key, ghost.rot, ghost.row + 1, ghost.col)) ghost.row++;
 }
 
-function isValid(piece) {
-  return getCells(piece).every(([r, c]) =>
-    r >= 0 && r < ROWS && c >= 0 && c < COLS && !board[r][c]
-  );
-}
-
-function getCells(piece) {
-  return PIECES[piece.key].cells[piece.rot].map(([dr, dc]) =>
-    [piece.row + dr, piece.col + dc]
-  );
-}
-
-function moveLeft()  { tryMove(0, -1); }
-function moveRight() { tryMove(0,  1); }
-function softDrop()  { if (!tryMove(1, 0)) lockPiece(); else score += 1; updateUI(); }
-
+// ── Moves ──
 function tryMove(dr, dc) {
-  const next = {...current, row: current.row + dr, col: current.col + dc};
-  if (isValid(next)) { current = next; calcGhost(); draw(); return true; }
+  if (isValid(current.key, current.rot, current.row + dr, current.col + dc)) {
+    current.row += dr; current.col += dc;
+    calcGhost(); redraw(); return true;
+  }
   return false;
 }
 
 function rotate() {
   const newRot = (current.rot + 1) % 4;
-  const next = {...current, rot: newRot};
-  // Wall kicks: try offsets
-  const kicks = [[0,0],[0,-1],[0,1],[0,-2],[0,2]];
+  const kicks = [[0,0],[0,-1],[0,1],[0,-2],[0,2],[-1,0]];
   for (const [dr, dc] of kicks) {
-    const kicked = {...next, row: next.row + dr, col: next.col + dc};
-    if (isValid(kicked)) { current = kicked; calcGhost(); draw(); return; }
+    if (isValid(current.key, newRot, current.row + dr, current.col + dc)) {
+      current.rot = newRot; current.row += dr; current.col += dc;
+      calcGhost(); redraw(); return;
+    }
   }
+}
+
+function softDrop() {
+  if (tryMove(1, 0)) { score += 1; updateUI(); }
+  else lockPiece();
 }
 
 function hardDrop() {
   const dropped = ghost.row - current.row;
-  current = {...current, row: ghost.row};
+  current.row = ghost.row;
   score += dropped * 2;
   updateUI();
   lockPiece();
@@ -479,33 +337,25 @@ function hardDrop() {
 function holdAction() {
   if (!canHold) return;
   canHold = false;
-  if (holdPiece) {
-    const temp = holdPiece;
-    holdPiece = current.key;
-    current = {
-      key: temp,
-      color: PIECES[temp].color,
-      cells: PIECES[temp].cells,
-      rot: 0,
-      row: 1,
-      col: Math.floor(COLS / 2),
-    };
+  if (holdKey) {
+    const temp = holdKey;
+    holdKey = current.key;
+    current = { key: temp, rot: 0, row: 1, col: Math.floor(COLS / 2) };
     calcGhost();
   } else {
-    holdPiece = current.key;
+    holdKey = current.key;
     spawnPiece();
   }
-  drawHold();
-  draw();
+  drawHold(); redraw();
 }
 
 function lockPiece() {
-  getCells(current).forEach(([r, c]) => {
-    board[r][c] = current.color;
-  });
+  getCells(current.key, current.rot, current.row, current.col)
+    .forEach(([r, c]) => { board[r][c] = COLORS[current.key]; });
   clearLines();
   spawnPiece();
   drawNext();
+  redraw();
 }
 
 function clearLines() {
@@ -514,19 +364,16 @@ function clearLines() {
     if (board[r].every(c => c !== null)) {
       board.splice(r, 1);
       board.unshift(Array(COLS).fill(null));
-      cleared++;
-      r++; // re-check same index
+      cleared++; r++;
     }
   }
   if (cleared > 0) {
     lines += cleared;
-    score += LINE_SCORES[cleared] * level;
+    score += LINE_SCORES[Math.min(cleared, 4)] * level;
     level = Math.floor(lines / 10) + 1;
-    dropInterval = Math.max(100, 1000 - (level - 1) * 80);
-    clearTimeout(dropTimer);
-    scheduleDrop();
-    updateUI();
+    dropInterval = Math.max(80, 1000 - (level - 1) * 90);
     updateBodyTheme();
+    updateUI();
   }
 }
 
@@ -537,68 +384,23 @@ function updateUI() {
   if (score > best) {
     best = score;
     bestEl.textContent = best.toLocaleString();
-    localStorage.setItem('tetris_best', best);
+    localStorage.setItem('tg_best', best);
   }
 }
 
-// Body background shifts with level
 const LEVEL_HUES = [230, 200, 170, 140, 110, 80, 50, 20, 350, 320];
 function updateBodyTheme() {
   const h = LEVEL_HUES[(level - 1) % LEVEL_HUES.length];
   document.body.style.background = `
     radial-gradient(ellipse at 10% 15%, hsl(${h},70%,78%) 0%, transparent 40%),
-    radial-gradient(ellipse at 90% 8%, hsl(${h+40},60%,82%) 0%, transparent 38%),
+    radial-gradient(ellipse at 90% 8%,  hsl(${h+40},60%,82%) 0%, transparent 38%),
     radial-gradient(ellipse at 50% 90%, hsl(${h+80},65%,80%) 0%, transparent 38%),
-    linear-gradient(135deg, hsl(${h+10},45%,68%) 0%, hsl(${h+30},40%,68%) 50%, hsl(${h+50},38%,66%) 100%)
-  `;
+    linear-gradient(135deg, hsl(${h+10},45%,68%) 0%, hsl(${h+30},40%,68%) 50%, hsl(${h+50},38%,66%) 100%)`;
 }
 
-// ─────────────────────────────────────────────
-//  DRAWING
-// ─────────────────────────────────────────────
-
-function cssVar(name) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
-function drawCell(ctx, r, c, color, alpha = 1, cellSize = CELL) {
-  const x = c * cellSize, y = r * cellSize;
-  const s = cellSize;
-  const rad = cellSize * 0.2;
-
-  ctx.save();
-  ctx.globalAlpha = alpha;
-
-  // Glass cell
-  const grd = ctx.createLinearGradient(x, y, x + s, y + s);
-  grd.addColorStop(0, lighten(color, 0.25));
-  grd.addColorStop(1, color);
-
-  ctx.beginPath();
-  roundRect(ctx, x + 1, y + 1, s - 2, s - 2, rad);
-  ctx.fillStyle = grd;
-  ctx.fill();
-
-  // Specular highlight
-  const hl = ctx.createLinearGradient(x + 1, y + 1, x + 1, y + s * 0.55);
-  hl.addColorStop(0, 'rgba(255,255,255,0.55)');
-  hl.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.beginPath();
-  roundRect(ctx, x + 2, y + 2, s - 4, s * 0.5, rad * 0.8);
-  ctx.fillStyle = hl;
-  ctx.fill();
-
-  // Border
-  ctx.beginPath();
-  roundRect(ctx, x + 1, y + 1, s - 2, s - 2, rad);
-  ctx.strokeStyle = 'rgba(255,255,255,0.55)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  ctx.restore();
-}
-
+// ── Drawing ──
 function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
   ctx.moveTo(x + r, y);
   ctx.lineTo(x + w - r, y);
   ctx.quadraticCurveTo(x + w, y, x + w, y + r);
@@ -611,16 +413,41 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function lighten(cssColor, amount) {
-  // Simple: replace rgba alpha with lighter stop
-  return cssColor.replace(/[\d.]+\)$/, v => Math.min(1, parseFloat(v) + amount) + ')');
+function drawCell(ctx2, r, c, color, alpha, cellSize) {
+  alpha    = alpha    !== undefined ? alpha    : 1;
+  cellSize = cellSize !== undefined ? cellSize : CELL;
+  const x = c * cellSize, y = r * cellSize, s = cellSize, rad = s * 0.2;
+
+  ctx2.save();
+  ctx2.globalAlpha = alpha;
+
+  // Base fill
+  roundRect(ctx2, x + 1, y + 1, s - 2, s - 2, rad);
+  ctx2.fillStyle = color;
+  ctx2.fill();
+
+  // Specular glass highlight (white gradient overlay)
+  const hl = ctx2.createLinearGradient(x, y, x, y + s * 0.6);
+  hl.addColorStop(0, 'rgba(255,255,255,0.52)');
+  hl.addColorStop(1, 'rgba(255,255,255,0)');
+  roundRect(ctx2, x + 2, y + 2, s - 4, s * 0.52, rad * 0.7);
+  ctx2.fillStyle = hl;
+  ctx2.fill();
+
+  // Edge highlight
+  roundRect(ctx2, x + 1, y + 1, s - 2, s - 2, rad);
+  ctx2.strokeStyle = 'rgba(255,255,255,0.6)';
+  ctx2.lineWidth = 1;
+  ctx2.stroke();
+
+  ctx2.restore();
 }
 
-function draw() {
+function redraw() {
   ctx.clearRect(0, 0, boardCanvas.width, boardCanvas.height);
 
-  // Grid lines
-  ctx.strokeStyle = 'rgba(200,215,255,0.12)';
+  // Grid
+  ctx.strokeStyle = 'rgba(200,215,255,0.1)';
   ctx.lineWidth = 0.5;
   for (let r = 0; r <= ROWS; r++) {
     ctx.beginPath(); ctx.moveTo(0, r * CELL); ctx.lineTo(COLS * CELL, r * CELL); ctx.stroke();
@@ -629,98 +456,83 @@ function draw() {
     ctx.beginPath(); ctx.moveTo(c * CELL, 0); ctx.lineTo(c * CELL, ROWS * CELL); ctx.stroke();
   }
 
-  // Board cells
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
+  // Locked cells
+  for (let r = 0; r < ROWS; r++)
+    for (let c = 0; c < COLS; c++)
       if (board[r][c]) drawCell(ctx, r, c, board[r][c]);
-    }
-  }
+
+  if (!current) return;
 
   // Ghost
-  if (current) {
-    getCells(ghost).forEach(([r, c]) => {
-      ctx.save();
-      ctx.globalAlpha = 0.35;
-      ctx.fillStyle = 'rgba(200,220,255,0.25)';
-      ctx.beginPath();
-      roundRect(ctx, c * CELL + 1, r * CELL + 1, CELL - 2, CELL - 2, CELL * 0.2);
-      ctx.fill();
-      ctx.strokeStyle = 'rgba(180,200,255,0.5)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      ctx.restore();
-    });
+  getCells(ghost.key, ghost.rot, ghost.row, ghost.col).forEach(([r, c]) => {
+    ctx.save();
+    roundRect(ctx, c * CELL + 1, r * CELL + 1, CELL - 2, CELL - 2, CELL * 0.2);
+    ctx.fillStyle = 'rgba(200,220,255,0.18)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(180,200,255,0.45)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.restore();
+  });
 
-    // Current piece
-    getCells(current).forEach(([r, c]) => drawCell(ctx, r, c, current.color));
-  }
+  // Active piece
+  getCells(current.key, current.rot, current.row, current.col)
+    .forEach(([r, c]) => drawCell(ctx, r, c, COLORS[current.key]));
 }
 
-function drawMini(mCtx, key, canvasW, canvasH, cellSize = 22) {
-  mCtx.clearRect(0, 0, canvasW, canvasH);
+function drawMini(ctx2, key, cw, ch, cellSize) {
+  cellSize = cellSize || 22;
+  ctx2.clearRect(0, 0, cw, ch);
   if (!key) return;
-  const piece = PIECES[key];
-  const cells = piece.cells[0];
-  // Centre in mini canvas
+  const cells = SHAPES[key][0];
   const minR = Math.min(...cells.map(([r]) => r));
   const maxR = Math.max(...cells.map(([r]) => r));
-  const minC = Math.min(...cells.map(([_, c]) => c));
-  const maxC = Math.max(...cells.map(([_, c]) => c));
-  const offR = Math.floor((canvasH / cellSize - (maxR - minR + 1)) / 2) - minR;
-  const offC = Math.floor((canvasW / cellSize - (maxC - minC + 1)) / 2) - minC;
-  cells.forEach(([r, c]) => drawCell(mCtx, r + offR, c + offC, piece.color, 1, cellSize));
+  const minC = Math.min(...cells.map(([,c]) => c));
+  const maxC = Math.max(...cells.map(([,c]) => c));
+  const offR = Math.floor((ch / cellSize - (maxR - minR + 1)) / 2) - minR;
+  const offC = Math.floor((cw / cellSize - (maxC - minC + 1)) / 2) - minC;
+  cells.forEach(([r, c]) => drawCell(ctx2, r + offR, c + offC, COLORS[key], 1, cellSize));
 }
 
 function drawNext() {
-  const queue = nextQueue.slice(0, 3);
-  nCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
-  queue.forEach((key, i) => {
-    const sectionH = nextCanvas.height / 3;
-    // Draw each in a section
-    nCtx.save();
-    nCtx.translate(0, i * sectionH);
-    const piece = PIECES[key];
-    const cells = piece.cells[0];
+  nCtx.clearRect(0, 0, nCvs.width, nCvs.height);
+  const sH = nCvs.height / 3;
+  nextQueue.slice(0, 3).forEach((key, i) => {
+    const cells = SHAPES[key][0];
     const cellSize = 20;
     const minR = Math.min(...cells.map(([r]) => r));
     const maxR = Math.max(...cells.map(([r]) => r));
-    const minC = Math.min(...cells.map(([_, c]) => c));
-    const maxC = Math.max(...cells.map(([_, c]) => c));
-    const offR = Math.floor((sectionH / cellSize - (maxR - minR + 1)) / 2) - minR;
-    const offC = Math.floor((nextCanvas.width / cellSize - (maxC - minC + 1)) / 2) - minC;
-    cells.forEach(([r, c]) => drawCell(nCtx, r + offR, c + offC, piece.color, i === 0 ? 1 : 0.55, cellSize));
-    nCtx.restore();
+    const minC = Math.min(...cells.map(([,c]) => c));
+    const maxC = Math.max(...cells.map(([,c]) => c));
+    const offR = Math.floor((sH / cellSize - (maxR - minR + 1)) / 2) - minR + i * (sH / cellSize);
+    const offC = Math.floor((nCvs.width / cellSize - (maxC - minC + 1)) / 2) - minC;
+    cells.forEach(([r, c]) =>
+      drawCell(nCtx, r + offR, c + offC, COLORS[key], i === 0 ? 1 : 0.5, cellSize));
   });
 }
 
-function drawHold() {
-  drawMini(hCtx, holdPiece, holdCanvas.width, holdCanvas.height);
+function drawHold() { drawMini(hCtx, holdKey, hCvs.width, hCvs.height); }
+
+// ── Game loop ──
+function scheduleDrop() {
+  clearTimeout(dropTimer);
+  if (!gameRunning || paused) return;
+  dropTimer = setTimeout(tick, dropInterval);
 }
 
-// ─────────────────────────────────────────────
-//  GAME LOOP
-// ─────────────────────────────────────────────
-
-function scheduleDrop() {
+function tick() {
   if (!gameRunning || paused) return;
-  dropTimer = setTimeout(() => {
-    if (!tryMove(1, 0)) lockPiece();
-    draw();
-    drawNext();
-    scheduleDrop();
-  }, dropInterval);
+  if (!tryMove(1, 0)) lockPiece();
+  scheduleDrop();
 }
 
 function startGame() {
   startOverlay.classList.add('hidden');
   gameOverOverlay.classList.add('hidden');
-  gameRunning = true;
-  paused = false;
+  gameRunning = true; paused = false;
   dropInterval = 1000;
   init();
-  draw();
-  drawNext();
-  drawHold();
+  redraw(); drawNext(); drawHold();
   scheduleDrop();
 }
 
@@ -735,71 +547,50 @@ function togglePause() {
   if (!gameRunning) return;
   paused = !paused;
   pauseBadge.classList.toggle('visible', paused);
-  if (!paused) scheduleDrop();
-  else clearTimeout(dropTimer);
+  if (paused) clearTimeout(dropTimer);
+  else scheduleDrop();
 }
 
-// ─────────────────────────────────────────────
-//  INPUT
-// ─────────────────────────────────────────────
-
+// ── Keyboard ──
 document.addEventListener('keydown', e => {
-  if (!gameRunning || paused) {
-    if (e.key === 'p' || e.key === 'P') togglePause();
-    return;
-  }
+  if (e.key === 'p' || e.key === 'P') { togglePause(); return; }
+  if (!gameRunning || paused) return;
   switch (e.key) {
-    case 'ArrowLeft':  e.preventDefault(); moveLeft(); break;
-    case 'ArrowRight': e.preventDefault(); moveRight(); break;
+    case 'ArrowLeft':  e.preventDefault(); tryMove(0, -1); break;
+    case 'ArrowRight': e.preventDefault(); tryMove(0,  1); break;
     case 'ArrowDown':  e.preventDefault(); softDrop(); break;
     case 'ArrowUp':    e.preventDefault(); rotate(); break;
     case ' ':          e.preventDefault(); hardDrop(); break;
     case 'c': case 'C': holdAction(); break;
-    case 'p': case 'P': togglePause(); break;
   }
 });
 
-// Touch / swipe support
-let touchStartX, touchStartY, touchLastY;
+// ── Touch controls ──
+let tx0, ty0, tyLast;
 boardCanvas.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
-  touchLastY  = touchStartY;
+  tx0 = e.touches[0].clientX; ty0 = tyLast = e.touches[0].clientY;
   e.preventDefault();
 }, {passive: false});
-
 boardCanvas.addEventListener('touchmove', e => {
   if (!gameRunning || paused) return;
-  const dy = e.touches[0].clientY - touchLastY;
-  if (dy > 20) { softDrop(); touchLastY = e.touches[0].clientY; }
+  const dy = e.touches[0].clientY - tyLast;
+  if (dy > 22) { softDrop(); tyLast = e.touches[0].clientY; }
   e.preventDefault();
 }, {passive: false});
-
 boardCanvas.addEventListener('touchend', e => {
   if (!gameRunning || paused) return;
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  const dy = e.changedTouches[0].clientY - touchStartY;
-  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 20) {
-    dx > 0 ? moveRight() : moveLeft();
-  } else if (Math.abs(dy) < 10 && Math.abs(dx) < 10) {
-    rotate();
-  }
+  const dx = e.changedTouches[0].clientX - tx0;
+  const dy = e.changedTouches[0].clientY - ty0;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 20) { dx > 0 ? tryMove(0,1) : tryMove(0,-1); }
+  else if (Math.abs(dy) < 10 && Math.abs(dx) < 10) rotate();
 }, {passive: false});
 
-// Buttons
+// ── Buttons ──
 document.getElementById('startBtn').addEventListener('click', startGame);
 document.getElementById('restartBtn').addEventListener('click', startGame);
 
-// Initial draw (empty board preview)
-ctx.clearRect(0, 0, boardCanvas.width, boardCanvas.height);
-ctx.strokeStyle = 'rgba(200,215,255,0.12)';
-ctx.lineWidth = 0.5;
-for (let r = 0; r <= ROWS; r++) {
-  ctx.beginPath(); ctx.moveTo(0, r * CELL); ctx.lineTo(COLS * CELL, r * CELL); ctx.stroke();
-}
-for (let c = 0; c <= COLS; c++) {
-  ctx.beginPath(); ctx.moveTo(c * CELL, 0); ctx.lineTo(c * CELL, ROWS * CELL); ctx.stroke();
-}
+// Draw empty grid on load
+redraw();
 </script>
 </body>
 </html>
