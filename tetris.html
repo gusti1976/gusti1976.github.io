@@ -642,21 +642,28 @@
       margin: 4px 0 0;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 6px;
       width: 100%;
     }
     #mini-lb-list li {
-      display: grid;
-      grid-template-columns: 1rem 1fr;
-      gap: 4px;
-      font-size: 0.65rem;
-      color: var(--ink-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    #mini-lb-list li.lb-me .ml-name { color: var(--accent); font-weight: 700; }
+    #mini-lb-list .ml-name {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--ink);
       white-space: nowrap;
       overflow: hidden;
+      text-overflow: ellipsis;
     }
-    #mini-lb-list li.lb-me { color: var(--accent); font-weight: 700; }
-    #mini-lb-list .ml-rank { font-weight: 700; text-align: right; }
-    #mini-lb-list .ml-body { overflow: hidden; text-overflow: ellipsis; }
+    #mini-lb-list .ml-pts {
+      font-size: 0.60rem;
+      color: var(--ink-soft);
+      font-variant-numeric: tabular-nums;
+    }
 
     .hidden { display: none !important; }
   </style>
@@ -2220,7 +2227,7 @@ async function loadMiniLeaderboard() {
   try {
     const snap = await db.collection('scores').orderBy('score', 'desc').limit(5).get();
     list.innerHTML = '';
-    if (snap.empty) { list.innerHTML = '<li><span class="ml-rank">–</span><span class="ml-body">No scores yet</span></li>'; return; }
+    if (snap.empty) { list.innerHTML = '<li><span class="ml-name">No scores yet</span></li>'; return; }
     let miniI = 0;
     snap.forEach(doc => {
       const d = doc.data();
@@ -2228,7 +2235,7 @@ async function loadMiniLeaderboard() {
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
       const firstName = (d.displayName || d.name || 'Anon').split(' ')[0];
       const pts = Math.floor(Number(d.score) || 0);
-      li.innerHTML = `<span class="ml-rank">${miniI+1}</span><span class="ml-body">${pts.toLocaleString()} · ${firstName}</span>`;
+      li.innerHTML = `<span class="ml-name">${miniI + 1}. ${firstName}</span><span class="ml-pts">${pts.toLocaleString()} points</span>`;
       list.appendChild(li);
       miniI++;
     });
