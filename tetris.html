@@ -400,14 +400,11 @@
   <span class="hero-byline">...by Agust Islandia</span>
 </div>
 
-<div style="position:relative;z-index:2;display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-  <div id="lang-switcher" style="margin-bottom:0;">
-    <button class="lang-btn active" data-lang="en">EN</button>
-    <button class="lang-btn" data-lang="pt">PT</button>
-    <button class="lang-btn" data-lang="pt-br">PT-BR</button>
-    <button class="lang-btn" data-lang="es">ES</button>
-  </div>
-  <button id="muteBtn" class="lang-btn active" onclick="toggleMute()" title="Toggle sound (M)" style="font-size:1rem;padding:4px 10px;">🔊</button>
+<div id="lang-switcher">
+  <button class="lang-btn active" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="pt">PT</button>
+  <button class="lang-btn" data-lang="pt-br">PT-BR</button>
+  <button class="lang-btn" data-lang="es">ES</button>
 </div>
 
 <div id="wrapper">
@@ -496,7 +493,7 @@ const TRANSLATIONS = {
     startBtn:      'Start Game',
     gameOver:      'Game Over',
     playAgain:     'Play Again',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Move<br><kbd>↑</kbd> Rotate<br><kbd>↓</kbd> Soft drop<br><kbd>Space</kbd> Hard drop<br><kbd>C</kbd> Hold<br><kbd>P</kbd> Pause',
+    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Move<br><kbd>↑</kbd> Rotate<br><kbd>↓</kbd> Soft drop<br><kbd>Space</kbd> Hard drop<br><kbd>C</kbd> Hold<br><kbd>P</kbd> Pause<br><kbd>M</kbd> Mute',
     finalTpl:      (s, lv, ln) => `Score: ${s} · Level ${lv} · ${ln} lines`,
   },
   pt: {
@@ -513,7 +510,7 @@ const TRANSLATIONS = {
     startBtn:      'Começar',
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar de Novo',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rodar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Queda rápida<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausa',
+    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rodar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Queda rápida<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Mudo',
     finalTpl:      (s, lv, ln) => `Pontos: ${s} · Nível ${lv} · ${ln} linhas`,
   },
   'pt-br': {
@@ -530,7 +527,7 @@ const TRANSLATIONS = {
     startBtn:      'Começar Jogo',
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar Novamente',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Girar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Queda rápida<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausar',
+    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Girar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Queda rápida<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausar<br><kbd>M</kbd> Mudo',
     finalTpl:      (s, lv, ln) => `Pontos: ${s} · Nível ${lv} · ${ln} linhas`,
   },
   es: {
@@ -547,7 +544,7 @@ const TRANSLATIONS = {
     startBtn:      'Iniciar Juego',
     gameOver:      'Fin del Juego',
     playAgain:     'Jugar de Nuevo',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rotar<br><kbd>↓</kbd> Caída suave<br><kbd>Space</kbd> Caída rápida<br><kbd>C</kbd> Retener<br><kbd>P</kbd> Pausa',
+    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rotar<br><kbd>↓</kbd> Caída suave<br><kbd>Space</kbd> Caída rápida<br><kbd>C</kbd> Retener<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Silencio',
     finalTpl:      (s, lv, ln) => `Puntos: ${s} · Nivel ${lv} · ${ln} líneas`,
   },
 };
@@ -760,9 +757,6 @@ function playSound(id) {
 
 function toggleMute() {
   muted = !muted;
-  const btn = document.getElementById('muteBtn');
-  btn.textContent = muted ? '🔇' : '🔊';
-  btn.classList.toggle('active', !muted);
 }
 
 // ─────────────────────────────────────────────
