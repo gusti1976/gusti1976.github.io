@@ -6,7 +6,6 @@
   <title>Custom T-Piece Sprite Test</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       min-height: 100vh;
       display: flex;
@@ -21,14 +20,7 @@
       font-family: -apple-system, system-ui, sans-serif;
       color: #1a2a4a;
     }
-
-    h1 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      opacity: 0.7;
-    }
-
+    h1 { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.04em; opacity: 0.65; }
     .card {
       background: rgba(255,255,255,0.45);
       backdrop-filter: blur(20px);
@@ -40,17 +32,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
-
-    .label {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0.55;
-    }
-
+    .label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.5; }
     canvas { display: block; }
   </style>
 </head>
@@ -63,137 +47,197 @@
   </div>
 
   <div class="card">
-    <div class="label">Bottom Block Detail — Groove Close-up</div>
+    <div class="label">Bottom Block Detail — Slot Groove Close-up</div>
     <canvas id="zoom"></canvas>
   </div>
 
   <script>
-    const CELL = 52;
+    const CELL = 56;   // px per block
+    const GAP  = 4;    // gap between blocks
 
-    // ─── Shape definition ───────────────────────────────
-    // Top bar : 4 blocks LEFT + 1 center + 4 blocks RIGHT = 9 wide
-    // Stem    : single center block below the bar
-    // Bottom block (stem) has a half-circle groove on its bottom face.
+    // ─── Shape ──────────────────────────────────────────
     //
-    //  ■ ■ ■ ■ ■ ■ ■ ■ ■   ← row 0  (9 blocks)
-    //          ■             ← row 1  (center only, col 4)
-    //          ⌣             ← groove on bottom of that block
+    //  col:  0        1        2
+    //  row 0: [QUAD]  [NORM]  [QUAD]    ← top bar
+    //  row 1:         [NORM]            ← stem #1
+    //  row 2:         [NORM]            ← stem #2
+    //  row 3:         [NORM]            ← stem #3
+    //  row 4:         [SLOT]            ← stem #4 — straight-line groove bottom
 
     const SHAPE = [
-      [1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [0, 0, 0, 0, 1, 0, 0, 0, 0],
+      ['quad', 'norm', 'quad'],
+      [null,   'norm', null  ],
+      [null,   'norm', null  ],
+      [null,   'norm', null  ],
+      [null,   'slot', null  ],
     ];
 
-    const COLS = SHAPE[0].length;   // 9
-    const ROWS = SHAPE.length;      // 2
-    const STEM_ROW = 1;
-    const STEM_COL = 4;
+    const ROWS = SHAPE.length;     // 5
+    const COLS = SHAPE[0].length;  // 3
 
-    // ─── Colour palette (light brown glass) ─────────────
-    const C_FILL    = 'rgba(185, 128, 55, 0.88)';
-    const C_SHINE   = 'rgba(255, 210, 130, 0.65)';
-    const C_EDGE    = 'rgba(255, 255, 255, 0.38)';
-    const C_SHADOW  = 'rgba(90, 50, 10, 0.28)';
-    const C_GROOVE  = 'rgba(60, 30, 5, 0.55)';
+    // ─── Palette ─────────────────────────────────────────
+    const C_FILL   = 'rgba(185, 128, 55, 0.90)';
+    const C_SHINE  = 'rgba(255, 210, 130, 0.60)';
+    const C_EDGE   = 'rgba(255, 255, 255, 0.40)';
+    const C_SHADOW = 'rgba(90, 50, 10, 0.30)';
+    const C_SLOT   = 'rgba(50, 25, 5, 0.60)';
 
-    // ─── Draw a single Tetris block ──────────────────────
-    // If grooveBottom is true, a half-circle notch is cut from the bottom edge.
-    function drawBlock(ctx, bx, by, grooveBottom) {
-      const r = 5;       // corner radius
-      const gr = CELL * 0.28;  // groove radius (28 % of cell)
-      const gcx = bx + CELL / 2;
-      const gcy = by + CELL;
+    // ─── Draw a normal block ──────────────────────────────
+    function drawNorm(ctx, bx, by) {
+      const r = 5;
+      ctx.save();
+      ctx.beginPath();
+      ctx.roundRect(bx, by, CELL, CELL, r);
+      ctx.fillStyle = C_FILL;
+      ctx.fill();
+      ctx.strokeStyle = C_EDGE;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      // top shine
+      ctx.beginPath();
+      ctx.roundRect(bx + 4, by + 3, CELL - 8, CELL * 0.28, [3, 3, 5, 5]);
+      ctx.fillStyle = C_SHINE;
+      ctx.fill();
+      // bottom shadow
+      ctx.beginPath();
+      ctx.roundRect(bx + 3, by + CELL - 6, CELL - 6, 5, [0, 0, 3, 3]);
+      ctx.fillStyle = C_SHADOW;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // ─── Draw a QUAD block (2×2 decorative sub-blocks) ───
+    // Four equal sub-squares fill the cell with a small gap between them.
+    function drawQuad(ctx, bx, by) {
+      const subGap = 4;
+      const half = (CELL - subGap) / 2;
+      const r = 4;
+      const positions = [
+        [bx,          by         ],   // top-left
+        [bx + half + subGap, by         ],   // top-right
+        [bx,          by + half + subGap],   // bottom-left
+        [bx + half + subGap, by + half + subGap],   // bottom-right
+      ];
+      ctx.save();
+      for (const [sx, sy] of positions) {
+        // fill
+        ctx.beginPath();
+        ctx.roundRect(sx, sy, half, half, r);
+        ctx.fillStyle = C_FILL;
+        ctx.fill();
+        ctx.strokeStyle = C_EDGE;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+        // mini shine on each sub-block
+        ctx.beginPath();
+        ctx.roundRect(sx + 3, sy + 2, half - 6, half * 0.28, [2, 2, 4, 4]);
+        ctx.fillStyle = C_SHINE;
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // ─── Draw the SLOT block (straight-line groove bottom) ─
+    // Same width as the arc version (2 × 0.28 × CELL), rectangular cut.
+    function drawSlot(ctx, bx, by) {
+      const r = 5;
+      const slotW = CELL * 0.56;          // same span as arc diameter
+      const slotH = CELL * 0.28;          // depth = roughly same as arc radius
+      const slotX = bx + (CELL - slotW) / 2;
+      const slotBottom = by + CELL;
 
       ctx.save();
 
-      if (grooveBottom) {
-        // Build a clipping path: square block minus the bottom semicircle
-        ctx.beginPath();
-        // Top-left → top-right (rounded top corners only)
-        ctx.moveTo(bx + r, by);
-        ctx.lineTo(bx + CELL - r, by);
-        ctx.arcTo(bx + CELL, by, bx + CELL, by + r, r);
-        // Right side down to bottom-right of block
-        ctx.lineTo(bx + CELL, gcy);
-        // Walk left along bottom to the right edge of the groove
-        ctx.lineTo(gcx + gr, gcy);
-        // Arc the groove upward (counterclockwise = digs INTO the block)
-        ctx.arc(gcx, gcy, gr, 0, Math.PI, true);
-        // Continue left to bottom-left corner
-        ctx.lineTo(bx, gcy);
-        // Left side back up
-        ctx.lineTo(bx, by + r);
-        ctx.arcTo(bx, by, bx + r, by, r);
-        ctx.closePath();
-      } else {
-        // Plain rounded rectangle
-        ctx.beginPath();
-        ctx.roundRect(bx, by, CELL, CELL, r);
-      }
+      // Block outline — rectangular bottom corners where slot is
+      ctx.beginPath();
+      // top side (rounded corners)
+      ctx.moveTo(bx + r, by);
+      ctx.lineTo(bx + CELL - r, by);
+      ctx.arcTo(bx + CELL, by, bx + CELL, by + r, r);
+      // right side
+      ctx.lineTo(bx + CELL, slotBottom);
+      // bottom: right section → slot right wall → flat slot bottom → slot left wall → left section
+      ctx.lineTo(slotX + slotW, slotBottom);
+      ctx.lineTo(slotX + slotW, slotBottom - slotH);   // slot right wall (goes UP)
+      ctx.lineTo(slotX,         slotBottom - slotH);   // flat slot floor
+      ctx.lineTo(slotX,         slotBottom);            // slot left wall (goes DOWN)
+      ctx.lineTo(bx, slotBottom);
+      // left side
+      ctx.lineTo(bx, by + r);
+      ctx.arcTo(bx, by, bx + r, by, r);
+      ctx.closePath();
 
-      // Main fill
       ctx.fillStyle = C_FILL;
       ctx.fill();
-
-      // Inner stroke / edge highlight
       ctx.strokeStyle = C_EDGE;
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
-      // Specular top shine (top ~30 % of block)
+      // top shine
       ctx.beginPath();
-      ctx.roundRect(bx + 4, by + 3, CELL - 8, CELL * 0.3, [3, 3, 6, 6]);
+      ctx.roundRect(bx + 4, by + 3, CELL - 8, CELL * 0.28, [3, 3, 5, 5]);
       ctx.fillStyle = C_SHINE;
       ctx.fill();
 
-      // Bottom shadow strip (skip if groove, it handles itself)
-      if (!grooveBottom) {
-        ctx.beginPath();
-        ctx.roundRect(bx + 2, by + CELL - 6, CELL - 4, 5, [0, 0, 3, 3]);
-        ctx.fillStyle = C_SHADOW;
-        ctx.fill();
-      }
+      // slot interior shadow (makes the groove look recessed)
+      ctx.beginPath();
+      ctx.rect(slotX + 1, slotBottom - slotH + 1, slotW - 2, slotH - 1);
+      ctx.fillStyle = C_SLOT;
+      ctx.fill();
 
-      // Groove shadow arc if needed
-      if (grooveBottom) {
-        ctx.beginPath();
-        ctx.arc(gcx, gcy, gr, 0, Math.PI, true);
-        ctx.strokeStyle = C_GROOVE;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
+      // slot edge highlight (top inner edge of the groove)
+      ctx.beginPath();
+      ctx.moveTo(slotX + 1, slotBottom - slotH + 2);
+      ctx.lineTo(slotX + slotW - 1, slotBottom - slotH + 2);
+      ctx.strokeStyle = 'rgba(255,180,80,0.30)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
 
       ctx.restore();
     }
 
-    // ─── Full piece canvas ───────────────────────────────
-    (function() {
-      const PAD = 20;
-      const cv = document.getElementById('full');
-      cv.width  = COLS * CELL + PAD * 2;
-      cv.height = ROWS * CELL + PAD * 2;
+    // ─── Render to a canvas ───────────────────────────────
+    function render(cv, scale) {
+      scale = scale || 1;
+      const PAD = Math.round(20 * scale);
+      const S   = Math.round(CELL * scale);
+      const G   = Math.round(GAP  * scale);
+      cv.width  = COLS * (S + G) - G + PAD * 2;
+      cv.height = ROWS * (S + G) - G + PAD * 2;
       const ctx = cv.getContext('2d');
+      if (scale !== 1) ctx.scale(scale, scale);
 
+      const origCell = CELL;
+      // temporarily override CELL for drawing (achieved via closure — we draw manually)
       for (let row = 0; row < ROWS; row++) {
         for (let col = 0; col < COLS; col++) {
-          if (!SHAPE[row][col]) continue;
-          const isGroove = (row === STEM_ROW && col === STEM_COL);
-          drawBlock(ctx, PAD + col * CELL, PAD + row * CELL, isGroove);
+          const type = SHAPE[row][col];
+          if (!type) continue;
+          const bx = (PAD + col * (CELL + GAP)) / scale * scale - (scale - 1) * 0 | 0;
+          const by = (PAD + row * (CELL + GAP)) / scale * scale - (scale - 1) * 0 | 0;
+          // pixel positions
+          const px = PAD / scale + col * (CELL + GAP);
+          const py = PAD / scale + row * (CELL + GAP);
+          if (type === 'quad') drawQuad(ctx, px, py);
+          else if (type === 'norm') drawNorm(ctx, px, py);
+          else if (type === 'slot') drawSlot(ctx, px, py);
         }
       }
-    })();
+    }
 
-    // ─── Close-up of the grooved bottom block ────────────
+    // Full piece (1×)
+    render(document.getElementById('full'), 1);
+
+    // Zoom in on just the slot block (3×)
     (function() {
-      const ZOOM = 3;
-      const S = CELL * ZOOM;
+      const scale = 3;
       const PAD = 24;
       const cv = document.getElementById('zoom');
-      cv.width  = S + PAD * 2;
-      cv.height = S + PAD * 2;
+      cv.width  = CELL * scale + PAD * 2;
+      cv.height = CELL * scale + PAD * 2;
       const ctx = cv.getContext('2d');
-      ctx.scale(ZOOM, ZOOM);
-      drawBlock(ctx, PAD / ZOOM, PAD / ZOOM, true);
+      ctx.scale(scale, scale);
+      drawSlot(ctx, PAD / scale, PAD / scale);
     })();
   </script>
 </body>
