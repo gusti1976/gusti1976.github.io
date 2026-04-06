@@ -755,8 +755,15 @@ let lastClearWasTetris = false;
 
 function getACtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
+}
+
+// Unlock AudioContext on first user gesture (required by browser autoplay policy).
+// Returns a Promise that resolves once the context is running.
+function unlockAudio() {
+  const ctx = getACtx();
+  if (ctx.state === 'running') return Promise.resolve(ctx);
+  return ctx.resume().then(() => ctx);
 }
 
 // ── Shared helpers ──
@@ -897,7 +904,14 @@ const SOUNDS = {
 
 function playSound(id) {
   if (muted) return;
-  try { SOUNDS[id] && SOUNDS[id](); } catch(e) {}
+  const ctx = getACtx();
+  if (ctx.state === 'suspended') {
+    ctx.resume().then(() => {
+      try { SOUNDS[id] && SOUNDS[id](); } catch(e) { console.warn('sound error', id, e); }
+    });
+  } else {
+    try { SOUNDS[id] && SOUNDS[id](); } catch(e) { console.warn('sound error', id, e); }
+  }
 }
 
 // ── Mute toggle ──
@@ -1389,9 +1403,13 @@ boardCanvas.addEventListener('touchend', e => {
   }
 }, {passive: false});
 
-// Buttons
-document.getElementById('startBtn').addEventListener('click', startGame);
-document.getElementById('restartBtn').addEventListener('click', startGame);
+// Buttons — unlock AudioContext on first click (browser autoplay policy),
+// then start the game once the context is guaranteed running.
+function handleStart() {
+  unlockAudio().then(startGame);
+}
+document.getElementById('startBtn').addEventListener('click', handleStart);
+document.getElementById('restartBtn').addEventListener('click', handleStart);
 
 // Initial draw (empty board preview)
 ctx.clearRect(0, 0, boardCanvas.width, boardCanvas.height);
