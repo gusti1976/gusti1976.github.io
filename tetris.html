@@ -809,6 +809,9 @@ const TRANSLATIONS = {
     lbTitle:       '🏆 High Scores',
     helpTitle:     'How to Play',
     saveHint:      'Sign in to save your score & appear on the leaderboard',
+    personalBest:  '✨ New personal best!',
+    yourBest:      s => `Your best: ${s}`,
+    viewLb:        '🏆 View Leaderboard',
     finalTpl:      (s, lv, ln) => `Score: ${s} · Level ${lv} · ${ln} lines`,
   },
   pt: {
@@ -830,6 +833,9 @@ const TRANSLATIONS = {
     lbTitle:       '🏆 Melhores Pontuações',
     helpTitle:     'Como Jogar',
     saveHint:      'Inicie sessão para guardar a sua pontuação e aparecer no ranking',
+    personalBest:  '✨ Novo recorde pessoal!',
+    yourBest:      s => `O seu melhor: ${s}`,
+    viewLb:        '🏆 Ver Classificação',
     finalTpl:      (s, lv, ln) => `Pontos: ${s} · Nível ${lv} · ${ln} linhas`,
   },
   'pt-br': {
@@ -851,6 +857,9 @@ const TRANSLATIONS = {
     lbTitle:       '🏆 Melhores Pontuações',
     helpTitle:     'Como Jogar',
     saveHint:      'Entre para salvar sua pontuação e aparecer no ranking',
+    personalBest:  '✨ Novo recorde pessoal!',
+    yourBest:      s => `Seu recorde: ${s}`,
+    viewLb:        '🏆 Ver Classificação',
     finalTpl:      (s, lv, ln) => `Pontos: ${s} · Nível ${lv} · ${ln} linhas`,
   },
   es: {
@@ -872,6 +881,9 @@ const TRANSLATIONS = {
     lbTitle:       '🏆 Mejores Puntuaciones',
     helpTitle:     'Cómo Jugar',
     saveHint:      'Inicia sesión para guardar tu puntuación y aparecer en el ranking',
+    personalBest:  '✨ ¡Nuevo récord personal!',
+    yourBest:      s => `Tu mejor: ${s}`,
+    viewLb:        '🏆 Ver Clasificación',
     finalTpl:      (s, lv, ln) => `Puntos: ${s} · Nivel ${lv} · ${ln} líneas`,
   },
 };
@@ -1984,10 +1996,13 @@ function endGame() {
   gameRunning = false;
   clearTimeout(dropTimer);
   finalEl.textContent = TRANSLATIONS[currentLang].finalTpl(score.toLocaleString(), level, lines);
+  const tr     = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
   const msgEl  = document.getElementById('go-saved-msg');
   const hintEl = document.getElementById('go-save-hint');
+  const lbBtn  = document.getElementById('go-lb-btn');
   if (msgEl)  msgEl.textContent  = '';
-  if (hintEl) hintEl.textContent = (TRANSLATIONS[currentLang] || TRANSLATIONS.en).saveHint;
+  if (hintEl) hintEl.textContent = tr.saveHint;
+  if (lbBtn)  lbBtn.textContent  = tr.viewLb;
   gameOverOverlay.classList.remove('hidden');
   if (typeof maybeSaveScore === 'function') {
     if (fbUser) {
@@ -2177,6 +2192,7 @@ async function maybeSaveScore(score, level, lines) {
     const ref  = db.collection('scores').doc(fbUser.uid);
     const snap = await ref.get();
     const prev = snap.exists ? (snap.data().score || 0) : 0;
+    const tr = (TRANSLATIONS[currentLang] || TRANSLATIONS.en);
     if (score > prev) {
       await ref.set({
         displayName: fbUser.displayName || 'Anonymous',
@@ -2184,10 +2200,10 @@ async function maybeSaveScore(score, level, lines) {
         score, level, lines,
         updatedAt:   firebase.firestore.FieldValue.serverTimestamp(),
       });
-      msgEl.textContent = '✨ New personal best saved!';
+      msgEl.textContent = tr.personalBest;
       loadMiniLeaderboard();
     } else {
-      msgEl.textContent = `Your best: ${prev.toLocaleString()}`;
+      msgEl.textContent = tr.yourBest(prev.toLocaleString());
     }
   } catch (e) {
     console.warn('Firestore save error', e);
@@ -2208,7 +2224,8 @@ async function loadMiniLeaderboard() {
       const d = doc.data();
       const li = document.createElement('li');
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
-      li.innerHTML = `<span class="ml-rank">${i+1}</span><span class="ml-body">${d.displayName || 'Anon'} · ${(d.score||0).toLocaleString()}</span>`;
+      const firstName = (d.displayName || 'Anon').split(' ')[0];
+      li.innerHTML = `<span class="ml-rank">${i+1}</span><span class="ml-body">${(d.score||0).toLocaleString()} · ${firstName}</span>`;
       list.appendChild(li);
     });
   } catch(e) { console.warn('Mini LB error', e); }
@@ -2231,9 +2248,10 @@ async function loadLeaderboard() {
       const d  = doc.data();
       const li = document.createElement('li');
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
+      const firstName = (d.displayName || 'Anonymous').split(' ')[0];
       li.innerHTML = `
         <span class="lb-rank">${i + 1}</span>
-        <span class="lb-name">${d.displayName || 'Anonymous'}</span>
+        <span class="lb-name">${firstName}</span>
         <span class="lb-score">${(d.score || 0).toLocaleString()}</span>`;
       list.appendChild(li);
     });
