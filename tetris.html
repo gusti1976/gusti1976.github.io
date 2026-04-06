@@ -938,6 +938,20 @@ function applyLang() {
   });
   // Controls need innerHTML (kbd tags)
   document.getElementById('ctrl-text').innerHTML = t('ctrlHtml');
+
+  // Re-translate game over overlay dynamic strings if it is currently visible
+  const gameOverOverlay = document.getElementById('gameOverOverlay');
+  if (lastEndGame && gameOverOverlay && !gameOverOverlay.classList.contains('hidden')) {
+    const tr = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+    finalEl.textContent = tr.finalTpl(lastEndGame.score.toLocaleString(), lastEndGame.level, lastEndGame.lines);
+    const hintEl  = document.getElementById('go-save-hint');
+    const lbBtn   = document.getElementById('go-lb-btn');
+    const msgEl   = document.getElementById('go-saved-msg');
+    if (hintEl) hintEl.textContent = tr.saveHint;
+    if (lbBtn)  lbBtn.textContent  = tr.viewLb;
+    if (msgEl && lastEndGame.msgKey === 'personalBest') msgEl.textContent = tr.personalBest;
+    if (msgEl && lastEndGame.msgKey === 'yourBest')     msgEl.textContent = tr.yourBest(lastEndGame.msgArg);
+  }
 }
 
 // Language dropdown
@@ -1332,6 +1346,7 @@ let score, level, lines, best;
 let lastWasSpecial = false;
 let isAnimating = false;   // true during W explosion — pauses drop timer
 let gameRunning, paused, dropTimer, dropInterval;
+let lastEndGame = null;    // { score, level, lines, msgKey, msgArg } — for re-translating game over overlay
 let animId;
 
 function init() {
@@ -2016,8 +2031,9 @@ function endGame() {
   playSound('gameOver');
   gameRunning = false;
   clearTimeout(dropTimer);
-  finalEl.textContent = TRANSLATIONS[currentLang].finalTpl(score.toLocaleString(), level, lines);
+  lastEndGame = { score, level, lines, msgKey: null, msgArg: null };
   const tr     = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  finalEl.textContent = tr.finalTpl(score.toLocaleString(), level, lines);
   const msgEl  = document.getElementById('go-saved-msg');
   const hintEl = document.getElementById('go-save-hint');
   const lbBtn  = document.getElementById('go-lb-btn');
@@ -2231,9 +2247,11 @@ async function maybeSaveScore(score, level, lines) {
         updatedAt:   firebase.firestore.FieldValue.serverTimestamp(),
       });
       msgEl.textContent = tr.personalBest;
+      if (lastEndGame) { lastEndGame.msgKey = 'personalBest'; lastEndGame.msgArg = null; }
       loadMiniLeaderboard();
     } else {
       msgEl.textContent = tr.yourBest(prev.toLocaleString());
+      if (lastEndGame) { lastEndGame.msgKey = 'yourBest'; lastEndGame.msgArg = prev; }
     }
   } catch (e) {
     console.warn('Firestore save error', e);
