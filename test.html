@@ -75,12 +75,17 @@
     const ROWS = SHAPE.length;     // 5
     const COLS = SHAPE[0].length;  // 3
 
-    // ─── Palette ─────────────────────────────────────────
+    // ─── Palette — brown (bar + most of stem) ────────────
     const C_FILL   = 'rgba(185, 128, 55, 0.90)';
     const C_SHINE  = 'rgba(255, 210, 130, 0.60)';
     const C_EDGE   = 'rgba(255, 255, 255, 0.40)';
     const C_SHADOW = 'rgba(90, 50, 10, 0.30)';
     const C_SLOT   = 'rgba(50, 25, 5, 0.60)';
+
+    // ─── Palette — pink (stem block 4) ───────────────────
+    const P_FILL   = 'rgba(235, 100, 155, 0.90)';
+    const P_SHINE  = 'rgba(255, 190, 220, 0.65)';
+    const P_SLOT   = 'rgba(130, 30, 70, 0.60)';
 
     // ─── Draw a normal block ──────────────────────────────
     function drawNorm(ctx, bx, by) {
@@ -139,7 +144,10 @@
 
     // ─── Draw the SLOT block (straight-line groove bottom) ─
     // Same width as the arc version (2 × 0.28 × CELL), rectangular cut.
-    function drawSlot(ctx, bx, by) {
+    function drawSlot(ctx, bx, by, fill, shine, slotShadow) {
+      fill       = fill       || C_FILL;
+      shine      = shine      || C_SHINE;
+      slotShadow = slotShadow || C_SLOT;
       const r = 5;
       const slotW = CELL * 0.56;          // same span as arc diameter
       const slotH = CELL * 0.28;          // depth = roughly same as arc radius
@@ -167,7 +175,7 @@
       ctx.arcTo(bx, by, bx + r, by, r);
       ctx.closePath();
 
-      ctx.fillStyle = C_FILL;
+      ctx.fillStyle = fill;
       ctx.fill();
       ctx.strokeStyle = C_EDGE;
       ctx.lineWidth = 1.5;
@@ -176,13 +184,13 @@
       // top shine
       ctx.beginPath();
       ctx.roundRect(bx + 4, by + 3, CELL - 8, CELL * 0.28, [3, 3, 5, 5]);
-      ctx.fillStyle = C_SHINE;
+      ctx.fillStyle = shine;
       ctx.fill();
 
       // slot interior shadow (makes the groove look recessed)
       ctx.beginPath();
       ctx.rect(slotX + 1, slotBottom - slotH + 1, slotW - 2, slotH - 1);
-      ctx.fillStyle = C_SLOT;
+      ctx.fillStyle = slotShadow;
       ctx.fill();
 
       // slot edge highlight (top inner edge of the groove)
@@ -220,7 +228,7 @@
           const py = PAD / scale + row * (CELL + GAP);
           if (type === 'quad') drawQuad(ctx, px, py);
           else if (type === 'norm') drawNorm(ctx, px, py);
-          else if (type === 'slot') drawSlot(ctx, px, py);
+          else if (type === 'slot') drawSlot(ctx, px, py, P_FILL, P_SHINE, P_SLOT);
         }
       }
     }
@@ -237,7 +245,7 @@
       cv.height = CELL * scale + PAD * 2;
       const ctx = cv.getContext('2d');
       ctx.scale(scale, scale);
-      drawSlot(ctx, PAD / scale, PAD / scale);
+      drawSlot(ctx, PAD / scale, PAD / scale, P_FILL, P_SHINE, P_SLOT);
     })();
   </script>
 </body>
