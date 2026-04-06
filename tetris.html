@@ -1017,26 +1017,27 @@ const PIECES = {
   J: { color: 'rgba(40,100,255,0.82)',  cells: [[[0,-1],[0,0],[0,1],[-1,-1]],[[-1,0],[0,0],[1,0],[-1,1]],[[0,-1],[0,0],[0,1],[1,1]],[[-1,0],[0,0],[1,0],[1,-1]]] },
   L: { color: 'rgba(255,140,0,0.82)',   cells: [[[0,-1],[0,0],[0,1],[-1,1]],[[-1,0],[0,0],[1,0],[1,1]],[[0,-1],[0,0],[0,1],[1,-1]],[[-1,0],[0,0],[1,0],[-1,-1]]] },
   // ── Secret wide-T piece ──
-  // Bar: 3 wide (cols -1, 0, +1) | Stem: 4 deep (rows 1-4)
-  // Cell index 6 (row+4, col+0) is the pink grooved bottom block.
+  // 6 cells: bar of 3 (quad · normal · quad) + stem of 3 (normal · normal · pink-slot)
+  // Rotations: 0 & 2 = T (stem down), 1 & 3 = ∩ (stem up)
   W: {
     color: 'rgba(185,128,55,0.88)',
     cellColors: (function(){
-      const row = [
-        'rgba(185,128,55,0.88)','rgba(185,128,55,0.88)','rgba(185,128,55,0.88)',
-        'rgba(185,128,55,0.88)','rgba(185,128,55,0.88)','rgba(185,128,55,0.88)',
-        'rgba(235,100,155,0.90)',
-      ];
-      return [row, row, row, row];
+      const b = 'rgba(185,128,55,0.88)', p = 'rgba(235,100,155,0.90)';
+      // cell order: bar-left, bar-center, bar-right, stem1, stem2, stem-tip(pink)
+      const c = [b, b, b, b, b, p];
+      return [c, c, c, c];
     })(),
-    // Cell types: 'quad' = 2×2 sub-blocks, 'slot' = narrow groove bottom, null = normal
     cellTypes: (function(){
-      const t = ['quad', null, 'quad', null, null, null, 'slot'];
+      // quad on bar sides, slot on the pink tip — same regardless of rotation
+      const t = ['quad', null, 'quad', null, null, 'slot'];
       return [t, t, t, t];
     })(),
     cells: (function(){
-      const shape = [[0,-1],[0,0],[0,1],[1,0],[2,0],[3,0],[4,0]];
-      return [shape, shape, shape, shape];
+      // rot 0 / 2 — T shape, stem points down
+      const down = [[0,-1],[0,0],[0,1],[1,0],[2,0],[3,0]];
+      // rot 1 / 3 — ∩ shape, stem points up (slot at top)
+      const up   = [[0,-1],[0,0],[0,1],[-1,0],[-2,0],[-3,0]];
+      return [down, up, down, up];
     })(),
   },
 };
