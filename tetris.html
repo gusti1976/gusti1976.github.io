@@ -400,11 +400,14 @@
   <span class="hero-byline">...by Agust Islandia</span>
 </div>
 
-<div id="lang-switcher">
-  <button class="lang-btn active" data-lang="en">EN</button>
-  <button class="lang-btn" data-lang="pt">PT</button>
-  <button class="lang-btn" data-lang="pt-br">PT-BR</button>
-  <button class="lang-btn" data-lang="es">ES</button>
+<div style="position:relative;z-index:2;display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+  <div id="lang-switcher" style="margin-bottom:0;">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="pt">PT</button>
+    <button class="lang-btn" data-lang="pt-br">PT-BR</button>
+    <button class="lang-btn" data-lang="es">ES</button>
+  </div>
+  <button id="muteBtn" class="lang-btn active" onclick="toggleMute()" title="Toggle sound (M)" style="font-size:1rem;padding:4px 10px;">🔊</button>
 </div>
 
 <div id="wrapper">
@@ -599,6 +602,170 @@ document.querySelectorAll('.lang-btn').forEach(b => {
 applyLang();
 
 // ─────────────────────────────────────────────
+//  AUDIO ENGINE  (Web Audio API — no external files)
+// ─────────────────────────────────────────────
+
+let audioCtx = null;
+let muted = false;
+let lastClearWasTetris = false;
+
+function getACtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// ── Shared helpers ──
+
+function makeGain(ctx, vol, t0, decay) {
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(vol, t0);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + decay);
+  g.connect(ctx.destination);
+  return g;
+}
+
+function osc(ctx, type, freq, vol, t0, dur) {
+  const o = ctx.createOscillator();
+  const g = makeGain(ctx, vol, t0, dur);
+  o.type = type;
+  o.frequency.setValueAtTime(freq, t0);
+  o.connect(g);
+  o.start(t0); o.stop(t0 + dur + 0.02);
+}
+
+function sweep(ctx, type, f0, f1, vol, t0, dur) {
+  const o = ctx.createOscillator();
+  const g = makeGain(ctx, vol, t0, dur);
+  o.type = type;
+  o.frequency.setValueAtTime(f0, t0);
+  o.frequency.exponentialRampToValueAtTime(f1, t0 + dur * 0.8);
+  o.connect(g);
+  o.start(t0); o.stop(t0 + dur + 0.02);
+}
+
+function noise(ctx, vol, t0, dur) {
+  const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const g = makeGain(ctx, vol, t0, dur);
+  src.connect(g);
+  src.start(t0); src.stop(t0 + dur + 0.02);
+}
+
+// ── Individual sounds ──
+
+function sndMove() {
+  const c = getACtx(), t = c.currentTime;
+  osc(c, 'sine', 110, 0.06, t, 0.025);
+}
+
+function sndRotate() {
+  const c = getACtx(), t = c.currentTime;
+  sweep(c, 'square', 280, 520, 0.07, t, 0.06);
+}
+
+function sndSoftDrop() {
+  const c = getACtx(), t = c.currentTime;
+  osc(c, 'sine', 80, 0.05, t, 0.02);
+}
+
+function sndHardDrop() {
+  const c = getACtx(), t = c.currentTime;
+  osc(c, 'sine', 55, 0.22, t, 0.18);
+  noise(c, 0.12, t, 0.12);
+}
+
+function sndLock() {
+  const c = getACtx(), t = c.currentTime;
+  noise(c, 0.14, t, 0.07);
+  osc(c, 'square', 160, 0.08, t, 0.05);
+}
+
+function sndHold() {
+  const c = getACtx(), t = c.currentTime;
+  sweep(c, 'sine', 400, 200, 0.09, t, 0.06);
+}
+
+function sndClear1() {
+  const c = getACtx(), t = c.currentTime;
+  sweep(c, 'triangle', 440, 880, 0.18, t, 0.28);
+}
+
+function sndClear2() {
+  const c = getACtx(), t = c.currentTime;
+  sweep(c, 'triangle', 440, 880,  0.18, t,        0.18);
+  sweep(c, 'triangle', 550, 1100, 0.18, t + 0.14, 0.22);
+}
+
+function sndClear3() {
+  const c = getACtx(), t = c.currentTime;
+  sweep(c, 'triangle', 380, 760,  0.18, t,        0.15);
+  sweep(c, 'triangle', 500, 1000, 0.18, t + 0.12, 0.15);
+  sweep(c, 'triangle', 660, 1320, 0.18, t + 0.24, 0.20);
+}
+
+function sndClear4() {
+  // Triumphant fanfare — 3-note chord + rising tail
+  const c = getACtx(), t = c.currentTime;
+  [261.6, 329.6, 392, 523.2].forEach((f, i) => {
+    osc(c, 'triangle', f, 0.14, t + i * 0.07, 0.55);
+  });
+  sweep(c, 'square', 523, 1046, 0.08, t + 0.32, 0.35);
+}
+
+function sndBackToBack() {
+  // Fanfare + sparkle arpeggio overlay
+  sndClear4();
+  const c = getACtx(), t = c.currentTime;
+  [784, 988, 1175, 1568].forEach((f, i) => {
+    osc(c, 'sine', f, 0.10, t + 0.38 + i * 0.08, 0.12);
+  });
+  noise(c, 0.06, t + 0.38, 0.35);
+}
+
+function sndLevelUp() {
+  const c = getACtx(), t = c.currentTime;
+  [330, 415, 523, 660].forEach((f, i) => {
+    osc(c, 'triangle', f, 0.13, t + i * 0.1, 0.18);
+  });
+}
+
+function sndGameOver() {
+  const c = getACtx(), t = c.currentTime;
+  [523, 415, 330, 262].forEach((f, i) => {
+    osc(c, 'triangle', f, 0.15, t + i * 0.22, 0.30);
+  });
+  sweep(c, 'sine', 220, 55, 0.10, t + 0.66, 0.55);
+}
+
+// ── Dispatcher ──
+
+const SOUNDS = {
+  move: sndMove, rotate: sndRotate, softDrop: sndSoftDrop,
+  hardDrop: sndHardDrop, lock: sndLock, hold: sndHold,
+  clear1: sndClear1, clear2: sndClear2, clear3: sndClear3,
+  clear4: sndClear4, backToBack: sndBackToBack,
+  levelUp: sndLevelUp, gameOver: sndGameOver,
+};
+
+function playSound(id) {
+  if (muted) return;
+  try { SOUNDS[id] && SOUNDS[id](); } catch(e) {}
+}
+
+// ── Mute toggle ──
+
+function toggleMute() {
+  muted = !muted;
+  const btn = document.getElementById('muteBtn');
+  btn.textContent = muted ? '🔇' : '🔊';
+  btn.classList.toggle('active', !muted);
+}
+
+// ─────────────────────────────────────────────
 //  TETRIS ENGINE
 // ─────────────────────────────────────────────
 
@@ -697,11 +864,11 @@ function getCells(piece) {
 
 function moveLeft()  { tryMove(0, -1); }
 function moveRight() { tryMove(0,  1); }
-function softDrop()  { if (!tryMove(1, 0)) lockPiece(); else score += 1; updateUI(); }
+function softDrop()  { if (!tryMove(1, 0)) lockPiece(); else { score += 1; playSound('softDrop'); } updateUI(); }
 
 function tryMove(dr, dc) {
   const next = {...current, row: current.row + dr, col: current.col + dc};
-  if (isValid(next)) { current = next; calcGhost(); draw(); return true; }
+  if (isValid(next)) { current = next; calcGhost(); if (dr === 0) playSound('move'); draw(); return true; }
   return false;
 }
 
@@ -712,7 +879,7 @@ function rotate() {
   const kicks = [[0,0],[0,-1],[0,1],[0,-2],[0,2]];
   for (const [dr, dc] of kicks) {
     const kicked = {...next, row: next.row + dr, col: next.col + dc};
-    if (isValid(kicked)) { current = kicked; calcGhost(); draw(); return; }
+    if (isValid(kicked)) { current = kicked; calcGhost(); playSound('rotate'); draw(); return; }
   }
 }
 
@@ -721,6 +888,7 @@ function hardDrop() {
   current = {...current, row: ghost.row};
   score += dropped * 2;
   updateUI();
+  playSound('hardDrop');
   lockPiece();
 }
 
@@ -743,11 +911,13 @@ function holdAction() {
     holdPiece = current.key;
     spawnPiece();
   }
+  playSound('hold');
   drawHold();
   draw();
 }
 
 function lockPiece() {
+  playSound('lock');
   getCells(current).forEach(([r, c]) => {
     board[r][c] = current.color;
   });
@@ -770,9 +940,20 @@ function clearLines() {
   if (cleared > 0) {
     lines += cleared;
     score += LINE_SCORES[cleared] * level;
+    const prevLevel = level;
     level = Math.floor(lines / 10) + 1;
     dropInterval = Math.max(100, 1000 - (level - 1) * 80);
     // do NOT call scheduleDrop here — the main loop owns the timer
+    // Line-clear sounds (back-to-back Tetris detection)
+    if (cleared === 4) {
+      if (lastClearWasTetris) playSound('backToBack');
+      else                    playSound('clear4');
+      lastClearWasTetris = true;
+    } else {
+      playSound('clear' + cleared);
+      lastClearWasTetris = false;
+    }
+    if (level > prevLevel) playSound('levelUp');
     updateUI();
     updateBodyTheme();
   }
@@ -965,6 +1146,7 @@ function startGame() {
   gameRunning = true;
   paused = false;
   dropInterval = 1000;
+  lastClearWasTetris = false;
   init();
   draw();
   drawNext();
@@ -973,6 +1155,7 @@ function startGame() {
 }
 
 function endGame() {
+  playSound('gameOver');
   gameRunning = false;
   clearTimeout(dropTimer);
   finalEl.textContent = TRANSLATIONS[currentLang].finalTpl(score.toLocaleString(), level, lines);
@@ -992,6 +1175,7 @@ function togglePause() {
 // ─────────────────────────────────────────────
 
 document.addEventListener('keydown', e => {
+  if (e.key === 'm' || e.key === 'M') { toggleMute(); return; }
   if (!gameRunning || paused) {
     if (e.key === 'p' || e.key === 'P') togglePause();
     return;
@@ -1004,6 +1188,7 @@ document.addEventListener('keydown', e => {
     case ' ':          e.preventDefault(); hardDrop(); break;
     case 'c': case 'C': holdAction(); break;
     case 'p': case 'P': togglePause(); break;
+    case 'm': case 'M': toggleMute(); break;
   }
 });
 
