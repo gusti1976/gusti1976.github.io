@@ -1566,6 +1566,7 @@ function animateOoze(pinkCell, expandCells, onDone) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function lockPiece() {
+  clearTimeout(dropTimer); // always cancel the pending drop before locking
   playSound('lock');
   const wCoords = [];
   getCells(current).forEach(([r, c], i) => {
