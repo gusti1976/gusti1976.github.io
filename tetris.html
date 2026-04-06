@@ -892,6 +892,19 @@ function sndGameOver() {
   sweep(c, 'sine', 220, 55, 0.10, t + 0.66, 0.55);
 }
 
+function sndExplosion() {
+  // Deep cinematic boom + scatter burst
+  const c = getACtx(), t = c.currentTime;
+  osc(c, 'sine',  40,  0.45, t,        0.35);
+  osc(c, 'sine',  55,  0.30, t + 0.03, 0.28);
+  noise(c,         0.35, t,        0.18);
+  noise(c,         0.18, t + 0.12, 0.20);
+  // Bright scatter notes fanning out
+  [200, 320, 480, 640, 900, 1200].forEach((f, i) => {
+    osc(c, 'triangle', f, 0.09, t + 0.04 + i * 0.03, 0.14);
+  });
+}
+
 function sndSecret() {
   // Magical arrival fanfare: low thud → shimmering rise → sparkling crown
   const c = getACtx(), t = c.currentTime;
@@ -917,7 +930,7 @@ const SOUNDS = {
   hardDrop: sndHardDrop, lock: sndLock, hold: sndHold,
   clear1: sndClear1, clear2: sndClear2, clear3: sndClear3,
   clear4: sndClear4, backToBack: sndBackToBack,
-  levelUp: sndLevelUp, gameOver: sndGameOver, secret: sndSecret,
+  levelUp: sndLevelUp, gameOver: sndGameOver, secret: sndSecret, explosion: sndExplosion,
 };
 
 function playSound(id) {
@@ -1034,6 +1047,7 @@ const pauseBadge     = document.getElementById('pause-badge');
 let board, boardMeta, current, ghost, nextQueue, holdPiece, canHold;
 let score, level, lines, best;
 let lastWasSpecial = false;
+let isAnimating = false;   // true during W explosion — pauses drop timer
 let gameRunning, paused, dropTimer, dropInterval;
 let animId;
 
@@ -1152,12 +1166,101 @@ function holdAction() {
   draw();
 }
 
+// ── W piece superpower ───────────────────────────────────────────────────────
+// When W locks it expands 1 cell in all 4 directions from every cell it
+// occupies. If the immediate neighbour is already filled it "jumps" one extra
+// step, landing on the next empty cell (helps plug gaps).
+
+function expandW(wCoords) {
+  const DIRS = [[-1,0],[1,0],[0,-1],[0,1]];
+  const filled = new Set(wCoords.map(([r,c]) => `${r},${c}`));
+  const expanded = [];
+  const color = 'rgba(185,128,55,0.88)';
+
+  for (const [r, c] of wCoords) {
+    for (const [dr, dc] of DIRS) {
+      const r1 = r + dr, c1 = c + dc;
+      if (r1 < 0 || r1 >= ROWS || c1 < 0 || c1 >= COLS) continue;
+      const k1 = `${r1},${c1}`;
+
+      if (!board[r1][c1] && !filled.has(k1)) {
+        board[r1][c1]     = color;
+        boardMeta[r1][c1] = null;
+        filled.add(k1);
+        expanded.push([r1, c1]);
+      } else if (board[r1][c1] && !filled.has(k1)) {
+        // Occupied — jump over to the next cell
+        const r2 = r + dr * 2, c2 = c + dc * 2;
+        if (r2 >= 0 && r2 < ROWS && c2 >= 0 && c2 < COLS) {
+          const k2 = `${r2},${c2}`;
+          if (!board[r2][c2] && !filled.has(k2)) {
+            board[r2][c2]     = color;
+            boardMeta[r2][c2] = null;
+            filled.add(k2);
+            expanded.push([r2, c2]);
+          }
+        }
+      }
+    }
+  }
+  return expanded;
+}
+
+// Radial glow flash over the expanded cells (~22 frames), then calls onDone.
+function animateExplosion(expandedCells, onDone) {
+  const FRAMES = 22;
+  let frame = 0;
+  const loop = () => {
+    draw();
+    const alpha = 1 - frame / FRAMES;
+    for (const [r, c] of expandedCells) {
+      const x = c * CELL + CELL / 2, y = r * CELL + CELL / 2;
+      const grd = ctx.createRadialGradient(x, y, 0, x, y, CELL * 0.9);
+      grd.addColorStop(0,   `rgba(255,210,120,${(alpha * 0.9).toFixed(3)})`);
+      grd.addColorStop(0.5, `rgba(255,160, 60,${(alpha * 0.6).toFixed(3)})`);
+      grd.addColorStop(1,   'rgba(255,100,20,0)');
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(x, y, CELL * 0.9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    frame++;
+    if (frame < FRAMES) requestAnimationFrame(loop);
+    else onDone();
+  };
+  requestAnimationFrame(loop);
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 function lockPiece() {
   playSound('lock');
+  const wCoords = [];
   getCells(current).forEach(([r, c], i) => {
     board[r][c]     = current.cellColors ? current.cellColors[current.rot][i] : current.color;
     boardMeta[r][c] = current.cellTypes  ? current.cellTypes[current.rot][i]  : null;
+    wCoords.push([r, c]);
   });
+
+  if (current.key === 'W') {
+    const expanded = expandW(wCoords);
+    clearTimeout(dropTimer);
+    isAnimating = true;
+    draw();
+    playSound('explosion');
+    animateExplosion(expanded, () => {
+      isAnimating = false;
+      clearLines();
+      spawnPiece();
+      drawNext();
+      draw();
+      scheduleDrop();
+    });
+    return;
+  }
+
   clearLines();
   spawnPiece();
   drawNext();
@@ -1486,8 +1589,9 @@ function drawHold() {
 // ─────────────────────────────────────────────
 
 function scheduleDrop() {
-  if (!gameRunning || paused) return;
+  if (!gameRunning || paused || isAnimating) return;
   dropTimer = setTimeout(() => {
+    if (isAnimating) return; // re-check in case animation started mid-interval
     if (!tryMove(1, 0)) lockPiece();
     draw();
     drawNext();
