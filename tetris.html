@@ -929,6 +929,22 @@ function sndQuadPower() {
   sweep(c, 'sine', 1046, 2093, 0.12, t + 0.85, 0.50);
 }
 
+function sndOoze() {
+  // Flowing pearl melody — soft pink pulse → rising pearlescent arpeggio → crystal shimmer
+  const c = getACtx(), t = audioNow();
+  // Soft pink origin pulse
+  osc(c, 'sine', 440, 0.14, t,        0.22);
+  sweep(c, 'sine', 440, 660, 0.09, t + 0.18, 0.28);
+  // Rising pearlescent arpeggio (C4 → C6, whole-tone flavour)
+  [261.6, 311.1, 370.0, 440.0, 523.2, 622.2, 740.0, 880.0].forEach((f, i) => {
+    osc(c, 'sine', f, 0.11, t + 0.08 + i * 0.09, 0.35);
+  });
+  // Crystal high shimmer
+  [1760, 2093, 2489, 2960].forEach((f, i) => {
+    osc(c, 'sine', f, 0.055, t + 0.82 + i * 0.045, 0.10);
+  });
+}
+
 function sndExplosion() {
   // Deep cinematic boom + scatter burst
   const c = getACtx(), t = audioNow();
@@ -968,7 +984,7 @@ const SOUNDS = {
   clear1: sndClear1, clear2: sndClear2, clear3: sndClear3,
   clear4: sndClear4, backToBack: sndBackToBack,
   levelUp: sndLevelUp, gameOver: sndGameOver, secret: sndSecret,
-  explosion: sndExplosion, quadPower: sndQuadPower,
+  ooze: sndOoze, explosion: sndExplosion, quadPower: sndQuadPower,
 };
 
 function playSound(id) {
@@ -1208,70 +1224,136 @@ function holdAction() {
 }
 
 // ── W piece superpower ───────────────────────────────────────────────────────
-// When W locks it expands 1 cell in all 4 directions from every cell it
-// occupies. If the immediate neighbour is already filled it "jumps" one extra
-// step, landing on the next empty cell (helps plug gaps).
+// Pearl-white ooze originates from the pink (slot) cell and spreads outward,
+// filling neighbouring empty cells wave by wave.
 
-function expandW(wCoords) {
+const PEARL = 'rgba(245, 240, 255, 0.94)';  // pearl-white fill colour
+
+// Returns candidate cells to fill (does NOT place them on the board yet).
+// Jumps over one occupied cell to reach empty cells beyond it.
+function getExpandCells(wCoords) {
   const DIRS = [[-1,0],[1,0],[0,-1],[0,1]];
-  const filled = new Set(wCoords.map(([r,c]) => `${r},${c}`));
-  const expanded = [];
-  const color = 'rgba(185,128,55,0.88)';
+  const seen  = new Set(wCoords.map(([r,c]) => `${r},${c}`));
+  const cells = [];
 
   for (const [r, c] of wCoords) {
     for (const [dr, dc] of DIRS) {
       const r1 = r + dr, c1 = c + dc;
       if (r1 < 0 || r1 >= ROWS || c1 < 0 || c1 >= COLS) continue;
       const k1 = `${r1},${c1}`;
-
-      if (!board[r1][c1] && !filled.has(k1)) {
-        board[r1][c1]     = color;
-        boardMeta[r1][c1] = null;
-        filled.add(k1);
-        expanded.push([r1, c1]);
-      } else if (board[r1][c1] && !filled.has(k1)) {
-        // Occupied — jump over to the next cell
+      if (!board[r1][c1] && !seen.has(k1)) {
+        seen.add(k1);
+        cells.push([r1, c1]);
+      } else if (board[r1][c1] && !seen.has(k1)) {
         const r2 = r + dr * 2, c2 = c + dc * 2;
         if (r2 >= 0 && r2 < ROWS && c2 >= 0 && c2 < COLS) {
           const k2 = `${r2},${c2}`;
-          if (!board[r2][c2] && !filled.has(k2)) {
-            board[r2][c2]     = color;
-            boardMeta[r2][c2] = null;
-            filled.add(k2);
-            expanded.push([r2, c2]);
+          if (!board[r2][c2] && !seen.has(k2)) {
+            seen.add(k2);
+            cells.push([r2, c2]);
           }
         }
       }
     }
   }
-  return expanded;
+  return cells;
 }
 
-// Radial glow flash over the expanded cells (~22 frames), then calls onDone.
-function animateExplosion(expandedCells, onDone) {
-  const FRAMES = 22;
-  let frame = 0;
+// Pearl-white ooze animation.
+// Cells are sorted by distance from pinkCell and revealed wave-by-wave with a
+// bright white flash on each newly placed cell.  A pink ripple ring expands
+// from the origin throughout the animation.
+function animateOoze(pinkCell, expandCells, onDone) {
+  const [pr, pc] = pinkCell;
+
+  // Sort by Euclidean distance so the ooze spreads radially outward
+  const sorted = [...expandCells].sort((a, b) =>
+    Math.hypot(a[0]-pr, a[1]-pc) - Math.hypot(b[0]-pr, b[1]-pc)
+  );
+
+  // Bucket into distance waves
+  const waves = [];
+  let prevD = -1;
+  for (const cell of sorted) {
+    const d = Math.round(Math.hypot(cell[0]-pr, cell[1]-pc) * 10);
+    if (d !== prevD) { waves.push([]); prevD = d; }
+    waves[waves.length - 1].push(cell);
+  }
+
+  const FRAMES_PER_WAVE = 5;           // frames between each wave reveal
+  const FLASH_DECAY     = 8;           // frames a cell stays bright after appearing
+  const TAIL_FRAMES     = 18;          // extra frames after last wave for fade-out
+  const totalFrames     = waves.length * FRAMES_PER_WAVE + TAIL_FRAMES;
+
+  let frame     = 0;
+  let waveIdx   = 0;
+  const flashes = [];   // {r, c, age}  — tracks per-cell brightness flash
+
   const loop = () => {
-    draw();
-    const alpha = 1 - frame / FRAMES;
-    for (const [r, c] of expandedCells) {
-      const x = c * CELL + CELL / 2, y = r * CELL + CELL / 2;
-      const grd = ctx.createRadialGradient(x, y, 0, x, y, CELL * 0.9);
-      grd.addColorStop(0,   `rgba(255,210,120,${(alpha * 0.9).toFixed(3)})`);
-      grd.addColorStop(0.5, `rgba(255,160, 60,${(alpha * 0.6).toFixed(3)})`);
-      grd.addColorStop(1,   'rgba(255,100,20,0)');
+    // ── Reveal next wave when its frame arrives ──
+    while (waveIdx < waves.length && frame >= waveIdx * FRAMES_PER_WAVE) {
+      for (const [r, c] of waves[waveIdx]) {
+        board[r][c]     = PEARL;
+        boardMeta[r][c] = null;
+        flashes.push({r, c, age: 0});
+      }
+      waveIdx++;
+    }
+
+    draw(); // draw full board (newly placed pearl cells are already in board[])
+
+    // ── Pink pulse on the origin cell ──
+    const originAlpha = Math.max(0, 0.7 - frame / totalFrames * 0.7);
+    {
+      const ox = pc * CELL + CELL / 2, oy = pr * CELL + CELL / 2;
+      const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, CELL * 0.85);
+      g.addColorStop(0,   `rgba(255,140,200,${originAlpha.toFixed(3)})`);
+      g.addColorStop(0.6, `rgba(235,100,155,${(originAlpha*0.5).toFixed(3)})`);
+      g.addColorStop(1,   'rgba(235,100,155,0)');
       ctx.save();
       ctx.globalCompositeOperation = 'lighter';
-      ctx.fillStyle = grd;
+      ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.arc(x, y, CELL * 0.9, 0, Math.PI * 2);
+      ctx.arc(ox, oy, CELL * 0.85, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
+
+    // ── Expanding pink ripple ring ──
+    const rippleR = frame * CELL * 0.38;
+    const rippleA = Math.max(0, 0.8 - frame / (waves.length * FRAMES_PER_WAVE));
+    ctx.save();
+    ctx.strokeStyle = `rgba(235,100,155,${rippleA.toFixed(3)})`;
+    ctx.lineWidth   = 3;
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.beginPath();
+    ctx.arc(pc * CELL + CELL/2, pr * CELL + CELL/2, rippleR, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+
+    // ── Per-cell bright flash on newly revealed pearl cells ──
+    for (const f of flashes) {
+      const fa = Math.max(0, 1 - f.age / FLASH_DECAY);
+      const fx = f.c * CELL + CELL/2, fy = f.r * CELL + CELL/2;
+      const g = ctx.createRadialGradient(fx, fy, 0, fx, fy, CELL * 0.75);
+      g.addColorStop(0,   `rgba(255,255,255,${(fa * 0.95).toFixed(3)})`);
+      g.addColorStop(0.5, `rgba(220,235,255,${(fa * 0.55).toFixed(3)})`);
+      g.addColorStop(1,   'rgba(200,220,255,0)');
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(fx, fy, CELL * 0.75, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      f.age++;
+    }
+
     frame++;
-    if (frame < FRAMES) requestAnimationFrame(loop);
+    if (frame < totalFrames) requestAnimationFrame(loop);
     else onDone();
   };
+
   requestAnimationFrame(loop);
 }
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1286,12 +1368,16 @@ function lockPiece() {
   });
 
   if (current.key === 'W') {
-    const expanded = expandW(wCoords);
+    // Find the pink (slot) cell — it is the ooze origin
+    const pinkIdx  = (current.cellTypes[current.rot] || []).indexOf('slot');
+    const pinkCell = wCoords[pinkIdx] || wCoords[wCoords.length - 1];
+
+    const expandCells = getExpandCells(wCoords);
     clearTimeout(dropTimer);
     isAnimating = true;
     draw();
-    playSound('explosion');
-    animateExplosion(expanded, () => {
+    playSound('ooze');
+    animateOoze(pinkCell, expandCells, () => {
       isAnimating = false;
       clearLines();
       spawnPiece();
@@ -1305,7 +1391,7 @@ function lockPiece() {
   clearLines();
   spawnPiece();
   drawNext();
-  draw(); // redraw immediately so the locked piece appears
+  draw();
 }
 
 // Floating score label drawn on the board canvas, fades up over ~50 frames.
