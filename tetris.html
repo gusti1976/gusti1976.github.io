@@ -815,6 +815,9 @@ const TRANSLATIONS = {
     touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop',
     lbTitle:       '🏆 High Scores',
     helpTitle:     'How to Play',
+    helpCtrlLabel: 'Controls',
+    helpScoreLabel:'Scoring',
+    scoreHtml:     '1 line — 100 × level<br>2 lines — 300 × level<br>3 lines — 500 × level<br>4 lines (Tetris!) — 800 × level<br><br>Level up every 10 lines.<br>Higher levels score more but pieces fall faster.<br><br>Soft drop +1 pt/cell · Hard drop +2 pts/cell<br><br>🤫 A secret piece occasionally appears — it oozes out and fills gaps around it.<br>⚡ Clear both its side blocks at once for a <b>×256 Quad Power</b> bonus!',
     saveHint:      'Sign in to save your score & appear on the leaderboard',
     personalBest:  '✨ New personal best!',
     yourBest:      s => `Your best: ${s}`,
@@ -839,6 +842,9 @@ const TRANSLATIONS = {
     touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓',
     lbTitle:       '🏆 Melhores Pontuações',
     helpTitle:     'Como Jogar',
+    helpCtrlLabel: 'Controlos',
+    helpScoreLabel:'Pontuação',
+    scoreHtml:     '1 linha — 100 × nível<br>2 linhas — 300 × nível<br>3 linhas — 500 × nível<br>4 linhas (Tetris!) — 800 × nível<br><br>Sobe de nível a cada 10 linhas.<br>Níveis mais altos pontuam mais mas as peças caem mais rápido.<br><br>Queda suave +1 pt/célula · Queda direta +2 pts/célula<br><br>🤫 Uma peça secreta aparece às vezes — alastra-se e preenche lacunas.<br>⚡ Limpa os dois blocos laterais de uma vez para um bónus <b>×256 Quad Power</b>!',
     saveHint:      'Inicie sessão para guardar a sua pontuação e aparecer no ranking',
     personalBest:  '✨ Novo recorde pessoal!',
     yourBest:      s => `O seu melhor: ${s}`,
@@ -863,6 +869,9 @@ const TRANSLATIONS = {
     touchHint:     'Deslize para mover · Toque para girar · Deslize ↓',
     lbTitle:       '🏆 Melhores Pontuações',
     helpTitle:     'Como Jogar',
+    helpCtrlLabel: 'Controles',
+    helpScoreLabel:'Pontuação',
+    scoreHtml:     '1 linha — 100 × nível<br>2 linhas — 300 × nível<br>3 linhas — 500 × nível<br>4 linhas (Tetris!) — 800 × nível<br><br>Sobe de nível a cada 10 linhas.<br>Níveis mais altos pontuam mais mas as peças caem mais rápido.<br><br>Queda suave +1 pt/célula · Queda direta +2 pts/célula<br><br>🤫 Uma peça secreta aparece às vezes — ela se espalha e preenche lacunas.<br>⚡ Limpe os dois blocos laterais de uma vez para um bônus <b>×256 Quad Power</b>!',
     saveHint:      'Entre para salvar sua pontuação e aparecer no ranking',
     personalBest:  '✨ Novo recorde pessoal!',
     yourBest:      s => `Seu recorde: ${s}`,
@@ -887,6 +896,9 @@ const TRANSLATIONS = {
     touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓',
     lbTitle:       '🏆 Mejores Puntuaciones',
     helpTitle:     'Cómo Jugar',
+    helpCtrlLabel: 'Controles',
+    helpScoreLabel:'Puntuación',
+    scoreHtml:     '1 línea — 100 × nivel<br>2 líneas — 300 × nivel<br>3 líneas — 500 × nivel<br>4 líneas (¡Tetris!) — 800 × nivel<br><br>Subes de nivel cada 10 líneas.<br>Niveles más altos puntúan más pero las piezas caen más rápido.<br><br>Caída suave +1 pt/celda · Caída directa +2 pts/celda<br><br>🤫 Una pieza secreta aparece de vez en cuando — se expande y rellena huecos.<br>⚡ ¡Elimina ambos bloques laterales a la vez para un bonus <b>×256 Quad Power</b>!',
     saveHint:      'Inicia sesión para guardar tu puntuación y aparecer en el ranking',
     personalBest:  '✨ ¡Nuevo récord personal!',
     yourBest:      s => `Tu mejor: ${s}`,
@@ -2100,9 +2112,18 @@ for (let c = 0; c <= COLS; c++) {
 
 <!-- Help modal -->
 <div id="help-modal" class="hidden" style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(20,30,80,0.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);">
-  <div style="background:var(--glass-strong);border:1px solid var(--glass-border);border-radius:var(--radius);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:0 16px 48px rgba(40,60,160,0.22);padding:28px 32px;min-width:280px;max-width:94vw;display:flex;flex-direction:column;gap:14px;">
+  <div style="background:var(--glass-strong);border:1px solid var(--glass-border);border-radius:var(--radius);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:0 16px 48px rgba(40,60,160,0.22);padding:28px 32px;min-width:320px;max-width:94vw;display:flex;flex-direction:column;gap:16px;">
     <h2 id="help-modal-title" style="font-size:1.1rem;font-weight:700;color:var(--ink);text-align:center;">How to Play</h2>
-    <div style="font-size:0.82rem;color:var(--ink);line-height:1.8;" id="help-text"></div>
+    <div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;">
+      <div style="flex:0 0 auto;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;" id="help-ctrl-label">Controls</div>
+        <div style="font-size:0.82rem;color:var(--ink);line-height:1.8;" id="help-text"></div>
+      </div>
+      <div style="flex:1;min-width:180px;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;" id="help-score-label">Scoring</div>
+        <div style="font-size:0.82rem;color:var(--ink);line-height:1.9;" id="help-score-text"></div>
+      </div>
+    </div>
     <div style="display:flex;justify-content:center;">
       <button class="btn-sm btn-signout" id="help-close-btn">Close</button>
     </div>
@@ -2297,11 +2318,14 @@ document.getElementById('lb-modal').addEventListener('click', e => {
 // ─── Help overlay ─────────────────────────────────────────────────────────────
 function openHelp() {
   const lang = typeof currentLang !== 'undefined' ? currentLang : 'en';
-  document.getElementById('help-modal-title').textContent =
-    (TRANSLATIONS[lang] || TRANSLATIONS.en).helpTitle;
+  const tr = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  document.getElementById('help-modal-title').textContent = tr.helpTitle;
+  document.getElementById('help-ctrl-label').textContent  = tr.helpCtrlLabel;
+  document.getElementById('help-score-label').textContent = tr.helpScoreLabel;
   const ctrl = document.getElementById('ctrl-text');
   const helpText = document.getElementById('help-text');
   if (ctrl && helpText) helpText.innerHTML = ctrl.innerHTML;
+  document.getElementById('help-score-text').innerHTML = tr.scoreHtml;
   document.getElementById('help-modal').classList.remove('hidden');
 }
 function closeHelp() {
