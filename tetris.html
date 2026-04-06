@@ -635,6 +635,29 @@
     }
     #go-save-msg { font-size: 0.78rem; color: var(--ink-soft); min-height: 1.1em; }
 
+    /* ── Mini top-5 leaderboard in left panel ── */
+    #mini-lb-list {
+      list-style: none;
+      padding: 0;
+      margin: 4px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      width: 100%;
+    }
+    #mini-lb-list li {
+      display: grid;
+      grid-template-columns: 1rem 1fr;
+      gap: 4px;
+      font-size: 0.65rem;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    #mini-lb-list li.lb-me { color: var(--accent); font-weight: 700; }
+    #mini-lb-list .ml-rank { font-weight: 700; text-align: right; }
+    #mini-lb-list .ml-body { overflow: hidden; text-overflow: ellipsis; }
+
     .hidden { display: none !important; }
   </style>
 </head>
@@ -681,6 +704,10 @@
     <div class="panel-section">
       <div class="panel-label" id="lbl-best">Best</div>
       <div class="panel-value" id="best">0</div>
+    </div>
+    <div class="panel-section" id="mini-lb-section">
+      <div class="panel-label">🏆 Top 5</div>
+      <ol id="mini-lb-list"></ol>
     </div>
   </div>
 
@@ -771,7 +798,7 @@ const TRANSLATIONS = {
     startBtn:      'Start Game',
     gameOver:      'Game Over',
     playAgain:     'Play Again',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Move<br><kbd>↑</kbd> Rotate<br><kbd>↓</kbd> Soft drop<br><kbd>Space</kbd> Hard drop<br><kbd>C</kbd> Hold<br><kbd>P</kbd> Pause<br><kbd>M</kbd> Mute',
+    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Move<br><kbd>↑</kbd> Rotate<br><kbd>↓</kbd> Soft drop<br><kbd>Space</kbd> Drop<br><kbd>C</kbd> Hold<br><kbd>P</kbd> Pause<br><kbd>M</kbd> Mute<br><kbd>L</kbd> Leaderboard<br><kbd>H</kbd> Help',
     touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop',
     finalTpl:      (s, lv, ln) => `Score: ${s} · Level ${lv} · ${ln} lines`,
   },
@@ -789,7 +816,7 @@ const TRANSLATIONS = {
     startBtn:      'Começar',
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar de Novo',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rodar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Queda rápida<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Mudo',
+    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rodar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Mudo<br><kbd>L</kbd> Classificação<br><kbd>H</kbd> Ajuda',
     touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓',
     finalTpl:      (s, lv, ln) => `Pontos: ${s} · Nível ${lv} · ${ln} linhas`,
   },
@@ -807,7 +834,7 @@ const TRANSLATIONS = {
     startBtn:      'Começar Jogo',
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar Novamente',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Girar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Queda rápida<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausar<br><kbd>M</kbd> Mudo',
+    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Girar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausar<br><kbd>M</kbd> Mudo<br><kbd>L</kbd> Classificação<br><kbd>H</kbd> Ajuda',
     touchHint:     'Deslize para mover · Toque para girar · Deslize ↓',
     finalTpl:      (s, lv, ln) => `Pontos: ${s} · Nível ${lv} · ${ln} linhas`,
   },
@@ -825,7 +852,7 @@ const TRANSLATIONS = {
     startBtn:      'Iniciar Juego',
     gameOver:      'Fin del Juego',
     playAgain:     'Jugar de Nuevo',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rotar<br><kbd>↓</kbd> Caída suave<br><kbd>Space</kbd> Caída rápida<br><kbd>C</kbd> Retener<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Silencio',
+    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rotar<br><kbd>↓</kbd> Caída suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Retener<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Silencio<br><kbd>L</kbd> Clasificación<br><kbd>H</kbd> Ayuda',
     touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓',
     finalTpl:      (s, lv, ln) => `Puntos: ${s} · Nivel ${lv} · ${ln} líneas`,
   },
@@ -2023,6 +2050,17 @@ for (let c = 0; c <= COLS; c++) {
 }
 </script>
 
+<!-- Help modal -->
+<div id="help-modal" class="hidden" style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(20,30,80,0.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);">
+  <div style="background:var(--glass-strong);border:1px solid var(--glass-border);border-radius:var(--radius);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:0 16px 48px rgba(40,60,160,0.22);padding:28px 32px;min-width:280px;max-width:94vw;display:flex;flex-direction:column;gap:14px;">
+    <h2 style="font-size:1.1rem;font-weight:700;color:var(--ink);text-align:center;">How to Play</h2>
+    <div style="font-size:0.82rem;color:var(--ink);line-height:1.8;" id="help-text"></div>
+    <div style="display:flex;justify-content:center;">
+      <button class="btn-sm btn-signout" id="help-close-btn">Close</button>
+    </div>
+  </div>
+</div>
+
 <!-- Leaderboard modal -->
 <div id="lb-modal" class="hidden">
   <div id="lb-panel">
@@ -2111,6 +2149,7 @@ async function maybeSaveScore(score, level, lines) {
         updatedAt:   firebase.firestore.FieldValue.serverTimestamp(),
       });
       msgEl.textContent = '✨ New personal best saved!';
+      loadMiniLeaderboard();
     } else {
       msgEl.textContent = `Your best: ${prev.toLocaleString()}`;
     }
@@ -2121,13 +2160,31 @@ async function maybeSaveScore(score, level, lines) {
 }
 
 // ─── Leaderboard ─────────────────────────────────────────────────────────────
+// ─── Mini top-5 (always visible in left panel) ───────────────────────────────
+async function loadMiniLeaderboard() {
+  const list = document.getElementById('mini-lb-list');
+  if (!list) return;
+  try {
+    const snap = await db.collection('scores').orderBy('score', 'desc').limit(5).get();
+    list.innerHTML = '';
+    if (snap.empty) { list.innerHTML = '<li><span class="ml-rank">–</span><span class="ml-body">No scores yet</span></li>'; return; }
+    snap.forEach((doc, i) => {
+      const d = doc.data();
+      const li = document.createElement('li');
+      if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
+      li.innerHTML = `<span class="ml-rank">${i+1}</span><span class="ml-body">${d.displayName || 'Anon'} · ${(d.score||0).toLocaleString()}</span>`;
+      list.appendChild(li);
+    });
+  } catch(e) { console.warn('Mini LB error', e); }
+}
+
 async function loadLeaderboard() {
   const list = document.getElementById('lb-list');
   list.innerHTML = '<li style="justify-content:center;opacity:.6">Loading…</li>';
   try {
     const snap = await db.collection('scores')
       .orderBy('score', 'desc')
-      .limit(10)
+      .limit(20)
       .get();
     list.innerHTML = '';
     if (snap.empty) {
@@ -2165,6 +2222,43 @@ document.getElementById('lb-refresh-btn').addEventListener('click', loadLeaderbo
 document.getElementById('lb-modal').addEventListener('click', e => {
   if (e.target === document.getElementById('lb-modal')) closeLeaderboard();
 });
+
+// ─── Help overlay ─────────────────────────────────────────────────────────────
+function openHelp() {
+  // Reuse the translated controls text already in the game
+  const ctrl = document.getElementById('ctrl-text');
+  const helpText = document.getElementById('help-text');
+  if (ctrl && helpText) helpText.innerHTML = ctrl.innerHTML;
+  document.getElementById('help-modal').classList.remove('hidden');
+}
+function closeHelp() {
+  document.getElementById('help-modal').classList.add('hidden');
+}
+document.getElementById('help-close-btn').addEventListener('click', closeHelp);
+document.getElementById('help-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('help-modal')) closeHelp();
+});
+
+// ─── L / H key bindings (work any time — even while paused or on overlay) ────
+document.addEventListener('keydown', e => {
+  if (e.key === 'l' || e.key === 'L') {
+    e.preventDefault();
+    const modal = document.getElementById('lb-modal');
+    if (modal.classList.contains('hidden')) openLeaderboard();
+    else closeLeaderboard();
+  }
+  if (e.key === 'h' || e.key === 'H') {
+    e.preventDefault();
+    const modal = document.getElementById('help-modal');
+    if (modal.classList.contains('hidden')) openHelp();
+    else closeHelp();
+  }
+});
+
+// Load mini LB on page load
+loadMiniLeaderboard();
+// Refresh mini LB when auth state changes (user signs in/out)
+auth.onAuthStateChanged(() => loadMiniLeaderboard());
 </script>
 </body>
 </html>
