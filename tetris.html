@@ -1946,8 +1946,8 @@ function draw() {
   ctx.clearRect(0, 0, boardCanvas.width, boardCanvas.height);
 
   // Grid lines — very subtle cell guides
-  ctx.strokeStyle = 'rgba(180,200,255,0.22)';
-  ctx.lineWidth = 0.4;
+  ctx.strokeStyle = 'rgba(90,100,125,0.60)';
+  ctx.lineWidth = 0.5;
   for (let r = 0; r <= ROWS; r++) {
     ctx.beginPath(); ctx.moveTo(0, r * CELL); ctx.lineTo(COLS * CELL, r * CELL); ctx.stroke();
   }
