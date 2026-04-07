@@ -4,7 +4,7 @@
 **Author:** Agust Smari Bjarkarson / Agust Islandia  
 **Live URL:** https://www.gusti.com/tetris.html  
 **Source:** `gusti1976.github.io` → `tetris.html` (single file, no build step)  
-**Current version:** 0.179 (increment by 0.001 each release — visible in footer)
+**Current version:** 0.184 (increment by 0.001 each release — visible in footer)
 
 ---
 
@@ -184,6 +184,31 @@ After normal lock, the **caller** is responsible for `scheduleDrop()`:
 Both use a manual counter (`let i = 0; i++`) instead of `forEach((doc, i) =>` because Firestore's `QuerySnapshot.forEach` does not pass an index.
 
 NaN-proofing: `Math.floor(Number(d.score) || 0)` and `(d.displayName || d.name || 'Anon').split(' ')[0]`
+
+---
+
+## Dark Mode
+
+Toggled by an Apple-style pill switch next to the language selector. Preference saved to `localStorage` key `tetris_dark`. Falls back to `prefers-color-scheme` on first visit.
+
+**Implementation:** `body.dark` class on `<body>` overrides CSS variables defined in `:root`. All glass panels, backgrounds, ink colours, and borders are driven by vars so dark mode is a single class toggle.
+
+**Key dark mode vars:**
+```css
+body.dark {
+  --bg-a/b/c: deep navy/purple tones
+  --bg-base: dark gradient
+  --ink: #dce8ff  (light text)
+  --ink-soft: #8ea8d8
+  --glass: rgba(20,32,70,0.72)
+  --glass-strong: rgba(18,28,60,0.88)
+  --glass-border: rgba(80,110,200,0.28)
+}
+```
+
+**Translation keys:** `darkLight` / `darkDark` in all 4 languages. Label re-translates via `updateDarkLabel()` called from `applyLang()`.
+
+**Gotcha:** `darkCb` and `darkLabel` must be declared before `applyLang()` runs (same temporal dead zone rule as `lastEndGame`).
 
 ---
 
