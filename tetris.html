@@ -2129,7 +2129,14 @@ boardCanvas.addEventListener('touchend', e => {
 // Buttons — unlock AudioContext on first click (browser autoplay policy),
 // then start the game once the context is guaranteed running.
 function handleStart() {
-  unlockAudio().then(startGame).catch(startGame);
+  try {
+    unlockAudio()
+      .then(() => { try { startGame(); } catch(e) { console.error('startGame error:', e); } })
+      .catch(e  => { console.warn('audio unlock failed:', e); try { startGame(); } catch(e2) { console.error('startGame error:', e2); } });
+  } catch(e) {
+    console.warn('unlockAudio threw:', e);
+    try { startGame(); } catch(e2) { console.error('startGame error:', e2); }
+  }
 }
 document.getElementById('startBtn').addEventListener('click', handleStart);
 document.getElementById('restartBtn').addEventListener('click', handleStart);
