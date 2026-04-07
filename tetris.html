@@ -897,7 +897,7 @@
 </footer>
 
 <script>
-const VERSION = '0.189';
+const VERSION = '0.190';
 document.getElementById('version-label').textContent = 'v' + VERSION;
 
 // ─────────────────────────────────────────────
@@ -1121,8 +1121,8 @@ function setDark(on) {
   darkCb.checked = on;
   updateDarkLabel();
   localStorage.setItem('tetris_dark', on ? '1' : '0');
-  // Re-apply level tint in the correct palette
-  if (typeof updateBodyTheme === 'function' && typeof level !== 'undefined') updateBodyTheme();
+  // Re-apply level tint in the correct palette (guard: level may be in TDZ at page load)
+  try { updateBodyTheme(); } catch(e) {}
 }
 
 const _savedDark = localStorage.getItem('tetris_dark');
