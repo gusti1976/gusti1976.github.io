@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Custom T-Piece Sprite Test</title>
+  <title>Grid Preview — Tetris Flare</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -12,7 +12,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 32px;
+      gap: 28px;
+      padding: 32px 16px;
       background:
         radial-gradient(ellipse at 20% 20%, #c8d8ff 0%, transparent 50%),
         radial-gradient(ellipse at 80% 10%, #e8c8f0 0%, transparent 40%),
@@ -20,232 +21,118 @@
       font-family: -apple-system, system-ui, sans-serif;
       color: #1a2a4a;
     }
-    h1 { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.04em; opacity: 0.65; }
-    .card {
-      background: rgba(255,255,255,0.45);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.7);
-      border-radius: 20px;
-      padding: 32px 40px;
-      box-shadow: 0 8px 32px rgba(80,100,180,0.15);
+    h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.05em; opacity: 0.7; }
+    .row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .option {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
-    .label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.5; }
-    canvas { display: block; }
+    .label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+    canvas {
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(40,60,140,0.18);
+    }
   </style>
 </head>
 <body>
-  <h1>Custom T-Piece Sprite — Preview</h1>
-
-  <div class="card">
-    <div class="label">Full Piece</div>
-    <canvas id="full"></canvas>
-  </div>
-
-  <div class="card">
-    <div class="label">Bottom Block Detail — Slot Groove Close-up</div>
-    <canvas id="zoom"></canvas>
-  </div>
+  <h1>Grid line options — pick your favourite</h1>
+  <div class="row" id="previews"></div>
 
   <script>
-    const CELL = 56;   // px per block
-    const GAP  = 4;    // gap between blocks
+    const COLS = 10, ROWS = 14, CELL = 26;
+    const W = COLS * CELL, H = ROWS * CELL;
 
-    // ─── Shape ──────────────────────────────────────────
-    //
-    //  col:  0        1        2
-    //  row 0: [QUAD]  [NORM]  [QUAD]    ← top bar
-    //  row 1:         [NORM]            ← stem #1
-    //  row 2:         [NORM]            ← stem #2
-    //  row 3:         [NORM]            ← stem #3
-    //  row 4:         [SLOT]            ← stem #4 — straight-line groove bottom
-
-    const SHAPE = [
-      ['quad', 'norm', 'quad'],
-      [null,   'norm', null  ],
-      [null,   'norm', null  ],
-      [null,   'slot', null  ],
+    // Sample locked pieces to make it feel real
+    const PIECES = [
+      { color: 'rgba(80,200,255,0.82)',  cells: [[11,0],[11,1],[12,0],[12,1]] },
+      { color: 'rgba(255,100,80,0.82)',  cells: [[10,4],[11,4],[11,5],[12,5]] },
+      { color: 'rgba(120,220,120,0.82)', cells: [[12,6],[12,7],[11,7],[11,8]] },
+      { color: 'rgba(255,200,60,0.82)',  cells: [[11,2],[11,3],[11,4]] },
+      { color: 'rgba(185,128,55,0.88)',  cells: [[9,1],[9,2],[9,3],[10,2],[11,2],[12,2]] },
     ];
 
-    const ROWS = SHAPE.length;     // 5
-    const COLS = SHAPE[0].length;  // 3
+    const grids = [
+      { label: 'A — Current (0.22)',   color: 'rgba(180,200,255,0.22)', width: 0.4 },
+      { label: 'B — Soft gray',        color: 'rgba(140,150,170,0.30)', width: 0.5 },
+      { label: 'C — Medium gray',      color: 'rgba(110,120,145,0.45)', width: 0.5 },
+      { label: 'D — Stronger gray',    color: 'rgba(90,100,125,0.60)',  width: 0.5 },
+      { label: 'E — Dark charcoal',    color: 'rgba(60,70,95,0.75)',    width: 0.5 },
+    ];
 
-    // ─── Palette — brown (bar + most of stem) ────────────
-    const C_FILL   = 'rgba(185, 128, 55, 0.90)';
-    const C_SHINE  = 'rgba(255, 210, 130, 0.60)';
-    const C_EDGE   = 'rgba(255, 255, 255, 0.40)';
-    const C_SHADOW = 'rgba(90, 50, 10, 0.30)';
-    const C_SLOT   = 'rgba(50, 25, 5, 0.60)';
-
-    // ─── Palette — pink (stem block 4) ───────────────────
-    const P_FILL   = 'rgba(235, 100, 155, 0.90)';
-    const P_SHINE  = 'rgba(255, 190, 220, 0.65)';
-    const P_SLOT   = 'rgba(130, 30, 70, 0.60)';
-
-    // ─── Draw a normal block ──────────────────────────────
-    function drawNorm(ctx, bx, by) {
-      const r = 5;
-      ctx.save();
+    function drawCell(ctx, r, c, color) {
+      const x = c * CELL + 1, y = r * CELL + 1, s = CELL - 2;
+      const rad = s * 0.18;
       ctx.beginPath();
-      ctx.roundRect(bx, by, CELL, CELL, r);
-      ctx.fillStyle = C_FILL;
-      ctx.fill();
-      ctx.strokeStyle = C_EDGE;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      // top shine
-      ctx.beginPath();
-      ctx.roundRect(bx + 4, by + 3, CELL - 8, CELL * 0.28, [3, 3, 5, 5]);
-      ctx.fillStyle = C_SHINE;
-      ctx.fill();
-      // bottom shadow
-      ctx.beginPath();
-      ctx.roundRect(bx + 3, by + CELL - 6, CELL - 6, 5, [0, 0, 3, 3]);
-      ctx.fillStyle = C_SHADOW;
-      ctx.fill();
-      ctx.restore();
-    }
-
-    // ─── Draw a QUAD block (2×2 decorative sub-blocks) ───
-    // Four equal sub-squares fill the cell with a small gap between them.
-    function drawQuad(ctx, bx, by) {
-      const subGap = 4;
-      const half = (CELL - subGap) / 2;
-      const r = 4;
-      const positions = [
-        [bx,          by         ],   // top-left
-        [bx + half + subGap, by         ],   // top-right
-        [bx,          by + half + subGap],   // bottom-left
-        [bx + half + subGap, by + half + subGap],   // bottom-right
-      ];
-      ctx.save();
-      for (const [sx, sy] of positions) {
-        // fill
-        ctx.beginPath();
-        ctx.roundRect(sx, sy, half, half, r);
-        ctx.fillStyle = C_FILL;
-        ctx.fill();
-        ctx.strokeStyle = C_EDGE;
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-        // mini shine on each sub-block
-        ctx.beginPath();
-        ctx.roundRect(sx + 3, sy + 2, half - 6, half * 0.28, [2, 2, 4, 4]);
-        ctx.fillStyle = C_SHINE;
-        ctx.fill();
-      }
-      ctx.restore();
-    }
-
-    // ─── Draw the SLOT block (straight-line groove bottom) ─
-    // Same width as the arc version (2 × 0.28 × CELL), rectangular cut.
-    function drawSlot(ctx, bx, by, fill, shine, slotShadow) {
-      fill       = fill       || C_FILL;
-      shine      = shine      || C_SHINE;
-      slotShadow = slotShadow || C_SLOT;
-      const r = 5;
-      const slotW = CELL * 0.056;         // 10% of original width
-      const slotH = CELL * 0.28;          // depth = roughly same as arc radius
-      const slotX = bx + (CELL - slotW) / 2;
-      const slotBottom = by + CELL;
-
-      ctx.save();
-
-      // Block outline — rectangular bottom corners where slot is
-      ctx.beginPath();
-      // top side (rounded corners)
-      ctx.moveTo(bx + r, by);
-      ctx.lineTo(bx + CELL - r, by);
-      ctx.arcTo(bx + CELL, by, bx + CELL, by + r, r);
-      // right side
-      ctx.lineTo(bx + CELL, slotBottom);
-      // bottom: right section → slot right wall → flat slot bottom → slot left wall → left section
-      ctx.lineTo(slotX + slotW, slotBottom);
-      ctx.lineTo(slotX + slotW, slotBottom - slotH);   // slot right wall (goes UP)
-      ctx.lineTo(slotX,         slotBottom - slotH);   // flat slot floor
-      ctx.lineTo(slotX,         slotBottom);            // slot left wall (goes DOWN)
-      ctx.lineTo(bx, slotBottom);
-      // left side
-      ctx.lineTo(bx, by + r);
-      ctx.arcTo(bx, by, bx + r, by, r);
+      ctx.moveTo(x + rad, y);
+      ctx.lineTo(x + s - rad, y);
+      ctx.quadraticCurveTo(x + s, y, x + s, y + rad);
+      ctx.lineTo(x + s, y + s - rad);
+      ctx.quadraticCurveTo(x + s, y + s, x + s - rad, y + s);
+      ctx.lineTo(x + rad, y + s);
+      ctx.quadraticCurveTo(x, y + s, x, y + s - rad);
+      ctx.lineTo(x, y + rad);
+      ctx.quadraticCurveTo(x, y, x + rad, y);
       ctx.closePath();
-
-      ctx.fillStyle = fill;
+      ctx.fillStyle = color;
       ctx.fill();
-      ctx.strokeStyle = C_EDGE;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      // top shine
-      ctx.beginPath();
-      ctx.roundRect(bx + 4, by + 3, CELL - 8, CELL * 0.28, [3, 3, 5, 5]);
-      ctx.fillStyle = shine;
+      // Highlight
+      const g = ctx.createLinearGradient(x, y, x, y + s * 0.5);
+      g.addColorStop(0, 'rgba(255,255,255,0.28)');
+      g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = g;
       ctx.fill();
-
-      // slot interior shadow (makes the groove look recessed)
-      ctx.beginPath();
-      ctx.rect(slotX + 1, slotBottom - slotH + 1, slotW - 2, slotH - 1);
-      ctx.fillStyle = slotShadow;
-      ctx.fill();
-
-      // slot edge highlight (top inner edge of the groove)
-      ctx.beginPath();
-      ctx.moveTo(slotX + 1, slotBottom - slotH + 2);
-      ctx.lineTo(slotX + slotW - 1, slotBottom - slotH + 2);
-      ctx.strokeStyle = 'rgba(255,180,80,0.30)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      ctx.restore();
     }
 
-    // ─── Render to a canvas ───────────────────────────────
-    function render(cv, scale) {
-      scale = scale || 1;
-      const PAD = Math.round(20 * scale);
-      const S   = Math.round(CELL * scale);
-      const G   = Math.round(GAP  * scale);
-      cv.width  = COLS * (S + G) - G + PAD * 2;
-      cv.height = ROWS * (S + G) - G + PAD * 2;
-      const ctx = cv.getContext('2d');
-      if (scale !== 1) ctx.scale(scale, scale);
+    function buildPreview(grid) {
+      const wrap = document.createElement('div');
+      wrap.className = 'option';
+      const lbl = document.createElement('div');
+      lbl.className = 'label';
+      lbl.textContent = grid.label;
+      const canvas = document.createElement('canvas');
+      canvas.width = W; canvas.height = H;
+      const ctx = canvas.getContext('2d');
 
-      const origCell = CELL;
-      // temporarily override CELL for drawing (achieved via closure — we draw manually)
-      for (let row = 0; row < ROWS; row++) {
-        for (let col = 0; col < COLS; col++) {
-          const type = SHAPE[row][col];
-          if (!type) continue;
-          const bx = (PAD + col * (CELL + GAP)) / scale * scale - (scale - 1) * 0 | 0;
-          const by = (PAD + row * (CELL + GAP)) / scale * scale - (scale - 1) * 0 | 0;
-          // pixel positions
-          const px = PAD / scale + col * (CELL + GAP);
-          const py = PAD / scale + row * (CELL + GAP);
-          if (type === 'quad') drawQuad(ctx, px, py);
-          else if (type === 'norm') drawNorm(ctx, px, py);
-          else if (type === 'slot') drawSlot(ctx, px, py, P_FILL, P_SHINE, P_SLOT);
-        }
+      // Background
+      const bg = ctx.createLinearGradient(0, 0, W, H);
+      bg.addColorStop(0, 'rgba(18,28,70,0.92)');
+      bg.addColorStop(1, 'rgba(30,20,60,0.92)');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // Grid
+      ctx.strokeStyle = grid.color;
+      ctx.lineWidth = grid.width;
+      for (let r = 0; r <= ROWS; r++) {
+        ctx.beginPath(); ctx.moveTo(0, r * CELL); ctx.lineTo(W, r * CELL); ctx.stroke();
       }
+      for (let c = 0; c <= COLS; c++) {
+        ctx.beginPath(); ctx.moveTo(c * CELL, 0); ctx.lineTo(c * CELL, H); ctx.stroke();
+      }
+
+      // Pieces
+      PIECES.forEach(p => p.cells.forEach(([r, c]) => drawCell(ctx, r, c, p.color)));
+
+      wrap.appendChild(lbl);
+      wrap.appendChild(canvas);
+      return wrap;
     }
 
-    // Full piece (1×)
-    render(document.getElementById('full'), 1);
-
-    // Zoom in on just the slot block (3×)
-    (function() {
-      const scale = 3;
-      const PAD = 24;
-      const cv = document.getElementById('zoom');
-      cv.width  = CELL * scale + PAD * 2;
-      cv.height = CELL * scale + PAD * 2;
-      const ctx = cv.getContext('2d');
-      ctx.scale(scale, scale);
-      drawSlot(ctx, PAD / scale, PAD / scale, P_FILL, P_SHINE, P_SLOT);
-    })();
+    const row = document.getElementById('previews');
+    grids.forEach(g => row.appendChild(buildPreview(g)));
   </script>
 </body>
 </html>
