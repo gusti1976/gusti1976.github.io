@@ -791,7 +791,14 @@
 
 <div id="touch-hint" data-i18n="touchHint">Swipe to move · Tap to rotate · Swipe ↓ to drop</div>
 
+<footer style="text-align:center;font-size:0.65rem;color:var(--ink-soft);opacity:0.55;padding:10px 0 14px;user-select:none;">
+  © Agust Islandia · All rights reserved &nbsp;·&nbsp; <span id="version-label"></span>
+</footer>
+
 <script>
+const VERSION = '0.179';
+document.getElementById('version-label').textContent = 'v' + VERSION;
+
 // ─────────────────────────────────────────────
 //  TETRIS ENGINE
 // ─────────────────────────────────────────────
