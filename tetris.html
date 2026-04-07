@@ -874,7 +874,7 @@
 </footer>
 
 <script>
-const VERSION = '0.183';
+const VERSION = '0.184';
 document.getElementById('version-label').textContent = 'v' + VERSION;
 
 // ─────────────────────────────────────────────
@@ -1020,6 +1020,8 @@ function detectLang() {
 
 let currentLang = detectLang();
 let lastEndGame = null; // { score, level, lines, msgKey, msgArg } — for re-translating game over overlay
+const darkCb    = document.getElementById('dark-checkbox');
+const darkLabel = document.getElementById('toggle-label');
 
 function t(key) { return TRANSLATIONS[currentLang][key] || TRANSLATIONS.en[key]; }
 
@@ -1086,9 +1088,6 @@ document.querySelectorAll('.lang-option').forEach(b => {
 applyLang();
 
 // ── Dark mode toggle ──────────────────────────────────────────────────────────
-const darkCb    = document.getElementById('dark-checkbox');
-const darkLabel = document.getElementById('toggle-label');
-
 function updateDarkLabel() {
   const tr = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
   darkLabel.textContent = darkCb.checked ? (tr.darkDark || 'Dark') : (tr.darkLight || 'Light');
