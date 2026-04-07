@@ -4,7 +4,7 @@
 **Author:** Agust Smari Bjarkarson / Agust Islandia  
 **Live URL:** https://www.gusti.com/tetris.html  
 **Source:** `gusti1976.github.io` → `tetris.html` (single file, no build step)  
-**Current version:** 0.184 (increment by 0.001 each release — visible in footer)
+**Current version:** 0.187 (increment by 0.001 each release — visible in footer)
 
 ---
 
