@@ -1412,7 +1412,17 @@ function getCells(piece) {
 
 function moveLeft()  { tryMove(0, -1); }
 function moveRight() { tryMove(0,  1); }
-function softDrop()  { if (!tryMove(1, 0)) lockPiece(); else { score += 1; playSound('softDrop'); } updateUI(); }
+function softDrop() {
+  if (!tryMove(1, 0)) {
+    lockPiece();
+  } else {
+    score += 1;
+    playSound('softDrop');
+    clearTimeout(dropTimer);
+    scheduleDrop();
+  }
+  updateUI();
+}
 
 function tryMove(dr, dc) {
   const next = {...current, row: current.row + dr, col: current.col + dc};
@@ -1450,6 +1460,8 @@ function holdAction() {
       key: temp,
       color: PIECES[temp].color,
       cells: PIECES[temp].cells,
+      cellColors: PIECES[temp].cellColors || null,
+      cellTypes: PIECES[temp].cellTypes || null,
       rot: 0,
       row: 1,
       col: Math.floor(COLS / 2),
@@ -1615,7 +1627,14 @@ function lockPiece() {
     const pinkCell = wCoords[pinkIdx] || wCoords[wCoords.length - 1];
 
     const expandCells = getExpandCells(wCoords);
-    clearTimeout(dropTimer);
+    if (expandCells.length === 0) {
+      clearLines();
+      spawnPiece();
+      drawNext();
+      draw();
+      scheduleDrop();
+      return;
+    }
     isAnimating = true;
     draw();
     playSound('ooze');
@@ -2239,11 +2258,14 @@ async function maybeSaveScore(score, level, lines) {
     const snap = await ref.get();
     const prev = snap.exists ? (snap.data().score || 0) : 0;
     const tr = (TRANSLATIONS[currentLang] || TRANSLATIONS.en);
-    if (score > prev) {
+    const safeScore = Math.floor(Number(score) || 0);
+    const safeLevel = Math.floor(Number(level) || 1);
+    const safeLines = Math.floor(Number(lines) || 0);
+    if (safeScore > prev) {
       await ref.set({
         displayName: (fbUser.displayName || 'Anonymous').split(' ')[0],
         photoURL:    fbUser.photoURL    || '',
-        score, level, lines,
+        score: safeScore, level: safeLevel, lines: safeLines,
         updatedAt:   firebase.firestore.FieldValue.serverTimestamp(),
       });
       msgEl.textContent = tr.personalBest;
