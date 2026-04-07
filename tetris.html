@@ -275,12 +275,22 @@
     }
 
     .overlay.hidden { display: none; }
+    body.dark .overlay {
+      background: rgba(8,14,40,0.72);
+    }
+    body.dark .overlay p {
+      color: rgba(200,220,255,0.85);
+    }
 
     .overlay h2 {
       font-size: 2rem;
       font-weight: 700;
       color: var(--ink);
       text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    }
+    body.dark .overlay h2 {
+      color: #ffffff;
+      text-shadow: 0 1px 6px rgba(0,0,20,0.6);
     }
 
     .overlay p {
@@ -881,7 +891,7 @@
 </footer>
 
 <script>
-const VERSION = '0.185';
+const VERSION = '0.186';
 document.getElementById('version-label').textContent = 'v' + VERSION;
 
 // ─────────────────────────────────────────────
