@@ -1415,6 +1415,7 @@ function moveRight() { tryMove(0,  1); }
 function softDrop() {
   if (!tryMove(1, 0)) {
     lockPiece();
+    scheduleDrop(); // lockPiece cleared the timer; restart it for the new piece
   } else {
     score += 1;
     playSound('softDrop');
@@ -1448,6 +1449,7 @@ function hardDrop() {
   updateUI();
   playSound('hardDrop');
   lockPiece();
+  scheduleDrop(); // lockPiece cleared the timer; restart it for the new piece
 }
 
 function holdAction() {
@@ -1653,7 +1655,7 @@ function lockPiece() {
   spawnPiece();
   drawNext();
   draw();
-  scheduleDrop();
+  // scheduleDrop() is called by the caller — timer callback, softDrop, or hardDrop
 }
 
 // Floating score label drawn on the board canvas, fades up over ~50 frames.
