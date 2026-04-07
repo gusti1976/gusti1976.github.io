@@ -695,46 +695,50 @@
     }
 
     #dark-toggle {
-      position: relative;
-      width: 42px;
-      height: 26px;
-      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      user-select: none;
     }
     #dark-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
     #dark-toggle .track {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      width: 38px;
+      height: 22px;
+      flex-shrink: 0;
       background: rgba(255,255,255,0.3);
       border: 1px solid rgba(255,255,255,0.48);
       border-radius: 50px;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      cursor: pointer;
       transition: background 0.25s, border-color 0.25s;
     }
-    #dark-toggle input:checked + .track {
+    #dark-toggle input:checked ~ .track {
       background: rgba(60,80,200,0.55);
       border-color: rgba(100,130,255,0.5);
     }
     #dark-toggle .thumb {
       position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 18px;
-      height: 18px;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
       background: #fff;
       border-radius: 50%;
       box-shadow: 0 1px 4px rgba(0,0,0,0.22);
       transition: transform 0.25s cubic-bezier(.4,0,.2,1);
       pointer-events: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      line-height: 1;
     }
-    #dark-toggle input:checked ~ .thumb { transform: translateX(16px); }
-    .toggle-icon { pointer-events: none; user-select: none; }
+    #dark-toggle input:checked ~ .track .thumb { transform: translateX(16px); }
+    .toggle-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: rgba(13,26,51,0.5);
+      transition: color 0.2s;
+      min-width: 28px;
+    }
+    body.dark .toggle-label { color: rgba(220,232,255,0.55); }
   </style>
 </head>
 <body>
@@ -756,10 +760,10 @@
         <button class="lang-option" data-lang="es">Español</button>
       </div>
     </div>
-    <label id="dark-toggle" title="Dark mode">
+    <label id="dark-toggle">
       <input type="checkbox" id="dark-checkbox">
-      <span class="track"></span>
-      <span class="thumb"><span class="toggle-icon" id="toggle-icon">☀️</span></span>
+      <span class="track"><span class="thumb"></span></span>
+      <span class="toggle-label" id="toggle-label">Light</span>
     </label>
   </div>
 </div>
@@ -868,7 +872,7 @@
 </footer>
 
 <script>
-const VERSION = '0.181';
+const VERSION = '0.182';
 document.getElementById('version-label').textContent = 'v' + VERSION;
 
 // ─────────────────────────────────────────────
@@ -896,6 +900,8 @@ const TRANSLATIONS = {
     playAgain:     'Play Again',
     ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Move<br><kbd>↑</kbd> Rotate<br><kbd>↓</kbd> Soft drop<br><kbd>Space</kbd> Drop<br><kbd>C</kbd> Hold<br><kbd>P</kbd> Pause<br><kbd>M</kbd> Mute<br><kbd>L</kbd> Leaderboard<br><kbd>H</kbd> Help',
     touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop',
+    darkLight:     'Light',
+    darkDark:      'Dark',
     lbTitle:       '🏆 High Scores',
     helpTitle:     'How to Play',
     helpCtrlLabel: 'Controls',
@@ -923,6 +929,8 @@ const TRANSLATIONS = {
     playAgain:     'Jogar de Novo',
     ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rodar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Mudo<br><kbd>L</kbd> Classificação<br><kbd>H</kbd> Ajuda',
     touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓',
+    darkLight:     'Claro',
+    darkDark:      'Escuro',
     lbTitle:       '🏆 Melhores Pontuações',
     helpTitle:     'Como Jogar',
     helpCtrlLabel: 'Controlos',
@@ -950,6 +958,8 @@ const TRANSLATIONS = {
     playAgain:     'Jogar Novamente',
     ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Girar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausar<br><kbd>M</kbd> Mudo<br><kbd>L</kbd> Classificação<br><kbd>H</kbd> Ajuda',
     touchHint:     'Deslize para mover · Toque para girar · Deslize ↓',
+    darkLight:     'Claro',
+    darkDark:      'Escuro',
     lbTitle:       '🏆 Melhores Pontuações',
     helpTitle:     'Como Jogar',
     helpCtrlLabel: 'Controles',
@@ -977,6 +987,8 @@ const TRANSLATIONS = {
     playAgain:     'Jugar de Nuevo',
     ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rotar<br><kbd>↓</kbd> Caída suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Retener<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Silencio<br><kbd>L</kbd> Clasificación<br><kbd>H</kbd> Ayuda',
     touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓',
+    darkLight:     'Claro',
+    darkDark:      'Oscuro',
     lbTitle:       '🏆 Mejores Puntuaciones',
     helpTitle:     'Cómo Jugar',
     helpCtrlLabel: 'Controles',
@@ -1022,6 +1034,8 @@ function applyLang() {
   });
   // Controls need innerHTML (kbd tags)
   document.getElementById('ctrl-text').innerHTML = t('ctrlHtml');
+  // Dark mode label re-translates
+  if (typeof updateDarkLabel === 'function') updateDarkLabel();
 
   // Re-translate game over overlay dynamic strings if it is currently visible
   const gameOverOverlay = document.getElementById('gameOverOverlay');
@@ -1070,28 +1084,29 @@ document.querySelectorAll('.lang-option').forEach(b => {
 applyLang();
 
 // ── Dark mode toggle ──────────────────────────────────────────────────────────
-(function() {
-  const cb   = document.getElementById('dark-checkbox');
-  const icon = document.getElementById('toggle-icon');
-  const body = document.body;
+const darkCb    = document.getElementById('dark-checkbox');
+const darkLabel = document.getElementById('toggle-label');
 
-  function setDark(on) {
-    body.classList.toggle('dark', on);
-    cb.checked  = on;
-    icon.textContent = on ? '🌙' : '☀️';
-    localStorage.setItem('tetris_dark', on ? '1' : '0');
-  }
+function updateDarkLabel() {
+  const tr = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  darkLabel.textContent = darkCb.checked ? (tr.darkDark || 'Dark') : (tr.darkLight || 'Light');
+}
 
-  // Restore saved preference, else use system preference
-  const saved = localStorage.getItem('tetris_dark');
-  if (saved !== null) {
-    setDark(saved === '1');
-  } else {
-    setDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
-  }
+function setDark(on) {
+  document.body.classList.toggle('dark', on);
+  darkCb.checked = on;
+  updateDarkLabel();
+  localStorage.setItem('tetris_dark', on ? '1' : '0');
+}
 
-  cb.addEventListener('change', () => setDark(cb.checked));
-})();
+const _savedDark = localStorage.getItem('tetris_dark');
+if (_savedDark !== null) {
+  setDark(_savedDark === '1');
+} else {
+  setDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+}
+
+darkCb.addEventListener('change', () => setDark(darkCb.checked));
 
 // ─────────────────────────────────────────────
 //  AUDIO ENGINE  (Web Audio API — no external files)
