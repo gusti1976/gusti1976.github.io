@@ -891,7 +891,7 @@
 </footer>
 
 <script>
-const VERSION = '0.187';
+const VERSION = '0.188';
 document.getElementById('version-label').textContent = 'v' + VERSION;
 
 // ─────────────────────────────────────────────
@@ -1115,6 +1115,8 @@ function setDark(on) {
   darkCb.checked = on;
   updateDarkLabel();
   localStorage.setItem('tetris_dark', on ? '1' : '0');
+  // Re-apply level tint in the correct palette
+  if (typeof updateBodyTheme === 'function' && typeof level !== 'undefined') updateBodyTheme();
 }
 
 const _savedDark = localStorage.getItem('tetris_dark');
@@ -1889,12 +1891,22 @@ function updateUI() {
 const LEVEL_HUES = [230, 200, 170, 140, 110, 80, 50, 20, 350, 320];
 function updateBodyTheme() {
   const h = LEVEL_HUES[(level - 1) % LEVEL_HUES.length];
-  document.body.style.background = `
-    radial-gradient(ellipse at 10% 15%, hsl(${h},70%,78%) 0%, transparent 40%),
-    radial-gradient(ellipse at 90% 8%, hsl(${h+40},60%,82%) 0%, transparent 38%),
-    radial-gradient(ellipse at 50% 90%, hsl(${h+80},65%,80%) 0%, transparent 38%),
-    linear-gradient(135deg, hsl(${h+10},45%,68%) 0%, hsl(${h+30},40%,68%) 50%, hsl(${h+50},38%,66%) 100%)
-  `;
+  const dark = document.body.classList.contains('dark');
+  if (dark) {
+    document.body.style.background = `
+      radial-gradient(ellipse at 10% 15%, hsl(${h},55%,12%) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 8%, hsl(${h+40},45%,10%) 0%, transparent 38%),
+      radial-gradient(ellipse at 50% 90%, hsl(${h+80},50%,10%) 0%, transparent 38%),
+      linear-gradient(135deg, hsl(${h+10},35%,8%) 0%, hsl(${h+30},30%,9%) 50%, hsl(${h+50},28%,8%) 100%)
+    `;
+  } else {
+    document.body.style.background = `
+      radial-gradient(ellipse at 10% 15%, hsl(${h},70%,78%) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 8%, hsl(${h+40},60%,82%) 0%, transparent 38%),
+      radial-gradient(ellipse at 50% 90%, hsl(${h+80},65%,80%) 0%, transparent 38%),
+      linear-gradient(135deg, hsl(${h+10},45%,68%) 0%, hsl(${h+30},40%,68%) 50%, hsl(${h+50},38%,66%) 100%)
+    `;
+  }
 }
 
 // ─────────────────────────────────────────────
