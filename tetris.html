@@ -870,7 +870,7 @@
     <div class="panel-section" style="margin-top:auto;">
       <div class="panel-label" id="lbl-controls">Controls</div>
       <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">
-        <div id="ctrl-text" style="font-size:0.72rem;color:var(--ink-soft);line-height:1.85;"></div>
+        <div id="ctrl-text" style="font-size:0.72rem;color:var(--ink-soft);display:flex;flex-direction:column;gap:4px;margin-top:4px;"></div>
       </div>
     </div>
     <!-- Auth bar -->
@@ -897,7 +897,7 @@
 </footer>
 
 <script>
-const VERSION = '0.190';
+const VERSION = '0.191';
 document.getElementById('version-label').textContent = 'v' + VERSION;
 
 // ─────────────────────────────────────────────
@@ -923,7 +923,7 @@ const TRANSLATIONS = {
     startBtn:      'Start Game',
     gameOver:      'Game Over',
     playAgain:     'Play Again',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Move<br><kbd>↑</kbd> Rotate<br><kbd>↓</kbd> Soft drop<br><kbd>Space</kbd> Drop<br><kbd>C</kbd> Hold<br><kbd>P</kbd> Pause<br><kbd>M</kbd> Mute<br><kbd>L</kbd> Leaderboard<br><kbd>H</kbd> Help',
+    ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Move</div><div><kbd>↑</kbd> Rotate</div><div><kbd>↓</kbd> Soft drop</div><div><kbd>Space</kbd> Drop</div><div><kbd>C</kbd> Hold</div><div><kbd>P</kbd> Pause</div><div><kbd>M</kbd> Mute</div><div><kbd>L</kbd> Leaderboard</div><div><kbd>H</kbd> Help</div>',
     touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop',
     darkLight:     'Light',
     darkDark:      'Dark',
@@ -952,7 +952,7 @@ const TRANSLATIONS = {
     startBtn:      'Começar',
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar de Novo',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rodar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Mudo<br><kbd>L</kbd> Classificação<br><kbd>H</kbd> Ajuda',
+    ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Rodar</div><div><kbd>↓</kbd> Queda suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Segurar</div><div><kbd>P</kbd> Pausa</div><div><kbd>M</kbd> Mudo</div><div><kbd>L</kbd> Classificação</div><div><kbd>H</kbd> Ajuda</div>',
     touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓',
     darkLight:     'Claro',
     darkDark:      'Escuro',
@@ -981,7 +981,7 @@ const TRANSLATIONS = {
     startBtn:      'Começar Jogo',
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar Novamente',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Girar<br><kbd>↓</kbd> Queda suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Segurar<br><kbd>P</kbd> Pausar<br><kbd>M</kbd> Mudo<br><kbd>L</kbd> Classificação<br><kbd>H</kbd> Ajuda',
+    ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Girar</div><div><kbd>↓</kbd> Queda suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Segurar</div><div><kbd>P</kbd> Pausar</div><div><kbd>M</kbd> Mudo</div><div><kbd>L</kbd> Classificação</div><div><kbd>H</kbd> Ajuda</div>',
     touchHint:     'Deslize para mover · Toque para girar · Deslize ↓',
     darkLight:     'Claro',
     darkDark:      'Escuro',
@@ -1010,7 +1010,7 @@ const TRANSLATIONS = {
     startBtn:      'Iniciar Juego',
     gameOver:      'Fin del Juego',
     playAgain:     'Jugar de Nuevo',
-    ctrlHtml:      '<kbd>←</kbd><kbd>→</kbd> Mover<br><kbd>↑</kbd> Rotar<br><kbd>↓</kbd> Caída suave<br><kbd>Space</kbd> Soltar<br><kbd>C</kbd> Retener<br><kbd>P</kbd> Pausa<br><kbd>M</kbd> Silencio<br><kbd>L</kbd> Clasificación<br><kbd>H</kbd> Ayuda',
+    ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Rotar</div><div><kbd>↓</kbd> Caída suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Retener</div><div><kbd>P</kbd> Pausa</div><div><kbd>M</kbd> Silencio</div><div><kbd>L</kbd> Clasificación</div><div><kbd>H</kbd> Ayuda</div>',
     touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓',
     darkLight:     'Claro',
     darkDark:      'Oscuro',
