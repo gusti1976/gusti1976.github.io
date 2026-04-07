@@ -63,6 +63,7 @@
       --bg-a: #c8d8ff;
       --bg-b: #e8c8f0;
       --bg-c: #c8f0ee;
+      --bg-base: linear-gradient(135deg, #8fa8d8 0%, #9fa3d4 50%, #a8aad0 100%);
       --ink: #0d1a33;
       --ink-soft: #2a3d6a;
       --glass: rgba(255,255,255,0.55);
@@ -83,6 +84,19 @@
       --c-ghost: rgba(200,220,255,0.22);
     }
 
+    body.dark {
+      --bg-a: #0a1030;
+      --bg-b: #1a0828;
+      --bg-c: #081820;
+      --bg-base: linear-gradient(135deg, #0d1428 0%, #140d24 50%, #0a1020 100%);
+      --ink: #dce8ff;
+      --ink-soft: #8ea8d8;
+      --glass: rgba(20,32,70,0.72);
+      --glass-strong: rgba(18,28,60,0.88);
+      --glass-border: rgba(80,110,200,0.28);
+      --glass-shadow: rgba(0,10,60,0.45);
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -96,8 +110,9 @@
         radial-gradient(ellipse at 10% 15%, var(--bg-a) 0%, transparent 40%),
         radial-gradient(ellipse at 90% 8%, var(--bg-b) 0%, transparent 38%),
         radial-gradient(ellipse at 50% 90%, var(--bg-c) 0%, transparent 38%),
-        linear-gradient(135deg, #8fa8d8 0%, #9fa3d4 50%, #a8aad0 100%);
+        var(--bg-base);
       overflow: hidden;
+      transition: background 0.4s ease;
     }
 
     /* Floating orbs for depth */
@@ -447,7 +462,6 @@
     #lang-dropdown {
       position: relative;
       display: inline-block;
-      margin-top: 10px;
       z-index: 100;
     }
 
@@ -670,6 +684,57 @@
     }
 
     .hidden { display: none !important; }
+
+    /* ── Dark mode toggle ── */
+    .hero-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    #dark-toggle {
+      position: relative;
+      width: 42px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    #dark-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+    #dark-toggle .track {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.48);
+      border-radius: 50px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    #dark-toggle input:checked + .track {
+      background: rgba(60,80,200,0.55);
+      border-color: rgba(100,130,255,0.5);
+    }
+    #dark-toggle .thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+      transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      line-height: 1;
+    }
+    #dark-toggle input:checked ~ .thumb { transform: translateX(16px); }
+    .toggle-icon { pointer-events: none; user-select: none; }
   </style>
 </head>
 <body>
@@ -678,17 +743,24 @@
   <span class="hero-subtitle">Out and Proud</span>
   <span class="hero-title">TETRIS FLARE</span>
   <span class="hero-byline">...by Agust Islandia</span>
-  <div id="lang-dropdown">
-    <button id="lang-trigger">
-      <span id="lang-current">English</span>
-      <span class="lang-chevron">▾</span>
-    </button>
-    <div id="lang-menu">
-      <button class="lang-option active" data-lang="en">English</button>
-      <button class="lang-option" data-lang="pt">Português (PT)</button>
-      <button class="lang-option" data-lang="pt-br">Português (Brasil)</button>
-      <button class="lang-option" data-lang="es">Español</button>
+  <div class="hero-controls">
+    <div id="lang-dropdown">
+      <button id="lang-trigger">
+        <span id="lang-current">English</span>
+        <span class="lang-chevron">▾</span>
+      </button>
+      <div id="lang-menu">
+        <button class="lang-option active" data-lang="en">English</button>
+        <button class="lang-option" data-lang="pt">Português (PT)</button>
+        <button class="lang-option" data-lang="pt-br">Português (Brasil)</button>
+        <button class="lang-option" data-lang="es">Español</button>
+      </div>
     </div>
+    <label id="dark-toggle" title="Dark mode">
+      <input type="checkbox" id="dark-checkbox">
+      <span class="track"></span>
+      <span class="thumb"><span class="toggle-icon" id="toggle-icon">☀️</span></span>
+    </label>
   </div>
 </div>
 
@@ -796,7 +868,7 @@
 </footer>
 
 <script>
-const VERSION = '0.180';
+const VERSION = '0.181';
 document.getElementById('version-label').textContent = 'v' + VERSION;
 
 // ─────────────────────────────────────────────
@@ -996,6 +1068,30 @@ document.querySelectorAll('.lang-option').forEach(b => {
   b.classList.toggle('active', b.dataset.lang === currentLang);
 });
 applyLang();
+
+// ── Dark mode toggle ──────────────────────────────────────────────────────────
+(function() {
+  const cb   = document.getElementById('dark-checkbox');
+  const icon = document.getElementById('toggle-icon');
+  const body = document.body;
+
+  function setDark(on) {
+    body.classList.toggle('dark', on);
+    cb.checked  = on;
+    icon.textContent = on ? '🌙' : '☀️';
+    localStorage.setItem('tetris_dark', on ? '1' : '0');
+  }
+
+  // Restore saved preference, else use system preference
+  const saved = localStorage.getItem('tetris_dark');
+  if (saved !== null) {
+    setDark(saved === '1');
+  } else {
+    setDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+
+  cb.addEventListener('change', () => setDark(cb.checked));
+})();
 
 // ─────────────────────────────────────────────
 //  AUDIO ENGINE  (Web Audio API — no external files)
