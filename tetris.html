@@ -349,6 +349,7 @@
     kbd {
       display: inline-block;
       padding: 1px 6px;
+      margin-right: 2px;
       background: rgba(255,255,255,0.55);
       border: 1px solid rgba(200,210,240,0.7);
       border-radius: 5px;
@@ -357,6 +358,11 @@
       font-weight: 600;
       color: var(--ink);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(0,0,40,0.08);
+    }
+    body.dark kbd {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(140,160,220,0.35);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 1px 2px rgba(0,0,0,0.3);
     }
 
     /* ── Line-clear flash ── */
@@ -864,7 +870,7 @@
     <div class="panel-section" style="margin-top:auto;">
       <div class="panel-label" id="lbl-controls">Controls</div>
       <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">
-        <div id="ctrl-text" style="font-size:0.72rem;color:var(--ink-soft);line-height:1.6;"></div>
+        <div id="ctrl-text" style="font-size:0.72rem;color:var(--ink-soft);line-height:1.85;"></div>
       </div>
     </div>
     <!-- Auth bar -->
@@ -891,7 +897,7 @@
 </footer>
 
 <script>
-const VERSION = '0.188';
+const VERSION = '0.189';
 document.getElementById('version-label').textContent = 'v' + VERSION;
 
 // ─────────────────────────────────────────────
