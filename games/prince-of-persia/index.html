@@ -491,6 +491,15 @@ function moveEntity(ent,hw,h,dt){
 
 // ── Player update ──────────────────────────────────────────────────────────
 function updatePlayer(dt){
+  // Die state — must run even when player.dead=true
+  if(player.state==='die'){
+    player.stT+=dt;
+    if(player.stT>1.4) gameOver();
+    player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
+    moveEntity(player,P_HW,P_H,dt);
+    return;
+  }
+
   if(player.dead) return;
 
   const left=keys['ArrowLeft'], right=keys['ArrowRight'];
@@ -502,14 +511,6 @@ function updatePlayer(dt){
   if(player.swCd>0) player.swCd-=dt;
 
   const onGnd=hasGround(player.x,player.y,P_HW);
-
-  // Die state
-  if(player.state==='die'){
-    if(player.stT>1.4) gameOver();
-    player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
-    moveEntity(player,P_HW,P_H,dt);
-    return;
-  }
 
   // Hit stun
   if(player.state==='hit'){
