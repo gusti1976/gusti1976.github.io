@@ -18,7 +18,7 @@ button:hover{background:#2a1e0e;border-color:#8a7060}
 canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;border:2px solid #3a2a1a;background:#080606}
 .overlay{position:absolute;inset:0;background:rgba(5,3,2,0.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
 .overlay h2{font-size:1.5rem;letter-spacing:4px;color:#f0b020;text-transform:uppercase}
-.overlay p{font-size:0.78rem;color:#b0a090;line-height:1.7}
+.overlay p{font-size:0.78rem;color:#ffffff;line-height:1.7}
 .key{color:#f0b020}
 .hidden{display:none!important}
 #lb-modal{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:100}
@@ -31,8 +31,8 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
 .lb-name{flex:1}
 .lb-time{color:#8a7060;font-variant-numeric:tabular-nums}
 .lb-lv{color:#4a3828;font-size:0.68rem;margin-left:4px}
-#hint-row{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:0.68rem;color:#4a3828;margin-top:8px}
-#hint-row span{color:#6a5040}
+#hint-row{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:0.68rem;color:#ffffff;margin-top:8px}
+#hint-row span{color:#ffffff}
 #mini-lb{margin-top:10px;font-size:0.72rem}
 #mini-lb h4{color:#4a3828;letter-spacing:2px;text-transform:uppercase;font-size:0.65rem;margin-bottom:5px}
 #mini-lb-list{list-style:none}
@@ -67,7 +67,8 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
       <span class="key">Shift</span> Careful step<br>
       <span class="key">Space</span> Draw sword / Strike &nbsp;
       <span class="key">P</span> Pause &nbsp;
-      <span class="key">L</span> Leaderboard
+      <span class="key">L</span> Leaderboard &nbsp;
+      <span class="key">R</span> Restart level
     </p>
     <button id="start-btn">Begin Escape</button>
   </div>
@@ -306,6 +307,7 @@ document.addEventListener('keydown',e=>{
   keys[e.key]=true;
   if(e.key==='p'||e.key==='P') togglePause();
   if(e.key==='l'||e.key==='L') toggleLB();
+  if((e.key==='r'||e.key==='R')&&gState==='playing') restartLevel();
   if(e.key===' '||e.key.startsWith('Arrow')) e.preventDefault();
 });
 document.addEventListener('keyup',e=>{ keys[e.key]=false; });
@@ -1047,6 +1049,7 @@ function renderHUD(){
 }
 
 // ── Main render ────────────────────────────────────────────────────────────
+const VERSION='0.003';
 function render(){
   ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
   ctx.save(); ctx.translate(0,HUD_H);
@@ -1057,6 +1060,12 @@ function render(){
   renderParts();
   ctx.restore();
   renderHUD();
+  // Version stamp
+  ctx.fillStyle='rgba(255,255,255,0.18)';
+  ctx.font='bold 22px monospace';
+  ctx.textAlign='right';
+  ctx.fillText('v'+VERSION,634,396);
+  ctx.textAlign='left';
 }
 
 // ── Game loop ──────────────────────────────────────────────────────────────
