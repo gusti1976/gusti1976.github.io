@@ -19,7 +19,7 @@ canvas{image-rendering:pixelated;border:1px solid #3a2a10;background:#0c0804}
 </head>
 <body>
 <h1>Hercules — Option B (White Cloth)</h1>
-<p class="subtitle">Olive skin · white linen chiton · pretty face · clean dark hair</p>
+<p class="subtitle">Olive skin · short white chiton · pretty face · blonde hair</p>
 
 <div class="row" id="poses"></div>
 
@@ -41,8 +41,8 @@ const P = {
   skirtDk:'#b8b090',
   belt:   '#603818',
   sandal: '#503010',
-  hair:   '#1a1208',
-  hairHi: '#3a2818',
+  hair:   '#c89820',
+  hairHi: '#f0d060',
   lip:    '#a05838',
   iris:   '#4a6838',   // green eyes — pretty
   white:  '#e8e4d8',
@@ -81,15 +81,13 @@ function drawHercules(ctx, pose) {
   ctx.fillRect(-7,  -13 + sw, 2,  3);
   ctx.fillRect( 4,  -13 - sw, 2,  3);
 
-  // ── Skirt ─────────────────────────────────────────────────────────────────
+  // ── Skirt (short — half length) ───────────────────────────────────────────
   ctx.fillStyle = P.skirt;
-  ctx.fillRect(-11, -28, 22, 2);    // hem
-  ctx.fillRect(-10, -32, 20, 4);
-  ctx.fillRect( -9, -36, 18, 4);
-  ctx.fillRect( -8, -40, 16, 4);
+  ctx.fillRect(-11, -34, 22, 2);    // hem
+  ctx.fillRect(-10, -38, 20, 4);    // single cloth layer
   ctx.fillStyle = P.skirtDk;
-  for (let x = -7; x <= 6; x += 4) ctx.fillRect(x, -40, 2, 12);
-  ctx.fillRect(-11, -27, 22, 2);    // hem shadow
+  for (let x = -7; x <= 6; x += 4) ctx.fillRect(x, -38, 2, 6);
+  ctx.fillRect(-11, -33, 22, 2);    // hem shadow
 
   // ── Belt ──────────────────────────────────────────────────────────────────
   ctx.fillStyle = P.belt;
