@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hercules — Option B</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1a1208;color:#e8d8a0;font-family:'Courier New',monospace;
+     display:flex;flex-direction:column;align-items:center;padding:30px;gap:24px}
+h1{color:#f0b020;letter-spacing:4px;text-transform:uppercase;font-size:1.1rem}
+.subtitle{color:#7a6840;font-size:0.72rem;text-align:center}
+.row{display:flex;gap:32px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+.pose{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pose-lbl{color:#9a8858;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase}
+canvas{image-rendering:pixelated;border:1px solid #3a2a10;background:#0c0804}
+.face-zoom{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:10px}
+.face-lbl{color:#c8a030;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase}
+</style>
+</head>
+<body>
+<h1>Hercules — Option B (White Cloth)</h1>
+<p class="subtitle">Olive skin · white linen chiton · pretty face · clean dark hair</p>
+
+<div class="row" id="poses"></div>
+
+<div class="face-zoom">
+  <div class="face-lbl">Face close-up (8×)</div>
+  <canvas id="faceZoom" width="160" height="160"
+          style="width:160px;height:160px;image-rendering:pixelated;
+                 border:1px solid #3a2a10;background:#0c0804"></canvas>
+</div>
+
+<script>
+// ── Option B palette ──────────────────────────────────────────────────────────
+const P = {
+  skin:   '#c09050',
+  shadow: '#8a6828',
+  hi:     '#d8b070',
+  blush:  '#c07848',
+  skirt:  '#e8e0c0',
+  skirtDk:'#b8b090',
+  belt:   '#603818',
+  sandal: '#503010',
+  hair:   '#1a1208',
+  hairHi: '#3a2818',
+  lip:    '#a05838',
+  iris:   '#4a6838',   // green eyes — pretty
+  white:  '#e8e4d8',
+  lash:   '#0c0808',
+};
+
+// ── Draw Hercules ─────────────────────────────────────────────────────────────
+// Origin = bottom-centre of feet.
+function drawHercules(ctx, pose) {
+  const t   = performance.now() / 1000;
+  const sw  = pose === 'run'    ? Math.sin(t * 8) * 9 : 0;
+  const asw = pose === 'run'    ? Math.sin(t * 8 + Math.PI) * 7 : 0;
+  const strk= pose === 'strike';
+
+  // ── Sandals ───────────────────────────────────────────────────────────────
+  ctx.fillStyle = P.sandal;
+  ctx.fillRect(-11, -3 + sw*0.3,  10, 3);
+  ctx.fillRect(  1, -3 - sw*0.3,  10, 3);
+  ctx.fillRect(-10, -7 + sw*0.3,   8, 4);
+  ctx.fillRect(  1, -7 - sw*0.3,   8, 4);
+  // toe strap
+  ctx.fillStyle = '#2a1008';
+  ctx.fillRect( -9, -2 + sw*0.3,   7, 1);
+  ctx.fillRect(  2, -2 - sw*0.3,   7, 1);
+
+  // ── Legs ──────────────────────────────────────────────────────────────────
+  ctx.fillStyle = P.skin;
+  ctx.fillRect(-9,  -24 + sw, 8, 17);
+  ctx.fillRect( 1,  -24 - sw, 8, 17);
+  ctx.fillStyle = P.shadow;
+  ctx.fillRect(-8,  -13 + sw, 4,  4);
+  ctx.fillRect( 3,  -13 - sw, 4,  4);
+  ctx.fillRect(-9,  -20 + sw, 3,  7);
+  ctx.fillRect( 6,  -20 - sw, 3,  7);
+  ctx.fillStyle = P.hi;
+  ctx.fillRect(-7,  -13 + sw, 2,  3);
+  ctx.fillRect( 4,  -13 - sw, 2,  3);
+
+  // ── Skirt ─────────────────────────────────────────────────────────────────
+  ctx.fillStyle = P.skirt;
+  ctx.fillRect(-11, -28, 22, 2);    // hem
+  ctx.fillRect(-10, -32, 20, 4);
+  ctx.fillRect( -9, -36, 18, 4);
+  ctx.fillRect( -8, -40, 16, 4);
+  ctx.fillStyle = P.skirtDk;
+  for (let x = -7; x <= 6; x += 4) ctx.fillRect(x, -40, 2, 12);
+  ctx.fillRect(-11, -27, 22, 2);    // hem shadow
+
+  // ── Belt ──────────────────────────────────────────────────────────────────
+  ctx.fillStyle = P.belt;
+  ctx.fillRect(-10, -42, 20, 3);
+  ctx.fillStyle = '#c8a020';
+  ctx.fillRect( -3, -43,  6, 5);
+  ctx.fillStyle = '#a07010';
+  ctx.fillRect( -2, -42,  4, 3);
+
+  // ── Torso ─────────────────────────────────────────────────────────────────
+  ctx.fillStyle = P.skin;
+  ctx.fillRect(-10, -62, 20, 20);
+  ctx.fillRect(-12, -68, 24,  6);   // chest wider
+  // pecs
+  ctx.fillStyle = P.shadow;
+  ctx.fillRect(-11, -67, 10,  8);
+  ctx.fillRect(  1, -67, 10,  8);
+  ctx.fillStyle = P.skin;
+  ctx.fillRect(-10, -66,  8,  6);
+  ctx.fillRect(  2, -66,  8,  6);
+  ctx.fillStyle = P.hi;
+  ctx.fillRect( -9, -65,  4,  3);
+  ctx.fillRect(  5, -65,  4,  3);
+  // sternum + abs
+  ctx.fillStyle = P.shadow;
+  ctx.fillRect( -1, -66,  2, 22);
+  ctx.fillRect( -8, -56,  6,  3);  ctx.fillRect( 2, -56, 6, 3);
+  ctx.fillRect( -8, -51,  6,  3);  ctx.fillRect( 2, -51, 6, 3);
+  ctx.fillRect( -8, -46,  6,  2);  ctx.fillRect( 2, -46, 6, 2);
+  ctx.fillRect(-11, -62,  3, 12);  ctx.fillRect( 8, -62, 3, 12);
+
+  // ── Shoulders ─────────────────────────────────────────────────────────────
+  ctx.fillStyle = P.skin;
+  ctx.fillRect(-15, -68,  5, 12);
+  ctx.fillRect( 10, -68,  5, 12);
+  ctx.fillStyle = P.shadow;
+  ctx.fillRect(-15, -66,  4,  5);
+  ctx.fillRect( 11, -66,  4,  5);
+  ctx.fillStyle = P.hi;
+  ctx.fillRect(-14, -66,  2,  3);
+  ctx.fillRect( 12, -66,  2,  3);
+
+  // ── Arms ──────────────────────────────────────────────────────────────────
+  ctx.fillStyle = P.skin;
+  if (strk) {
+    ctx.fillRect( 10, -82,  6, 16);
+    ctx.fillRect( 12, -90,  5, 10);
+    ctx.fillStyle = P.shadow;
+    ctx.fillRect( 10, -78,  4,  6);
+    ctx.fillStyle = P.skin;
+    ctx.fillRect(-15, -68,  5, 14);
+    ctx.fillRect(-14, -56,  4, 10);
+    ctx.fillStyle = P.shadow;
+    ctx.fillRect(-15, -63,  3,  6);
+    // club
+    ctx.fillStyle = '#6a3a10';
+    ctx.fillRect( 14,-106,  5, 18);
+    ctx.fillStyle = '#4a2808';
+    ctx.fillRect( 12,-114,  9,  9);
+    ctx.fillRect( 11,-115, 11,  3);
+  } else {
+    ctx.fillRect(-15, -68 + asw,  5, 14);
+    ctx.fillRect(-14, -56 + asw,  4, 10);
+    ctx.fillRect( 10, -68 - asw,  5, 14);
+    ctx.fillRect( 12, -56 - asw,  4, 10);
+    ctx.fillStyle = P.shadow;
+    ctx.fillRect(-15, -63 + asw,  3,  6);
+    ctx.fillRect( 10, -63 - asw,  3,  6);
+    // club at side
+    ctx.fillStyle = '#6a3a10';
+    ctx.fillRect( 13, -68 - asw,  4, 26);
+    ctx.fillStyle = '#4a2808';
+    ctx.fillRect( 11, -72 - asw,  8,  6);
+  }
+
+  // ── Head ──────────────────────────────────────────────────────────────────
+  const hY = -86;
+  ctx.fillStyle = P.skin;
+  ctx.fillRect(-7, hY,    14, 14);  // head
+  ctx.fillRect(-5, hY+12, 10,  4);  // jaw (refined, not too wide)
+  // ears
+  ctx.fillStyle = P.shadow;
+  ctx.fillRect(-9, hY+5,   2,  5);
+  ctx.fillRect( 7, hY+5,   2,  5);
+  ctx.fillStyle = P.hi;
+  ctx.fillRect(-9, hY+5,   1,  3);
+  // neck
+  ctx.fillStyle = P.skin;
+  ctx.fillRect(-4, hY+14,  8,  4);
+
+  // ── Pretty face ───────────────────────────────────────────────────────────
+  // cheekbones (subtle hi)
+  ctx.fillStyle = P.hi;
+  ctx.fillRect(-6, hY+9,   3,  2);
+  ctx.fillRect( 3, hY+9,   3,  2);
+  // blush
+  ctx.fillStyle = P.blush;
+  ctx.fillRect(-6, hY+10,  3,  1);
+  ctx.fillRect( 3, hY+10,  3,  1);
+
+  // eyes — large, expressive
+  // whites
+  ctx.fillStyle = P.white;
+  ctx.fillRect(-5, hY+5,   5,  3);
+  ctx.fillRect( 0, hY+5,   5,  3);
+  // iris (green)
+  ctx.fillStyle = P.iris;
+  ctx.fillRect(-4, hY+5,   3,  3);
+  ctx.fillRect( 1, hY+5,   3,  3);
+  // pupil
+  ctx.fillStyle = '#060606';
+  ctx.fillRect(-3, hY+6,   2,  2);
+  ctx.fillRect( 1, hY+6,   2,  2);  // off-center so not cross-eyed
+  // catch-light
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(-3, hY+6,   1,  1);
+  ctx.fillRect( 2, hY+6,   1,  1);
+  // lashes (top)
+  ctx.fillStyle = P.lash;
+  ctx.fillRect(-5, hY+5,   5,  1);
+  ctx.fillRect( 0, hY+5,   5,  1);
+  // lower lash (lighter)
+  ctx.fillStyle = P.shadow;
+  ctx.fillRect(-5, hY+8,   5,  1);
+  ctx.fillRect( 0, hY+8,   5,  1);
+
+  // brow — clean arch, not a frown
+  ctx.fillStyle = P.hair;
+  ctx.fillRect(-5, hY+3,   4,  1);   // left brow
+  ctx.fillRect(-4, hY+2,   3,  1);   // arch
+  ctx.fillRect( 1, hY+3,   4,  1);   // right brow
+  ctx.fillRect( 2, hY+2,   3,  1);
+
+  // nose — elegant, small
+  ctx.fillStyle = P.shadow;
+  ctx.fillRect(-1, hY+8,   2,  3);
+  ctx.fillRect(-2, hY+10,  1,  2);   // left nostril
+  ctx.fillRect( 2, hY+10,  1,  2);   // right nostril
+  ctx.fillStyle = P.hi;
+  ctx.fillRect( 0, hY+8,   1,  2);   // nose bridge highlight
+
+  // lips — full, defined
+  ctx.fillStyle = P.lip;
+  ctx.fillRect(-3, hY+12,  6,  2);   // lower lip
+  ctx.fillRect(-2, hY+11,  4,  1);   // upper lip
+  ctx.fillStyle = '#804030';
+  ctx.fillRect(-3, hY+13,  6,  1);   // lower lip shadow
+  // cupid's bow
+  ctx.fillStyle = P.skin;
+  ctx.fillRect(-1, hY+11,  2,  1);
+  // smile (gentle)
+  ctx.fillStyle = '#7a3828';
+  ctx.fillRect(-3, hY+13,  2,  1);
+  ctx.fillRect( 1, hY+13,  2,  1);
+
+  // ── Hair — clean, no decorations ──────────────────────────────────────────
+  ctx.fillStyle = P.hair;
+  // top mass
+  ctx.fillRect(-7, hY,    14,  5);
+  // side falls
+  ctx.fillRect(-8, hY+2,   2,  8);
+  ctx.fillRect( 6, hY+2,   2,  8);
+  // slight wave on top
+  ctx.fillRect(-6, hY-2,  12,  3);
+  ctx.fillRect(-4, hY-4,   8,  3);
+  // hair highlight
+  ctx.fillStyle = P.hairHi;
+  ctx.fillRect(-3, hY-3,   4,  3);
+  ctx.fillRect(-2, hY,     3,  3);
+}
+
+// ── Build page ────────────────────────────────────────────────────────────────
+const S    = 2;
+const CW   = 100;
+const CH   = 260;
+const OX   = CW / 2;
+const OY   = CH - 8;
+
+const POSES = [
+  { id:'idle',   label:'Idle' },
+  { id:'run',    label:'Run (animated)' },
+  { id:'strike', label:'Strike' },
+];
+
+const posesEl = document.getElementById('poses');
+const animCvs = [];
+
+POSES.forEach(({ id, label }) => {
+  const pw = document.createElement('div');
+  pw.className = 'pose';
+
+  const cv = document.createElement('canvas');
+  cv.width  = CW;
+  cv.height = CH;
+  cv.style.width  = CW + 'px';
+  cv.style.height = CH + 'px';
+
+  function draw() {
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#0c0804';
+    ctx.fillRect(0, 0, CW, CH);
+    ctx.save();
+    ctx.translate(OX, OY);
+    ctx.scale(S, S);
+    drawHercules(ctx, id);
+    ctx.restore();
+  }
+
+  if (id === 'run') animCvs.push(draw);
+  else draw();
+
+  const lbl = document.createElement('div');
+  lbl.className = 'pose-lbl';
+  lbl.textContent = label;
+
+  pw.appendChild(cv);
+  pw.appendChild(lbl);
+  posesEl.appendChild(pw);
+});
+
+// face zoom — draw at 8× into a dedicated canvas
+function drawFaceZoom() {
+  const cv  = document.getElementById('faceZoom');
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#0c0804';
+  ctx.fillRect(0, 0, 160, 160);
+  ctx.save();
+  // origin placed so face fills the canvas
+  // face is roughly from hY=-86 to hY+18=-68, and ±9 wide
+  // at scale 8: face height ≈ 18*8=144px, width ≈ 18*8=144px
+  // translate so face centre is at (80,100)
+  ctx.translate(80, 148);
+  ctx.scale(8, 8);
+  drawHercules(ctx, 'idle');
+  ctx.restore();
+}
+
+function loop() {
+  animCvs.forEach(fn => fn());
+  drawFaceZoom();
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
