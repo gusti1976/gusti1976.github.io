@@ -2,265 +2,353 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Hercules Character Concepts</title>
+<title>Guard Character Concepts</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#1a1208;color:#e8d8a0;font-family:'Courier New',monospace;
+body{background:#0e0818;color:#e8d8f0;font-family:'Courier New',monospace;
      display:flex;flex-direction:column;align-items:center;padding:30px;gap:24px}
-h1{color:#f0b020;letter-spacing:4px;text-transform:uppercase;font-size:1.1rem}
-.subtitle{color:#7a6840;font-size:0.72rem}
-.row{display:flex;gap:48px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
-.concept{display:flex;flex-direction:column;align-items:center;gap:10px}
-.concept-label{color:#c8a030;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase}
-.concept-desc{color:#9a8858;font-size:0.62rem;max-width:200px;text-align:center;line-height:1.6}
-.poses{display:flex;gap:12px;align-items:flex-end}
-.pose{display:flex;flex-direction:column;align-items:center;gap:6px}
-.pose-label{color:#5a4830;font-size:0.58rem;letter-spacing:1px}
-canvas{image-rendering:pixelated;border:1px solid #2a1a08;background:#0c0804}
-.highlight .concept-label{color:#f0b020}
-.highlight canvas{border-color:#c8a030}
+h1{color:#e040c0;letter-spacing:4px;text-transform:uppercase;font-size:1.1rem}
+.subtitle{color:#7a5880;font-size:0.72rem;text-align:center}
+.grid{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;max-width:900px}
+.card{display:flex;flex-direction:column;align-items:center;gap:8px}
+.card-label{color:#c040a0;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;text-align:center}
+.card-sub{color:#7a5880;font-size:0.58rem;text-align:center;line-height:1.5;max-width:90px}
+.poses{display:flex;gap:6px;align-items:flex-end}
+.pose{display:flex;flex-direction:column;align-items:center;gap:4px}
+.pose-lbl{color:#4a3060;font-size:0.55rem;letter-spacing:1px}
+canvas{image-rendering:pixelated;border:1px solid #2a1040;background:#080410}
 </style>
 </head>
 <body>
-<h1>Hercules — Character Concepts</h1>
-<p class="subtitle">Rectangle-only sprites · same rendering engine as the game</p>
 
-<div class="row" id="root"></div>
+<h1>Guard Squad — Character Concepts</h1>
+<p class="subtitle">Rectangle sprites · various Speedos · manly proportions · big energy</p>
+
+<div class="grid" id="root"></div>
 
 <script>
-// ── Palettes ─────────────────────────────────────────────────────────────────
-const PALETTES = {
-  A: { skin:'#c8a060', skirt:'#c8a030', skirtDk:'#a07820', belt:'#804020',
-       sandal:'#703818', hair:'#2a1a08', shadow:'#9a7030', muscle:'#b08848',
-       gold:'#f0c030', leaf:'#386830' },
-  B: { skin:'#c09050', skirt:'#e8e0c0', skirtDk:'#b8b090', belt:'#603818',
-       sandal:'#503010', hair:'#1a1208', shadow:'#8a6828', muscle:'#a87838',
-       gold:'#d4a820', leaf:'#4a7840' },
-  C: { skin:'#c8a060', skirt:'#8b1a1a', skirtDk:'#6a1010', belt:'#c8a030',
-       sandal:'#703818', hair:'#2a1a08', shadow:'#9a7030', muscle:'#b08848',
-       gold:'#f0c030', leaf:'#386830' },
-  D: { skin:'#b88040', skirt:'#c89030', skirtDk:'#a07020', belt:'#8b4500',
-       sandal:'#603010', hair:'#1a0800', shadow:'#8a6020', muscle:'#a07030',
-       gold:'#e0b820', leaf:'#386030' },
-};
+// ── Character configs ─────────────────────────────────────────────────────────
+const GUARDS = [
+  {
+    label:'Hot Pink', sub:'Mohawk · Light skin',
+    skin:'#e8c898', shadow:'#c0a070', hi:'#f8e0b0',
+    speedo:'#f01890', speedoDk:'#b00060',
+    hair:'#1a1010', hairstyle:'mohawk',
+  },
+  {
+    label:'Electric Cyan', sub:'Buzzcut · Brown skin',
+    skin:'#c08848', shadow:'#9a6828', hi:'#d4a060',
+    speedo:'#00d0f0', speedoDk:'#0090b0',
+    hair:'#1a0c00', hairstyle:'buzzcut',
+  },
+  {
+    label:'Lemon Yellow', sub:'Curly · Dark skin',
+    skin:'#8a5028', shadow:'#6a3810', hi:'#a86838',
+    speedo:'#f0d010', speedoDk:'#c0a000',
+    hair:'#0e0808', hairstyle:'curly',
+  },
+  {
+    label:'Hot Orange', sub:'Pompadour · Tan skin',
+    skin:'#d4a060', shadow:'#a87840', hi:'#e8b878',
+    speedo:'#f06010', speedoDk:'#c04000',
+    hair:'#180c00', hairstyle:'pompadour',
+  },
+  {
+    label:'Royal Purple', sub:'Long hair · Ebony skin',
+    skin:'#60301a', shadow:'#3e1c08', hi:'#804028',
+    speedo:'#8020d0', speedoDk:'#5010a0',
+    hair:'#0a0408', hairstyle:'long',
+  },
+  {
+    label:'Neon Green', sub:'Bald · Medium skin',
+    skin:'#b07840', shadow:'#8a5828', hi:'#c89050',
+    speedo:'#20d040', speedoDk:'#108020',
+    hair:'#1a0c00', hairstyle:'bald',
+  },
+  {
+    label:'Scarlet Red', sub:'Flat-top · Light-brown',
+    skin:'#c89058', shadow:'#a07038', hi:'#dcaa70',
+    speedo:'#e01020', speedoDk:'#a00010',
+    hair:'#100808', hairstyle:'flattop',
+  },
+  {
+    label:'Cobalt Blue', sub:'Undercut · Pale skin',
+    skin:'#e4c8a0', shadow:'#c0a070', hi:'#f4dab8',
+    speedo:'#2050e8', speedoDk:'#1030b0',
+    hair:'#0c0c18', hairstyle:'undercut',
+  },
+];
 
-// ── Draw Hercules ─────────────────────────────────────────────────────────────
-// Origin = bottom-centre of character (feet). All coords in game-pixels.
-// Call after ctx.translate(cx, cy) and ctx.scale(S,S).
-function drawHercules(ctx, pal, pose) {
-  const { skin, skirt, skirtDk, belt, sandal, hair, shadow, muscle, gold, leaf } = pal;
+// ── Draw one guard ─────────────────────────────────────────────────────────────
+// Origin = bottom-centre of feet. All in game-px (scale applied by caller).
+function drawGuard(ctx, g, pose) {
+  const { skin, shadow, hi, speedo, speedoDk, hair, hairstyle } = g;
+  const t = performance.now() / 1000;
 
-  // animated leg swing for 'run'
-  const t   = performance.now() / 1000;
-  const sw  = pose === 'run' ? Math.sin(t * 8) * 9 : (pose === 'walk' ? Math.sin(t*5)*5 : 0);
-  const armSw = pose === 'run' ? Math.sin(t * 8 + Math.PI) * 7 : 0;
+  // leg swing for run
+  const sw  = pose === 'run'  ? Math.sin(t * 9) * 10 : 0;
+  const asw = pose === 'run'  ? Math.sin(t * 9 + Math.PI) * 8 : 0;
+  const strk= pose === 'strike';
 
-  // ── Sandals ───────────────────────────────────────────────────────────────
-  ctx.fillStyle = sandal;
-  ctx.fillRect(-11, -3 + sw*0.3,  10, 3);   // back foot
-  ctx.fillRect(  1, -3 - sw*0.3,  10, 3);   // front foot
-  // ankle straps
-  ctx.fillRect(-10, -7 + sw*0.3,   8, 4);
-  ctx.fillRect(  1, -7 - sw*0.3,   8, 4);
-  // toe strap
-  ctx.fillStyle = '#3a1808';
-  ctx.fillRect( -9, -2 + sw*0.3,   7, 1);
-  ctx.fillRect(  2, -2 - sw*0.3,   7, 1);
+  // ── Feet / sandals ────────────────────────────────────────────────────────
+  ctx.fillStyle = '#3a2010';
+  ctx.fillRect(-12, -3 + sw * 0.4, 11, 3);   // back foot
+  ctx.fillRect(  1, -3 - sw * 0.4, 11, 3);   // front foot
 
-  // ── Bare legs ─────────────────────────────────────────────────────────────
+  // ── Thick legs ────────────────────────────────────────────────────────────
   ctx.fillStyle = skin;
-  ctx.fillRect(-9,  -24 + sw, 8, 17);   // back leg
-  ctx.fillRect( 1,  -24 - sw, 8, 17);   // front leg
-  // knee cap
+  ctx.fillRect(-11, -26 + sw, 10, 23);  // back leg
+  ctx.fillRect(  1, -26 - sw, 10, 23);  // front leg
+  // quad definition
   ctx.fillStyle = shadow;
-  ctx.fillRect(-8,  -13 + sw, 5, 4);
-  ctx.fillRect( 3,  -13 - sw, 5, 4);
-  // calf muscle hint
+  ctx.fillRect(-11, -22 + sw, 4, 10);
+  ctx.fillRect(  7, -22 - sw, 4, 10);
+  // knee
   ctx.fillStyle = shadow;
-  ctx.fillRect(-9,  -20 + sw, 3, 7);
-  ctx.fillRect( 6,  -20 - sw, 3, 7);
+  ctx.fillRect(-10, -10 + sw, 7, 5);
+  ctx.fillRect(  3, -10 - sw, 7, 5);
+  ctx.fillStyle = hi;
+  ctx.fillRect( -9, -10 + sw, 4, 3);
+  ctx.fillRect(  3, -10 - sw, 4, 3);
+  // calf
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-11, -20 + sw, 4, 10);
+  ctx.fillRect(  7, -20 - sw, 4, 10);
 
-  // ── Skirt / chiton ────────────────────────────────────────────────────────
-  ctx.fillStyle = skirt;
-  ctx.fillRect(-11, -28, 22,  2);   // hem
-  ctx.fillRect(-10, -32, 20,  4);
-  ctx.fillRect( -9, -36, 18,  4);
-  ctx.fillRect( -8, -40, 16,  4);
-  // fold lines
-  ctx.fillStyle = skirtDk;
-  for (let i = -7; i <= 7; i += 4) ctx.fillRect(i, -40, 2, 12);
-  // hem shadow
-  ctx.fillStyle = skirtDk;
-  ctx.fillRect(-11, -27, 22, 2);
+  // ── Speedo / swimwear ─────────────────────────────────────────────────────
+  // front pouch
+  ctx.fillStyle = speedo;
+  ctx.fillRect(-9, -34,  18,  9);   // main brief
+  ctx.fillRect(-7, -36,  14,  3);   // waistband top
+  // side panels
+  ctx.fillStyle = speedoDk;
+  ctx.fillRect(-9, -34,   3,  9);   // left side
+  ctx.fillRect( 6, -34,   3,  9);   // right side
+  // waistband
+  ctx.fillStyle = speedoDk;
+  ctx.fillRect(-9, -36,  18,  2);
+  // centre seam
+  ctx.fillStyle = speedoDk;
+  ctx.fillRect(-1, -34,   2,  7);
 
-  // ── Belt ──────────────────────────────────────────────────────────────────
-  ctx.fillStyle = belt;
-  ctx.fillRect(-10, -42, 20, 3);
-  // buckle
-  ctx.fillStyle = gold;
-  ctx.fillRect( -3, -43,  6, 5);
-  ctx.fillStyle = '#a06810';
-  ctx.fillRect( -2, -42,  4, 3);
-
-  // ── Torso (bare, muscular) ────────────────────────────────────────────────
+  // ── Big glutes (back view hint on sides) ──────────────────────────────────
   ctx.fillStyle = skin;
-  ctx.fillRect(-10, -62, 20, 20);   // main body (wider than prince)
-  // pectorals
+  ctx.fillRect(-13, -36,  4,  9);   // left glute
+  ctx.fillRect(  9, -36,  4,  9);   // right glute
   ctx.fillStyle = shadow;
-  ctx.fillRect( -9, -61,  8,  8);   // left pec hollow
-  ctx.fillRect(  1, -61,  8,  8);   // right pec hollow
+  ctx.fillRect(-13, -32,  4,  5);
+  ctx.fillRect(  9, -32,  4,  5);
+
+  // ── V-taper torso ─────────────────────────────────────────────────────────
   ctx.fillStyle = skin;
-  ctx.fillRect( -9, -61,  6,  6);   // left pec raised
-  ctx.fillRect(  3, -61,  6,  6);   // right pec raised
-  // sternum
+  // wide at top, narrow at waist — layered rects
+  ctx.fillRect( -9, -60,  18,  6);   // lower torso / waist
+  ctx.fillRect(-10, -66,  20,  6);   // mid torso
+  ctx.fillRect(-12, -72,  24,  6);   // upper torso
+  ctx.fillRect(-13, -78,  26,  7);   // chest
+
+  // pecs — big and defined
   ctx.fillStyle = shadow;
-  ctx.fillRect( -1, -60,  2, 16);
-  // abs (2 rows)
+  ctx.fillRect(-12, -77,  11, 8);
+  ctx.fillRect(  1, -77,  11, 8);
+  ctx.fillStyle = skin;
+  ctx.fillRect(-11, -76,   9, 6);
+  ctx.fillRect(  2, -76,   9, 6);
+  ctx.fillStyle = hi;
+  ctx.fillRect(-10, -75,   5, 3);
+  ctx.fillRect(  5, -75,   5, 3);
+
+  // nipples
   ctx.fillStyle = shadow;
-  ctx.fillRect( -7, -50,  5,  3);  ctx.fillRect( 2, -50, 5, 3);
-  ctx.fillRect( -7, -45,  5,  3);  ctx.fillRect( 2, -45, 5, 3);
-  ctx.fillRect( -7, -40,  5,  2);  ctx.fillRect( 2, -40, 5, 2);
+  ctx.fillRect( -7, -70,  3, 2);
+  ctx.fillRect(  4, -70,  3, 2);
+
+  // sternum / abs
+  ctx.fillStyle = shadow;
+  ctx.fillRect( -1, -76,  2, 14);
+  ctx.fillRect( -8, -56,  6, 3);  ctx.fillRect( 2, -56, 6, 3);
+  ctx.fillRect( -8, -51,  6, 3);  ctx.fillRect( 2, -51, 6, 3);
+  ctx.fillRect( -8, -46,  6, 3);  ctx.fillRect( 2, -46, 6, 3);
   // obliques
   ctx.fillStyle = shadow;
-  ctx.fillRect(-10, -56,  3,  8);
-  ctx.fillRect(  7, -56,  3,  8);
+  ctx.fillRect(-11, -64,  3, 12);
+  ctx.fillRect(  8, -64,  3, 12);
 
-  // ── Shoulders (broad) ─────────────────────────────────────────────────────
+  // ── Wide shoulders ────────────────────────────────────────────────────────
   ctx.fillStyle = skin;
-  ctx.fillRect(-14, -62,  5, 12);   // left shoulder mass
-  ctx.fillRect(  9, -62,  5, 12);   // right shoulder mass
+  ctx.fillRect(-18, -78,  6, 12);
+  ctx.fillRect( 12, -78,  6, 12);
   ctx.fillStyle = shadow;
-  ctx.fillRect(-14, -60,  4,  5);
-  ctx.fillRect(  10,-60,  4,  5);
+  ctx.fillRect(-18, -76,  5,  6);
+  ctx.fillRect( 13, -76,  5,  6);
+  ctx.fillStyle = hi;
+  ctx.fillRect(-17, -76,  3,  3);
+  ctx.fillRect( 14, -76,  3,  3);
 
   // ── Arms ──────────────────────────────────────────────────────────────────
-  if (pose === 'strike') {
-    // right arm raised + club
-    ctx.fillStyle = skin;
-    ctx.fillRect( 8, -76,  6, 16);   // upper arm
-    ctx.fillRect(10, -86,  5, 12);   // forearm
-    // bicep bulge
+  ctx.fillStyle = skin;
+  if (strk) {
+    // right arm punching forward
+    ctx.fillRect( 12, -90,  6, 16);   // upper arm
+    ctx.fillRect( 14, -98,  5, 10);   // forearm
     ctx.fillStyle = shadow;
-    ctx.fillRect( 8, -72,  4,  5);
+    ctx.fillRect( 12, -86,  4,  6);   // bicep
     // left arm guard
     ctx.fillStyle = skin;
-    ctx.fillRect(-14,-58,  5, 14);
-    ctx.fillRect(-13,-46,  4, 10);
-    // club
-    ctx.fillStyle = '#6a3a10';
-    ctx.fillRect(12, -102, 5, 18);
-    ctx.fillStyle = '#4a2808';
-    ctx.fillRect(10, -110,  9,  9);
-    ctx.fillRect( 9, -111, 11,  3);
-    ctx.fillStyle = '#8a5020';
-    ctx.fillRect(10, -108,  4,  3);
-  } else {
-    // arms down with swing
-    ctx.fillStyle = skin;
-    ctx.fillRect(-14, -62+armSw,  5, 14);
-    ctx.fillRect(-13, -50+armSw,  4, 10);
-    ctx.fillRect(  9, -62-armSw,  5, 14);
-    ctx.fillRect( 10, -50-armSw,  4, 10);
-    // bicep
+    ctx.fillRect(-18, -78,  6, 16);
+    ctx.fillRect(-16, -65,  5, 12);
     ctx.fillStyle = shadow;
-    ctx.fillRect(-13, -56+armSw,  3,  5);
-    ctx.fillRect(  9, -56-armSw,  3,  5);
-    // club resting at side (idle/walk/run)
-    ctx.fillStyle = '#6a3a10';
-    ctx.fillRect(12, -62-armSw,  4, 24);
-    ctx.fillStyle = '#4a2808';
-    ctx.fillRect(10, -66-armSw,  8,  6);
-    ctx.fillRect( 9, -67-armSw, 10,  3);
+    ctx.fillRect(-18, -73,  4,  6);
+    // fist
+    ctx.fillStyle = skin;
+    ctx.fillRect( 13,-100,  7,  6);
+    ctx.fillStyle = shadow;
+    ctx.fillRect( 13,-100,  7,  2);
+  } else {
+    ctx.fillRect(-18, -78 + asw,  6, 16);
+    ctx.fillRect(-16, -65 + asw,  5, 12);
+    ctx.fillRect( 12, -78 - asw,  6, 16);
+    ctx.fillRect( 14, -65 - asw,  5, 12);
+    ctx.fillStyle = shadow;
+    ctx.fillRect(-18, -73 + asw,  4,  6);
+    ctx.fillRect( 12, -73 - asw,  4,  6);
+    // forearm detail
+    ctx.fillStyle = shadow;
+    ctx.fillRect(-16, -60 + asw,  3,  7);
+    ctx.fillRect( 14, -60 - asw,  3,  7);
   }
 
   // ── Head ──────────────────────────────────────────────────────────────────
-  const hY = pose === 'strike' ? -78 : -78;
+  const hY = -94;
   ctx.fillStyle = skin;
-  ctx.fillRect(-7, hY,   14, 16);
-  // jaw
-  ctx.fillRect(-6, hY+12, 12,  4);
+  ctx.fillRect(-8, hY,    16, 16);   // head
+  ctx.fillRect(-6, hY+13,  12,  4);  // strong jaw
   // ears
-  ctx.fillRect(-9, hY+5,  2,  5);
-  ctx.fillRect( 7, hY+5,  2,  5);
-
-  // ── Hair ──────────────────────────────────────────────────────────────────
-  ctx.fillStyle = hair;
-  ctx.fillRect(-7, hY,    14,  6);   // top
-  ctx.fillRect(-8, hY+2,   3,  7);   // left lock
-  ctx.fillRect( 5, hY+2,   4,  6);   // right lock
-  ctx.fillRect(-7, hY+12,  4,  6);   // sideburn left
-  ctx.fillRect( 3, hY+12,  4,  6);   // sideburn right
-
-  // laurel wreath
-  ctx.fillStyle = leaf;
-  ctx.fillRect(-8, hY+1,  16,  3);
-  // wreath berries
-  ctx.fillStyle = '#80c040';
-  ctx.fillRect(-6, hY,     2,  2);
-  ctx.fillRect(-1, hY-1,   2,  2);
-  ctx.fillRect( 4, hY,     2,  2);
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-10, hY+5,   2,  6);
+  ctx.fillRect(  8, hY+5,   2,  6);
+  // neck
+  ctx.fillStyle = skin;
+  ctx.fillRect(-5, hY+16,  10,  4);
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-5, hY+16,   3,  4);
+  ctx.fillRect( 3, hY+16,   2,  4);
 
   // ── Face ──────────────────────────────────────────────────────────────────
-  // brows (heroic frown)
-  ctx.fillStyle = hair;
-  ctx.fillRect(-5, hY+7,   4,  2);
-  ctx.fillRect( 1, hY+7,   4,  2);
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-1, hY+8,   2,  5);   // nose
+  ctx.fillRect(-5, hY+13,  3,  2);   // left cheek
+  ctx.fillRect( 2, hY+13,  3,  2);
+  // brow ridge
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-6, hY+5,   5,  2);
+  ctx.fillRect( 1, hY+5,   5,  2);
   // eyes
-  ctx.fillStyle = '#0a0818';
-  ctx.fillRect(-4, hY+9,   3,  2);
-  ctx.fillRect( 1, hY+9,   3,  2);
-  // nose bridge
+  ctx.fillStyle = '#080818';
+  ctx.fillRect(-5, hY+7,   4,  3);
+  ctx.fillRect( 1, hY+7,   4,  3);
+  ctx.fillStyle = '#2040e0';  // iris
+  ctx.fillRect(-4, hY+8,   2,  2);
+  ctx.fillRect( 2, hY+8,   2,  2);
+  // mouth
   ctx.fillStyle = shadow;
-  ctx.fillRect(-1, hY+10,  2,  4);
-  // mouth (determined)
-  ctx.fillStyle = shadow;
-  ctx.fillRect(-3, hY+14,  6,  1);
+  ctx.fillRect(-3, hY+13,  6,  1);
+
+  // ── Hairstyle ─────────────────────────────────────────────────────────────
+  ctx.fillStyle = hair;
+  switch (hairstyle) {
+    case 'mohawk':
+      ctx.fillRect(-2, hY-12,  4, 12);
+      ctx.fillRect(-1, hY-16,  2,  6);
+      ctx.fillStyle = '#c02020';
+      ctx.fillRect(-2, hY-14,  4,  6);
+      ctx.fillStyle = '#e04020';
+      ctx.fillRect(-1, hY-16,  2,  4);
+      // sides shaved
+      ctx.fillStyle = skin;
+      ctx.fillRect(-8, hY,  4,  5);
+      ctx.fillRect( 4, hY,  4,  5);
+      break;
+    case 'buzzcut':
+      ctx.fillRect(-8, hY,   16, 4);
+      ctx.fillRect(-7, hY-2, 14, 3);
+      break;
+    case 'curly':
+      // clusters of small curls
+      for (let cx=-7; cx<=5; cx+=3)
+        ctx.fillRect(cx, hY-3, 3, 5);
+      for (let cx=-5; cx<=4; cx+=3)
+        ctx.fillRect(cx, hY-7, 3, 5);
+      ctx.fillRect(-4, hY-9, 8, 4);
+      break;
+    case 'pompadour':
+      // swept-back quiff
+      ctx.fillRect(-6, hY-8,  12, 4);
+      ctx.fillRect(-4, hY-12, 10, 5);
+      ctx.fillRect(-2, hY-14,  6, 4);
+      ctx.fillRect( 0, hY-15,  3, 3);
+      ctx.fillStyle = '#3a2010';  // dark undercut
+      ctx.fillRect(-8, hY,    4, 5);
+      break;
+    case 'long':
+      ctx.fillRect(-8, hY,    16, 5);
+      ctx.fillRect(-9, hY+4,   3, 14);  // left flow
+      ctx.fillRect( 6, hY+4,   3, 14);  // right flow
+      ctx.fillRect(-9, hY+16,  3,  4);
+      ctx.fillRect( 6, hY+16,  3,  4);
+      break;
+    case 'bald':
+      // just a shine
+      ctx.fillStyle = hi;
+      ctx.fillRect(-4, hY+1,  4, 3);
+      break;
+    case 'flattop':
+      ctx.fillRect(-8, hY-6, 16, 6);   // flat top slab
+      ctx.fillRect(-9, hY-6,  2, 6);   // left wall
+      ctx.fillRect( 7, hY-6,  2, 6);   // right wall
+      break;
+    case 'undercut':
+      ctx.fillRect(-7, hY-6, 14, 6);   // top swept
+      ctx.fillRect(-5, hY-8, 10, 3);   // slight pompadour
+      // shaved sides stay skin-coloured
+      break;
+  }
+
+  // moustache / stubble on some
+  if (['pompadour','flattop','bald'].includes(hairstyle)) {
+    ctx.fillStyle = hair;
+    ctx.fillRect(-3, hY+12, 6, 2);
+  }
 }
 
-// ── Setup canvases ────────────────────────────────────────────────────────────
-const CONCEPTS = [
-  { id:'A', label:'Option A — Bronze Hero',
-    desc:'Classic bronze skin, golden lion-skin skirt',
-    palette: PALETTES.A },
-  { id:'B', label:'Option B — White Cloth',
-    desc:'Olive skin, white linen chiton, leather sandals',
-    palette: PALETTES.B, highlight: true },
-  { id:'C', label:'Option C — Crimson Warrior',
-    desc:'Bronze skin, blood-red battle skirt, gold belt',
-    palette: PALETTES.C },
-  { id:'D', label:'Option D — Amber Pelt',
-    desc:'Dark bronze, amber lion-pelt skirt',
-    palette: PALETTES.D },
-];
+// ── Canvas constants ──────────────────────────────────────────────────────────
+const S  = 2;
+const CW = 100;
+const CH = 240;
+const OX = CW / 2;
+const OY = CH - 6;
 
 const POSES = ['idle','run','strike'];
-const POSE_LABELS = { idle:'Idle', run:'Run', strike:'Strike' };
-
-// Canvas dimensions — character needs ~115px height at scale 2
-const S  = 2;        // draw scale
-const CW = 110;      // canvas px wide
-const CH = 280;      // canvas px tall
-const OX = CW / 2;  // origin x
-const OY = CH - 10; // origin y (bottom, with margin)
+const PLBLS = { idle:'Idle', run:'Run', strike:'Strike' };
 
 const root = document.getElementById('root');
-const animCanvases = [];   // { canvas, palette }
+const animList = [];   // {canvas, guard} for run animation
 
-CONCEPTS.forEach(c => {
-  const wrap = document.createElement('div');
-  wrap.className = 'concept' + (c.highlight ? ' highlight' : '');
+GUARDS.forEach(g => {
+  const card = document.createElement('div');
+  card.className = 'card';
 
   const lbl = document.createElement('div');
-  lbl.className = 'concept-label';
-  lbl.textContent = c.label;
-  wrap.appendChild(lbl);
+  lbl.className = 'card-label';
+  lbl.textContent = g.label;
+  card.appendChild(lbl);
 
   const poses = document.createElement('div');
   poses.className = 'poses';
 
   POSES.forEach(pose => {
-    const poseWrap = document.createElement('div');
-    poseWrap.className = 'pose';
+    const pw = document.createElement('div');
+    pw.className = 'pose';
 
     const cv = document.createElement('canvas');
     cv.width  = CW;
@@ -269,51 +357,52 @@ CONCEPTS.forEach(c => {
     cv.style.height = CH + 'px';
 
     if (pose === 'run') {
-      animCanvases.push({ canvas: cv, palette: c.palette });
+      animList.push({ canvas: cv, guard: g });
     } else {
       const ctx = cv.getContext('2d');
+      ctx.fillStyle = '#080410';
+      ctx.fillRect(0,0,CW,CH);
       ctx.save();
       ctx.translate(OX, OY);
       ctx.scale(S, S);
-      drawHercules(ctx, c.palette, pose);
+      drawGuard(ctx, g, pose);
       ctx.restore();
     }
 
     const pl = document.createElement('div');
-    pl.className = 'pose-label';
-    pl.textContent = POSE_LABELS[pose];
+    pl.className = 'pose-lbl';
+    pl.textContent = PLBLS[pose];
 
-    poseWrap.appendChild(cv);
-    poseWrap.appendChild(pl);
-    poses.appendChild(poseWrap);
+    pw.appendChild(cv);
+    pw.appendChild(pl);
+    poses.appendChild(pw);
   });
 
-  wrap.appendChild(poses);
+  card.appendChild(poses);
 
-  const desc = document.createElement('div');
-  desc.className = 'concept-desc';
-  desc.textContent = c.desc;
-  wrap.appendChild(desc);
+  const sub = document.createElement('div');
+  sub.className = 'card-sub';
+  sub.textContent = g.sub;
+  card.appendChild(sub);
 
-  root.appendChild(wrap);
+  root.appendChild(card);
 });
 
-// ── Animation loop (run pose only) ───────────────────────────────────────────
-function animate() {
-  animCanvases.forEach(({ canvas, palette }) => {
+// ── Animation loop ────────────────────────────────────────────────────────────
+function loop() {
+  animList.forEach(({ canvas, guard }) => {
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, CW, CH);
-    ctx.fillStyle = '#0c0804';
+    ctx.fillStyle = '#080410';
     ctx.fillRect(0, 0, CW, CH);
     ctx.save();
     ctx.translate(OX, OY);
     ctx.scale(S, S);
-    drawHercules(ctx, palette, 'run');
+    drawGuard(ctx, guard, 'run');
     ctx.restore();
   });
-  requestAnimationFrame(animate);
+  requestAnimationFrame(loop);
 }
-requestAnimationFrame(animate);
+requestAnimationFrame(loop);
 </script>
 </body>
 </html>
