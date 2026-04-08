@@ -139,40 +139,48 @@ function drawGuard(ctx, g, pose) {
   ctx.fillRect(-13, -32,  4,  5);
   ctx.fillRect(  9, -32,  4,  5);
 
-  // ── V-taper torso ─────────────────────────────────────────────────────────
+  // ── V-taper torso — contiguous skin from belt to chest ───────────────────
   ctx.fillStyle = skin;
-  // wide at top, narrow at waist — layered rects
-  ctx.fillRect( -9, -60,  18,  6);   // lower torso / waist
-  ctx.fillRect(-10, -66,  20,  6);   // mid torso
-  ctx.fillRect(-12, -72,  24,  6);   // upper torso
-  ctx.fillRect(-13, -78,  26,  7);   // chest
+  ctx.fillRect( -9, -42,  18, 18);   // belly/waist  y=-42→-24 (sits above belt)
+  ctx.fillRect( -9, -60,  18, 18);   // mid section  y=-60→-42
+  ctx.fillRect(-11, -68,  22,  8);   // upper torso  y=-68→-60
+  ctx.fillRect(-13, -78,  26, 10);   // chest        y=-78→-68
 
   // pecs — big and defined
   ctx.fillStyle = shadow;
-  ctx.fillRect(-12, -77,  11, 8);
-  ctx.fillRect(  1, -77,  11, 8);
+  ctx.fillRect(-12, -77,  11,  9);   // left pec hollow
+  ctx.fillRect(  1, -77,  11,  9);   // right pec hollow
   ctx.fillStyle = skin;
-  ctx.fillRect(-11, -76,   9, 6);
-  ctx.fillRect(  2, -76,   9, 6);
+  ctx.fillRect(-11, -76,   9,  7);
+  ctx.fillRect(  2, -76,   9,  7);
   ctx.fillStyle = hi;
-  ctx.fillRect(-10, -75,   5, 3);
-  ctx.fillRect(  5, -75,   5, 3);
+  ctx.fillRect(-10, -75,   5,  3);
+  ctx.fillRect(  5, -75,   5,  3);
 
   // nipples
   ctx.fillStyle = shadow;
-  ctx.fillRect( -7, -70,  3, 2);
-  ctx.fillRect(  4, -70,  3, 2);
+  ctx.fillRect( -7, -69,  3, 2);
+  ctx.fillRect(  4, -69,  3, 2);
 
-  // sternum / abs
+  // ── Abs — grooves cut into solid skin ────────────────────────────────────
+  // Center groove (sternum + belly button line)
   ctx.fillStyle = shadow;
-  ctx.fillRect( -1, -76,  2, 14);
-  ctx.fillRect( -8, -56,  6, 3);  ctx.fillRect( 2, -56, 6, 3);
-  ctx.fillRect( -8, -51,  6, 3);  ctx.fillRect( 2, -51, 6, 3);
-  ctx.fillRect( -8, -46,  6, 3);  ctx.fillRect( 2, -46, 6, 3);
-  // obliques
+  ctx.fillRect(-1, -76,  2, 36);
+  // Horizontal grooves between ab rows
+  ctx.fillRect(-9, -62,  18,  2);   // groove: pec bottom / upper abs top
+  ctx.fillRect(-9, -54,  18,  2);   // groove: upper abs / mid abs
+  ctx.fillRect(-9, -46,  18,  2);   // groove: mid abs / lower abs
+  ctx.fillRect(-9, -38,  18,  2);   // groove: lower abs / belt
+  // Highlights on each ab block
+  ctx.fillStyle = hi;
+  ctx.fillRect(-8, -61,   6,  5);   ctx.fillRect(2, -61,  6,  5);  // upper abs
+  ctx.fillRect(-8, -53,   6,  5);   ctx.fillRect(2, -53,  6,  5);  // mid abs
+  ctx.fillRect(-8, -45,   6,  5);   ctx.fillRect(2, -45,  6,  5);  // lower abs
+
+  // Obliques
   ctx.fillStyle = shadow;
-  ctx.fillRect(-11, -64,  3, 12);
-  ctx.fillRect(  8, -64,  3, 12);
+  ctx.fillRect(-11, -62,  3, 22);
+  ctx.fillRect(  8, -62,  3, 22);
 
   // ── Wide shoulders ────────────────────────────────────────────────────────
   ctx.fillStyle = skin;
