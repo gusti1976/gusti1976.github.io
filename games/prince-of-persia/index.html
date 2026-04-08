@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prince of Persia</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#080606;color:#e8e0c0;font-family:'Courier New',monospace;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:12px}
+#wrap{position:relative;width:640px;max-width:100%}
+#auth-bar{display:flex;justify-content:space-between;align-items:center;padding:6px 0;margin-bottom:4px}
+#auth-bar h1{font-size:1rem;letter-spacing:3px;color:#f0b020;text-transform:uppercase}
+#user-info{display:flex;align-items:center;gap:8px}
+#user-avatar{width:26px;height:26px;border-radius:50%}
+#user-name{font-size:0.75rem;color:#b0a090}
+button{background:#1a0e06;color:#e8e0c0;border:1px solid #4a3828;padding:5px 12px;font-family:inherit;font-size:0.75rem;cursor:pointer;letter-spacing:1px;text-transform:uppercase}
+button:hover{background:#2a1e0e;border-color:#8a7060}
+canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;border:2px solid #3a2a1a;background:#080606}
+.overlay{position:absolute;inset:0;background:rgba(5,3,2,0.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
+.overlay h2{font-size:1.5rem;letter-spacing:4px;color:#f0b020;text-transform:uppercase}
+.overlay p{font-size:0.78rem;color:#b0a090;line-height:1.7}
+.key{color:#f0b020}
+.hidden{display:none!important}
+#lb-modal{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:100}
+#lb-inner{background:#0a0806;border:1px solid #3a2a1a;padding:20px;width:380px;max-width:95vw;max-height:80vh;overflow-y:auto}
+#lb-inner h3{color:#f0b020;font-size:0.9rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;text-align:center}
+#lb-list{list-style:none}
+#lb-list li{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #181008;font-size:0.76rem}
+#lb-list li.lb-me{color:#f0b020}
+.lb-rank{width:22px;color:#4a3828}
+.lb-name{flex:1}
+.lb-time{color:#8a7060;font-variant-numeric:tabular-nums}
+.lb-lv{color:#4a3828;font-size:0.68rem;margin-left:4px}
+#hint-row{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:0.68rem;color:#4a3828;margin-top:8px}
+#hint-row span{color:#6a5040}
+#mini-lb{margin-top:10px;font-size:0.72rem}
+#mini-lb h4{color:#4a3828;letter-spacing:2px;text-transform:uppercase;font-size:0.65rem;margin-bottom:5px}
+#mini-lb-list{list-style:none}
+#mini-lb-list li{display:flex;justify-content:space-between;padding:2px 0;color:#5a4030}
+#mini-lb-list li.lb-me{color:#f0b020}
+.ml-name{flex:1}
+.ml-time{color:#4a3028}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="auth-bar">
+    <h1>Prince of Persia</h1>
+    <div>
+      <button id="signin-btn">Sign In</button>
+      <div id="user-info" class="hidden">
+        <img id="user-avatar" src="" alt="">
+        <span id="user-name"></span>
+        <button id="signout-btn">Sign Out</button>
+      </div>
+    </div>
+  </div>
+  <canvas id="game" width="640" height="400"></canvas>
+
+  <div id="startOverlay" class="overlay">
+    <h2>Prince of Persia</h2>
+    <p>Escape the dungeon before time runs out.<br>Defeat the guards. Find the exit.</p>
+    <p>
+      <span class="key">← →</span> Move &nbsp;
+      <span class="key">↑</span> Jump / Climb / Enter exit<br>
+      <span class="key">↓</span> Crouch / Drop from ledge &nbsp;
+      <span class="key">Shift</span> Careful step<br>
+      <span class="key">Space</span> Draw sword / Strike &nbsp;
+      <span class="key">P</span> Pause &nbsp;
+      <span class="key">L</span> Leaderboard
+    </p>
+    <button id="start-btn">Begin Escape</button>
+  </div>
+
+  <div id="gameOverOverlay" class="overlay hidden">
+    <h2>You Died</h2>
+    <p id="go-msg">The dungeon claims another soul.</p>
+    <p id="go-saved-msg" style="color:#7a6050;font-size:0.72rem"></p>
+    <div id="go-guest" class="hidden">
+      <p style="font-size:0.72rem;color:#4a3828">Sign in to appear on the leaderboard</p>
+      <button id="go-signin-btn">Sign in with Google</button>
+    </div>
+    <button id="restart-btn">Try Again</button>
+  </div>
+
+  <div id="levelCompleteOverlay" class="overlay hidden">
+    <h2>Level Clear</h2>
+    <p id="lc-msg"></p>
+    <button id="next-btn">Continue</button>
+  </div>
+
+  <div id="victoryOverlay" class="overlay hidden">
+    <h2>Freedom!</h2>
+    <p>You have escaped the dungeon!</p>
+    <p id="victory-time" style="color:#f0b020;font-size:1.2rem;letter-spacing:2px"></p>
+    <p id="v-saved-msg" style="color:#7a6050;font-size:0.72rem"></p>
+    <div id="v-guest" class="hidden">
+      <button id="v-signin-btn">Sign in to save your time</button>
+    </div>
+    <button id="play-again-btn">Play Again</button>
+  </div>
+
+  <div id="pauseOverlay" class="overlay hidden">
+    <h2>Paused</h2>
+    <p>Press <span class="key">P</span> to resume</p>
+  </div>
+</div>
+
+<div id="lb-modal" class="hidden">
+  <div id="lb-inner">
+    <h3>Fastest Escapes</h3>
+    <ul id="lb-list"><li style="justify-content:center;opacity:.5">Loading…</li></ul>
+    <div style="text-align:center;margin-top:14px"><button id="lb-close-btn">Close</button></div>
+  </div>
+</div>
+
+<div style="width:640px;max-width:100%">
+  <div id="hint-row">
+    <div><span>← →</span> Move</div>
+    <div><span>↑</span> Jump / Climb</div>
+    <div><span>↓</span> Crouch / Drop</div>
+    <div><span>Shift</span> Careful</div>
+    <div><span>Space</span> Sword</div>
+    <div><span>P</span> Pause</div>
+    <div><span>L</span> Leaderboard</div>
+  </div>
+  <div id="mini-lb">
+    <h4>Fastest Escapes</h4>
+    <ul id="mini-lb-list"><li><span class="ml-name">—</span></li></ul>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+'use strict';
+
+// ── Constants ──────────────────────────────────────────────────────────────
+const TILE   = 32;
+const COLS   = 20;
+const ROWS   = 12;
+const HUD_H  = 16;
+const GRAVITY  = 900;
+const JUMP_VY  = -490;
+const RUN_VX   = 130;
+const WALK_VX  = 65;
+const MAX_FALL = 700;
+const P_HW = 9;    // player half-width
+const P_H  = 42;   // player height
+const G_HW = 9;
+const G_H  = 42;
+
+// Tile IDs
+const T_AIR=0,T_FLOOR=1,T_WALL=2,T_SPIKE=4,T_LOOSE=5,T_GATE_C=6,T_GATE_O=7,T_EXIT=8,T_PLATE=9,T_TORCH=10;
+
+function isTopSolid(id){ return id===T_FLOOR||id===T_WALL||id===T_SPIKE||id===T_LOOSE||id===T_PLATE||id===T_GATE_C; }
+function isFullSolid(id){ return id===T_WALL||id===T_GATE_C; }
+function isDeadly(id){ return id===T_SPIKE; }
+
+// ── Colours ────────────────────────────────────────────────────────────────
+const C={
+  bg:'#080606', wall:'#2e2010', wallLt:'#4a3420', wallDk:'#180e04',
+  floor:'#3c3020', floorLt:'#584840', floorHi:'#6a5a50',
+  spike:'#706050', spTip:'#c0b060',
+  gate:'#162448', gateBar:'#2040a0',
+  exit:'#103010', exitG:'#38c838',
+  plate:'#504020', plateLt:'#806028',
+  torch:'#c03808', torchG:'#f0a818',
+  hud:'#060402', heart:'#c02808', heartE:'#281008',
+  timer:'#9a8868',
+  // Prince
+  pSkin:'#c8b080', pShirt:'#d8d0b0', pPants:'#2a1e0e',
+  // Guard
+  gSkin:'#806030', gShirt:'#1a2040', gPants:'#101828',
+  // Combat
+  blood:'#800808', sword:'#c0c0d0', swordG:'#c0a010',
+  // Potions
+  potR:'#c01818', potB:'#1840c0',
+};
+
+// ── Level Data ─────────────────────────────────────────────────────────────
+const LEVELS=[
+// ── Level 1: The Dungeon Hall ────────────────────────────────────────────
+{name:'Level 1: The Dungeon Hall',timeLimit:90,
+ playerStart:{col:1,row:10},exit:{col:18,row:10},
+ guards:[{col:13,row:10,patrol:[9,17],fl:true}],
+ items:[{type:'sword',col:3,row:10},{type:'redPotion',col:16,row:10}],
+ tiles:[
+  [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,8,2],
+  [2,2,2,2,2,2,2,4,4,4,2,2,2,2,2,2,2,2,2,2],
+ ]},
+// ── Level 2: The Broken Tower ────────────────────────────────────────────
+{name:'Level 2: The Broken Tower',timeLimit:80,
+ playerStart:{col:1,row:10},exit:{col:18,row:4},
+ guards:[{col:10,row:10,patrol:[7,13],fl:true}],
+ items:[{type:'redPotion',col:5,row:7}],
+ tiles:[
+  [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,8,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,1,1,1,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,2],
+  [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,4,4,4,2],
+ ]},
+// ── Level 3: Guard Post ───────────────────────────────────────────────────
+{name:'Level 3: Guard Post',timeLimit:75,
+ playerStart:{col:1,row:10},exit:{col:18,row:10},
+ guards:[
+  {col:7,row:10,patrol:[4,10],fl:false},
+  {col:14,row:10,patrol:[11,17],fl:true},
+  {col:14,row:6,patrol:[11,17],fl:true},
+ ],
+ items:[{type:'redPotion',col:3,row:10},{type:'redPotion',col:12,row:10},{type:'redPotion',col:16,row:6}],
+ tiles:[
+  [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,8,2],
+  [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+ ]},
+// ── Level 4: The Labyrinth ────────────────────────────────────────────────
+{name:'Level 4: The Labyrinth',timeLimit:80,
+ playerStart:{col:1,row:10},exit:{col:18,row:4},
+ guards:[
+  {col:16,row:10,patrol:[13,18],fl:true},
+  {col:15,row:4,patrol:[11,17],fl:true},
+ ],
+ items:[{type:'redPotion',col:3,row:7},{type:'bluePotion',col:10,row:4}],
+ tiles:[
+  [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,8,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,2],
+  [2,2,2,2,2,2,2,4,4,4,2,2,2,2,2,2,2,2,2,2],
+ ]},
+// ── Level 5: The Final Escape ─────────────────────────────────────────────
+{name:'Level 5: The Final Escape',timeLimit:90,
+ playerStart:{col:1,row:10},exit:{col:18,row:2},
+ guards:[
+  {col:7,row:10,patrol:[4,10],fl:false},
+  {col:15,row:10,patrol:[12,18],fl:true},
+  {col:13,row:6,patrol:[10,17],fl:true},
+  {col:13,row:2,patrol:[9,17],fl:false},
+ ],
+ items:[
+  {type:'redPotion',col:3,row:10},
+  {type:'bluePotion',col:4,row:6},
+  {type:'redPotion',col:17,row:6},
+ ],
+ tiles:[
+  [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,8,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+  [2,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,2],
+  [2,2,2,2,4,4,4,2,2,2,2,2,2,4,4,4,2,2,2,2],
+ ]},
+];
+
+// ── Canvas ─────────────────────────────────────────────────────────────────
+const canvas=document.getElementById('game');
+const ctx=canvas.getContext('2d');
+
+// ── Input ──────────────────────────────────────────────────────────────────
+const keys={};
+const pressed={};
+document.addEventListener('keydown',e=>{
+  if(!keys[e.key]) pressed[e.key]=true;
+  keys[e.key]=true;
+  if(e.key==='p'||e.key==='P') togglePause();
+  if(e.key==='l'||e.key==='L') toggleLB();
+  if(e.key===' '||e.key.startsWith('Arrow')) e.preventDefault();
+});
+document.addEventListener('keyup',e=>{ keys[e.key]=false; });
+function pop(k){ const v=!!pressed[k]; pressed[k]=false; return v; }
+function clearPressed(){ for(const k in pressed) pressed[k]=false; }
+
+// ── Game state ─────────────────────────────────────────────────────────────
+let gState='start';
+let lvlIdx=0;
+let gameSec=0;    // cumulative time across levels
+let lvlSec=0;     // time on current level
+let carryoverSword=false;
+let tileGrid=[];
+let gateOpen={};
+let lvl={};
+let player={};
+let guards=[];
+let items=[];
+let parts=[];     // particles
+let torchT=0;
+
+// ── Tile helpers ───────────────────────────────────────────────────────────
+function tileAt(c,r){
+  if(c<0||c>=COLS||r<0||r>=ROWS) return T_WALL;
+  const id=tileGrid[r][c];
+  if(id===T_GATE_C && gateOpen[c+','+r]) return T_GATE_O;
+  return id;
+}
+function floorRow(cx,by){ return Math.floor(by/TILE); }
+function hasGround(cx,by,hw){
+  const r=Math.floor((by+1)/TILE);
+  const c0=Math.floor((cx-hw+1)/TILE), c1=Math.floor((cx+hw-1)/TILE);
+  for(let c=c0;c<=c1;c++) if(isTopSolid(tileAt(c,r))) return true;
+  return false;
+}
+function edgeAhead(cx,by,hw,dir){
+  const ax=cx+dir*(hw+1);
+  const r=Math.floor(by/TILE);
+  return !isTopSolid(tileAt(Math.floor(ax/TILE),r));
+}
+
+// ── Level load ─────────────────────────────────────────────────────────────
+function loadLevel(idx){
+  lvl=LEVELS[idx];
+  tileGrid=lvl.tiles.map(r=>[...r]);
+  gateOpen={};
+  lvlSec=0;
+  const ps=lvl.playerStart;
+  player={
+    x:ps.col*TILE+TILE/2, y:ps.row*TILE,
+    vx:0, vy:0,
+    state:'idle',   // idle|run|jump|fall|grab|climbUp|crouch|sword|strike|block|hit|die
+    facing:1, health:3, maxHealth:3,
+    hasSword:carryoverSword,
+    stT:0,   // state timer
+    hitT:0,  // invincibility timer
+    swCd:0,  // sword cooldown
+    grabRow:-1, grabCol:-1,
+    dead:false,
+  };
+  guards=(lvl.guards||[]).map(g=>({
+    x:g.col*TILE+TILE/2, y:g.row*TILE,
+    vx:0, vy:0,
+    state:'patrol', facing:g.fl?-1:1,
+    health:2, patrol:g.patrol,
+    stT:0, swCd:0, dead:false,
+  }));
+  items=(lvl.items||[]).map(it=>({
+    type:it.type,
+    x:it.col*TILE+TILE/2, y:it.row*TILE,
+    col:it.col, picked:false,
+  }));
+  parts=[];
+}
+
+function startGame(){
+  carryoverSword=false;
+  lvlIdx=0; gameSec=0;
+  loadLevel(0);
+  gState='playing';
+  showOv(null);
+}
+
+function restartLevel(){
+  loadLevel(lvlIdx);
+  gState='playing';
+  showOv(null);
+}
+
+function nextLevel(){
+  carryoverSword=player.hasSword;
+  gameSec+=lvlSec;
+  lvlIdx++;
+  if(lvlIdx>=LEVELS.length){
+    gState='victory';
+    showOv('victoryOverlay');
+    document.getElementById('victory-time').textContent=fmtTime(gameSec+lvlSec-(lvlSec)); // already added
+    document.getElementById('victory-time').textContent=fmtTime(gameSec);
+    maybeSaveScore();
+    return;
+  }
+  loadLevel(lvlIdx);
+  gState='playing';
+  showOv(null);
+}
+
+// ── Overlays ───────────────────────────────────────────────────────────────
+const OVS=['startOverlay','gameOverOverlay','levelCompleteOverlay','victoryOverlay','pauseOverlay'];
+function showOv(id){
+  OVS.forEach(o=>{
+    const el=document.getElementById(o);
+    o===id?el.classList.remove('hidden'):el.classList.add('hidden');
+  });
+}
+
+function togglePause(){
+  if(gState==='playing'){gState='paused';showOv('pauseOverlay');}
+  else if(gState==='paused'){gState='playing';showOv(null);}
+}
+
+function fmtTime(sec){
+  const m=Math.floor(sec/60);
+  const s=Math.floor(sec%60);
+  const t=Math.floor((sec%1)*10);
+  return m+':'+String(s).padStart(2,'0')+'.'+t;
+}
+
+// ── Physics / Collision ────────────────────────────────────────────────────
+function moveEntity(ent,hw,h,dt){
+  const prevX=ent.x, prevY=ent.y;
+
+  // X movement
+  ent.x+=ent.vx*dt;
+  const tx=ent.y-h, bx=ent.y-0.1;
+  const r0=Math.max(0,Math.floor(tx/TILE)), r1=Math.min(ROWS-1,Math.floor(bx/TILE));
+  // left wall
+  const lc=Math.floor((ent.x-hw)/TILE);
+  let blocked=false;
+  for(let r=r0;r<=r1&&!blocked;r++){
+    if(isFullSolid(tileAt(lc,r))){
+      ent.x=(lc+1)*TILE+hw; ent.vx=0; blocked=true;
+    }
+  }
+  if(!blocked){
+    const rc=Math.floor((ent.x+hw-0.1)/TILE);
+    for(let r=r0;r<=r1;r++){
+      if(isFullSolid(tileAt(rc,r))){
+        ent.x=rc*TILE-hw; ent.vx=0; break;
+      }
+    }
+  }
+
+  // Y movement
+  ent.y+=ent.vy*dt;
+  const lc2=Math.floor((ent.x-hw+1)/TILE), rc2=Math.floor((ent.x+hw-1)/TILE);
+  let deadly=false, floorId=T_AIR;
+  if(ent.vy>=0){
+    const pRow=Math.floor(prevY/TILE), nRow=Math.floor(ent.y/TILE);
+    outer: for(let fr=pRow;fr<=nRow;fr++){
+      const top=fr*TILE;
+      if(ent.y>=top){
+        for(let c=lc2;c<=rc2;c++){
+          const id=tileAt(c,fr);
+          if(isTopSolid(id)){
+            ent.y=top; ent.vy=0; floorId=id;
+            if(isDeadly(id)) deadly=true;
+            break outer;
+          }
+        }
+      }
+    }
+  } else {
+    const topY=ent.y-h;
+    const tr=Math.floor(topY/TILE);
+    for(let c=lc2;c<=rc2;c++){
+      if(isFullSolid(tileAt(c,tr))){
+        ent.y=(tr+1)*TILE+h; ent.vy=0; break;
+      }
+    }
+  }
+  return {deadly, floorId};
+}
+
+// ── Player update ──────────────────────────────────────────────────────────
+function updatePlayer(dt){
+  if(player.dead) return;
+
+  const left=keys['ArrowLeft'], right=keys['ArrowRight'];
+  const careful=keys['Shift'];
+  const up=pop('ArrowUp'), dn=keys['ArrowDown'], spc=pop(' ');
+
+  player.stT+=dt;
+  if(player.hitT>0) player.hitT-=dt;
+  if(player.swCd>0) player.swCd-=dt;
+
+  const onGnd=hasGround(player.x,player.y,P_HW);
+
+  // Die state
+  if(player.state==='die'){
+    if(player.stT>1.4) gameOver();
+    player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
+    moveEntity(player,P_HW,P_H,dt);
+    return;
+  }
+
+  // Hit stun
+  if(player.state==='hit'){
+    if(player.stT>0.35){
+      player.state=onGnd?'idle':'fall';
+      player.stT=0;
+    }
+    player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
+    moveEntity(player,P_HW,P_H,dt);
+    return;
+  }
+
+  // Strike animation lock
+  if(player.state==='strike'){
+    if(player.stT>0.32){
+      doPlayerSwordHit();
+      player.state='sword'; player.stT=0;
+    }
+    player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
+    moveEntity(player,P_HW,P_H,dt);
+    return;
+  }
+
+  // Climb up from ledge grab
+  if(player.state==='climbUp'){
+    if(player.stT>0.55){
+      player.y=player.grabRow*TILE;
+      player.x=player.grabCol*TILE+TILE/2;
+      player.vx=0; player.vy=0;
+      player.state='idle'; player.stT=0;
+    }
+    return;
+  }
+
+  // Ledge grab
+  if(player.state==='grab'){
+    player.vx=0; player.vy=0;
+    if(up){ player.state='climbUp'; player.stT=0; }
+    else if(dn){ player.state='fall'; player.y+=4; player.vy=60; player.stT=0; }
+    return;
+  }
+
+  // Sword mode
+  if(player.state==='sword'){
+    const near=guards.some(g=>!g.dead&&Math.abs(g.y-player.y)<20&&Math.abs(g.x-player.x)<TILE*5);
+    if(spc&&player.swCd<=0){
+      player.state='strike'; player.stT=0; player.swCd=0.7;
+    } else if(!near&&player.stT>1.2){
+      player.state='idle'; player.stT=0;
+    }
+    if(left){ player.vx=-WALK_VX*0.7; player.facing=-1; }
+    else if(right){ player.vx=WALK_VX*0.7; player.facing=1; }
+    else player.vx*=0.6;
+    player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
+    const res=moveEntity(player,P_HW,P_H,dt);
+    if(res.deadly) killPlayer();
+    return;
+  }
+
+  // Draw sword (non-sword state)
+  if(spc&&player.hasSword&&onGnd){
+    player.state='sword'; player.stT=0; return;
+  }
+
+  // Crouch
+  if(dn&&onGnd&&!left&&!right){
+    player.state='crouch'; player.vx*=0.5;
+    player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
+    moveEntity(player,P_HW,P_H,dt); return;
+  }
+  if(player.state==='crouch'&&(!dn||left||right)) player.state='idle';
+
+  // Jump + exit interact
+  if(up&&onGnd){
+    // Check exit
+    const pr=Math.floor(player.y/TILE);
+    const cl=Math.floor((player.x-P_HW)/TILE), cr=Math.floor((player.x+P_HW)/TILE);
+    let atExit=false;
+    for(let c=cl;c<=cr;c++) if(tileAt(c,pr)===T_EXIT){atExit=true;break;}
+    if(atExit){ doLevelComplete(); return; }
+    // Jump
+    player.vy=JUMP_VY;
+    player.state='jump'; player.stT=0;
+    player.vx=(left?-1:right?1:0)*(careful?WALK_VX:RUN_VX);
+  }
+
+  // Horizontal
+  if(player.state!=='jump'&&player.state!=='fall'){
+    const spd=careful?WALK_VX:RUN_VX;
+    if(left){
+      player.facing=-1;
+      if(careful&&edgeAhead(player.x,player.y,P_HW,-1)) player.vx=0;
+      else { player.vx=-spd; if(onGnd) player.state='run'; }
+    } else if(right){
+      player.facing=1;
+      if(careful&&edgeAhead(player.x,player.y,P_HW,1)) player.vx=0;
+      else { player.vx=spd; if(onGnd) player.state='run'; }
+    } else {
+      player.vx*=0.5;
+      if(Math.abs(player.vx)<2) player.vx=0;
+      if(onGnd&&player.state==='run') player.state='idle';
+    }
+  } else {
+    const spd=RUN_VX;
+    if(left){ player.vx=Math.max(player.vx-350*dt,-spd); player.facing=-1; }
+    else if(right){ player.vx=Math.min(player.vx+350*dt,spd); player.facing=1; }
+  }
+
+  player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
+  const res=moveEntity(player,P_HW,P_H,dt);
+  if(res.deadly){ killPlayer(); return; }
+
+  // Update air state
+  if(onGnd&&(player.state==='jump'||player.state==='fall')){
+    player.state='idle'; player.stT=0;
+  } else if(!hasGround(player.x,player.y,P_HW)){
+    if(player.state!=='jump'&&player.state!=='fall'&&player.state!=='grab'&&player.state!=='climbUp'){
+      player.state='fall'; player.stT=0;
+    }
+  }
+
+  // Ledge grab attempt while falling
+  if((player.state==='fall'||player.state==='jump')&&player.vy>50){
+    tryLedgeGrab();
+  }
+
+  // Items
+  for(const it of items){
+    if(it.picked) continue;
+    if(Math.abs(it.x-player.x)<TILE*0.7&&Math.abs(it.y-player.y)<TILE*0.7) pickItem(it);
+  }
+}
+
+function tryLedgeGrab(){
+  const handY=player.y-P_H+10;
+  const hr=Math.floor(handY/TILE);
+  const tileTop=hr*TILE;
+  if(Math.abs(handY-tileTop)>12) return;
+
+  // Right ledge
+  const rhc=Math.floor((player.x+P_HW+2)/TILE);
+  if(isTopSolid(tileAt(rhc,hr))&&!isTopSolid(tileAt(rhc,hr-1))){
+    player.state='grab'; player.stT=0;
+    player.grabRow=hr; player.grabCol=rhc;
+    player.facing=1;
+    player.y=tileTop+P_H-10;
+    player.x=rhc*TILE-P_HW-1;
+    player.vx=0; player.vy=0; return;
+  }
+  // Left ledge
+  const lhc=Math.floor((player.x-P_HW-2)/TILE);
+  if(isTopSolid(tileAt(lhc,hr))&&!isTopSolid(tileAt(lhc,hr-1))){
+    player.state='grab'; player.stT=0;
+    player.grabRow=hr; player.grabCol=lhc;
+    player.facing=-1;
+    player.y=tileTop+P_H-10;
+    player.x=(lhc+1)*TILE+P_HW+1;
+    player.vx=0; player.vy=0; return;
+  }
+}
+
+function pickItem(it){
+  it.picked=true;
+  if(it.type==='sword'){ player.hasSword=true; spawnPart(it.x,it.y-20,C.swordG,'+Sword'); }
+  else if(it.type==='redPotion'){
+    if(player.health<player.maxHealth){ player.health++; spawnPart(it.x,it.y-20,C.potR,'+1 HP'); }
+    else spawnPart(it.x,it.y-20,C.potR,'Full HP');
+  } else if(it.type==='bluePotion'){
+    player.health=player.maxHealth; spawnPart(it.x,it.y-20,C.potB,'Full HP');
+  }
+}
+
+function doPlayerSwordHit(){
+  for(const g of guards){
+    if(g.dead) continue;
+    const dx=player.facing===1?(g.x-player.x):(player.x-g.x);
+    if(dx>0&&dx<TILE*1.8&&Math.abs(g.y-player.y)<20){
+      const blocks=(g.state==='sword'||g.state==='strike')&&Math.random()<0.45;
+      if(blocks) spawnPart((player.x+g.x)/2,player.y-30,C.sword,'Block!');
+      else hitGuard(g);
+    }
+  }
+}
+
+function hitGuard(g){
+  g.health--; spawnPart(g.x,g.y-30,C.blood,'-1');
+  if(g.health<=0){ g.dead=true; g.state='dead'; g.stT=0; }
+  else { g.state='hit'; g.stT=0; g.vx=player.facing*80; }
+}
+
+function hitPlayer(src){
+  if(player.hitT>0) return;
+  player.health--;
+  player.hitT=1.0; player.stT=0;
+  player.state='hit';
+  player.vx=-src.facing*60; player.vy=-80;
+  if(player.health<=0) killPlayer();
+}
+
+function killPlayer(){
+  if(player.dead) return;
+  player.dead=true; player.state='die'; player.stT=0; player.vy=-180;
+}
+
+function gameOver(){
+  gState='gameOver'; showOv('gameOverOverlay');
+  updateAuthUI();
+}
+
+function doLevelComplete(){
+  gameSec+=lvlSec;
+  gState='levelComplete'; showOv('levelCompleteOverlay');
+  document.getElementById('lc-msg').textContent=
+    'Level '+(lvlIdx+1)+' complete!  Time: '+fmtTime(lvlSec);
+}
+
+// ── Guard update ───────────────────────────────────────────────────────────
+function updateGuards(dt){
+  for(const g of guards){
+    if(g.dead){ g.stT+=dt; continue; }
+    g.stT+=dt;
+    if(g.swCd>0) g.swCd-=dt;
+
+    const sameRow=Math.abs(g.y-player.y)<24;
+    const dist=player.x-g.x;
+    const absDist=Math.abs(dist);
+
+    if(g.state==='hit'){
+      g.vx*=0.7;
+      if(g.stT>0.3){
+        g.state=(sameRow&&absDist<TILE*7)?'fight':'patrol';
+        g.stT=0;
+      }
+      g.vy=Math.min(g.vy+GRAVITY*dt,MAX_FALL);
+      moveEntity(g,G_HW,G_H,dt);
+      continue;
+    }
+
+    if(g.state==='strike'){
+      if(g.stT>0.38){
+        // check hit
+        if(!player.dead&&sameRow&&absDist<TILE*1.6){
+          const facingP=(g.facing===1&&dist>0)||(g.facing===-1&&dist<0);
+          if(facingP){
+            const blocks=(player.state==='block')||(player.state==='sword'&&player.facing!==g.facing);
+            if(blocks) spawnPart((player.x+g.x)/2,player.y-30,C.sword,'Block!');
+            else hitPlayer(g);
+          }
+        }
+        g.state='fight'; g.stT=0;
+      }
+      g.vx=0;
+      g.vy=Math.min(g.vy+GRAVITY*dt,MAX_FALL);
+      moveEntity(g,G_HW,G_H,dt);
+      continue;
+    }
+
+    if(g.state==='patrol'){
+      const pL=g.patrol[0]*TILE+TILE/2, pR=g.patrol[1]*TILE+TILE/2;
+      if(g.x<=pL) g.facing=1;
+      else if(g.x>=pR) g.facing=-1;
+      g.vx=g.facing*WALK_VX*0.45;
+      if(edgeAhead(g.x,g.y,G_HW,g.facing)) g.facing=-g.facing;
+      if(sameRow&&absDist<TILE*6&&!player.dead){
+        g.state='fight'; g.stT=0;
+      }
+    } else if(g.state==='fight'){
+      g.facing=dist>0?1:-1;
+      if(!sameRow||absDist>TILE*9||player.dead){
+        g.state='patrol'; g.stT=0; g.vx=0;
+      } else if(absDist<TILE*1.3){
+        g.vx=0;
+        if(g.swCd<=0){ g.state='strike'; g.stT=0; g.swCd=1.5; }
+      } else if(absDist<TILE*3){
+        g.vx=g.facing*WALK_VX*0.55;
+      } else {
+        g.vx=g.facing*RUN_VX*0.65;
+      }
+    }
+
+    g.vy=Math.min(g.vy+GRAVITY*dt,MAX_FALL);
+    moveEntity(g,G_HW,G_H,dt);
+  }
+}
+
+// ── Particles ──────────────────────────────────────────────────────────────
+function spawnPart(x,y,col,txt){
+  parts.push({x,y,col,txt,life:1.0,vy:-36});
+}
+function updateParts(dt){
+  for(const p of parts){ p.life-=dt*1.4; p.y+=p.vy*dt; }
+  for(let i=parts.length-1;i>=0;i--) if(parts[i].life<=0) parts.splice(i,1);
+}
+
+// ── Main update ────────────────────────────────────────────────────────────
+function update(dt){
+  lvlSec+=dt;
+  torchT+=dt*3.1;
+  updatePlayer(dt);
+  updateGuards(dt);
+  updateParts(dt);
+  clearPressed();
+  // Time limit
+  const tl=lvl.timeLimit||0;
+  if(tl>0&&lvlSec>tl) killPlayer();
+}
+
+// ── Tile rendering ─────────────────────────────────────────────────────────
+function drawTile(id,x,y,col,row){
+  switch(id){
+    case T_FLOOR:
+      ctx.fillStyle=C.wallDk; ctx.fillRect(x,y,TILE,TILE);
+      ctx.fillStyle=C.floor;  ctx.fillRect(x+1,y+1,TILE-2,TILE-2);
+      ctx.fillStyle=C.floorHi; ctx.fillRect(x+2,y+2,TILE-4,5);
+      ctx.fillStyle=C.floorLt; ctx.fillRect(x+2,y+7,TILE-4,3);
+      break;
+    case T_WALL:
+      ctx.fillStyle=C.wallDk; ctx.fillRect(x,y,TILE,TILE);
+      ctx.fillStyle=C.wall;   ctx.fillRect(x+1,y+1,TILE-2,TILE-2);
+      ctx.fillStyle=C.wallDk;
+      // mortar
+      const mo=(row%2===0?0:16);
+      [8,16,24].forEach(oy=>ctx.fillRect(x,y+oy,TILE,1));
+      [0,8,16,24].forEach(oy=>{
+        ctx.fillRect(x+((col*16+mo)%TILE+TILE)%TILE,y+oy,1,8);
+        ctx.fillRect(x+((col*16+mo+8)%TILE+TILE)%TILE,y+oy+8,1,8);
+      });
+      break;
+    case T_SPIKE:
+      ctx.fillStyle=C.wall; ctx.fillRect(x,y,TILE,TILE);
+      ctx.fillStyle=C.spike; ctx.fillRect(x+1,y+6,TILE-2,TILE-7);
+      ctx.fillStyle=C.spTip;
+      for(let i=0;i<4;i++){
+        const sx=x+4+i*8;
+        ctx.fillRect(sx+3,y+2,2,4); ctx.fillRect(sx+2,y+4,4,2);
+        ctx.fillRect(sx+1,y+5,6,2); ctx.fillRect(sx,y+6,8,3);
+      }
+      break;
+    case T_GATE_C:
+      ctx.fillStyle=C.gate; ctx.fillRect(x,y,TILE,TILE);
+      ctx.fillStyle=C.gateBar;
+      for(let i=0;i<4;i++) ctx.fillRect(x+4+i*7,y,3,TILE);
+      ctx.fillRect(x,y+10,TILE,2); ctx.fillRect(x,y+22,TILE,2);
+      break;
+    case T_GATE_O:
+      ctx.fillStyle=C.gate;
+      ctx.fillRect(x,y,3,TILE); ctx.fillRect(x+TILE-3,y,3,TILE);
+      break;
+    case T_EXIT:{
+      ctx.fillStyle=C.exit; ctx.fillRect(x,y,TILE,TILE);
+      ctx.fillStyle=C.exitG; ctx.fillRect(x+2,y+2,TILE-4,TILE-2);
+      ctx.fillStyle=C.exit;  ctx.fillRect(x+4,y+4,TILE-8,TILE-4);
+      const pulse=0.5+0.5*Math.sin(torchT*1.8);
+      ctx.fillStyle=`rgba(56,200,56,${pulse*0.28})`;
+      ctx.fillRect(x,y,TILE,TILE);
+      break;}
+    case T_PLATE:
+      ctx.fillStyle=C.wall; ctx.fillRect(x,y,TILE,TILE);
+      ctx.fillStyle=C.plate; ctx.fillRect(x+1,y+1,TILE-2,TILE-2);
+      ctx.fillStyle=C.plateLt; ctx.fillRect(x+6,y+4,TILE-12,8);
+      break;
+    case T_TORCH:{
+      const fl=0.7+0.3*Math.sin(torchT+col*2.1);
+      ctx.fillStyle=C.torch; ctx.fillRect(x+12,y+10,8,12);
+      ctx.fillStyle=C.torchG; ctx.fillRect(x+13,y+4+(fl<0.8?1:0),6,8);
+      const grd=ctx.createRadialGradient(x+16,y+10,2,x+16,y+10,22);
+      grd.addColorStop(0,`rgba(240,168,24,${0.28*fl})`);
+      grd.addColorStop(1,'rgba(240,168,24,0)');
+      ctx.fillStyle=grd; ctx.fillRect(x-4,y-12,TILE+8,40);
+      break;}
+  }
+}
+
+function renderTiles(){
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
+    const id=tileAt(c,r);
+    if(id===T_AIR||id===T_GATE_O) { if(id===T_GATE_O) drawTile(id,c*TILE,r*TILE,c,r); continue; }
+    drawTile(id,c*TILE,r*TILE,c,r);
+  }
+}
+
+// ── Item rendering ─────────────────────────────────────────────────────────
+function renderItems(){
+  for(const it of items){
+    if(it.picked) continue;
+    const x=it.x, y=it.y;
+    if(it.type==='sword'){
+      ctx.fillStyle=C.swordG; ctx.fillRect(x-10,y-5,20,3);
+      ctx.fillStyle=C.sword;  ctx.fillRect(x-12,y-3,24,2);
+      ctx.fillStyle=C.swordG; ctx.fillRect(x-2,y-8,4,4);
+    } else if(it.type==='redPotion'){
+      ctx.fillStyle=C.potR; ctx.fillRect(x-4,y-13,8,9);
+      ctx.fillStyle='#e84040'; ctx.fillRect(x-3,y-12,3,3);
+      ctx.fillStyle=C.potR; ctx.fillRect(x-2,y-16,4,4);
+      ctx.fillStyle='#802020'; ctx.fillRect(x-1,y-17,2,2);
+    } else {
+      ctx.fillStyle=C.potB; ctx.fillRect(x-4,y-13,8,9);
+      ctx.fillStyle='#4070e8'; ctx.fillRect(x-3,y-12,3,3);
+      ctx.fillStyle=C.potB; ctx.fillRect(x-2,y-16,4,4);
+      ctx.fillStyle='#203060'; ctx.fillRect(x-1,y-17,2,2);
+    }
+  }
+}
+
+// ── Character drawing ──────────────────────────────────────────────────────
+// All coords relative to bottom-center of character (after ctx.translate)
+function drawHuman(state,skin,shirt,pants,hasSword){
+  const t=performance.now()/1000;
+  let legSw=0;
+  if(state==='run') legSw=Math.sin(t*10)*7;
+  else if(state==='jump'||state==='fall') legSw=-5;
+  else if(state==='crouch') legSw=9;
+
+  const bY=state==='crouch'?8:0;
+
+  // Boots
+  ctx.fillStyle=pants;
+  ctx.fillRect(-9,-4+legSw,8,4);
+  ctx.fillRect(1,-4-legSw,8,4);
+  // Legs
+  ctx.fillRect(-8,-20+bY+legSw,6,16);
+  ctx.fillRect(2,-20+bY-legSw,6,16);
+  // Belt
+  ctx.fillRect(-7,-22+bY,14,3);
+  // Body
+  ctx.fillStyle=shirt;
+  ctx.fillRect(-7,-38+bY,14,16);
+  // Head
+  ctx.fillStyle=skin;
+  ctx.fillRect(-6,-50+bY,12,12);
+  // Hair
+  ctx.fillStyle=pants;
+  ctx.fillRect(-6,-50+bY,12,4);
+  ctx.fillRect(-7,-48+bY,2,4);
+  // Eye
+  ctx.fillStyle='#0a0a0a';
+  ctx.fillRect(1,-44+bY,2,2);
+  // Arm swing
+  const armSw=state==='run'?Math.sin(t*10+Math.PI)*4:0;
+  ctx.fillStyle=shirt;
+  ctx.fillRect(-10,-34+bY+armSw,4,10);
+
+  if(hasSword&&(state==='sword'||state==='strike'||state==='block')){
+    ctx.save();
+    ctx.translate(8,-32+bY);
+    if(state==='strike') ctx.rotate(0.25);
+    ctx.fillStyle=skin;  ctx.fillRect(0,0,4,10);
+    ctx.fillStyle=C.sword; ctx.fillRect(3,-2,2,4);
+    ctx.fillStyle='#d8d8e8'; ctx.fillRect(4,-22,1,22);
+    ctx.fillStyle=C.swordG; ctx.fillRect(3,4,2,6);
+    ctx.restore();
+    if(state==='strike'){
+      ctx.fillStyle='rgba(200,200,220,0.35)';
+      ctx.fillRect(4,-40+bY,32,18);
+    }
+  } else {
+    ctx.fillStyle=shirt;
+    ctx.fillRect(7,-34+bY+armSw,4,10);
+  }
+
+  if(state==='die'||state==='dead'){
+    ctx.fillStyle=pants;
+    ctx.fillRect(-22,-6,44,8);
+    ctx.fillStyle=C.blood;
+    ctx.fillRect(-4,-4,8,4);
+  }
+  if(state==='grab'){
+    // hanging: arms up
+    ctx.fillStyle=shirt;
+    ctx.fillRect(-10,-46+bY,4,14);
+    ctx.fillRect(6,-46+bY,4,14);
+  }
+}
+
+function renderPlayer(){
+  if(!player.x) return;
+  if(player.hitT>0&&Math.floor(player.hitT*10)%2===0) return;
+  ctx.save();
+  ctx.translate(player.x,player.y);
+  if(player.facing===-1) ctx.scale(-1,1);
+  drawHuman(player.state,C.pSkin,C.pShirt,C.pPants,player.hasSword);
+  ctx.restore();
+}
+
+function renderGuards(){
+  for(const g of guards){
+    ctx.save();
+    ctx.translate(g.x,g.y);
+    if(g.facing===-1) ctx.scale(-1,1);
+    if(g.state==='dead'){
+      const a=Math.max(0,1-g.stT/1.6);
+      ctx.globalAlpha=a;
+    }
+    drawHuman(g.state,C.gSkin,C.gShirt,C.gPants,true);
+    ctx.globalAlpha=1;
+    ctx.restore();
+    // hp bar
+    if(!g.dead&&g.state!=='patrol'){
+      const bw=20;
+      ctx.fillStyle='#200000'; ctx.fillRect(g.x-bw/2,g.y-G_H-7,bw,3);
+      ctx.fillStyle=C.blood;   ctx.fillRect(g.x-bw/2,g.y-G_H-7,bw*(g.health/2),3);
+    }
+  }
+}
+
+function renderParts(){
+  for(const p of parts){
+    ctx.globalAlpha=Math.max(0,p.life);
+    ctx.fillStyle=p.col;
+    ctx.font='bold 8px monospace';
+    ctx.fillText(p.txt,p.x-10,p.y);
+  }
+  ctx.globalAlpha=1;
+}
+
+// ── HUD ────────────────────────────────────────────────────────────────────
+function renderHUD(){
+  ctx.fillStyle=C.hud; ctx.fillRect(0,0,640,HUD_H);
+  // Hearts
+  for(let i=0;i<player.maxHealth;i++){
+    ctx.fillStyle=i<player.health?C.heart:C.heartE;
+    ctx.fillRect(8+i*11,4,9,9);
+  }
+  // Level name
+  ctx.fillStyle=C.timer; ctx.font='8px monospace'; ctx.textAlign='center';
+  ctx.fillText((lvl.name||'Level '+(lvlIdx+1)),320,12);
+  // Timer
+  const tl=lvl.timeLimit||0;
+  const disp=tl>0?Math.max(0,tl-lvlSec):gameSec+lvlSec;
+  ctx.textAlign='right';
+  ctx.fillStyle=(tl>0&&(tl-lvlSec)<15)?C.heart:C.timer;
+  ctx.fillText(fmtTime(disp),632,12);
+  ctx.textAlign='left';
+}
+
+// ── Main render ────────────────────────────────────────────────────────────
+function render(){
+  ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
+  ctx.save(); ctx.translate(0,HUD_H);
+  renderTiles();
+  renderItems();
+  renderGuards();
+  renderPlayer();
+  renderParts();
+  ctx.restore();
+  renderHUD();
+}
+
+// ── Game loop ──────────────────────────────────────────────────────────────
+let looping=false, lastTs=0;
+function loop(ts){
+  const dt=Math.min((ts-lastTs)/1000,0.05);
+  lastTs=ts;
+  if(gState==='playing') update(dt);
+  render();
+  if(looping) requestAnimationFrame(loop);
+}
+function startLoop(){
+  looping=true; lastTs=performance.now(); requestAnimationFrame(loop);
+}
+
+// ── Firebase ───────────────────────────────────────────────────────────────
+const firebaseConfig={
+  apiKey:'AIzaSyBBXi3VaLlSH_ds-phdRQeAieG4On72s4c',
+  authDomain:'agust-islandia-tetris.firebaseapp.com',
+  projectId:'agust-islandia-tetris',
+  storageBucket:'agust-islandia-tetris.firebasestorage.app',
+  messagingSenderId:'539426865433',
+  appId:'1:539426865433:web:eac8e354f2b6522ef30588',
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+const gProv=new firebase.auth.GoogleAuthProvider();
+
+let fbUser=null, pendingSave=false;
+
+auth.onAuthStateChanged(user=>{
+  const wasGuest=!fbUser;
+  fbUser=user;
+  updateAuthUI();
+  if(user&&wasGuest&&pendingSave){ pendingSave=false; maybeSaveScore(); }
+});
+
+function updateAuthUI(){
+  const sb=document.getElementById('signin-btn');
+  const ui=document.getElementById('user-info');
+  const av=document.getElementById('user-avatar');
+  const nm=document.getElementById('user-name');
+  const gg=document.getElementById('go-guest');
+  const vg=document.getElementById('v-guest');
+  if(fbUser){
+    sb.classList.add('hidden'); ui.classList.remove('hidden');
+    if(av) av.src=fbUser.photoURL||'';
+    if(nm) nm.textContent=(fbUser.displayName||fbUser.email||'').split(' ')[0];
+    if(gg) gg.classList.add('hidden');
+    if(vg) vg.classList.add('hidden');
+  } else {
+    sb.classList.remove('hidden'); ui.classList.add('hidden');
+    if(gg) gg.classList.remove('hidden');
+    if(vg) vg.classList.remove('hidden');
+  }
+}
+
+function signIn(){ auth.signInWithPopup(gProv).catch(e=>console.warn(e)); }
+function signOut(){ auth.signOut(); }
+
+async function maybeSaveScore(){
+  const totalMs=Math.floor(gameSec*1000);
+  const msgEl=document.getElementById('v-saved-msg');
+  if(!fbUser){ pendingSave=true; return; }
+  try{
+    const ref=db.collection('pop_scores').doc(fbUser.uid);
+    const snap=await ref.get();
+    const prev=snap.exists?(snap.data().bestTime||Infinity):Infinity;
+    if(totalMs<prev){
+      await ref.set({
+        displayName:(fbUser.displayName||'Anonymous').split(' ')[0],
+        photoURL:fbUser.photoURL||'',
+        bestTime:totalMs,
+        level:LEVELS.length,
+        updatedAt:firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      if(msgEl) msgEl.textContent='New personal best saved!';
+      loadMiniLB();
+    } else {
+      if(msgEl) msgEl.textContent='Your best: '+fmtTime(prev/1000);
+    }
+  } catch(e){ console.warn('Firestore error',e); if(msgEl) msgEl.textContent='Could not save time.'; }
+}
+
+async function loadMiniLB(){
+  const list=document.getElementById('mini-lb-list');
+  if(!list) return;
+  try{
+    const snap=await db.collection('pop_scores').orderBy('bestTime','asc').limit(5).get();
+    list.innerHTML='';
+    if(snap.empty){ list.innerHTML='<li><span class="ml-name">No times yet</span></li>'; return; }
+    let i=0;
+    snap.forEach(doc=>{
+      const d=doc.data(), li=document.createElement('li');
+      if(fbUser&&doc.id===fbUser.uid) li.classList.add('lb-me');
+      li.innerHTML=`<span class="ml-name">${i+1}. ${(d.displayName||'Anon').split(' ')[0]}</span><span class="ml-time">${fmtTime((d.bestTime||0)/1000)}</span>`;
+      list.appendChild(li); i++;
+    });
+  } catch(e){ console.warn('Mini LB error',e); }
+}
+
+async function loadLB(){
+  const list=document.getElementById('lb-list');
+  list.innerHTML='<li style="justify-content:center;opacity:.5">Loading…</li>';
+  try{
+    const snap=await db.collection('pop_scores').orderBy('bestTime','asc').limit(20).get();
+    list.innerHTML='';
+    if(snap.empty){ list.innerHTML='<li style="justify-content:center;opacity:.5">No completions yet — be the first!</li>'; return; }
+    let i=0;
+    snap.forEach(doc=>{
+      const d=doc.data(), li=document.createElement('li');
+      if(fbUser&&doc.id===fbUser.uid) li.classList.add('lb-me');
+      li.innerHTML=`<span class="lb-rank">${i+1}</span><span class="lb-name">${(d.displayName||'Anon').split(' ')[0]}</span><span class="lb-time">${fmtTime((d.bestTime||0)/1000)}</span><span class="lb-lv">Lv${d.level||'?'}</span>`;
+      list.appendChild(li); i++;
+    });
+  } catch(e){ list.innerHTML='<li style="opacity:.5">Could not load.</li>'; console.warn(e); }
+}
+
+let lbOpen=false;
+function toggleLB(){
+  lbOpen=!lbOpen;
+  const m=document.getElementById('lb-modal');
+  if(lbOpen){ m.classList.remove('hidden'); loadLB(); }
+  else m.classList.add('hidden');
+}
+
+// ── Button wiring ──────────────────────────────────────────────────────────
+document.getElementById('signin-btn').addEventListener('click',signIn);
+document.getElementById('signout-btn').addEventListener('click',signOut);
+document.getElementById('go-signin-btn').addEventListener('click',signIn);
+document.getElementById('v-signin-btn').addEventListener('click',signIn);
+document.getElementById('start-btn').addEventListener('click',startGame);
+document.getElementById('restart-btn').addEventListener('click',restartLevel);
+document.getElementById('next-btn').addEventListener('click',()=>{
+  lvlIdx++;
+  if(lvlIdx>=LEVELS.length){
+    gState='victory'; showOv('victoryOverlay');
+    document.getElementById('victory-time').textContent=fmtTime(gameSec);
+    maybeSaveScore();
+  } else {
+    carryoverSword=player.hasSword;
+    loadLevel(lvlIdx);
+    gState='playing'; showOv(null);
+  }
+});
+document.getElementById('play-again-btn').addEventListener('click',startGame);
+document.getElementById('lb-close-btn').addEventListener('click',toggleLB);
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+showOv('startOverlay');
+loadMiniLB();
+loadLevel(0);   // pre-load so render() has valid state
+render();       // show first frame (start overlay visible)
+startLoop();
+
+</script>
+</body>
+</html>
