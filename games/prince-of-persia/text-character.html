@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hercules Character Concepts</title>
+<style>
+body{background:#1a1208;color:#e8d8a0;font-family:'Courier New',monospace;display:flex;flex-direction:column;align-items:center;padding:30px;gap:20px}
+h1{color:#f0b020;letter-spacing:4px;text-transform:uppercase;font-size:1.1rem}
+.row{display:flex;gap:40px;align-items:flex-end;flex-wrap:wrap;justify-content:center}
+.concept{display:flex;flex-direction:column;align-items:center;gap:10px}
+.label{color:#c8a030;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;text-align:center}
+.desc{color:#9a8858;font-size:0.62rem;max-width:120px;text-align:center;line-height:1.5}
+canvas{image-rendering:pixelated;border:1px solid #3a2a10;background:#0e0a04}
+</style>
+</head>
+<body>
+<h1>Hercules — Character Concepts</h1>
+<p style="color:#7a6840;font-size:0.72rem;text-align:center">Rectangle-sprite designs · same technique as the existing game</p>
+
+<div class="row" id="concepts"></div>
+
+<script>
+// ── Palette options ──────────────────────────────────────────────────────────
+const SKINS = {
+  bronze:  { skin:'#c8a060', skirt:'#c8a030', skirtDk:'#a07820', belt:'#804020', sandal:'#703818', hair:'#2a1a08', muscle:'#b08840', shadow:'#9a7030' },
+  olive:   { skin:'#c09050', skirt:'#e8e0c0', skirtDk:'#c0b890', belt:'#603818', sandal:'#503010', hair:'#1a1208', muscle:'#a87838', shadow:'#8a6828' },
+  warrior: { skin:'#c8a060', skirt:'#8b1a1a', skirtDk:'#6a1010', belt:'#c8a030', sandal:'#703818', hair:'#2a1a08', muscle:'#b08840', shadow:'#9a7030' },
+  lion:    { skin:'#c8a060', skirt:'#c89030', skirtDk:'#a07020', belt:'#8b4500', sandal:'#603010', hair:'#1a0800', muscle:'#b08840', shadow:'#9a7030' },
+};
+
+// ── Draw a Hercules character ────────────────────────────────────────────────
+// cx,cy = bottom-center of character (feet)
+// All measurements in px (scale applied via ctx.scale)
+function drawHercules(ctx, p, pose, scale) {
+  ctx.save();
+  ctx.scale(scale, scale);
+
+  const { skin, skirt, skirtDk, belt, sandal, hair, muscle, shadow } = p;
+
+  // ── Sandals / feet ──────────────────────────────────────────────────────
+  ctx.fillStyle = sandal;
+  // sole
+  ctx.fillRect(-10, -3, 10, 3);
+  ctx.fillRect(1,   -3, 10, 3);
+  // ankle strap
+  ctx.fillStyle = sandal;
+  ctx.fillRect(-9, -6, 8, 3);
+  ctx.fillRect(1,  -6, 8, 3);
+
+  // ── Legs (bare) ─────────────────────────────────────────────────────────
+  ctx.fillStyle = skin;
+  let legSw = 0;
+  if (pose === 'run')    legSw = 8;
+  if (pose === 'ready')  legSw = 3;
+  if (pose === 'strike') legSw = 5;
+  ctx.fillRect(-9,  -22 + legSw, 8, 16);  // back leg
+  ctx.fillRect(1,   -22 - legSw, 8, 16);  // front leg
+  // knee highlight
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-7, -12 + legSw, 4, 3);
+  ctx.fillRect(2,  -12 - legSw, 4, 3);
+
+  // ── Skirt (short chiton, flared) ─────────────────────────────────────────
+  ctx.fillStyle = skirt;
+  ctx.fillRect(-10, -26, 20, 2);   // hem
+  ctx.fillRect(-9,  -30, 18, 4);   // lower skirt
+  ctx.fillRect(-8,  -34, 16, 4);   // upper skirt
+  // skirt folds (darker stripes)
+  ctx.fillStyle = skirtDk;
+  ctx.fillRect(-6,  -34, 2, 8);
+  ctx.fillRect(-1,  -34, 2, 8);
+  ctx.fillRect(4,   -34, 2, 8);
+  ctx.fillRect(8,   -34, 1, 6);
+
+  // ── Belt ────────────────────────────────────────────────────────────────
+  ctx.fillStyle = belt;
+  ctx.fillRect(-9, -36, 18, 3);
+  // buckle
+  ctx.fillStyle = '#f0c030';
+  ctx.fillRect(-2, -37, 4, 4);
+
+  // ── Torso (bare chest, muscular) ────────────────────────────────────────
+  // wider than prince (16px vs 14px)
+  ctx.fillStyle = skin;
+  ctx.fillRect(-8, -54, 16, 18);
+  // pectoral definition
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-7, -53, 6, 7);   // left pec shadow
+  ctx.fillRect(1,  -53, 6, 7);   // right pec shadow
+  // sternum line
+  ctx.fillStyle = muscle;
+  ctx.fillRect(-1, -52, 2, 14);
+  // abs
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-5, -44, 4, 3);
+  ctx.fillRect(1,  -44, 4, 3);
+  ctx.fillRect(-5, -39, 4, 3);
+  ctx.fillRect(1,  -39, 4, 3);
+  // shoulder mass
+  ctx.fillStyle = skin;
+  ctx.fillRect(-11, -54, 4, 10);  // left shoulder
+  ctx.fillRect(7,   -54, 4, 10);  // right shoulder
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-11, -52, 3, 3);
+  ctx.fillRect(8,   -52, 3, 3);
+
+  // ── Arms ────────────────────────────────────────────────────────────────
+  ctx.fillStyle = skin;
+  if (pose === 'strike' || pose === 'ready') {
+    // right arm raised with weapon
+    ctx.fillRect(7,  -64, 5, 14);   // upper arm
+    ctx.fillRect(9,  -72, 4, 10);   // forearm raised
+    // bicep
+    ctx.fillStyle = shadow;
+    ctx.fillRect(7, -60, 3, 4);
+    // left arm relaxed
+    ctx.fillStyle = skin;
+    ctx.fillRect(-12, -53, 5, 12);
+    ctx.fillRect(-11, -44, 4, 8);
+  } else {
+    // both arms down / swinging
+    const sw = pose === 'run' ? 6 : 0;
+    ctx.fillRect(-12, -53+sw, 5, 12);
+    ctx.fillRect(-11, -43+sw, 4, 8);
+    ctx.fillRect(7,   -53-sw, 5, 12);
+    ctx.fillRect(8,   -43-sw, 4, 8);
+    ctx.fillStyle = shadow;
+    ctx.fillRect(-11, -49+sw, 3, 4);
+    ctx.fillRect(7,   -49-sw, 3, 4);
+  }
+
+  // ── Head ────────────────────────────────────────────────────────────────
+  ctx.fillStyle = skin;
+  const headY = pose === 'strike' ? -66 : -68;
+  ctx.fillRect(-7, headY, 14, 14);
+  // jaw / chin — wider, more heroic
+  ctx.fillRect(-6, headY+10, 12, 4);
+
+  // ── Hair ────────────────────────────────────────────────────────────────
+  ctx.fillStyle = hair;
+  ctx.fillRect(-7, headY,   14, 5);   // top
+  ctx.fillRect(-8, headY+2, 3,  6);   // left curl
+  ctx.fillRect(5,  headY+2, 4,  5);   // right curl
+  // laurel wreath hint
+  ctx.fillStyle = '#386830';
+  ctx.fillRect(-8, headY+1, 16, 2);
+
+  // ── Eyes + face ─────────────────────────────────────────────────────────
+  ctx.fillStyle = '#0a0a14';
+  ctx.fillRect(-3, headY+6, 3, 2);
+  ctx.fillRect(2,  headY+6, 3, 2);
+  // brow (heroic frown)
+  ctx.fillStyle = hair;
+  ctx.fillRect(-4, headY+4, 3, 2);
+  ctx.fillRect(2,  headY+4, 3, 2);
+  // nose
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-1, headY+8, 2, 3);
+
+  // ── Weapon ──────────────────────────────────────────────────────────────
+  if (pose === 'strike' || pose === 'ready') drawClub(ctx, pose);
+  if (pose === 'idle')   drawClub(ctx, 'idle');
+
+  ctx.restore();
+}
+
+function drawClub(ctx, pose) {
+  ctx.fillStyle = '#6a3a10';
+  if (pose === 'strike') {
+    // club raised overhead
+    ctx.fillRect(11, -82, 5, 22);   // handle
+    ctx.fillRect(9,  -90, 9,  9);   // head (knobbed)
+    ctx.fillStyle = '#4a2808';
+    ctx.fillRect(9,  -91, 9,  3);
+    ctx.fillRect(8,  -88, 11, 3);
+  } else if (pose === 'ready') {
+    // club held up at angle
+    ctx.fillRect(13, -78, 4, 18);
+    ctx.fillRect(11, -86, 8,  9);
+    ctx.fillStyle = '#4a2808';
+    ctx.fillRect(11, -87, 8,  3);
+  } else {
+    // club resting by side
+    ctx.fillRect(9,  -54, 4, 26);
+    ctx.fillRect(7,  -54, 8,  8);
+    ctx.fillStyle = '#4a2808';
+    ctx.fillRect(7,  -55, 8,  3);
+  }
+}
+
+// ── Concepts config ──────────────────────────────────────────────────────────
+const concepts = [
+  {
+    id: 'A',
+    label: 'Option A — Bronze Hero',
+    desc:  'Classic bronze skin, golden lion-skin skirt, oak club',
+    palette: SKINS.bronze,
+    poses:  ['idle','run','strike'],
+  },
+  {
+    id: 'B',
+    label: 'Option B — White Cloth',
+    desc:  'Olive complexion, white linen chiton, darker sandals',
+    palette: SKINS.olive,
+    poses:  ['idle','run','strike'],
+  },
+  {
+    id: 'C',
+    label: 'Option C — Crimson Warrior',
+    desc:  'Bronze skin, blood-red battle skirt, golden belt',
+    palette: SKINS.warrior,
+    poses:  ['idle','run','strike'],
+  },
+  {
+    id: 'D',
+    label: 'Option D — Lion Skin',
+    desc:  'Dark bronze skin, amber lion-pelt skirt, very classic',
+    palette: SKINS.lion,
+    poses:  ['idle','run','strike'],
+  },
+];
+
+const poseLabels = { idle:'Idle', run:'Running', ready:'Ready', strike:'Strike' };
+
+// ── Render each concept ──────────────────────────────────────────────────────
+const container = document.getElementById('concepts');
+
+concepts.forEach(c => {
+  const wrap = document.createElement('div');
+  wrap.className = 'concept';
+
+  const lbl = document.createElement('div');
+  lbl.className = 'label';
+  lbl.textContent = c.label;
+  wrap.appendChild(lbl);
+
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;gap:8px;align-items:flex-end';
+
+  c.poses.forEach(pose => {
+    const inner = document.createElement('div');
+    inner.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:4px';
+
+    const scale = 3;
+    const W = 60, H = 110;   // canvas size in CSS pixels
+    const tw = Math.round(W/scale), th = Math.round(H/scale);
+
+    const cv = document.createElement('canvas');
+    cv.width  = tw;
+    cv.height = th;
+    cv.style.width  = W + 'px';
+    cv.style.height = H + 'px';
+    cv.style.imageRendering = 'pixelated';
+    cv.style.border = '1px solid #3a2a10';
+    cv.style.background = '#0e0a04';
+
+    const ctx = cv.getContext('2d');
+    // origin at bottom-center
+    ctx.translate(tw/2, th - 2);
+    drawHercules(ctx, c.palette, pose, 1);
+
+    const pl = document.createElement('div');
+    pl.style.cssText = 'color:#7a6840;font-size:0.58rem;letter-spacing:1px';
+    pl.textContent = poseLabels[pose] || pose;
+
+    inner.appendChild(cv);
+    inner.appendChild(pl);
+    row.appendChild(inner);
+  });
+
+  wrap.appendChild(row);
+
+  const desc = document.createElement('div');
+  desc.className = 'desc';
+  desc.textContent = c.desc;
+  wrap.appendChild(desc);
+
+  container.appendChild(wrap);
+});
+
+// ── Animate running legs ─────────────────────────────────────────────────────
+// re-draw run pose with animated legSw each frame
+const runCanvases = [];
+document.querySelectorAll('canvas').forEach((cv, i) => {
+  // run pose is index 1 of each group of 3
+  if (i % 3 === 1) runCanvases.push({ cv, conceptIdx: Math.floor(i/3) });
+});
+
+function animateRun(ts) {
+  runCanvases.forEach(({ cv, conceptIdx }) => {
+    const c   = concepts[conceptIdx];
+    const scale = 1;
+    const tw  = cv.width, th = cv.height;
+    const ctx = cv.getContext('2d');
+    ctx.clearRect(0, 0, tw, th);
+    ctx.fillStyle = '#0e0a04';
+    ctx.fillRect(0, 0, tw, th);
+    ctx.save();
+    ctx.translate(tw/2, th - 2);
+    // override legSw via ts
+    const origDraw = drawHercules;
+    // patch: draw with animated run
+    drawHerculesRun(ctx, c.palette, ts/1000);
+    ctx.restore();
+  });
+  requestAnimationFrame(animateRun);
+}
+
+function drawHerculesRun(ctx, p, t) {
+  ctx.save();
+  const { skin, skirt, skirtDk, belt, sandal, hair, muscle, shadow } = p;
+  const legSw = Math.sin(t * 8) * 8;
+
+  ctx.fillStyle = sandal;
+  ctx.fillRect(-10 + legSw*0.3, -3, 10, 3);
+  ctx.fillRect(1   - legSw*0.3, -3, 10, 3);
+  ctx.fillRect(-9  + legSw*0.3, -6, 8, 3);
+  ctx.fillRect(1   - legSw*0.3, -6, 8, 3);
+
+  ctx.fillStyle = skin;
+  ctx.fillRect(-9,  -22 + legSw, 8, 16);
+  ctx.fillRect(1,   -22 - legSw, 8, 16);
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-7, -12 + legSw, 4, 3);
+  ctx.fillRect(2,  -12 - legSw, 4, 3);
+
+  ctx.fillStyle = skirt;
+  ctx.fillRect(-10, -26, 20, 2);
+  ctx.fillRect(-9,  -30, 18, 4);
+  ctx.fillRect(-8,  -34, 16, 4);
+  ctx.fillStyle = skirtDk;
+  ctx.fillRect(-6, -34, 2, 8);
+  ctx.fillRect(-1, -34, 2, 8);
+  ctx.fillRect(4,  -34, 2, 8);
+
+  ctx.fillStyle = belt;
+  ctx.fillRect(-9, -36, 18, 3);
+  ctx.fillStyle = '#f0c030';
+  ctx.fillRect(-2, -37, 4, 4);
+
+  ctx.fillStyle = skin;
+  ctx.fillRect(-8, -54, 16, 18);
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-7, -53, 6, 7);
+  ctx.fillRect(1,  -53, 6, 7);
+  ctx.fillStyle = muscle;
+  ctx.fillRect(-1, -52, 2, 14);
+  ctx.fillStyle = shadow;
+  ctx.fillRect(-5, -44, 4, 3); ctx.fillRect(1, -44, 4, 3);
+  ctx.fillRect(-5, -39, 4, 3); ctx.fillRect(1, -39, 4, 3);
+  ctx.fillStyle = skin;
+  ctx.fillRect(-11, -54, 4, 10);
+  ctx.fillRect(7,   -54, 4, 10);
+
+  const armSw = Math.sin(t*8 + Math.PI) * 6;
+  ctx.fillStyle = skin;
+  ctx.fillRect(-12, -53+armSw, 5, 12);
+  ctx.fillRect(-11, -43+armSw, 4, 8);
+  ctx.fillRect(7,   -53-armSw, 5, 12);
+  ctx.fillRect(8,   -43-armSw, 4, 8);
+
+  ctx.fillStyle = skin;
+  ctx.fillRect(-7, -68, 14, 14);
+  ctx.fillRect(-6, -58, 12, 4);
+  ctx.fillStyle = hair;
+  ctx.fillRect(-7, -68, 14, 5);
+  ctx.fillRect(-8, -66, 3, 6);
+  ctx.fillRect(5,  -66, 4, 5);
+  ctx.fillStyle = '#386830';
+  ctx.fillRect(-8, -67, 16, 2);
+  ctx.fillStyle = '#0a0a14';
+  ctx.fillRect(-3, -62, 3, 2);
+  ctx.fillRect(2,  -62, 3, 2);
+  ctx.fillStyle = hair;
+  ctx.fillRect(-4, -64, 3, 2);
+  ctx.fillRect(2,  -64, 3, 2);
+
+  ctx.restore();
+}
+
+requestAnimationFrame(animateRun);
+</script>
+</body>
+</html>
