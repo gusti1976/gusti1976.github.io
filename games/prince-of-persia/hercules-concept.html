@@ -70,15 +70,18 @@ function drawHercules(ctx, pose) {
 
   // ── Legs ──────────────────────────────────────────────────────────────────
   ctx.fillStyle = P.skin;
-  ctx.fillRect(-9,  -24 + sw, 8, 17);
-  ctx.fillRect( 1,  -24 - sw, 8, 17);
+  ctx.fillRect(-9,  -36 + sw, 8, 29);   // back leg — extends up to skirt hem
+  ctx.fillRect( 1,  -36 - sw, 8, 29);   // front leg
   ctx.fillStyle = P.shadow;
-  ctx.fillRect(-8,  -13 + sw, 4,  4);
+  ctx.fillRect(-8,  -13 + sw, 4,  4);   // knee
   ctx.fillRect( 3,  -13 - sw, 4,  4);
-  ctx.fillRect(-9,  -20 + sw, 3,  7);
-  ctx.fillRect( 6,  -20 - sw, 3,  7);
+  ctx.fillRect(-9,  -24 + sw, 3,  8);   // calf
+  ctx.fillRect( 6,  -24 - sw, 3,  8);
+  // inner thigh definition
+  ctx.fillRect(-5,  -32 + sw, 3,  8);
+  ctx.fillRect( 2,  -32 - sw, 3,  8);
   ctx.fillStyle = P.hi;
-  ctx.fillRect(-7,  -13 + sw, 2,  3);
+  ctx.fillRect(-7,  -13 + sw, 2,  3);   // knee highlight
   ctx.fillRect( 4,  -13 - sw, 2,  3);
 
   // ── Skirt (short — half length) ───────────────────────────────────────────
