@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Game Items</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0612;color:#e8d0f8;font-family:'Courier New',monospace;
+     display:flex;flex-direction:column;align-items:center;padding:30px;gap:24px}
+h1{color:#d040f0;letter-spacing:4px;text-transform:uppercase;font-size:1.1rem}
+.subtitle{color:#7a5090;font-size:0.72rem;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;width:100%;max-width:900px}
+.card{background:#130820;border:1px solid #3a1860;border-radius:4px;
+      display:flex;flex-direction:column;align-items:center;padding:12px;gap:8px}
+.card:hover{border-color:#d040f0}
+.num{color:#4a2060;font-size:0.6rem;align-self:flex-start}
+.name{color:#e040c0;font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;text-align:center}
+.effect{color:#9060a8;font-size:0.6rem;text-align:center;line-height:1.5}
+.type{color:#5a3070;font-size:0.55rem;letter-spacing:1px;text-transform:uppercase}
+canvas{image-rendering:pixelated;border:1px solid #2a1040;background:#060210}
+</style>
+</head>
+<body>
+<h1>Item Concepts — 20 Items</h1>
+<p class="subtitle">Rectangle sprites · each with a game effect</p>
+<div class="grid" id="grid"></div>
+<script>
+const S=3, W=32, H=32;
+
+const ITEMS=[
+{name:'Poppers',type:'consumable',effect:'Speed ×2 for 8s, guards appear slower',color:'#e84040',
+ draw(ctx){
+  // small brown bottle
+  ctx.fillStyle='#8a4010';ctx.fillRect(12,8,8,16);
+  ctx.fillStyle='#6a2808';ctx.fillRect(13,9,6,14);
+  // neck
+  ctx.fillStyle='#8a4010';ctx.fillRect(14,5,4,4);
+  // cap
+  ctx.fillStyle='#d0d0d0';ctx.fillRect(13,3,6,3);
+  // label
+  ctx.fillStyle='#e84040';ctx.fillRect(13,12,6,5);
+  ctx.fillStyle='#ff9090';ctx.fillRect(14,13,4,3);
+  // shine
+  ctx.fillStyle='rgba(255,255,255,0.4)';ctx.fillRect(14,10,2,4);
+ }},
+{name:'Lube Bottle',type:'consumable',effect:'Slide past guards, immune to pressure plates',color:'#40c8f0',
+ draw(ctx){
+  ctx.fillStyle='#206080';ctx.fillRect(11,6,10,18);
+  ctx.fillStyle='#1a4860';ctx.fillRect(12,7,8,16);
+  // pump top
+  ctx.fillStyle='#40a0c0';ctx.fillRect(14,2,4,5);
+  ctx.fillRect(15,4,2,8);
+  // nozzle
+  ctx.fillStyle='#60c0e0';ctx.fillRect(12,10,2,2);
+  // label
+  ctx.fillStyle='#40c8f0';ctx.fillRect(13,10,6,8);
+  ctx.fillStyle='#80e8ff';ctx.fillRect(14,11,4,6);
+  ctx.fillStyle='rgba(255,255,255,0.35)';ctx.fillRect(12,7,2,6);
+ }},
+{name:'Leather Paddle',type:'weapon',effect:'Stuns guard for 2s, knocks back further',color:'#8a4020',
+ draw(ctx){
+  // handle
+  ctx.fillStyle='#4a2010';ctx.fillRect(14,18,4,10);
+  ctx.fillStyle='#6a3018';ctx.fillRect(15,19,2,8);
+  // wrap
+  ctx.fillStyle='#3a1808';
+  for(let y=20;y<26;y+=2)ctx.fillRect(14,y,4,1);
+  // paddle head
+  ctx.fillStyle='#6a3010';ctx.fillRect(10,6,12,13);
+  ctx.fillStyle='#8a4820';ctx.fillRect(11,7,10,11);
+  // holes
+  ctx.fillStyle='#3a1808';
+  ctx.fillRect(13,9,2,2);ctx.fillRect(17,9,2,2);
+  ctx.fillRect(13,13,2,2);ctx.fillRect(17,13,2,2);
+  ctx.fillRect(15,11,2,2);
+ }},
+{name:'Butt Plug',type:'armor',effect:'+1 defence, absorbs one hit',color:'#d060f0',
+ draw(ctx){
+  ctx.fillStyle='#9030c0';ctx.fillRect(13,6,6,12);
+  ctx.fillStyle='#b050e0';ctx.fillRect(14,7,4,10);
+  // taper
+  ctx.fillStyle='#9030c0';
+  ctx.fillRect(14,4,4,3);
+  ctx.fillRect(15,2,2,3);
+  ctx.fillRect(15,1,2,2);
+  // flare base
+  ctx.fillStyle='#6820a0';ctx.fillRect(10,17,12,4);
+  ctx.fillStyle='#9030c0';ctx.fillRect(11,18,10,3);
+  // shine
+  ctx.fillStyle='rgba(255,255,255,0.4)';ctx.fillRect(14,7,2,6);
+ }},
+{name:'Cock Ring',type:'powerup',effect:'Strength +2, attack damage doubled',color:'#f0a020',
+ draw(ctx){
+  // ring
+  ctx.fillStyle='#c07010';ctx.fillRect(8,8,16,16);
+  ctx.fillStyle='#0a0612';ctx.fillRect(11,11,10,10);
+  // gold sheen
+  ctx.fillStyle='#f0c040';ctx.fillRect(9,9,14,3);
+  ctx.fillRect(9,9,3,14);
+  ctx.fillStyle='#a06010';ctx.fillRect(9,20,14,3);
+  ctx.fillRect(20,9,3,14);
+  // studs
+  ctx.fillStyle='#ffe080';
+  ctx.fillRect(10,15,2,2);ctx.fillRect(20,15,2,2);
+  ctx.fillRect(15,10,2,2);ctx.fillRect(15,20,2,2);
+ }},
+{name:'Whip',type:'weapon',effect:'Long-range attack, 3-tile reach',color:'#4a2810',
+ draw(ctx){
+  // handle
+  ctx.fillStyle='#3a1808';ctx.fillRect(3,20,8,4);
+  ctx.fillStyle='#5a2810';ctx.fillRect(4,21,6,2);
+  // guard
+  ctx.fillStyle='#c0a020';ctx.fillRect(10,19,3,6);
+  // whip body — curving line
+  ctx.fillStyle='#2a1008';
+  ctx.fillRect(12,17,4,2);
+  ctx.fillRect(15,14,3,4);
+  ctx.fillRect(17,11,3,4);
+  ctx.fillRect(19,8,3,4);
+  ctx.fillRect(21,6,3,3);
+  // tip
+  ctx.fillRect(23,5,2,2);
+  ctx.fillRect(25,5,1,1);
+ }},
+{name:'Handcuffs',type:'trap',effect:'Throw to freeze a guard for 4s',color:'#c0c0c0',
+ draw(ctx){
+  // left cuff
+  ctx.fillStyle='#909090';ctx.fillRect(4,12,8,8);
+  ctx.fillStyle='#0a0612';ctx.fillRect(6,14,4,4);
+  ctx.fillStyle='#b0b0b0';ctx.fillRect(5,13,6,2);
+  // right cuff
+  ctx.fillStyle='#909090';ctx.fillRect(20,12,8,8);
+  ctx.fillStyle='#0a0612';ctx.fillRect(22,14,4,4);
+  ctx.fillStyle='#b0b0b0';ctx.fillRect(21,13,6,2);
+  // chain links
+  ctx.fillStyle='#808080';
+  ctx.fillRect(12,14,2,2);ctx.fillRect(15,16,2,2);ctx.fillRect(18,14,2,2);
+  ctx.fillRect(13,15,2,2);ctx.fillRect(16,15,2,2);
+  ctx.fillStyle='#a0a0a0';
+  ctx.fillRect(12,14,1,1);ctx.fillRect(16,15,1,1);
+ }},
+{name:'Leather Collar',type:'special',effect:'Charm nearest guard — fights for you 6s',color:'#2a1408',
+ draw(ctx){
+  // collar band
+  ctx.fillStyle='#2a1408';ctx.fillRect(6,12,20,8);
+  ctx.fillStyle='#3a2010';ctx.fillRect(7,13,18,6);
+  // studs
+  ctx.fillStyle='#d0a020';
+  for(let x=9;x<24;x+=4)ctx.fillRect(x,14,2,2);
+  // D-ring
+  ctx.fillStyle='#c0c0c0';ctx.fillRect(14,10,4,5);
+  ctx.fillStyle='#0a0612';ctx.fillRect(15,11,2,3);
+  // buckle
+  ctx.fillStyle='#c0a020';ctx.fillRect(6,14,3,4);
+  ctx.fillStyle='#0a0612';ctx.fillRect(7,15,1,2);
+ }},
+{name:'Blindfold',type:'stealth',effect:'Invisible to guards for 5s',color:'#1a0830',
+ draw(ctx){
+  ctx.fillStyle='#1a0830';ctx.fillRect(4,12,24,8);
+  ctx.fillStyle='#2a1040';ctx.fillRect(5,13,22,6);
+  // eye hollows
+  ctx.fillStyle='#0a0418';ctx.fillRect(7,14,7,4);ctx.fillRect(18,14,7,4);
+  // satin sheen
+  ctx.fillStyle='rgba(160,80,255,0.3)';ctx.fillRect(5,13,22,2);
+  ctx.fillStyle='rgba(160,80,255,0.15)';ctx.fillRect(5,13,4,6);
+  // ties
+  ctx.fillStyle='#1a0830';ctx.fillRect(2,14,3,2);ctx.fillRect(27,14,3,2);
+  ctx.fillRect(1,15,2,1);ctx.fillRect(29,15,2,1);
+ }},
+{name:'Ball Gag',type:'stealth',effect:'Silences guard — no alert radius for 5s',color:'#e03030',
+ draw(ctx){
+  // ball
+  ctx.fillStyle='#c02020';ctx.fillRect(10,10,12,12);
+  ctx.fillStyle='#e04040';ctx.fillRect(11,11,10,10);
+  ctx.fillStyle='rgba(255,255,255,0.3)';ctx.fillRect(12,12,4,4);
+  // strap
+  ctx.fillStyle='#3a1808';ctx.fillRect(4,14,7,4);ctx.fillRect(21,14,7,4);
+  ctx.fillStyle='#5a2810';ctx.fillRect(5,15,5,2);ctx.fillRect(22,15,5,2);
+  // buckle
+  ctx.fillStyle='#c0a020';ctx.fillRect(3,14,3,4);
+  ctx.fillStyle='#0a0612';ctx.fillRect(4,15,1,2);
+ }},
+{name:'Nipple Clamps',type:'armor',effect:'Pain resistance — take half damage for 8s',color:'#d0d0d0',
+ draw(ctx){
+  // left clamp
+  ctx.fillStyle='#808080';ctx.fillRect(4,8,7,5);
+  ctx.fillStyle='#b0b0b0';ctx.fillRect(5,9,5,3);
+  ctx.fillStyle='#e03060';ctx.fillRect(6,8,3,2);
+  // right clamp
+  ctx.fillStyle='#808080';ctx.fillRect(21,8,7,5);
+  ctx.fillStyle='#b0b0b0';ctx.fillRect(22,9,5,3);
+  ctx.fillStyle='#e03060';ctx.fillRect(22,8,3,2);
+  // chain
+  ctx.fillStyle='#909090';
+  for(let x=11;x<21;x+=2)ctx.fillRect(x,10,1,2);
+  // weights
+  ctx.fillStyle='#606060';ctx.fillRect(6,13,4,5);ctx.fillRect(22,13,4,5);
+  ctx.fillStyle='#808080';ctx.fillRect(7,14,2,3);ctx.fillRect(23,14,2,3);
+ }},
+{name:'Flogger',type:'weapon',effect:'Hit all guards in 2-tile arc',color:'#4a1808',
+ draw(ctx){
+  // handle
+  ctx.fillStyle='#3a1008';ctx.fillRect(13,18,6,10);
+  ctx.fillStyle='#5a2010';ctx.fillRect(14,19,4,8);
+  // wrap lines
+  ctx.fillStyle='#c0a020';for(let y=20;y<26;y+=2)ctx.fillRect(13,y,6,1);
+  // tails — splayed
+  ctx.fillStyle='#2a0e06';
+  ctx.fillRect(8,4,2,15);ctx.fillRect(11,5,2,14);
+  ctx.fillRect(14,4,2,15);ctx.fillRect(17,5,2,14);
+  ctx.fillRect(20,4,2,15);
+  // tip knots
+  ctx.fillStyle='#4a1808';
+  ctx.fillRect(8,4,2,3);ctx.fillRect(11,5,2,3);
+  ctx.fillRect(14,4,2,3);ctx.fillRect(17,5,2,3);ctx.fillRect(20,4,2,3);
+ }},
+{name:'Leather Harness',type:'armor',effect:'Absorb 2 hits, chest guard',color:'#2a1008',
+ draw(ctx){
+  ctx.fillStyle='#2a1008';
+  // chest straps X
+  ctx.fillRect(8,6,3,20);ctx.fillRect(21,6,3,20);
+  ctx.fillRect(6,8,20,3);ctx.fillRect(6,20,20,3);
+  // diagonal
+  ctx.fillRect(9,9,3,3);ctx.fillRect(18,9,3,3);
+  ctx.fillRect(9,20,3,3);ctx.fillRect(18,20,3,3);
+  // studs
+  ctx.fillStyle='#c0a020';
+  ctx.fillRect(8,15,3,2);ctx.fillRect(21,15,3,2);
+  ctx.fillRect(15,8,2,3);ctx.fillRect(15,21,2,3);
+  // centre ring
+  ctx.fillStyle='#b0b0b0';ctx.fillRect(13,13,6,6);
+  ctx.fillStyle='#0a0612';ctx.fillRect(14,14,4,4);
+  ctx.fillStyle='#d0d0d0';ctx.fillRect(13,13,6,2);
+ }},
+{name:'Rainbow Flask',type:'consumable',effect:'Full health restore + shield for 3s',color:'#ff4040',
+ draw(ctx){
+  // flask body
+  ctx.fillStyle='#1a1060';ctx.fillRect(11,10,10,14);
+  ctx.fillStyle='#2a2080';ctx.fillRect(12,11,8,12);
+  // rainbow liquid layers
+  const cols=['#ff4040','#ff9020','#f0e020','#40c040','#4080ff','#8040ff'];
+  cols.forEach((c,i)=>{ctx.fillStyle=c;ctx.fillRect(13,21-i*2,6,2);});
+  // neck
+  ctx.fillStyle='#1a1060';ctx.fillRect(14,6,4,5);
+  // stopper
+  ctx.fillStyle='#e040c0';ctx.fillRect(13,4,6,3);
+  // shine
+  ctx.fillStyle='rgba(255,255,255,0.25)';ctx.fillRect(12,11,3,8);
+ }},
+{name:'Jockstrap',type:'powerup',effect:'Sprint speed +50% permanent until hit',color:'#e8e0d0',
+ draw(ctx){
+  ctx.fillStyle='#d0c8b8';ctx.fillRect(8,8,16,8);
+  ctx.fillStyle='#b8b0a0';ctx.fillRect(9,9,14,6);
+  // waistband
+  ctx.fillStyle='#e8e0d0';ctx.fillRect(8,8,16,3);
+  ctx.fillStyle='#c8c0b0';ctx.fillRect(8,9,16,1);
+  // pouch
+  ctx.fillStyle='#c0b8a8';ctx.fillRect(12,15,8,8);
+  ctx.fillStyle='#d0c8b8';ctx.fillRect(13,16,6,6);
+  // leg straps
+  ctx.fillStyle='#b0a898';ctx.fillRect(9,20,3,7);ctx.fillRect(20,20,3,7);
+  // brand stripe (rainbow)
+  ctx.fillStyle='#e04040';ctx.fillRect(8,8,16,1);
+  ctx.fillStyle='#f09020';ctx.fillRect(8,9,16,1);
+  ctx.fillStyle='#40c040';ctx.fillRect(8,10,16,1);
+ }},
+{name:'Bear Paw Mitts',type:'powerup',effect:'Grip walls + climb ladders 2× faster',color:'#8a5030',
+ draw(ctx){
+  // left mitt
+  ctx.fillStyle='#6a3820';ctx.fillRect(3,10,12,14);
+  ctx.fillStyle='#8a4828';ctx.fillRect(4,11,10,12);
+  // fingers
+  ctx.fillStyle='#6a3820';
+  ctx.fillRect(4,6,3,5);ctx.fillRect(8,5,3,6);ctx.fillRect(12,6,3,5);
+  // paw pads
+  ctx.fillStyle='#c07050';
+  ctx.fillRect(5,18,3,3);ctx.fillRect(9,18,3,3);
+  ctx.fillRect(7,15,4,4);
+  // right mitt (smaller, behind)
+  ctx.fillStyle='#5a3018';ctx.fillRect(17,12,12,12);
+  ctx.fillStyle='#7a4020';ctx.fillRect(18,13,10,10);
+  ctx.fillRect(18,8,3,5);ctx.fillRect(22,7,3,6);ctx.fillRect(26,8,3,5);
+  ctx.fillStyle='#b06040';
+  ctx.fillRect(19,18,3,3);ctx.fillRect(23,18,3,3);ctx.fillRect(21,15,4,4);
+ }},
+{name:'Strap-On',type:'powerup',effect:'Double jump — launch off walls',color:'#d060c0',
+ draw(ctx){
+  // harness straps
+  ctx.fillStyle='#3a1808';
+  ctx.fillRect(6,14,20,3);   // waist strap
+  ctx.fillRect(13,10,6,14);  // leg strap
+  // buckles
+  ctx.fillStyle='#c0a020';
+  ctx.fillRect(6,14,3,3);ctx.fillRect(23,14,3,3);
+  ctx.fillStyle='#0a0612';ctx.fillRect(7,15,1,1);ctx.fillRect(24,15,1,1);
+  // shaft
+  ctx.fillStyle='#c050b0';ctx.fillRect(13,2,6,13);
+  ctx.fillStyle='#d870c8';ctx.fillRect(14,3,4,11);
+  // tip
+  ctx.fillStyle='#c050b0';ctx.fillRect(12,2,8,5);
+  ctx.fillStyle='#e080d0';ctx.fillRect(13,3,6,3);
+  // shine
+  ctx.fillStyle='rgba(255,255,255,0.35)';ctx.fillRect(14,3,2,7);
+ }},
+{name:'Vibrator Wand',type:'weapon',effect:'Stun blast — immobilise all onscreen guards 3s',color:'#9040e0',
+ draw(ctx){
+  // body
+  ctx.fillStyle='#6020b0';ctx.fillRect(13,4,6,20);
+  ctx.fillStyle='#8030d0';ctx.fillRect(14,5,4,18);
+  // head bulb
+  ctx.fillStyle='#9040e0';ctx.fillRect(11,2,10,6);
+  ctx.fillStyle='#b060f0';ctx.fillRect(12,3,8,4);
+  ctx.fillStyle='rgba(255,200,255,0.5)';ctx.fillRect(12,3,4,3);
+  // power button
+  ctx.fillStyle='#f040f0';ctx.fillRect(14,16,4,4);
+  ctx.fillStyle='#ff80ff';ctx.fillRect(15,17,2,2);
+  // vibration lines
+  ctx.fillStyle='rgba(180,80,255,0.6)';
+  ctx.fillRect(9,3,3,4);ctx.fillRect(20,3,3,4);
+  ctx.fillRect(8,4,2,2);ctx.fillRect(22,4,2,2);
+  // base
+  ctx.fillStyle='#4010a0';ctx.fillRect(13,23,6,4);
+  ctx.fillStyle='#5020b0';ctx.fillRect(14,24,4,3);
+ }},
+{name:'Chaps',type:'armor',effect:'Immune to spikes + fire traps',color:'#3a1808',
+ draw(ctx){
+  // right leg chap
+  ctx.fillStyle='#3a1808';ctx.fillRect(18,8,8,20);
+  ctx.fillStyle='#5a2010';ctx.fillRect(19,9,6,18);
+  // left leg chap
+  ctx.fillStyle='#3a1808';ctx.fillRect(6,8,8,20);
+  ctx.fillStyle='#5a2010';ctx.fillRect(7,9,6,18);
+  // fringe
+  ctx.fillStyle='#2a1006';
+  for(let x=7;x<13;x+=2)ctx.fillRect(x,26,1,4);
+  for(let x=19;x<25;x+=2)ctx.fillRect(x,26,1,4);
+  // studs
+  ctx.fillStyle='#c0a020';
+  ctx.fillRect(8,12,2,2);ctx.fillRect(8,17,2,2);ctx.fillRect(8,22,2,2);
+  ctx.fillRect(20,12,2,2);ctx.fillRect(20,17,2,2);ctx.fillRect(20,22,2,2);
+  // opening (bare front)
+  ctx.fillStyle='#0a0612';ctx.fillRect(13,8,6,20);
+ }},
+{name:'Trophy Cup',type:'bonus',effect:'Bonus points × 10 — end of level multiplier',color:'#f0c020',
+ draw(ctx){
+  // cup body
+  ctx.fillStyle='#c09010';ctx.fillRect(10,6,12,12);
+  ctx.fillStyle='#f0c020';ctx.fillRect(11,7,10,10);
+  ctx.fillStyle='#ffe060';ctx.fillRect(12,7,4,6);
+  // handles
+  ctx.fillStyle='#c09010';ctx.fillRect(7,8,4,6);ctx.fillRect(21,8,4,6);
+  ctx.fillStyle='#f0c020';ctx.fillRect(8,9,2,4);ctx.fillRect(22,9,2,4);
+  // stem
+  ctx.fillStyle='#c09010';ctx.fillRect(14,17,4,4);
+  // base
+  ctx.fillRect(10,20,12,4);
+  ctx.fillStyle='#f0c020';ctx.fillRect(11,21,10,2);
+  // engraving
+  ctx.fillStyle='#a07010';ctx.fillRect(13,9,6,4);
+  ctx.fillStyle='#f0e060';ctx.fillRect(14,10,4,2);
+ }},
+];
+
+const grid=document.getElementById('grid');
+ITEMS.forEach((item,i)=>{
+  const card=document.createElement('div');
+  card.className='card';
+
+  const num=document.createElement('div');
+  num.className='num';
+  num.textContent=String(i+1).padStart(2,'0');
+
+  const cv=document.createElement('canvas');
+  cv.width=W; cv.height=H;
+  cv.style.width=(W*S)+'px'; cv.style.height=(H*S)+'px';
+  const ctx=cv.getContext('2d');
+  ctx.fillStyle='#060210';ctx.fillRect(0,0,W,H);
+  item.draw(ctx);
+
+  const name=document.createElement('div');
+  name.className='name';
+  name.textContent=item.name;
+
+  const type=document.createElement('div');
+  type.className='type';
+  type.textContent=item.type;
+
+  const effect=document.createElement('div');
+  effect.className='effect';
+  effect.textContent=item.effect;
+
+  card.appendChild(num);
+  card.appendChild(cv);
+  card.appendChild(name);
+  card.appendChild(type);
+  card.appendChild(effect);
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
