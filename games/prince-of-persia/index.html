@@ -154,7 +154,7 @@ const G_H  = 42;
 // Tile IDs
 const T_AIR=0,T_FLOOR=1,T_WALL=2,T_SPIKE=4,T_LOOSE=5,T_GATE_C=6,T_GATE_O=7,T_EXIT=8,T_PLATE=9,T_TORCH=10;
 
-function isTopSolid(id){ return id===T_FLOOR||id===T_WALL||id===T_SPIKE||id===T_LOOSE||id===T_PLATE||id===T_GATE_C; }
+function isTopSolid(id){ return id===T_FLOOR||id===T_WALL||id===T_SPIKE||id===T_LOOSE||id===T_PLATE||id===T_GATE_C||id===T_EXIT; }
 function isFullSolid(id){ return id===T_WALL||id===T_GATE_C; }
 function isDeadly(id){ return id===T_SPIKE; }
 
@@ -553,8 +553,8 @@ function updatePlayer(dt){
     return;
   }
 
-  // Exit door — check before any state early-returns
-  if(up&&onGnd){
+  // Exit door — auto-activate on landing/walking onto it
+  if(onGnd){
     const pr=Math.floor(player.y/TILE);
     const cl=Math.floor((player.x-P_HW)/TILE), cr=Math.floor((player.x+P_HW)/TILE);
     for(let c=cl;c<=cr;c++) if(tileAt(c,pr)===T_EXIT){doLevelComplete();return;}
