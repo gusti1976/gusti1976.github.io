@@ -124,6 +124,7 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
     <div><span>Space</span> Sword</div>
     <div><span>P</span> Pause</div>
     <div><span>L</span> Leaderboard</div>
+    <div><span>R</span> Restart level</div>
   </div>
   <div id="mini-lb">
     <h4>Fastest Escapes</h4>
@@ -336,7 +337,6 @@ function tileAt(c,r){
   if(id===T_GATE_C && gateOpen[c+','+r]) return T_GATE_O;
   return id;
 }
-function floorRow(cx,by){ return Math.floor(by/TILE); }
 function hasGround(cx,by,hw){
   const r=Math.floor((by+1)/TILE);
   const c0=Math.floor((cx-hw+1)/TILE), c1=Math.floor((cx+hw-1)/TILE);
@@ -397,22 +397,6 @@ function restartLevel(){
   showOv(null);
 }
 
-function nextLevel(){
-  carryoverSword=player.hasSword;
-  gameSec+=lvlSec;
-  lvlIdx++;
-  if(lvlIdx>=LEVELS.length){
-    gState='victory';
-    showOv('victoryOverlay');
-    document.getElementById('victory-time').textContent=fmtTime(gameSec+lvlSec-(lvlSec)); // already added
-    document.getElementById('victory-time').textContent=fmtTime(gameSec);
-    maybeSaveScore();
-    return;
-  }
-  loadLevel(lvlIdx);
-  gState='playing';
-  showOv(null);
-}
 
 // ── Overlays ───────────────────────────────────────────────────────────────
 const OVS=['startOverlay','gameOverOverlay','levelCompleteOverlay','victoryOverlay','pauseOverlay'];
@@ -437,7 +421,7 @@ function fmtTime(sec){
 
 // ── Physics / Collision ────────────────────────────────────────────────────
 function moveEntity(ent,hw,h,dt){
-  const prevX=ent.x, prevY=ent.y;
+  const prevY=ent.y;
 
   // X movement
   ent.x+=ent.vx*dt;
@@ -724,6 +708,12 @@ function gameOver(){
 
 function doLevelComplete(){
   gameSec+=lvlSec;
+  if(lvlIdx===LEVELS.length-1){
+    gState='victory'; showOv('victoryOverlay');
+    document.getElementById('victory-time').textContent=fmtTime(gameSec);
+    maybeSaveScore();
+    return;
+  }
   gState='levelComplete'; showOv('levelCompleteOverlay');
   document.getElementById('lc-msg').textContent=
     'Level '+(lvlIdx+1)+' complete!  Time: '+fmtTime(lvlSec);
@@ -889,8 +879,7 @@ function drawTile(id,x,y,col,row){
 function renderTiles(){
   for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     const id=tileAt(c,r);
-    if(id===T_AIR||id===T_GATE_O) { if(id===T_GATE_O) drawTile(id,c*TILE,r*TILE,c,r); continue; }
-    drawTile(id,c*TILE,r*TILE,c,r);
+    if(id!==T_AIR) drawTile(id,c*TILE,r*TILE,c,r);
   }
 }
 
@@ -988,7 +977,7 @@ function drawHuman(state,skin,shirt,pants,hasSword){
 }
 
 function renderPlayer(){
-  if(!player.x) return;
+  if(!player.state) return;
   if(player.hitT>0&&Math.floor(player.hitT*10)%2===0) return;
   ctx.save();
   ctx.translate(player.x,player.y);
@@ -1049,7 +1038,7 @@ function renderHUD(){
 }
 
 // ── Main render ────────────────────────────────────────────────────────────
-const VERSION='0.003';
+const VERSION='0.004';
 function render(){
   ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
   ctx.save(); ctx.translate(0,HUD_H);
@@ -1201,16 +1190,10 @@ document.getElementById('v-signin-btn').addEventListener('click',signIn);
 document.getElementById('start-btn').addEventListener('click',startGame);
 document.getElementById('restart-btn').addEventListener('click',restartLevel);
 document.getElementById('next-btn').addEventListener('click',()=>{
+  carryoverSword=player.hasSword;
   lvlIdx++;
-  if(lvlIdx>=LEVELS.length){
-    gState='victory'; showOv('victoryOverlay');
-    document.getElementById('victory-time').textContent=fmtTime(gameSec);
-    maybeSaveScore();
-  } else {
-    carryoverSword=player.hasSword;
-    loadLevel(lvlIdx);
-    gState='playing'; showOv(null);
-  }
+  loadLevel(lvlIdx);
+  gState='playing'; showOv(null);
 });
 document.getElementById('play-again-btn').addEventListener('click',startGame);
 document.getElementById('lb-close-btn').addEventListener('click',toggleLB);
