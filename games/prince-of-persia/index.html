@@ -2065,7 +2065,7 @@ function renderHUD(){
 }
 
 // ── Main render ────────────────────────────────────────────────────────────
-const VERSION='0.010';
+const VERSION='0.011';
 function render(){
   ctx.setTransform(2,0,0,2,0,0);
   ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
@@ -2099,13 +2099,14 @@ function startLoop(){
 
 // ── Web Audio ─────────────────────────────────────────────────────────────
 let audioCtx=null, musicGain=null, muteAll=false, musicTimer=null, musicLoopEnd=0;
+let musicNodes=[];  // tracks live oscillators so stopMusic() can kill them
 
 function initAudio(){
   if(audioCtx) return;
   audioCtx=new(window.AudioContext||window.webkitAudioContext)();
   musicGain=audioCtx.createGain();
   musicGain.connect(audioCtx.destination);
-  if(!muteAll) scheduleMusic();
+  // Caller (startGame) handles starting music — no scheduleMusic() here
 }
 
 // Core tone generator
@@ -2124,7 +2125,7 @@ function tone(freq,type,dur,vol,startAt,freqEnd){
   o.start(t); o.stop(t+dur+0.05);
 }
 
-// Music-specific tone — routes through musicGain so stopMusic() can silence it
+// Music-specific tone — tracked so stopMusic() can kill pending oscillators
 function musicTone(freq,type,dur,vol,startAt,freqEnd){
   if(!audioCtx||muteAll||!musicGain) return;
   const t=startAt||audioCtx.currentTime;
@@ -2137,6 +2138,8 @@ function musicTone(freq,type,dur,vol,startAt,freqEnd){
   g.gain.linearRampToValueAtTime(vol,t+0.01);
   g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
   o.start(t); o.stop(t+dur+0.05);
+  musicNodes.push(o);
+  o.onended=()=>{ musicNodes=musicNodes.filter(x=>x!==o); };
 }
 
 // ── Sound effects ──────────────────────────────────────────────────────────
@@ -2193,9 +2196,6 @@ function scheduleMusic(){
   // Guard: don't start a new loop if one is already playing
   if(audioCtx.currentTime < musicLoopEnd-0.5) return;
   if(musicTimer){ clearTimeout(musicTimer); musicTimer=null; }
-  // Restore gain in case stopMusic() faded it
-  musicGain.gain.cancelScheduledValues(audioCtx.currentTime);
-  musicGain.gain.setTargetAtTime(1, audioCtx.currentTime, 0.05);
 
   const bpm=128, beat=60/bpm, t0=audioCtx.currentTime+0.05;
   const total=32*beat;  // actual loop length: 4 passes × 8 beats each
@@ -2234,10 +2234,10 @@ function scheduleMusic(){
 function stopMusic(){
   if(musicTimer){ clearTimeout(musicTimer); musicTimer=null; }
   musicLoopEnd=0;
-  if(musicGain&&audioCtx){
-    musicGain.gain.cancelScheduledValues(audioCtx.currentTime);
-    musicGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.08);
-  }
+  // Actually kill every pending oscillator — gain fade alone leaves them alive
+  const now=audioCtx?audioCtx.currentTime:0;
+  musicNodes.forEach(o=>{ try{ o.stop(now+0.04); }catch(e){} });
+  musicNodes=[];
 }
 
 function toggleMute(){
