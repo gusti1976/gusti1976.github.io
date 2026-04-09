@@ -3,49 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Prince of Persia</title>
+<title>Hercules Escape</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#080606;color:#e8e0c0;font-family:'Courier New',monospace;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:12px}
+body{background:#0a0612;color:#e8d0f8;font-family:'Courier New',monospace;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:12px}
 #wrap{position:relative;width:640px;max-width:100%}
 #auth-bar{display:flex;justify-content:space-between;align-items:center;padding:6px 0;margin-bottom:4px}
-#auth-bar h1{font-size:1rem;letter-spacing:3px;color:#f0b020;text-transform:uppercase}
+#auth-bar h1{font-size:1rem;letter-spacing:3px;color:#e040c0;text-transform:uppercase}
 #user-info{display:flex;align-items:center;gap:8px}
 #user-avatar{width:26px;height:26px;border-radius:50%}
-#user-name{font-size:0.75rem;color:#b0a090}
-button{background:#1a0e06;color:#e8e0c0;border:1px solid #4a3828;padding:5px 12px;font-family:inherit;font-size:0.75rem;cursor:pointer;letter-spacing:1px;text-transform:uppercase}
-button:hover{background:#2a1e0e;border-color:#8a7060}
-canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;border:2px solid #3a2a1a;background:#080606}
-.overlay{position:absolute;inset:0;background:rgba(5,3,2,0.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
-.overlay h2{font-size:1.5rem;letter-spacing:4px;color:#f0b020;text-transform:uppercase}
+#user-name{font-size:0.75rem;color:#b080c0}
+button{background:#0e0418;color:#e8d0f8;border:1px solid #3a1860;padding:5px 12px;font-family:inherit;font-size:0.75rem;cursor:pointer;letter-spacing:1px;text-transform:uppercase}
+button:hover{background:#1a0828;border-color:#a040d0}
+canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;border:2px solid #3a1860;background:#0a0612}
+.overlay{position:absolute;inset:0;background:rgba(8,4,18,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
+.overlay h2{font-size:1.5rem;letter-spacing:4px;color:#e040c0;text-transform:uppercase}
 .overlay p{font-size:0.78rem;color:#ffffff;line-height:1.7}
-.key{color:#f0b020}
+.key{color:#e040c0}
 .hidden{display:none!important}
 #lb-modal{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:100}
-#lb-inner{background:#0a0806;border:1px solid #3a2a1a;padding:20px;width:380px;max-width:95vw;max-height:80vh;overflow-y:auto}
-#lb-inner h3{color:#f0b020;font-size:0.9rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;text-align:center}
+#lb-inner{background:#0a0612;border:1px solid #3a1860;padding:20px;width:380px;max-width:95vw;max-height:80vh;overflow-y:auto}
+#lb-inner h3{color:#e040c0;font-size:0.9rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;text-align:center}
 #lb-list{list-style:none}
-#lb-list li{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #181008;font-size:0.76rem}
-#lb-list li.lb-me{color:#f0b020}
-.lb-rank{width:22px;color:#4a3828}
+#lb-list li{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #180828;font-size:0.76rem}
+#lb-list li.lb-me{color:#e040c0}
+.lb-rank{width:22px;color:#5a3070}
 .lb-name{flex:1}
-.lb-time{color:#8a7060;font-variant-numeric:tabular-nums}
-.lb-lv{color:#4a3828;font-size:0.68rem;margin-left:4px}
+.lb-time{color:#9060a0;font-variant-numeric:tabular-nums}
+.lb-lv{color:#5a3070;font-size:0.68rem;margin-left:4px}
 #hint-row{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:0.68rem;color:#ffffff;margin-top:8px}
-#hint-row span{color:#ffffff}
+#hint-row span{color:#e040c0}
 #mini-lb{margin-top:10px;font-size:0.72rem}
-#mini-lb h4{color:#4a3828;letter-spacing:2px;text-transform:uppercase;font-size:0.65rem;margin-bottom:5px}
+#mini-lb h4{color:#5a3070;letter-spacing:2px;text-transform:uppercase;font-size:0.65rem;margin-bottom:5px}
 #mini-lb-list{list-style:none}
-#mini-lb-list li{display:flex;justify-content:space-between;padding:2px 0;color:#5a4030}
-#mini-lb-list li.lb-me{color:#f0b020}
+#mini-lb-list li{display:flex;justify-content:space-between;padding:2px 0;color:#6a4080}
+#mini-lb-list li.lb-me{color:#e040c0}
 .ml-name{flex:1}
-.ml-time{color:#4a3028}
+.ml-time{color:#5a3070}
 </style>
 </head>
 <body>
 <div id="wrap">
   <div id="auth-bar">
-    <h1>Prince of Persia</h1>
+    <h1>Hercules Escape</h1>
     <div>
       <button id="signin-btn">Sign In</button>
       <div id="user-info" class="hidden">
@@ -58,14 +58,14 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
   <canvas id="game" width="640" height="400"></canvas>
 
   <div id="startOverlay" class="overlay">
-    <h2>Prince of Persia</h2>
-    <p>Escape the dungeon before time runs out.<br>Defeat the guards. Find the exit.</p>
+    <h2>Hercules Escape</h2>
+    <p>Escape the club before time runs out.<br>Defeat the guards. Collect powerups. Find the exit.</p>
     <p>
       <span class="key">← →</span> Move &nbsp;
       <span class="key">↑</span> Jump / Climb / Enter exit<br>
       <span class="key">↓</span> Crouch / Drop from ledge &nbsp;
       <span class="key">Shift</span> Careful step<br>
-      <span class="key">Space</span> Draw sword / Strike &nbsp;
+      <span class="key">Space</span> Draw club / Strike &nbsp;
       <span class="key">P</span> Pause &nbsp;
       <span class="key">L</span> Leaderboard &nbsp;
       <span class="key">R</span> Restart level
@@ -75,7 +75,7 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
 
   <div id="gameOverOverlay" class="overlay hidden">
     <h2>You Died</h2>
-    <p id="go-msg">The dungeon claims another soul.</p>
+    <p id="go-msg">The club claims another soul.<br><small style="color:#7a5080;font-size:0.72rem">Complete all 5 levels to appear on the leaderboard.</small></p>
     <p id="go-saved-msg" style="color:#7a6050;font-size:0.72rem"></p>
     <div id="go-guest" class="hidden">
       <p style="font-size:0.72rem;color:#4a3828">Sign in to appear on the leaderboard</p>
@@ -92,8 +92,8 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
 
   <div id="victoryOverlay" class="overlay hidden">
     <h2>Freedom!</h2>
-    <p>You have escaped the dungeon!</p>
-    <p id="victory-time" style="color:#f0b020;font-size:1.2rem;letter-spacing:2px"></p>
+    <p>Hercules has escaped!</p>
+    <p id="victory-time" style="color:#e040c0;font-size:1.2rem;letter-spacing:2px"></p>
     <p id="v-saved-msg" style="color:#7a6050;font-size:0.72rem"></p>
     <div id="v-guest" class="hidden">
       <button id="v-signin-btn">Sign in to save your time</button>
@@ -121,7 +121,7 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
     <div><span>↑</span> Jump / Climb</div>
     <div><span>↓</span> Crouch / Drop</div>
     <div><span>Shift</span> Careful</div>
-    <div><span>Space</span> Sword</div>
+    <div><span>Space</span> Club</div>
     <div><span>P</span> Pause</div>
     <div><span>L</span> Leaderboard</div>
     <div><span>R</span> Restart level</div>
@@ -160,34 +160,40 @@ function isTopSolid(id){ return id===T_FLOOR||id===T_WALL||id===T_SPIKE||id===T_
 function isFullSolid(id){ return id===T_WALL||id===T_GATE_C; }
 function isDeadly(id){ return id===T_SPIKE; }
 
-// ── Colours ────────────────────────────────────────────────────────────────
+// ── Colours (purple dungeon theme) ─────────────────────────────────────────
 const C={
-  bg:'#080606', wall:'#2e2010', wallLt:'#4a3420', wallDk:'#180e04',
-  floor:'#3c3020', floorLt:'#584840', floorHi:'#6a5a50',
-  spike:'#706050', spTip:'#c0b060',
-  gate:'#162448', gateBar:'#2040a0',
-  exit:'#103010', exitG:'#38c838',
-  plate:'#504020', plateLt:'#806028',
-  torch:'#c03808', torchG:'#f0a818',
-  hud:'#060402', heart:'#c02808', heartE:'#281008',
-  timer:'#9a8868',
-  // Prince
-  pSkin:'#c8b080', pShirt:'#d8d0b0', pPants:'#2a1e0e',
-  // Guard
-  gSkin:'#806030', gShirt:'#1a2040', gPants:'#101828',
-  // Combat
+  bg:'#0a0612', wall:'#1a0828', wallLt:'#2e1040', wallDk:'#0e0418',
+  floor:'#1e1030', floorLt:'#3a2060', floorHi:'#4a3070',
+  spike:'#5010a0', spTip:'#d040f0',
+  gate:'#0e0428', gateBar:'#6020a0',
+  exit:'#0e2018', exitG:'#30d030',
+  plate:'#2a1050', plateLt:'#5020a0',
+  torch:'#d020a0', torchG:'#f040e0',
+  hud:'#060210', heart:'#e03080', heartE:'#280818',
+  timer:'#c060e0',
   blood:'#800808', sword:'#c0c0d0', swordG:'#c0a010',
-  // Potions
   potR:'#c01818', potB:'#1840c0',
 };
 
+// ── Guard type configs (8 Speedo guards) ────────────────────────────────────
+const GUARD_TYPES=[
+  {skin:'#e8c898',shadow:'#c0a070',hi:'#f8e0b0',speedo:'#f01890',speedoDk:'#b00060',hair:'#1a1010',hairstyle:'mohawk'},
+  {skin:'#c08848',shadow:'#9a6828',hi:'#d4a060',speedo:'#00d0f0',speedoDk:'#0090b0',hair:'#1a0c00',hairstyle:'buzzcut'},
+  {skin:'#8a5028',shadow:'#6a3810',hi:'#a86838',speedo:'#f0d010',speedoDk:'#c0a000',hair:'#0e0808',hairstyle:'curly'},
+  {skin:'#d4a060',shadow:'#a87840',hi:'#e8b878',speedo:'#f06010',speedoDk:'#c04000',hair:'#180c00',hairstyle:'pompadour'},
+  {skin:'#60301a',shadow:'#3e1c08',hi:'#804028',speedo:'#8020d0',speedoDk:'#5010a0',hair:'#0a0408',hairstyle:'long'},
+  {skin:'#b07840',shadow:'#8a5828',hi:'#c89050',speedo:'#20d040',speedoDk:'#108020',hair:'#1a0c00',hairstyle:'bald'},
+  {skin:'#c89058',shadow:'#a07038',hi:'#dcaa70',speedo:'#e01020',speedoDk:'#a00010',hair:'#100808',hairstyle:'flattop'},
+  {skin:'#e4c8a0',shadow:'#c0a070',hi:'#f4dab8',speedo:'#2050e8',speedoDk:'#1030b0',hair:'#0c0c18',hairstyle:'undercut'},
+];
+
 // ── Level Data ─────────────────────────────────────────────────────────────
 const LEVELS=[
-// ── Level 1: The Dungeon Hall ────────────────────────────────────────────
-{name:'Level 1: The Dungeon Hall',timeLimit:90,
+// ── Level 1: Locker Room ─────────────────────────────────────────────────
+{name:'Level 1: Locker Room',timeLimit:90,
  playerStart:{col:1,row:10},exit:{col:18,row:10},
- guards:[{col:13,row:10,patrol:[9,17],fl:true}],
- items:[{type:'sword',col:3,row:10},{type:'redPotion',col:16,row:10}],
+ guards:[{col:13,row:10,patrol:[9,17],fl:true,type:0}],
+ items:[{type:'club',col:3,row:10},{type:'poppers',col:9,row:10},{type:'cockring',col:16,row:10}],
  tiles:[
   [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
   [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
@@ -202,11 +208,11 @@ const LEVELS=[
   [2,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,8,2],
   [2,2,2,2,2,2,2,4,4,4,2,2,2,2,2,2,2,2,2,2],
  ]},
-// ── Level 2: The Broken Tower ────────────────────────────────────────────
-{name:'Level 2: The Broken Tower',timeLimit:80,
+// ── Level 2: Sauna Tower ─────────────────────────────────────────────────
+{name:'Level 2: Sauna Tower',timeLimit:80,
  playerStart:{col:1,row:10},exit:{col:18,row:4},
- guards:[{col:10,row:10,patrol:[7,13],fl:true}],
- items:[{type:'redPotion',col:5,row:7}],
+ guards:[{col:10,row:10,patrol:[7,13],fl:true,type:1}],
+ items:[{type:'lube',col:5,row:7},{type:'harness',col:3,row:7}],
  tiles:[
   [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
   [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
@@ -221,15 +227,15 @@ const LEVELS=[
   [2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,2],
   [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,4,4,4,2],
  ]},
-// ── Level 3: Guard Post ───────────────────────────────────────────────────
-{name:'Level 3: Guard Post',timeLimit:75,
+// ── Level 3: Club Floor ───────────────────────────────────────────────────
+{name:'Level 3: Club Floor',timeLimit:75,
  playerStart:{col:1,row:10},exit:{col:18,row:10},
  guards:[
-  {col:7,row:10,patrol:[4,10],fl:false},
-  {col:14,row:10,patrol:[11,17],fl:true},
-  {col:14,row:6,patrol:[11,17],fl:true},
+  {col:7,row:10,patrol:[4,10],fl:false,type:2},
+  {col:14,row:10,patrol:[11,17],fl:true,type:3},
+  {col:14,row:6,patrol:[11,17],fl:true,type:4},
  ],
- items:[{type:'redPotion',col:3,row:10},{type:'redPotion',col:12,row:10},{type:'redPotion',col:16,row:6}],
+ items:[{type:'handcuffs',col:3,row:10},{type:'rainbowFlask',col:12,row:10},{type:'flogger',col:16,row:6}],
  tiles:[
   [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
   [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
@@ -248,10 +254,10 @@ const LEVELS=[
 {name:'Level 4: The Labyrinth',timeLimit:80,
  playerStart:{col:1,row:10},exit:{col:18,row:4},
  guards:[
-  {col:16,row:10,patrol:[13,18],fl:true},
-  {col:15,row:4,patrol:[11,17],fl:true},
+  {col:16,row:10,patrol:[13,18],fl:true,type:5},
+  {col:15,row:4,patrol:[11,17],fl:true,type:6},
  ],
- items:[{type:'redPotion',col:3,row:7},{type:'bluePotion',col:10,row:4}],
+ items:[{type:'chaps',col:3,row:7},{type:'strapon',col:10,row:4},{type:'nippleclamps',col:16,row:4}],
  tiles:[
   [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
   [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
@@ -266,19 +272,19 @@ const LEVELS=[
   [2,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,2],
   [2,2,2,2,2,2,2,4,4,4,2,2,2,2,2,2,2,2,2,2],
  ]},
-// ── Level 5: The Final Escape ─────────────────────────────────────────────
-{name:'Level 5: The Final Escape',timeLimit:90,
+// ── Level 5: The Escape ───────────────────────────────────────────────────
+{name:'Level 5: The Escape',timeLimit:90,
  playerStart:{col:1,row:10},exit:{col:18,row:2},
  guards:[
-  {col:7,row:10,patrol:[4,10],fl:false},
-  {col:15,row:10,patrol:[12,18],fl:true},
-  {col:13,row:6,patrol:[10,17],fl:true},
-  {col:13,row:2,patrol:[9,17],fl:false},
+  {col:7,row:10,patrol:[4,10],fl:false,type:7},
+  {col:15,row:10,patrol:[12,18],fl:true,type:0},
+  {col:13,row:6,patrol:[10,17],fl:true,type:3},
+  {col:13,row:2,patrol:[9,17],fl:false,type:6},
  ],
  items:[
-  {type:'redPotion',col:3,row:10},
-  {type:'bluePotion',col:4,row:6},
-  {type:'redPotion',col:17,row:6},
+  {type:'vibwand',col:3,row:10},
+  {type:'bearPawMitts',col:4,row:6},
+  {type:'trophy',col:17,row:6},
  ],
  tiles:[
   [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
@@ -359,14 +365,17 @@ function loadLevel(idx){
   player={
     x:ps.col*TILE+TILE/2, y:ps.row*TILE,
     vx:0, vy:0,
-    state:'idle',   // idle|run|jump|fall|grab|climbUp|crouch|sword|strike|block|hit|die
+    state:'idle',
     facing:1, health:3, maxHealth:3,
-    hasSword:carryoverSword,
-    stT:0,   // state timer
-    hitT:0,  // invincibility timer
-    swCd:0,  // sword cooldown
+    hasSword:carryoverSword, hasClub:carryoverSword,
+    stT:0, hitT:0, swCd:0,
     grabRow:-1, grabCol:-1,
     dead:false,
+    effects:{},      // {effectName: remainingSeconds}
+    shield:0,        // armor hits absorbed
+    jockBoost:false, // permanent sprint until hit
+    doubleJumpAvail:false,
+    spikeImmune:false,
   };
   guards=(lvl.guards||[]).map(g=>({
     x:g.col*TILE+TILE/2, y:g.row*TILE,
@@ -374,6 +383,8 @@ function loadLevel(idx){
     state:'patrol', facing:g.fl?-1:1,
     health:2, patrol:g.patrol,
     stT:0, swCd:0, dead:false,
+    typeIdx:g.type||0,
+    frozen:0, charmed:0,
   }));
   items=(lvl.items||[]).map(it=>({
     type:it.type,
@@ -495,7 +506,22 @@ function updatePlayer(dt){
   player.stT+=dt;
   if(player.hitT>0) player.hitT-=dt;
   if(player.swCd>0) player.swCd-=dt;
+  // Tick effects
+  for(const k in player.effects){
+    player.effects[k]-=dt;
+    if(player.effects[k]<=0){
+      delete player.effects[k];
+      if(k==='spikeImmune') player.spikeImmune=false;
+      if(k==='doubleJump') player.doubleJumpAvail=false;
+    }
+  }
+  // Guard frozen/charmed tick
+  for(const g of guards){
+    if(g.frozen>0) g.frozen-=dt;
+    if(g.charmed>0) g.charmed-=dt;
+  }
 
+  const spd2=player.effects.speed2?2:player.jockBoost?1.5:1;
   const onGnd=hasGround(player.x,player.y,P_HW);
 
   // Hit stun
@@ -576,16 +602,19 @@ function updatePlayer(dt){
   }
   if(player.state==='crouch'&&(!dn||left||right)) player.state='idle';
 
-  // Jump
+  // Jump (+ double jump)
   if(up&&onGnd){
     player.vy=JUMP_VY;
     player.state='jump'; player.stT=0;
-    player.vx=(left?-1:right?1:0)*(careful?WALK_VX:RUN_VX);
+    player.vx=(left?-1:right?1:0)*(careful?WALK_VX:RUN_VX*spd2);
+  } else if(up&&!onGnd&&player.doubleJumpAvail&&player.effects.doubleJump&&player.vy>-100){
+    player.vy=JUMP_VY*0.85; player.doubleJumpAvail=false;
+    player.state='jump'; player.stT=0;
   }
 
   // Horizontal
   if(player.state!=='jump'&&player.state!=='fall'){
-    const spd=careful?WALK_VX:RUN_VX;
+    const spd=(careful?WALK_VX:RUN_VX)*spd2;
     if(left){
       player.facing=-1;
       if(careful&&edgeAhead(player.x,player.y,P_HW,-1)) player.vx=0;
@@ -600,14 +629,14 @@ function updatePlayer(dt){
       if(onGnd&&player.state==='run') player.state='idle';
     }
   } else {
-    const spd=RUN_VX;
+    const spd=RUN_VX*spd2;
     if(left){ player.vx=Math.max(player.vx-350*dt,-spd); player.facing=-1; }
     else if(right){ player.vx=Math.min(player.vx+350*dt,spd); player.facing=1; }
   }
 
   player.vy=Math.min(player.vy+GRAVITY*dt,MAX_FALL);
   const res=moveEntity(player,P_HW,P_H,dt);
-  if(res.deadly){ killPlayer(); return; }
+  if(res.deadly&&!player.spikeImmune){ killPlayer(); return; }
 
   // Update air state
   if(onGnd&&(player.state==='jump'||player.state==='fall')){
@@ -658,22 +687,79 @@ function tryLedgeGrab(){
   }
 }
 
+function nearestGuard(){
+  let best=null,bd=Infinity;
+  for(const g of guards){ if(g.dead) continue; const d=Math.abs(g.x-player.x)+Math.abs(g.y-player.y); if(d<bd){bd=d;best=g;} }
+  return best;
+}
+
 function pickItem(it){
   it.picked=true;
-  if(it.type==='sword'){ player.hasSword=true; spawnPart(it.x,it.y-20,C.swordG,'+Sword'); }
-  else if(it.type==='redPotion'){
-    if(player.health<player.maxHealth){ player.health++; spawnPart(it.x,it.y-20,C.potR,'+1 HP'); }
-    else spawnPart(it.x,it.y-20,C.potR,'Full HP');
-  } else if(it.type==='bluePotion'){
-    player.health=player.maxHealth; spawnPart(it.x,it.y-20,C.potB,'Full HP');
+  const ix=it.x, iy=it.y-20;
+  switch(it.type){
+    case 'club': case 'sword':
+      player.hasSword=true; player.hasClub=true; spawnPart(ix,iy,C.swordG,'+Club!'); break;
+    case 'redPotion':
+      if(player.health<player.maxHealth){player.health++;spawnPart(ix,iy,C.potR,'+1 HP');}
+      else spawnPart(ix,iy,C.potR,'Full HP'); break;
+    case 'bluePotion':
+      player.health=player.maxHealth; spawnPart(ix,iy,C.potB,'Full HP!'); break;
+    case 'poppers':
+      player.effects.speed2=8; spawnPart(ix,iy,'#e84040','POPPERS!'); break;
+    case 'lube':
+      player.effects.lubed=5; spawnPart(ix,iy,'#40c8f0','LUBED!'); break;
+    case 'harness':
+      player.shield+=2; spawnPart(ix,iy,'#2a1008','+2 ARMOR!'); break;
+    case 'buttplug':
+      player.shield+=1; spawnPart(ix,iy,'#d060f0','+1 ARMOR!'); break;
+    case 'nippleclamps':
+      player.effects.halfDmg=8; spawnPart(ix,iy,'#d0d0d0','RESIST!'); break;
+    case 'rainbowFlask':
+      player.health=player.maxHealth; player.effects.shield=3;
+      spawnPart(ix,iy,'#ff4040','FULL+SHIELD!'); break;
+    case 'handcuffs':
+      {const ng=nearestGuard(); if(ng){ng.frozen=4;ng.state='hit';ng.stT=0;}}
+      spawnPart(ix,iy,'#c0c0c0','CUFFED!'); break;
+    case 'collar':
+      {const ng=nearestGuard(); if(ng){ng.charmed=6;ng.state='patrol';}}
+      spawnPart(ix,iy,'#c09030','CHARMED!'); break;
+    case 'blindfold':
+      player.effects.invisible=5; spawnPart(ix,iy,'#8020a0','INVISIBLE!'); break;
+    case 'ballgag':
+      player.effects.silenced=5; spawnPart(ix,iy,'#e03030','SILENCED!'); break;
+    case 'jockstrap':
+      player.jockBoost=true; spawnPart(ix,iy,'#e8e0d0','SPEED+!'); break;
+    case 'bearPawMitts':
+      player.effects.fastClimb=6; spawnPart(ix,iy,'#8a5030','GRIP!'); break;
+    case 'strapon':
+      player.doubleJumpAvail=true; player.effects.doubleJump=10;
+      spawnPart(ix,iy,'#d060c0','DBL JUMP!'); break;
+    case 'chaps':
+      player.spikeImmune=true; player.effects.spikeImmune=10;
+      spawnPart(ix,iy,'#5a2010','SPIKE SAFE!'); break;
+    case 'vibwand':
+      for(const g of guards){if(!g.dead){g.frozen=3;g.state='hit';g.stT=0;}}
+      spawnPart(ix,iy,'#9040e0','ALL STUNNED!'); break;
+    case 'cockring':
+      player.effects.dmg2=8; spawnPart(ix,iy,'#f0a020','PWR UP!'); break;
+    case 'whip': case 'paddle': case 'flogger':
+      player.hasSword=true; player.hasClub=true;
+      player.effects[it.type]=12; spawnPart(ix,iy,'#c08030','+WEAPON!'); break;
+    case 'trophy':
+      spawnPart(ix,iy,'#f0c020','BONUS x10!'); break;
+    default:
+      spawnPart(ix,iy,'#ffffff','+item'); break;
   }
 }
 
 function doPlayerSwordHit(){
+  const range=player.effects.whip?TILE*3:(player.effects.flogger?TILE*2:TILE*1.8);
   for(const g of guards){
     if(g.dead) continue;
     const dx=player.facing===1?(g.x-player.x):(player.x-g.x);
-    if(dx>0&&dx<TILE*1.8&&Math.abs(g.y-player.y)<20){
+    // flogger hits both sides
+    const inArc=player.effects.flogger?Math.abs(g.x-player.x)<range:dx>0&&dx<range;
+    if(inArc&&Math.abs(g.y-player.y)<20){
       const blocks=(g.state==='sword'||g.state==='strike')&&Math.random()<0.45;
       if(blocks) spawnPart((player.x+g.x)/2,player.y-30,C.sword,'Block!');
       else hitGuard(g);
@@ -689,6 +775,13 @@ function hitGuard(g){
 
 function hitPlayer(src){
   if(player.hitT>0) return;
+  // Shield absorbs
+  if(player.effects.shield){spawnPart(player.x,player.y-40,C.heart,'SHIELD!');return;}
+  if(player.shield>0){player.shield--;spawnPart(player.x,player.y-40,'#e040c0','ARMOR!');return;}
+  // Jock boost broken on hit
+  if(player.jockBoost){player.jockBoost=false;}
+  // Half damage
+  if(player.effects.halfDmg&&Math.random()<0.5){spawnPart(player.x,player.y-40,'#d0d0d0','RESIST!');return;}
   player.health--;
   player.hitT=1.0; player.stT=0;
   player.state='hit';
@@ -721,8 +814,11 @@ function doLevelComplete(){
 
 // ── Guard update ───────────────────────────────────────────────────────────
 function updateGuards(dt){
+  const playerHidden=!!(player.effects.invisible||player.effects.lubed||player.effects.silenced);
   for(const g of guards){
     if(g.dead){ g.stT+=dt; continue; }
+    if(g.frozen>0){ g.vx=0; continue; }  // frozen — skip AI
+    if(g.charmed>0){ g.vx=0; continue; } // charmed — stand still
     g.stT+=dt;
     if(g.swCd>0) g.swCd-=dt;
 
@@ -766,9 +862,10 @@ function updateGuards(dt){
       else if(g.x>=pR) g.facing=-1;
       g.vx=g.facing*WALK_VX*0.45;
       if(edgeAhead(g.x,g.y,G_HW,g.facing)) g.facing=-g.facing;
-      if(sameRow&&absDist<TILE*6&&!player.dead){
+      if(sameRow&&absDist<TILE*6&&!player.dead&&!playerHidden){
         g.state='fight'; g.stT=0;
       }
+      if(playerHidden&&g.state==='fight'){g.state='patrol';g.stT=0;}
     } else if(g.state==='fight'){
       g.facing=dist>0?1:-1;
       if(!sameRow||absDist>TILE*9||player.dead){
@@ -832,13 +929,13 @@ function drawTile(id,x,y,col,row){
       });
       break;
     case T_SPIKE:
-      ctx.fillStyle=C.wall; ctx.fillRect(x,y,TILE,TILE);
-      ctx.fillStyle=C.spike; ctx.fillRect(x+1,y+6,TILE-2,TILE-7);
+      ctx.fillStyle=C.wallDk; ctx.fillRect(x,y,TILE,TILE);
+      ctx.fillStyle=C.spike; ctx.fillRect(x+1,y+8,TILE-2,TILE-9);
       ctx.fillStyle=C.spTip;
       for(let i=0;i<4;i++){
         const sx=x+4+i*8;
-        ctx.fillRect(sx+3,y+2,2,4); ctx.fillRect(sx+2,y+4,4,2);
-        ctx.fillRect(sx+1,y+5,6,2); ctx.fillRect(sx,y+6,8,3);
+        ctx.fillRect(sx+3,y+2,2,6); ctx.fillRect(sx+2,y+5,4,3);
+        ctx.fillRect(sx+1,y+7,6,2); ctx.fillRect(sx,y+8,8,3);
       }
       break;
     case T_GATE_C:
@@ -883,96 +980,407 @@ function renderTiles(){
   }
 }
 
+// ── Item sprite (32×32 local coords) ──────────────────────────────────────
+function drawItem(ctx,type){
+  switch(type){
+    case 'club':
+      ctx.fillStyle='#6a3a10';ctx.fillRect(13,4,5,20);
+      ctx.fillStyle='#4a2808';ctx.fillRect(11,4,9,7);ctx.fillRect(10,4,11,4);
+      ctx.fillStyle='#8a5020';ctx.fillRect(14,5,3,18); break;
+    case 'sword':
+      ctx.fillStyle=C.swordG;ctx.fillRect(12,6,8,4);
+      ctx.fillStyle=C.sword;ctx.fillRect(15,2,2,22);
+      ctx.fillStyle=C.swordG;ctx.fillRect(14,22,4,4); break;
+    case 'redPotion':
+      ctx.fillStyle='#8a2010';ctx.fillRect(12,8,8,16);
+      ctx.fillStyle='#c03020';ctx.fillRect(13,10,6,8);
+      ctx.fillStyle='#8a2010';ctx.fillRect(14,5,4,4);
+      ctx.fillStyle='#c0c0c0';ctx.fillRect(13,3,6,3); break;
+    case 'bluePotion':
+      ctx.fillStyle='#102080';ctx.fillRect(12,8,8,16);
+      ctx.fillStyle='#2040c0';ctx.fillRect(13,10,6,8);
+      ctx.fillStyle='#102080';ctx.fillRect(14,5,4,4);
+      ctx.fillStyle='#c0c0c0';ctx.fillRect(13,3,6,3); break;
+    case 'poppers':
+      ctx.fillStyle='#8a4010';ctx.fillRect(12,8,8,16);
+      ctx.fillStyle='#6a2808';ctx.fillRect(13,9,6,14);
+      ctx.fillStyle='#8a4010';ctx.fillRect(14,5,4,4);
+      ctx.fillStyle='#d0d0d0';ctx.fillRect(13,3,6,3);
+      ctx.fillStyle='#e84040';ctx.fillRect(13,12,6,5); break;
+    case 'lube':
+      ctx.fillStyle='#206080';ctx.fillRect(11,6,10,18);
+      ctx.fillStyle='#40a0c0';ctx.fillRect(14,2,4,5);ctx.fillRect(15,4,2,8);
+      ctx.fillStyle='#40c8f0';ctx.fillRect(13,10,6,8); break;
+    case 'paddle':
+      ctx.fillStyle='#4a2010';ctx.fillRect(14,18,4,10);
+      ctx.fillStyle='#6a3010';ctx.fillRect(10,6,12,13);
+      ctx.fillStyle='#8a4820';ctx.fillRect(11,7,10,11);
+      ctx.fillStyle='#3a1808';ctx.fillRect(13,9,2,2);ctx.fillRect(17,9,2,2); break;
+    case 'buttplug':
+      ctx.fillStyle='#9030c0';ctx.fillRect(13,6,6,12);
+      ctx.fillStyle='#b050e0';ctx.fillRect(14,7,4,10);
+      ctx.fillStyle='#6820a0';ctx.fillRect(10,17,12,4); break;
+    case 'cockring':
+      ctx.fillStyle='#c07010';ctx.fillRect(8,8,16,16);
+      ctx.fillStyle='#0a0612';ctx.fillRect(11,11,10,10);
+      ctx.fillStyle='#f0c040';ctx.fillRect(9,9,14,3);ctx.fillRect(9,9,3,14); break;
+    case 'whip':
+      ctx.fillStyle='#3a1808';ctx.fillRect(3,20,8,4);
+      ctx.fillStyle='#c0a020';ctx.fillRect(10,19,3,6);
+      ctx.fillStyle='#2a1008';
+      ctx.fillRect(12,17,4,2);ctx.fillRect(15,14,3,4);ctx.fillRect(17,11,3,4);ctx.fillRect(19,8,3,4);ctx.fillRect(23,5,2,2); break;
+    case 'handcuffs':
+      ctx.fillStyle='#909090';ctx.fillRect(4,12,8,8);ctx.fillRect(20,12,8,8);
+      ctx.fillStyle='#0a0612';ctx.fillRect(6,14,4,4);ctx.fillRect(22,14,4,4);
+      ctx.fillStyle='#808080';ctx.fillRect(12,14,2,2);ctx.fillRect(15,16,2,2);ctx.fillRect(18,14,2,2); break;
+    case 'collar':
+      ctx.fillStyle='#2a1408';ctx.fillRect(6,12,20,8);
+      ctx.fillStyle='#3a2010';ctx.fillRect(7,13,18,6);
+      ctx.fillStyle='#d0a020';for(let x=9;x<24;x+=4)ctx.fillRect(x,14,2,2); break;
+    case 'blindfold':
+      ctx.fillStyle='#1a0830';ctx.fillRect(4,12,24,8);
+      ctx.fillStyle='#2a1040';ctx.fillRect(5,13,22,6);
+      ctx.fillStyle='#0a0418';ctx.fillRect(7,14,7,4);ctx.fillRect(18,14,7,4); break;
+    case 'ballgag':
+      ctx.fillStyle='#c02020';ctx.fillRect(10,10,12,12);
+      ctx.fillStyle='#e04040';ctx.fillRect(11,11,10,10);
+      ctx.fillStyle='#3a1808';ctx.fillRect(4,14,7,4);ctx.fillRect(21,14,7,4); break;
+    case 'nippleclamps':
+      ctx.fillStyle='#808080';ctx.fillRect(4,8,7,5);ctx.fillRect(21,8,7,5);
+      ctx.fillStyle='#e03060';ctx.fillRect(6,8,3,2);ctx.fillRect(22,8,3,2);
+      ctx.fillStyle='#909090';for(let x=11;x<21;x+=2)ctx.fillRect(x,10,1,2); break;
+    case 'flogger':
+      ctx.fillStyle='#3a1008';ctx.fillRect(13,18,6,10);
+      ctx.fillStyle='#c0a020';for(let y=20;y<26;y+=2)ctx.fillRect(13,y,6,1);
+      ctx.fillStyle='#2a0e06';
+      ctx.fillRect(8,4,2,15);ctx.fillRect(11,5,2,14);ctx.fillRect(14,4,2,15);ctx.fillRect(17,5,2,14);ctx.fillRect(20,4,2,15); break;
+    case 'harness':
+      ctx.fillStyle='#2a1008';
+      ctx.fillRect(8,6,3,20);ctx.fillRect(21,6,3,20);
+      ctx.fillRect(6,8,20,3);ctx.fillRect(6,20,20,3);
+      ctx.fillStyle='#b0b0b0';ctx.fillRect(13,13,6,6);
+      ctx.fillStyle='#0a0612';ctx.fillRect(14,14,4,4); break;
+    case 'rainbowFlask':
+      ctx.fillStyle='#1a1060';ctx.fillRect(11,10,10,14);
+      ctx.fillStyle='#2a2080';ctx.fillRect(12,11,8,12);
+      ['#ff4040','#ff9020','#f0e020','#40c040','#4080ff','#8040ff'].forEach((c,i)=>{ctx.fillStyle=c;ctx.fillRect(13,21-i*2,6,2);});
+      ctx.fillStyle='#1a1060';ctx.fillRect(14,6,4,5);
+      ctx.fillStyle='#e040c0';ctx.fillRect(13,4,6,3); break;
+    case 'jockstrap':
+      ctx.fillStyle='#d0c8b8';ctx.fillRect(8,8,16,8);
+      ctx.fillStyle='#c0b8a8';ctx.fillRect(12,15,8,8);
+      ctx.fillStyle='#b0a898';ctx.fillRect(9,20,3,7);ctx.fillRect(20,20,3,7);
+      ctx.fillStyle='#e04040';ctx.fillRect(8,8,16,1);
+      ctx.fillStyle='#40c040';ctx.fillRect(8,10,16,1); break;
+    case 'bearPawMitts':
+      ctx.fillStyle='#6a3820';ctx.fillRect(3,10,12,14);
+      ctx.fillStyle='#8a4828';ctx.fillRect(4,11,10,12);
+      ctx.fillStyle='#6a3820';ctx.fillRect(4,6,3,5);ctx.fillRect(8,5,3,6);ctx.fillRect(12,6,3,5);
+      ctx.fillStyle='#c07050';ctx.fillRect(5,18,3,3);ctx.fillRect(9,18,3,3);ctx.fillRect(7,15,4,4); break;
+    case 'strapon':
+      ctx.fillStyle='#3a1808';ctx.fillRect(6,14,20,3);ctx.fillRect(13,10,6,14);
+      ctx.fillStyle='#c050b0';ctx.fillRect(13,2,6,13);
+      ctx.fillStyle='#d870c8';ctx.fillRect(14,3,4,11);
+      ctx.fillStyle='#c050b0';ctx.fillRect(12,2,8,5); break;
+    case 'vibwand':
+      ctx.fillStyle='#6020b0';ctx.fillRect(13,4,6,20);
+      ctx.fillStyle='#8030d0';ctx.fillRect(14,5,4,18);
+      ctx.fillStyle='#9040e0';ctx.fillRect(11,2,10,6);
+      ctx.fillStyle='#f040f0';ctx.fillRect(14,16,4,4); break;
+    case 'chaps':
+      ctx.fillStyle='#3a1808';ctx.fillRect(18,8,8,20);ctx.fillRect(6,8,8,20);
+      ctx.fillStyle='#5a2010';ctx.fillRect(19,9,6,18);ctx.fillRect(7,9,6,18);
+      ctx.fillStyle='#0a0612';ctx.fillRect(13,8,6,20); break;
+    case 'trophy':
+      ctx.fillStyle='#c09010';ctx.fillRect(10,6,12,12);
+      ctx.fillStyle='#f0c020';ctx.fillRect(11,7,10,10);
+      ctx.fillStyle='#ffe060';ctx.fillRect(12,7,4,6);
+      ctx.fillStyle='#c09010';ctx.fillRect(14,17,4,4);ctx.fillRect(10,20,12,4); break;
+    default:
+      ctx.fillStyle='#c0a020';ctx.fillRect(10,8,12,16);
+      ctx.fillStyle='#f0c040';ctx.fillRect(12,10,8,12); break;
+  }
+}
+
 // ── Item rendering ─────────────────────────────────────────────────────────
 function renderItems(){
   for(const it of items){
     if(it.picked) continue;
-    const x=it.x, y=it.y;
-    if(it.type==='sword'){
-      ctx.fillStyle=C.swordG; ctx.fillRect(x-10,y-5,20,3);
-      ctx.fillStyle=C.sword;  ctx.fillRect(x-12,y-3,24,2);
-      ctx.fillStyle=C.swordG; ctx.fillRect(x-2,y-8,4,4);
-    } else if(it.type==='redPotion'){
-      ctx.fillStyle=C.potR; ctx.fillRect(x-4,y-13,8,9);
-      ctx.fillStyle='#e84040'; ctx.fillRect(x-3,y-12,3,3);
-      ctx.fillStyle=C.potR; ctx.fillRect(x-2,y-16,4,4);
-      ctx.fillStyle='#802020'; ctx.fillRect(x-1,y-17,2,2);
-    } else {
-      ctx.fillStyle=C.potB; ctx.fillRect(x-4,y-13,8,9);
-      ctx.fillStyle='#4070e8'; ctx.fillRect(x-3,y-12,3,3);
-      ctx.fillStyle=C.potB; ctx.fillRect(x-2,y-16,4,4);
-      ctx.fillStyle='#203060'; ctx.fillRect(x-1,y-17,2,2);
-    }
+    ctx.save();
+    ctx.translate(it.x,it.y);
+    ctx.scale(0.6,0.6);
+    ctx.translate(-16,-32);
+    drawItem(ctx,it.type);
+    ctx.restore();
   }
 }
 
-// ── Character drawing ──────────────────────────────────────────────────────
-// All coords relative to bottom-center of character (after ctx.translate)
-function drawHuman(state,skin,shirt,pants,hasSword){
+// ── Hercules sprite — origin at bottom-centre of feet ─────────────────────
+// Drawn at 1× (caller applies scale 0.5). Full height ~90px.
+function drawHercules(ctx,state){
+  const H={
+    skin:'#c09050',shadow:'#8a6828',hi:'#d8b070',blush:'#c07848',
+    skirt:'#e8e0c0',skirtDk:'#b8b090',belt:'#603818',sandal:'#503010',
+    hair:'#c89820',hairHi:'#f0d060',lip:'#a05838',iris:'#4a6838',
+    white:'#e8e4d8',lash:'#0c0808',
+  };
   const t=performance.now()/1000;
-  let legSw=0;
-  if(state==='run') legSw=Math.sin(t*10)*7;
-  else if(state==='jump'||state==='fall') legSw=-5;
-  else if(state==='crouch') legSw=9;
+  const isDead=state==='die'||state==='dead';
+  if(isDead){
+    ctx.save(); ctx.rotate(Math.PI/2);
+    ctx.fillStyle=H.skin; ctx.fillRect(-20,-5,40,10); ctx.fillRect(-12,-14,6,10);
+    ctx.fillStyle=H.hair; ctx.fillRect(-12,-14,12,4);
+    ctx.fillStyle=H.skirt; ctx.fillRect(-20,-5,12,8);
+    ctx.fillStyle='#800808'; ctx.fillRect(-6,-3,12,3);
+    ctx.restore(); return;
+  }
+  const sw  = state==='run'?Math.sin(t*8)*9:(state==='jump'||state==='fall')?-4:0;
+  const asw = state==='run'?Math.sin(t*8+Math.PI)*7:0;
+  const strk= state==='strike';
+  const bY  = (state==='crouch')?10:0;
 
-  const bY=state==='crouch'?8:0;
+  // Sandals
+  ctx.fillStyle=H.sandal;
+  ctx.fillRect(-11,-3+sw*0.3+bY,10,3); ctx.fillRect(1,-3-sw*0.3+bY,10,3);
+  ctx.fillRect(-10,-7+sw*0.3+bY,8,4);  ctx.fillRect(1,-7-sw*0.3+bY,8,4);
+  ctx.fillStyle='#2a1008';
+  ctx.fillRect(-9,-2+sw*0.3+bY,7,1);   ctx.fillRect(2,-2-sw*0.3+bY,7,1);
 
-  // Boots
-  ctx.fillStyle=pants;
-  ctx.fillRect(-9,-4+legSw,8,4);
-  ctx.fillRect(1,-4-legSw,8,4);
   // Legs
-  ctx.fillRect(-8,-20+bY+legSw,6,16);
-  ctx.fillRect(2,-20+bY-legSw,6,16);
+  ctx.fillStyle=H.skin;
+  ctx.fillRect(-9,-36+sw+bY,8,29); ctx.fillRect(1,-36-sw+bY,8,29);
+  ctx.fillStyle=H.shadow;
+  ctx.fillRect(-8,-13+sw+bY,4,4);  ctx.fillRect(3,-13-sw+bY,4,4);
+  ctx.fillRect(-9,-24+sw+bY,3,8);  ctx.fillRect(6,-24-sw+bY,3,8);
+  ctx.fillRect(-5,-32+sw+bY,3,8);  ctx.fillRect(2,-32-sw+bY,3,8);
+  ctx.fillStyle=H.hi;
+  ctx.fillRect(-7,-13+sw+bY,2,3);  ctx.fillRect(4,-13-sw+bY,2,3);
+
+  // Skirt
+  ctx.fillStyle=H.skirt;
+  ctx.fillRect(-11,-34+bY,22,2); ctx.fillRect(-10,-38+bY,20,4);
+  ctx.fillStyle=H.skirtDk;
+  for(let x=-7;x<=6;x+=4) ctx.fillRect(x,-38+bY,2,6);
+  ctx.fillRect(-11,-33+bY,22,2);
+
   // Belt
-  ctx.fillRect(-7,-22+bY,14,3);
-  // Body
-  ctx.fillStyle=shirt;
-  ctx.fillRect(-7,-38+bY,14,16);
-  // Head
-  ctx.fillStyle=skin;
-  ctx.fillRect(-6,-50+bY,12,12);
-  // Hair
-  ctx.fillStyle=pants;
-  ctx.fillRect(-6,-50+bY,12,4);
-  ctx.fillRect(-7,-48+bY,2,4);
-  // Eye
-  ctx.fillStyle='#0a0a0a';
-  ctx.fillRect(1,-44+bY,2,2);
-  // Arm swing
-  const armSw=state==='run'?Math.sin(t*10+Math.PI)*4:0;
-  ctx.fillStyle=shirt;
-  ctx.fillRect(-10,-34+bY+armSw,4,10);
+  ctx.fillStyle=H.belt;    ctx.fillRect(-10,-42+bY,20,3);
+  ctx.fillStyle='#c8a020'; ctx.fillRect(-3,-43+bY,6,5);
+  ctx.fillStyle='#a07010'; ctx.fillRect(-2,-42+bY,4,3);
 
-  if(hasSword&&(state==='sword'||state==='strike'||state==='block')){
-    ctx.save();
-    ctx.translate(8,-32+bY);
-    if(state==='strike') ctx.rotate(0.25);
-    ctx.fillStyle=skin;  ctx.fillRect(0,0,4,10);
-    ctx.fillStyle=C.sword; ctx.fillRect(3,-2,2,4);
-    ctx.fillStyle='#d8d8e8'; ctx.fillRect(4,-22,1,22);
-    ctx.fillStyle=C.swordG; ctx.fillRect(3,4,2,6);
-    ctx.restore();
-    if(state==='strike'){
-      ctx.fillStyle='rgba(200,200,220,0.35)';
-      ctx.fillRect(4,-40+bY,32,18);
+  // Torso
+  ctx.fillStyle=H.skin;
+  ctx.fillRect(-10,-62+bY,20,20); ctx.fillRect(-12,-68+bY,24,6);
+  ctx.fillStyle=H.shadow;
+  ctx.fillRect(-11,-67+bY,10,8);  ctx.fillRect(1,-67+bY,10,8);
+  ctx.fillStyle=H.skin;
+  ctx.fillRect(-10,-66+bY,8,6);   ctx.fillRect(2,-66+bY,8,6);
+  ctx.fillStyle=H.hi;
+  ctx.fillRect(-9,-65+bY,4,3);    ctx.fillRect(5,-65+bY,4,3);
+  ctx.fillStyle=H.shadow;
+  ctx.fillRect(-1,-66+bY,2,22);
+  ctx.fillRect(-8,-56+bY,6,3); ctx.fillRect(2,-56+bY,6,3);
+  ctx.fillRect(-8,-51+bY,6,3); ctx.fillRect(2,-51+bY,6,3);
+  ctx.fillRect(-8,-46+bY,6,2); ctx.fillRect(2,-46+bY,6,2);
+  ctx.fillRect(-11,-62+bY,3,12); ctx.fillRect(8,-62+bY,3,12);
+
+  // Shoulders
+  ctx.fillStyle=H.skin;
+  ctx.fillRect(-15,-68+bY,5,12); ctx.fillRect(10,-68+bY,5,12);
+  ctx.fillStyle=H.shadow;
+  ctx.fillRect(-15,-66+bY,4,5);  ctx.fillRect(11,-66+bY,4,5);
+  ctx.fillStyle=H.hi;
+  ctx.fillRect(-14,-66+bY,2,3);  ctx.fillRect(12,-66+bY,2,3);
+
+  // Arms + club
+  ctx.fillStyle=H.skin;
+  if(strk){
+    ctx.fillRect(10,-82+bY,6,16); ctx.fillRect(12,-90+bY,5,10);
+    ctx.fillStyle=H.shadow; ctx.fillRect(10,-78+bY,4,6);
+    ctx.fillStyle=H.skin;
+    ctx.fillRect(-15,-68+bY,5,14); ctx.fillRect(-14,-56+bY,4,10);
+    ctx.fillStyle=H.shadow; ctx.fillRect(-15,-63+bY,3,6);
+    if(player.hasClub){
+      ctx.fillStyle='#6a3a10'; ctx.fillRect(14,-108+bY,5,18);
+      ctx.fillStyle='#4a2808'; ctx.fillRect(12,-116+bY,9,9); ctx.fillRect(11,-117+bY,11,3);
     }
+  } else if(state==='grab'||state==='climbUp'){
+    ctx.fillRect(-15,-78+bY,5,18); ctx.fillRect(10,-78+bY,5,18);
+    ctx.fillStyle=H.shadow;
+    ctx.fillRect(-15,-74+bY,3,7); ctx.fillRect(10,-74+bY,3,7);
   } else {
-    ctx.fillStyle=shirt;
-    ctx.fillRect(7,-34+bY+armSw,4,10);
+    ctx.fillRect(-15,-68+bY+asw,5,14); ctx.fillRect(-14,-56+bY+asw,4,10);
+    ctx.fillRect(10,-68+bY-asw,5,14);  ctx.fillRect(12,-56+bY-asw,4,10);
+    ctx.fillStyle=H.shadow;
+    ctx.fillRect(-15,-63+bY+asw,3,6); ctx.fillRect(10,-63+bY-asw,3,6);
+    if(player.hasClub){
+      ctx.fillStyle='#6a3a10'; ctx.fillRect(13,-68+bY-asw,4,26);
+      ctx.fillStyle='#4a2808'; ctx.fillRect(11,-72+bY-asw,8,6);
+    }
   }
 
-  if(state==='die'||state==='dead'){
-    ctx.fillStyle=pants;
-    ctx.fillRect(-22,-6,44,8);
-    ctx.fillStyle=C.blood;
-    ctx.fillRect(-4,-4,8,4);
+  // Head
+  const hY=-86+bY;
+  ctx.fillStyle=H.skin;
+  ctx.fillRect(-7,hY,14,14); ctx.fillRect(-5,hY+12,10,4);
+  ctx.fillStyle=H.shadow;
+  ctx.fillRect(-9,hY+5,2,5); ctx.fillRect(7,hY+5,2,5);
+  ctx.fillStyle=H.hi; ctx.fillRect(-9,hY+5,1,3);
+  ctx.fillStyle=H.skin; ctx.fillRect(-4,hY+14,8,4);
+
+  // Face
+  ctx.fillStyle=H.hi;   ctx.fillRect(-6,hY+9,3,2); ctx.fillRect(3,hY+9,3,2);
+  ctx.fillStyle=H.blush;ctx.fillRect(-6,hY+10,3,1);ctx.fillRect(3,hY+10,3,1);
+  ctx.fillStyle=H.white;ctx.fillRect(-5,hY+5,5,3); ctx.fillRect(0,hY+5,5,3);
+  ctx.fillStyle=H.iris; ctx.fillRect(-4,hY+5,3,3); ctx.fillRect(1,hY+5,3,3);
+  ctx.fillStyle='#060606';ctx.fillRect(-3,hY+6,2,2);ctx.fillRect(1,hY+6,2,2);
+  ctx.fillStyle='#ffffff';ctx.fillRect(-3,hY+6,1,1);ctx.fillRect(2,hY+6,1,1);
+  ctx.fillStyle=H.lash;  ctx.fillRect(-5,hY+5,5,1);ctx.fillRect(0,hY+5,5,1);
+  ctx.fillStyle=H.shadow;ctx.fillRect(-5,hY+8,5,1);ctx.fillRect(0,hY+8,5,1);
+  ctx.fillStyle=H.hair;  ctx.fillRect(-5,hY+3,4,1);ctx.fillRect(-4,hY+2,3,1);
+                         ctx.fillRect(1,hY+3,4,1); ctx.fillRect(2,hY+2,3,1);
+  ctx.fillStyle=H.shadow;ctx.fillRect(-1,hY+8,2,3);ctx.fillRect(-2,hY+10,1,2);ctx.fillRect(2,hY+10,1,2);
+  ctx.fillStyle=H.hi;    ctx.fillRect(0,hY+8,1,2);
+  ctx.fillStyle=H.lip;   ctx.fillRect(-3,hY+12,6,2);ctx.fillRect(-2,hY+11,4,1);
+  ctx.fillStyle='#804030';ctx.fillRect(-3,hY+13,6,1);
+  ctx.fillStyle=H.skin;  ctx.fillRect(-1,hY+11,2,1);
+
+  // Hair
+  ctx.fillStyle=H.hair;
+  ctx.fillRect(-7,hY,14,5);
+  ctx.fillRect(-8,hY+2,2,8); ctx.fillRect(6,hY+2,2,8);
+  ctx.fillRect(-6,hY-2,12,3); ctx.fillRect(-4,hY-4,8,3);
+  ctx.fillStyle=H.hairHi;
+  ctx.fillRect(-3,hY-3,4,3); ctx.fillRect(-2,hY,3,3);
+}
+
+// ── Guard sprite — origin at bottom-centre of feet ─────────────────────────
+// Drawn at 1× (caller applies scale 0.5). Full height ~98px.
+function drawGuard(ctx,g,pose){
+  const{skin,shadow,hi,speedo,speedoDk,hair,hairstyle}=g;
+  const t=performance.now()/1000;
+  const sw  = pose==='run'?Math.sin(t*9)*10:0;
+  const asw = pose==='run'?Math.sin(t*9+Math.PI)*8:0;
+  const strk= pose==='strike';
+
+  ctx.fillStyle='#3a2010';
+  ctx.fillRect(-12,-3+sw*0.4,11,3); ctx.fillRect(1,-3-sw*0.4,11,3);
+
+  ctx.fillStyle=skin;
+  ctx.fillRect(-11,-26+sw,10,23); ctx.fillRect(1,-26-sw,10,23);
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-11,-22+sw,4,10);  ctx.fillRect(7,-22-sw,4,10);
+  ctx.fillRect(-10,-10+sw,7,5);   ctx.fillRect(3,-10-sw,7,5);
+  ctx.fillStyle=hi;
+  ctx.fillRect(-9,-10+sw,4,3);    ctx.fillRect(3,-10-sw,4,3);
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-11,-20+sw,4,10);  ctx.fillRect(7,-20-sw,4,10);
+
+  ctx.fillStyle=speedo;
+  ctx.fillRect(-9,-34,18,9); ctx.fillRect(-7,-36,14,3);
+  ctx.fillStyle=speedoDk;
+  ctx.fillRect(-9,-34,3,9);  ctx.fillRect(6,-34,3,9);
+  ctx.fillRect(-9,-36,18,2); ctx.fillRect(-1,-34,2,7);
+
+  ctx.fillStyle=skin;
+  ctx.fillRect(-13,-36,4,9); ctx.fillRect(9,-36,4,9);
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-13,-32,4,5); ctx.fillRect(9,-32,4,5);
+
+  ctx.fillStyle=skin;
+  ctx.fillRect(-9,-42,18,18); ctx.fillRect(-9,-60,18,18);
+  ctx.fillRect(-11,-68,22,8); ctx.fillRect(-13,-78,26,10);
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-12,-77,11,9); ctx.fillRect(1,-77,11,9);
+  ctx.fillStyle=skin;
+  ctx.fillRect(-11,-76,9,7);  ctx.fillRect(2,-76,9,7);
+  ctx.fillStyle=hi;
+  ctx.fillRect(-10,-75,5,3);  ctx.fillRect(5,-75,5,3);
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-7,-69,3,2);   ctx.fillRect(4,-69,3,2);
+  ctx.fillRect(-1,-76,2,36);
+  ctx.fillRect(-9,-62,18,2);  ctx.fillRect(-9,-54,18,2);
+  ctx.fillRect(-9,-46,18,2);  ctx.fillRect(-9,-38,18,2);
+  ctx.fillStyle=hi;
+  ctx.fillRect(-8,-61,6,5);   ctx.fillRect(2,-61,6,5);
+  ctx.fillRect(-8,-53,6,5);   ctx.fillRect(2,-53,6,5);
+  ctx.fillRect(-8,-45,6,5);   ctx.fillRect(2,-45,6,5);
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-11,-62,3,22); ctx.fillRect(8,-62,3,22);
+
+  ctx.fillStyle=skin;
+  ctx.fillRect(-18,-78,6,12); ctx.fillRect(12,-78,6,12);
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-18,-76,5,6);  ctx.fillRect(13,-76,5,6);
+  ctx.fillStyle=hi;
+  ctx.fillRect(-17,-76,3,3);  ctx.fillRect(14,-76,3,3);
+
+  ctx.fillStyle=skin;
+  if(strk){
+    ctx.fillRect(12,-90,6,16);  ctx.fillRect(14,-98,5,10);
+    ctx.fillStyle=shadow;  ctx.fillRect(12,-86,4,6);
+    ctx.fillStyle=skin;
+    ctx.fillRect(-18,-78,6,16); ctx.fillRect(-16,-65,5,12);
+    ctx.fillStyle=shadow;  ctx.fillRect(-18,-73,4,6);
+    ctx.fillStyle=skin;    ctx.fillRect(13,-100,7,6);
+    ctx.fillStyle=shadow;  ctx.fillRect(13,-100,7,2);
+  } else {
+    ctx.fillRect(-18,-78+asw,6,16); ctx.fillRect(-16,-65+asw,5,12);
+    ctx.fillRect(12,-78-asw,6,16);  ctx.fillRect(14,-65-asw,5,12);
+    ctx.fillStyle=shadow;
+    ctx.fillRect(-18,-73+asw,4,6);  ctx.fillRect(12,-73-asw,4,6);
+    ctx.fillRect(-16,-60+asw,3,7);  ctx.fillRect(14,-60-asw,3,7);
   }
-  if(state==='grab'){
-    // hanging: arms up
-    ctx.fillStyle=shirt;
-    ctx.fillRect(-10,-46+bY,4,14);
-    ctx.fillRect(6,-46+bY,4,14);
+
+  const hY=-94;
+  ctx.fillStyle=skin;
+  ctx.fillRect(-8,hY,16,16); ctx.fillRect(-6,hY+13,12,4);
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-10,hY+5,2,6); ctx.fillRect(8,hY+5,2,6);
+  ctx.fillStyle=skin;
+  ctx.fillRect(-5,hY+16,10,4);
+  ctx.fillStyle=shadow; ctx.fillRect(-5,hY+16,3,4); ctx.fillRect(3,hY+16,2,4);
+
+  ctx.fillStyle=shadow;
+  ctx.fillRect(-1,hY+8,2,5); ctx.fillRect(-5,hY+13,3,2); ctx.fillRect(2,hY+13,3,2);
+  ctx.fillRect(-6,hY+5,5,2); ctx.fillRect(1,hY+5,5,2);
+  ctx.fillStyle='#080818';
+  ctx.fillRect(-5,hY+7,4,3); ctx.fillRect(1,hY+7,4,3);
+  ctx.fillStyle='#2040e0';
+  ctx.fillRect(-4,hY+8,2,2); ctx.fillRect(2,hY+8,2,2);
+  ctx.fillStyle=shadow; ctx.fillRect(-3,hY+13,6,1);
+
+  ctx.fillStyle=hair;
+  switch(hairstyle){
+    case 'mohawk':
+      ctx.fillRect(-2,hY-12,4,12); ctx.fillRect(-1,hY-16,2,6);
+      ctx.fillStyle='#c02020'; ctx.fillRect(-2,hY-14,4,6);
+      ctx.fillStyle='#e04020'; ctx.fillRect(-1,hY-16,2,4);
+      ctx.fillStyle=skin;
+      ctx.fillRect(-8,hY,4,5); ctx.fillRect(4,hY,4,5); break;
+    case 'buzzcut':
+      ctx.fillRect(-8,hY,16,4); ctx.fillRect(-7,hY-2,14,3); break;
+    case 'curly':
+      for(let cx=-7;cx<=5;cx+=3) ctx.fillRect(cx,hY-3,3,5);
+      for(let cx=-5;cx<=4;cx+=3) ctx.fillRect(cx,hY-7,3,5);
+      ctx.fillRect(-4,hY-9,8,4); break;
+    case 'pompadour':
+      ctx.fillRect(-6,hY-8,12,4); ctx.fillRect(-4,hY-12,10,5);
+      ctx.fillRect(-2,hY-14,6,4); ctx.fillRect(0,hY-15,3,3);
+      ctx.fillStyle='#3a2010'; ctx.fillRect(-8,hY,4,5); break;
+    case 'long':
+      ctx.fillRect(-8,hY,16,5);
+      ctx.fillRect(-9,hY+4,3,14); ctx.fillRect(6,hY+4,3,14);
+      ctx.fillRect(-9,hY+16,3,4); ctx.fillRect(6,hY+16,3,4); break;
+    case 'bald':
+      ctx.fillStyle=hi; ctx.fillRect(-4,hY+1,4,3); break;
+    case 'flattop':
+      ctx.fillRect(-8,hY-6,16,6); ctx.fillRect(-9,hY-6,2,6); ctx.fillRect(7,hY-6,2,6); break;
+    case 'undercut':
+      ctx.fillRect(-7,hY-6,14,6); ctx.fillRect(-5,hY-8,10,3); break;
+  }
+  if(['pompadour','flattop','bald'].includes(hairstyle)){
+    ctx.fillStyle=hair; ctx.fillRect(-3,hY+12,6,2);
   }
 }
 
@@ -981,28 +1389,29 @@ function renderPlayer(){
   if(player.hitT>0&&Math.floor(player.hitT*10)%2===0) return;
   ctx.save();
   ctx.translate(player.x,player.y);
-  if(player.facing===-1) ctx.scale(-1,1);
-  drawHuman(player.state,C.pSkin,C.pShirt,C.pPants,player.hasSword);
+  ctx.scale(player.facing*0.5,0.5);
+  drawHercules(ctx,player.state);
   ctx.restore();
 }
 
 function renderGuards(){
   for(const g of guards){
+    const gt=GUARD_TYPES[g.typeIdx||0];
     ctx.save();
     ctx.translate(g.x,g.y);
-    if(g.facing===-1) ctx.scale(-1,1);
+    const pose=g.state==='strike'?'strike':(g.vx!==0||g.state==='patrol')?'run':'idle';
+    ctx.scale(g.facing*0.5,0.5);
     if(g.state==='dead'){
       const a=Math.max(0,1-g.stT/1.6);
       ctx.globalAlpha=a;
     }
-    drawHuman(g.state,C.gSkin,C.gShirt,C.gPants,true);
+    drawGuard(ctx,gt,pose);
     ctx.globalAlpha=1;
     ctx.restore();
-    // hp bar
     if(!g.dead&&g.state!=='patrol'){
-      const bw=20;
-      ctx.fillStyle='#200000'; ctx.fillRect(g.x-bw/2,g.y-G_H-7,bw,3);
-      ctx.fillStyle=C.blood;   ctx.fillRect(g.x-bw/2,g.y-G_H-7,bw*(g.health/2),3);
+      const bw=22;
+      ctx.fillStyle='#200010'; ctx.fillRect(g.x-bw/2,g.y-G_H-7,bw,3);
+      ctx.fillStyle=C.heart;   ctx.fillRect(g.x-bw/2,g.y-G_H-7,bw*(g.health/2),3);
     }
   }
 }
@@ -1025,6 +1434,22 @@ function renderHUD(){
     ctx.fillStyle=i<player.health?C.heart:C.heartE;
     ctx.fillRect(8+i*11,4,9,9);
   }
+  // Shield pip
+  for(let i=0;i<player.shield;i++){
+    ctx.fillStyle='#e040c0'; ctx.fillRect(8+player.maxHealth*11+4+i*8,5,6,6);
+  }
+  // Active effect dots
+  let ex=8+player.maxHealth*11+4+(player.shield||0)*8+4;
+  const effC={speed2:'#e84040',lubed:'#40c8f0',halfDmg:'#d0d0d0',shield:'#e040c0',
+               invisible:'#8020a0',silenced:'#e03030',doubleJump:'#d060c0',
+               spikeImmune:'#5a2010',dmg2:'#f0a020',fastClimb:'#8a5030',
+               whip:'#4a2810',paddle:'#8a4020',flogger:'#4a1808'};
+  for(const [k,col] of Object.entries(effC)){
+    if(player.effects[k]){
+      ctx.fillStyle=col; ctx.fillRect(ex,5,6,6); ex+=8;
+    }
+  }
+  if(player.jockBoost){ctx.fillStyle='#e8e0d0';ctx.fillRect(ex,5,6,6);}
   // Level name
   ctx.fillStyle=C.timer; ctx.font='8px monospace'; ctx.textAlign='center';
   ctx.fillText((lvl.name||'Level '+(lvlIdx+1)),320,12);
@@ -1038,7 +1463,7 @@ function renderHUD(){
 }
 
 // ── Main render ────────────────────────────────────────────────────────────
-const VERSION='0.004';
+const VERSION='0.005';
 function render(){
   ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
   ctx.save(); ctx.translate(0,HUD_H);
@@ -1090,6 +1515,7 @@ auth.onAuthStateChanged(user=>{
   const wasGuest=!fbUser;
   fbUser=user;
   updateAuthUI();
+  loadMiniLB();  // refresh on login/logout
   if(user&&wasGuest&&pendingSave){ pendingSave=false; maybeSaveScore(); }
 });
 
@@ -1154,7 +1580,10 @@ async function loadMiniLB(){
       li.innerHTML=`<span class="ml-name">${i+1}. ${(d.displayName||'Anon').split(' ')[0]}</span><span class="ml-time">${fmtTime((d.bestTime||0)/1000)}</span>`;
       list.appendChild(li); i++;
     });
-  } catch(e){ console.warn('Mini LB error',e); }
+  } catch(e){
+    console.error('Mini LB error:',e.code||e.message||e);
+    if(list) list.innerHTML='<li><span class="ml-name" style="color:#e03080">LB unavailable</span></li>';
+  }
 }
 
 async function loadLB(){
@@ -1163,7 +1592,10 @@ async function loadLB(){
   try{
     const snap=await db.collection('pop_scores').orderBy('bestTime','asc').limit(20).get();
     list.innerHTML='';
-    if(snap.empty){ list.innerHTML='<li style="justify-content:center;opacity:.5">No completions yet — be the first!</li>'; return; }
+    if(snap.empty){
+      list.innerHTML='<li style="justify-content:center;opacity:.5">No completions yet — win all 5 levels to appear here!</li>';
+      return;
+    }
     let i=0;
     snap.forEach(doc=>{
       const d=doc.data(), li=document.createElement('li');
@@ -1171,7 +1603,11 @@ async function loadLB(){
       li.innerHTML=`<span class="lb-rank">${i+1}</span><span class="lb-name">${(d.displayName||'Anon').split(' ')[0]}</span><span class="lb-time">${fmtTime((d.bestTime||0)/1000)}</span><span class="lb-lv">Lv${d.level||'?'}</span>`;
       list.appendChild(li); i++;
     });
-  } catch(e){ list.innerHTML='<li style="opacity:.5">Could not load.</li>'; console.warn(e); }
+  } catch(e){
+    const errMsg=e.code==='permission-denied'?'Firestore rules block public reads — ask admin to allow reads on pop_scores':(e.message||'Could not load');
+    list.innerHTML=`<li style="opacity:.7;color:#e03080;font-size:0.7rem">${errMsg}</li>`;
+    console.error('LB error:',e);
+  }
 }
 
 let lbOpen=false;
@@ -1190,7 +1626,7 @@ document.getElementById('v-signin-btn').addEventListener('click',signIn);
 document.getElementById('start-btn').addEventListener('click',startGame);
 document.getElementById('restart-btn').addEventListener('click',restartLevel);
 document.getElementById('next-btn').addEventListener('click',()=>{
-  carryoverSword=player.hasSword;
+  carryoverSword=player.hasSword||player.hasClub;
   lvlIdx++;
   loadLevel(lvlIdx);
   gState='playing'; showOv(null);
