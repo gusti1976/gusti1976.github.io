@@ -1339,21 +1339,21 @@ function renderItems(){
 // ── drawHercules ───────────────────────────────────────────────────────────
 // Origin = bottom-centre of feet. Adapted from hercules-concept.html
 const P = {
-  skin:    '#c8a878',
-  shadow:  '#9a7848',
-  hi:      '#dcc898',
-  blush:   '#c07060',
+  skin:    '#e8a870',  // warm peach
+  shadow:  '#b87840',  // warm brown shadow
+  hi:      '#f4c090',  // bright peach highlight
+  blush:   '#d08868',  // warm blush
   loin:    '#7020a0',
   loinHi:  '#9848c8',
   loinSh:  '#40106a',
   fibula:  '#c8a020',
-  hair:    '#c89820',
-  hairHi:  '#f0d060',
-  hairHi2: '#d4a830',
-  lip:     '#a84848',
-  iris:    '#28201a',
-  white:   '#e8e4d8',
-  lash:    '#060404',
+  hair:    '#a84818',  // auburn ginger
+  hairHi:  '#d86828',  // orange-gold highlight
+  hairHi2: '#f09030',  // bright auburn catchlight
+  lip:     '#c06858',  // natural lip
+  iris:    '#4a80c0',  // bright blue eyes
+  white:   '#f0ecdc',
+  lash:    '#080408',
 };
 
 function drawHercules(ctx, state) {
@@ -1475,9 +1475,9 @@ function _drawHerculesCore(ctx, pose) {
   const torsoG = cylGrad(ctx, -48, 48, P.shadow, P.skin, P.hi);
   ctx.fillStyle = torsoG;
   ctx.fillRect(-44, -276, 88, 80);
-  const chestG = cylGrad(ctx, -56, 56, P.shadow, P.skin, P.hi);
+  const chestG = cylGrad(ctx, -60, 60, P.shadow, P.skin, P.hi);
   ctx.fillStyle = chestG;
-  ctx.fillRect(-52, -308, 104, 40);
+  ctx.fillRect(-56, -312, 112, 44);
   // Sternum line — chest only, not full torso height
   ctx.fillStyle = 'rgba(0,0,0,0.30)';
   ctx.fillRect(-3, -308,  6, 38);
@@ -1511,50 +1511,57 @@ function _drawHerculesCore(ctx, pose) {
   ctx.fillRect(-32, -212, 24, 20);  ctx.fillRect( 8, -212, 24, 20);
   ctx.fillRect(-32, -188, 24, 16);  ctx.fillRect( 8, -188, 24, 16);
 
-  // ── Shoulders ──
-  ctx.fillStyle = sphGrad(ctx, -52, -280, 24, P.hi, P.skin, P.shadow);
-  ctx.fillRect(-64, -304, 24, 56);
-  ctx.fillStyle = sphGrad(ctx,  44, -280, 24, P.hi, P.skin, P.shadow);
-  ctx.fillRect( 40, -304, 24, 56);
+  // ── Massive deltoid shoulders ──
+  ctx.fillStyle = sphGrad(ctx, -58, -284, 32, P.hi, P.skin, P.shadow);
+  ctx.fillRect(-76, -312, 36, 68);
+  ctx.fillStyle = sphGrad(ctx,  50, -284, 32, P.hi, P.skin, P.shadow);
+  ctx.fillRect( 40, -312, 36, 68);
   ctx.fillStyle = P.hi;
-  ctx.fillRect(-60, -300, 12, 16);
-  ctx.fillRect( 48, -300, 12, 16);
+  ctx.fillRect(-72, -308, 16, 20);
+  ctx.fillRect( 56, -308, 16, 20);
+  // Deltoid round cap
+  ctx.fillStyle = 'rgba(255,220,180,0.20)';
+  ctx.fillRect(-70, -312, 12, 12);
+  ctx.fillRect( 58, -312, 12, 12);
 
   // ── Arms ──
-  const armG = cylGrad(ctx, -24, 24, P.shadow, P.skin, P.hi);
+  const armG  = cylGrad(ctx, -28, 28, P.shadow, P.skin, P.hi);
+  const bicG  = cylGrad(ctx, -36, 36, P.shadow, P.skin, P.hi);
+  const foreG = cylGrad(ctx, -22, 22, P.shadow, P.skin, P.hi);
   if (isGrab) {
     ctx.fillStyle = armG;
-    ctx.fillRect(-60, -384, 24, 120);
-    ctx.fillRect( 40, -384, 24, 120);
-    const bicG = cylGrad(ctx, -32, 32, P.shadow, P.skin, P.hi);
+    ctx.fillRect(-64, -384, 28, 120);
+    ctx.fillRect( 36, -384, 28, 120);
     ctx.fillStyle = bicG;
-    ctx.fillRect(-68, -352, 32, 40);
-    ctx.fillRect( 36, -352, 32, 40);
+    ctx.fillRect(-76, -352, 40, 44);
+    ctx.fillRect( 36, -352, 40, 44);
     ctx.fillStyle = P.hi;
-    ctx.fillRect(-60, -344, 12, 20);
-    ctx.fillRect( 48, -344, 12, 20);
+    ctx.fillRect(-68, -344, 16, 24);
+    ctx.fillRect( 52, -344, 16, 24);
     ctx.fillStyle = P.shadow;
-    ctx.fillRect(-64, -328,  8, 32);
-    ctx.fillRect( 56, -328,  8, 32);
+    ctx.fillRect(-72, -328, 10, 36);
+    ctx.fillRect( 62, -328, 10, 36);
     // Vein
     ctx.fillStyle = 'rgba(80,40,20,0.22)';
-    ctx.fillRect(-56, -296,  4, 36);
+    ctx.fillRect(-60, -296,  4, 36);
     ctx.fillRect( 56, -296,  4, 36);
   } else if (strk) {
     // Right arm raised — gladius overhead
+    ctx.fillStyle = bicG;
+    ctx.fillRect( 40, -340, 36, 80);
     ctx.fillStyle = armG;
-    ctx.fillRect( 40, -336, 24, 72);
-    ctx.fillRect( 48, -384, 24, 56);
+    ctx.fillRect( 48, -392, 28, 56);
     ctx.fillStyle = P.hi;
-    ctx.fillRect( 44, -328, 12, 20);
+    ctx.fillRect( 44, -332, 16, 24);
     ctx.fillStyle = P.shadow;
-    ctx.fillRect( 56, -320,  8, 32);
+    ctx.fillRect( 68, -324, 10, 36);
     // Left arm — guard balance
-    ctx.fillStyle = armG;
-    ctx.fillRect(-64, -304, 24, 64);
-    ctx.fillRect(-56, -248, 20, 48);
+    ctx.fillStyle = bicG;
+    ctx.fillRect(-76, -308, 36, 72);
+    ctx.fillStyle = foreG;
+    ctx.fillRect(-64, -244, 24, 52);
     ctx.fillStyle = P.shadow;
-    ctx.fillRect(-64, -280,  8, 32);
+    ctx.fillRect(-72, -284, 10, 36);
     // Gladius raised — bone grip, gold pommel, steel blade
     ctx.fillStyle = '#d8c8a8';
     ctx.fillRect(56,-440, 20, 56);
@@ -1583,19 +1590,28 @@ function _drawHerculesCore(ctx, pose) {
     ctx.fillRect(60, -260,  8, 12);
     ctx.fillRect(62, -248,  4,  8);
   } else {
-    ctx.fillStyle = armG;
-    ctx.fillRect(-64, -304 + asw, 24, 64);
-    ctx.fillRect(-56, -248 + asw, 20, 48);
-    ctx.fillRect( 40, -304 - asw, 24, 64);
-    ctx.fillRect( 48, -248 - asw, 20, 48);
+    // Big round bicep — upper arm
+    ctx.fillStyle = bicG;
+    ctx.fillRect(-76, -308 + asw, 36, 72);
+    ctx.fillRect( 40, -308 - asw, 36, 72);
+    // Forearm — tapers from bicep
+    ctx.fillStyle = foreG;
+    ctx.fillRect(-64, -244 + asw, 24, 52);
+    ctx.fillRect( 40, -244 - asw, 24, 52);
+    // Bicep peak highlight
     ctx.fillStyle = P.hi;
-    ctx.fillRect(-56, -288 + asw, 12, 20);
-    ctx.fillRect( 44, -288 - asw, 12, 20);
+    ctx.fillRect(-68, -296 + asw, 16, 24);
+    ctx.fillRect( 52, -296 - asw, 16, 24);
+    ctx.fillStyle = 'rgba(255,220,180,0.20)';
+    ctx.fillRect(-64, -300 + asw,  8, 12);
+    ctx.fillRect( 56, -300 - asw,  8, 12);
+    // Outer arm shadow (gives roundness)
     ctx.fillStyle = P.shadow;
-    ctx.fillRect(-64, -280 + asw,  8, 32);
-    ctx.fillRect( 56, -280 - asw,  8, 32);
+    ctx.fillRect(-76, -292 + asw, 10, 40);
+    ctx.fillRect( 66, -292 - asw, 10, 40);
+    // Vein
     ctx.fillStyle = 'rgba(80,40,20,0.22)';
-    ctx.fillRect(-56, -240 + asw,  4, 32);
+    ctx.fillRect(-60, -240 + asw,  4, 32);
     ctx.fillRect( 56, -240 - asw,  4, 32);
     // Gladius at right side — handle up, blade down
     ctx.fillStyle = '#d8c8a8';
@@ -1646,11 +1662,11 @@ function _drawHerculesCore(ctx, pose) {
   // Brow shadow
   ctx.fillStyle = 'rgba(0,0,0,0.22)';
   ctx.fillRect(-32, -340, 64, 16);
-  // Eyebrows — golden arched
-  ctx.fillStyle = '#a07808';
+  // Eyebrows — auburn arched
+  ctx.fillStyle = '#883010';
   ctx.fillRect(-24, -340, 20,  4);
   ctx.fillRect(  4, -340, 20,  4);
-  ctx.fillStyle = '#c8a020';
+  ctx.fillStyle = '#a84820';
   ctx.fillRect(-20, -344, 12,  4);
   ctx.fillRect(  8, -344, 12,  4);
   // Eyes — large, heavy-lidded
@@ -1666,24 +1682,14 @@ function _drawHerculesCore(ctx, pose) {
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(-16, -328,  4,  4);
   ctx.fillRect( 12, -328,  4,  4);
-  // Heavy drooping upper lid
-  ctx.fillStyle = P.shadow;
-  ctx.fillRect(-24, -332, 24,  8);
-  ctx.fillRect(  4, -332, 24,  8);
-  // Kohl liner
-  ctx.fillStyle = 'rgba(8,4,20,0.75)';
-  ctx.fillRect(-24, -332, 24,  4);
-  ctx.fillRect(  4, -332, 24,  4);
-  // Outer corner wing
+  // Clean upper lid line
   ctx.fillStyle = P.lash;
-  ctx.fillRect(-28, -332,  4,  8);
-  ctx.fillRect( 24, -332,  4,  8);
   ctx.fillRect(-24, -332, 24,  4);
   ctx.fillRect(  4, -332, 24,  4);
-  // Under-eye smudge
-  ctx.fillStyle = 'rgba(10,4,20,0.28)';
-  ctx.fillRect(-20, -316, 16,  4);
-  ctx.fillRect(  4, -316, 16,  4);
+  // Subtle lower lash
+  ctx.fillStyle = 'rgba(8,4,20,0.30)';
+  ctx.fillRect(-20, -316, 16,  3);
+  ctx.fillRect(  4, -316, 16,  3);
   // Nose — straight Roman bridge
   ctx.fillStyle = P.shadow;
   ctx.fillRect(-4, -324,  8, 20);
@@ -1723,51 +1729,43 @@ function _drawHerculesCore(ctx, pose) {
   ctx.fillStyle = P.shadow;
   ctx.fillRect(-4, -280,  8,  4);
 
-  // ── Blonde loose curls (4× detail) ──
-  const htoss = gState === 'victory' ? Math.sin(t * 2.5) * 24 : 0;
+  // ── Short auburn crop ──
+  const htoss = gState === 'victory' ? Math.sin(t * 2.5) * 12 : 0;
   ctx.fillStyle = P.hair;
-  // Top curl mass
-  ctx.fillRect(-36, hCY -  64 + htoss, 72, 32);
-  ctx.fillRect(-32, hCY -  80 + htoss, 64, 20);
-  ctx.fillRect(-24, hCY -  92 + htoss, 48, 16);
-  ctx.fillRect(-16, hCY - 100 + htoss, 32, 12);
-  // Left side curls
-  ctx.fillRect(-52, hCY -  44 + htoss*0.4, 16, 80);
-  ctx.fillRect(-48, hCY -   8 + htoss*0.5, 12, 48);
-  ctx.fillRect(-44, hCY +  24 + htoss*0.6, 12, 24);
-  // Right side curls
-  ctx.fillRect( 36, hCY -  44 - htoss*0.4, 16, 80);
-  ctx.fillRect( 36, hCY -   8 - htoss*0.5, 12, 48);
-  ctx.fillRect( 32, hCY +  24 - htoss*0.6, 12, 24);
-  // Curl mid-highlights (golden shimmer)
+  // Base layer covering head top + sides
+  ctx.fillRect(-44, hCY - 52 + htoss, 88, 20);
+  // Rising fluffy top mass
+  ctx.fillRect(-40, hCY - 64 + htoss, 80, 16);
+  ctx.fillRect(-36, hCY - 76 + htoss, 72, 16);
+  ctx.fillRect(-28, hCY - 88 + htoss, 56, 16);
+  ctx.fillRect(-20, hCY - 96 + htoss, 40, 12);
+  ctx.fillRect(-12, hCY -104 + htoss, 24,  8);
+  // Side tufts — close to head, not hanging far
+  ctx.fillRect(-52, hCY - 48 + htoss*0.3, 12, 40);
+  ctx.fillRect( 40, hCY - 48 - htoss*0.3, 12, 40);
+  ctx.fillRect(-48, hCY - 28 + htoss*0.4, 8, 20);
+  ctx.fillRect( 40, hCY - 28 - htoss*0.4, 8, 20);
+  // Front fringe over brow
+  ctx.fillRect(-24, hCY - 48, 12, 16);
+  ctx.fillRect(  8, hCY - 48, 12, 16);
+  ctx.fillRect( -8, hCY - 56,  8, 12);
+  ctx.fillRect( -4, hCY - 52, 12,  8);
+  // Mid highlights (warm orange-auburn)
   ctx.fillStyle = P.hairHi;
-  ctx.fillRect(-28, hCY -  60 + htoss, 16,  8);
-  ctx.fillRect( -4, hCY -  76 + htoss, 20,  8);
-  ctx.fillRect( 16, hCY -  60 + htoss, 16,  8);
-  ctx.fillRect(-44, hCY -  36 + htoss*0.4,  8, 12);
-  ctx.fillRect( 36, hCY -  36 - htoss*0.4,  8, 12);
-  ctx.fillRect(-44, hCY -   4 + htoss*0.5,  8, 12);
-  ctx.fillRect( 36, hCY -   4 - htoss*0.5,  8, 12);
-  // Bright catchlights
+  ctx.fillRect(-28, hCY - 60 + htoss, 12,  8);
+  ctx.fillRect( -4, hCY - 72 + htoss, 16,  8);
+  ctx.fillRect( 16, hCY - 60 + htoss, 12,  8);
+  ctx.fillRect(-12, hCY - 80 + htoss, 24,  8);
+  // Bright catchlight on top
   ctx.fillStyle = P.hairHi2;
-  ctx.fillRect(-24, hCY -  64 + htoss,  8,  8);
-  ctx.fillRect(  4, hCY -  76 + htoss, 12,  8);
-  ctx.fillRect( 20, hCY -  64 + htoss,  8,  8);
-  ctx.fillRect(-40, hCY -  40 + htoss*0.4,  4,  8);
-  ctx.fillRect( 40, hCY -  40 - htoss*0.4,  4,  8);
-  // Warm gold shadows
-  ctx.fillStyle = '#6a5010';
-  ctx.fillRect(-32, hCY -  44 + htoss, 12,  8);
-  ctx.fillRect( 20, hCY -  44 + htoss, 12,  8);
-  ctx.fillRect(-48, hCY         + htoss*0.5,  8, 16);
-  ctx.fillRect( 40, hCY         - htoss*0.5,  8, 16);
-  // Loose forehead strands
-  ctx.fillStyle = P.hair;
-  ctx.fillRect(-12, hCY - 44,  8, 16);
-  ctx.fillRect(  4, hCY - 44,  8, 16);
-  ctx.fillRect(-20, hCY - 40,  4, 20);
-  ctx.fillRect( 16, hCY - 40,  4, 20);
-  ctx.fillRect( -4, hCY - 48,  8, 12);
+  ctx.fillRect(-16, hCY - 84 + htoss, 32,  8);
+  ctx.fillRect( -8, hCY - 96 + htoss, 20,  6);
+  // Dark auburn shadow base
+  ctx.fillStyle = '#601808';
+  ctx.fillRect(-40, hCY - 44 + htoss, 16,  8);
+  ctx.fillRect( 24, hCY - 44 + htoss, 16,  8);
+  ctx.fillRect(-48, hCY - 40 + htoss*0.3, 8, 12);
+  ctx.fillRect( 40, hCY - 40 - htoss*0.3, 8, 12);
 }
 
 // ── drawGuard ─────────────────────────────────────────────────────────────
