@@ -336,6 +336,15 @@ let items=[];
 let parts=[];
 let torchT=0;
 
+// ── Session stats (persist across levels) ─────────────────────────────────
+const stats={
+  guardsDefeated:0,
+  itemsCollected:0,
+  deaths:0,
+  highestLevel:1,
+};
+function resetStats(){ stats.guardsDefeated=0; stats.itemsCollected=0; stats.deaths=0; stats.highestLevel=1; }
+
 // ── Tile helpers ───────────────────────────────────────────────────────────
 function tileAt(c,r){
   if(c<0||c>=COLS||r<0||r>=ROWS) return T_WALL;
@@ -400,6 +409,7 @@ function loadLevel(idx){
 function startGame(){
   carryoverSword=false;
   lvlIdx=0; gameSec=0;
+  resetStats();
   loadLevel(0);
   gState='playing';
   showOv(null);
@@ -718,6 +728,7 @@ function nearestGuard(){
 function pickItem(it){
   it.picked=true;
   sndPickItem();
+  stats.itemsCollected++;
   const x=it.x, y=it.y-20;
   switch(it.type){
     case 'club': case 'sword':
@@ -800,7 +811,7 @@ function doPlayerAttack(){
 
 function hitGuard(g){
   g.health--; spawnPart(g.x,g.y-30,C.blood,'-1');
-  if(g.health<=0){ g.dead=true; g.state='dead'; g.stT=0; sndGuardDie(); }
+  if(g.health<=0){ g.dead=true; g.state='dead'; g.stT=0; sndGuardDie(); stats.guardsDefeated++; }
   else { g.state='hit'; g.stT=0; g.vx=player.facing*80; }
 }
 
@@ -836,16 +847,19 @@ function hitPlayer(src){
 function killPlayer(){
   if(player.dead) return;
   player.dead=true; player.state='die'; player.stT=0; player.vy=-180;
+  stats.deaths++;
   sndPlayerDie();
 }
 
 function gameOver(){
   gState='gameOver'; showOv('gameOverOverlay');
   stopMusic(); updateAuthUI();
+  maybeSavePartialStats();
 }
 
 function doLevelComplete(){
   gameSec+=lvlSec;
+  stats.highestLevel=Math.max(stats.highestLevel, lvlIdx+1);
   if(lvlIdx===LEVELS.length-1){
     gState='victory'; showOv('victoryOverlay');
     document.getElementById('victory-time').textContent=fmtTime(gameSec);
@@ -1843,7 +1857,7 @@ function renderHUD(){
 }
 
 // ── Main render ────────────────────────────────────────────────────────────
-const VERSION='0.006';
+const VERSION='0.007';
 function render(){
   ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
   ctx.save(); ctx.translate(0,HUD_H);
@@ -2044,35 +2058,59 @@ function updateAuthUI(){
 function signIn(){ auth.signInWithPopup(gProv).catch(e=>console.warn(e)); }
 function signOut(){ auth.signOut(); }
 
+const INC=firebase.firestore.FieldValue.increment;
+const TS=firebase.firestore.FieldValue.serverTimestamp;
+
+async function maybeSavePartialStats(){
+  if(!fbUser) return;
+  if(!stats.guardsDefeated&&!stats.itemsCollected&&!stats.deaths) return;
+  try{
+    const ref=db.collection('hercules_scores').doc(fbUser.uid);
+    await ref.set({
+      displayName:(fbUser.displayName||'Anonymous').split(' ')[0],
+      photoURL:fbUser.photoURL||'',
+      highestLevel:stats.highestLevel,
+      guardsDefeated:INC(stats.guardsDefeated),
+      itemsCollected:INC(stats.itemsCollected),
+      deaths:INC(stats.deaths),
+      gamesPlayed:INC(1),
+      lastPlayed:TS(),
+    },{merge:true});
+  } catch(e){ console.warn('Partial save error',e); }
+}
+
 async function maybeSaveScore(){
   const totalMs=Math.floor(gameSec*1000);
   const msgEl=document.getElementById('v-saved-msg');
   if(!fbUser){ pendingSave=true; return; }
   try{
-    const ref=db.collection('pop_scores').doc(fbUser.uid);
+    const ref=db.collection('hercules_scores').doc(fbUser.uid);
     const snap=await ref.get();
     const prev=snap.exists?(snap.data().bestTime||Infinity):Infinity;
-    if(totalMs<prev){
-      await ref.set({
-        displayName:(fbUser.displayName||'Anonymous').split(' ')[0],
-        photoURL:fbUser.photoURL||'',
-        bestTime:totalMs,
-        level:LEVELS.length,
-        updatedAt:firebase.firestore.FieldValue.serverTimestamp(),
-      });
-      if(msgEl) msgEl.textContent='New personal best saved!';
-      loadMiniLB();
-    } else {
-      if(msgEl) msgEl.textContent='Your best: '+fmtTime(prev/1000);
-    }
-  } catch(e){ console.warn('Firestore error',e); if(msgEl) msgEl.textContent='Could not save time.'; }
+    const isNewBest=totalMs<prev;
+    const update={
+      displayName:(fbUser.displayName||'Anonymous').split(' ')[0],
+      photoURL:fbUser.photoURL||'',
+      highestLevel:LEVELS.length,
+      guardsDefeated:INC(stats.guardsDefeated),
+      itemsCollected:INC(stats.itemsCollected),
+      deaths:INC(stats.deaths),
+      gamesPlayed:INC(1),
+      lastPlayed:TS(),
+      updatedAt:TS(),
+    };
+    if(isNewBest){ update.bestTime=totalMs; }
+    await ref.set(update,{merge:true});
+    if(msgEl) msgEl.textContent=isNewBest?'New personal best saved!':'Your best: '+fmtTime(prev/1000);
+    loadMiniLB();
+  } catch(e){ console.warn('Firestore error',e); if(msgEl) msgEl.textContent='Could not save score.'; }
 }
 
 async function loadMiniLB(){
   const list=document.getElementById('mini-lb-list');
   if(!list) return;
   try{
-    const snap=await db.collection('pop_scores').orderBy('bestTime','asc').limit(5).get();
+    const snap=await db.collection('hercules_scores').orderBy('bestTime','asc').limit(5).get();
     list.innerHTML='';
     if(snap.empty){ list.innerHTML='<li><span class="ml-name">No times yet</span></li>'; return; }
     let i=0;
@@ -2084,7 +2122,7 @@ async function loadMiniLB(){
     });
   } catch(e){
     console.error('Firestore LB error:',e);
-    list.innerHTML='<li style="opacity:.5;color:#e03080">Error: '+e.code+' — check Firestore rules allow public reads</li>';
+    list.innerHTML='<li style="opacity:.5;color:#e03080">Error: '+e.code+'</li>';
   }
 }
 
@@ -2092,19 +2130,19 @@ async function loadLB(){
   const list=document.getElementById('lb-list');
   list.innerHTML='<li style="justify-content:center;opacity:.5">Loading…</li>';
   try{
-    const snap=await db.collection('pop_scores').orderBy('bestTime','asc').limit(20).get();
+    const snap=await db.collection('hercules_scores').orderBy('bestTime','asc').limit(20).get();
     list.innerHTML='';
     if(snap.empty){ list.innerHTML='<li style="justify-content:center;opacity:.5">No completions yet — be the first!</li>'; return; }
     let i=0;
     snap.forEach(doc=>{
       const d=doc.data(), li=document.createElement('li');
       if(fbUser&&doc.id===fbUser.uid) li.classList.add('lb-me');
-      li.innerHTML=`<span class="lb-rank">${i+1}</span><span class="lb-name">${(d.displayName||'Anon').split(' ')[0]}</span><span class="lb-time">${fmtTime((d.bestTime||0)/1000)}</span><span class="lb-lv">Lv${d.level||'?'}</span>`;
+      li.innerHTML=`<span class="lb-rank">${i+1}</span><span class="lb-name">${(d.displayName||'Anon').split(' ')[0]}</span><span class="lb-time">${fmtTime((d.bestTime||0)/1000)}</span><span class="lb-lv" title="Guards defeated">⚔${d.guardsDefeated||0}</span><span class="lb-lv" title="Items collected">💊${d.itemsCollected||0}</span><span class="lb-lv" title="Deaths">💀${d.deaths||0}</span>`;
       list.appendChild(li); i++;
     });
   } catch(e){
     console.error('Firestore LB error:',e);
-    list.innerHTML='<li style="opacity:.5;color:#e03080">Error: '+e.code+' — check Firestore rules allow public reads</li>';
+    list.innerHTML='<li style="opacity:.5;color:#e03080">Error: '+e.code+'</li>';
   }
 }
 
