@@ -46,7 +46,8 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
 <div id="wrap">
   <div id="auth-bar">
     <h1>Hercules Escape</h1>
-    <div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <button id="mute-btn" title="Toggle sound" style="font-size:0.8rem;padding:3px 7px;line-height:1">🔊</button>
       <button id="signin-btn">Sign In</button>
       <div id="user-info" class="hidden">
         <img id="user-avatar" src="" alt="">
@@ -402,6 +403,8 @@ function startGame(){
   loadLevel(0);
   gState='playing';
   showOv(null);
+  initAudio();
+  if(!muteAll) scheduleMusic();
 }
 
 function restartLevel(){
@@ -420,8 +423,12 @@ function showOv(id){
 }
 
 function togglePause(){
-  if(gState==='playing'){gState='paused';showOv('pauseOverlay');}
-  else if(gState==='paused'){gState='playing';showOv(null);}
+  if(gState==='playing'){
+    gState='paused'; showOv('pauseOverlay'); stopMusic();
+  } else if(gState==='paused'){
+    gState='playing'; showOv(null);
+    if(!muteAll) scheduleMusic();
+  }
 }
 
 function fmtTime(sec){
@@ -527,6 +534,7 @@ function updatePlayer(dt){
     player.vy=JUMP_VY*0.85;
     player.doubleJumpAvail=false;
     delete player.effects.doubleJump;
+    sndJump();
   }
 
   // Hit stun
@@ -542,6 +550,7 @@ function updatePlayer(dt){
 
   // Strike animation lock
   if(player.state==='strike'){
+    if(player.stT>0.05&&player.stT-dt<=0.05) sndStrike(); // swing sound at start
     if(player.stT>0.32){
       doPlayerAttack();
       player.state='sword'; player.stT=0;
@@ -574,7 +583,7 @@ function updatePlayer(dt){
   if(onGnd){
     const pr=Math.floor(player.y/TILE);
     const cl=Math.floor((player.x-P_HW)/TILE), cr=Math.floor((player.x+P_HW)/TILE);
-    for(let c=cl;c<=cr;c++) if(tileAt(c,pr)===T_EXIT){doLevelComplete();return;}
+    for(let c=cl;c<=cr;c++) if(tileAt(c,pr)===T_EXIT){sndExitReached();doLevelComplete();return;}
   }
 
   // Sword/club mode
@@ -616,6 +625,7 @@ function updatePlayer(dt){
     player.vy=JUMP_VY;
     player.state='jump'; player.stT=0;
     player.vx=(left?-1:right?1:0)*(careful?WALK_VX:RUN_VX*speedMul);
+    sndJump();
   }
 
   // Horizontal
@@ -647,9 +657,9 @@ function updatePlayer(dt){
     else { killPlayer(); return; }
   }
 
-  // Update air state
+  // Update air state (land sound on touching ground)
   if(onGnd&&(player.state==='jump'||player.state==='fall')){
-    player.state='idle'; player.stT=0;
+    player.state='idle'; player.stT=0; sndLand();
   } else if(!hasGround(player.x,player.y,P_HW)){
     if(player.state!=='jump'&&player.state!=='fall'&&player.state!=='grab'&&player.state!=='climbUp'){
       player.state='fall'; player.stT=0;
@@ -707,6 +717,7 @@ function nearestGuard(){
 
 function pickItem(it){
   it.picked=true;
+  sndPickItem();
   const x=it.x, y=it.y-20;
   switch(it.type){
     case 'club': case 'sword':
@@ -781,7 +792,7 @@ function doPlayerAttack(){
       (dx>0&&dx<range);
     if(inRange&&Math.abs(g.y-player.y)<20){
       const blocks=(g.state==='sword'||g.state==='strike')&&Math.random()<0.45;
-      if(blocks) spawnPart((player.x+g.x)/2,player.y-30,C.sword,'Block!');
+      if(blocks){spawnPart((player.x+g.x)/2,player.y-30,C.sword,'Block!');sndBlock();}
       else hitGuard(g);
     }
   }
@@ -789,7 +800,7 @@ function doPlayerAttack(){
 
 function hitGuard(g){
   g.health--; spawnPart(g.x,g.y-30,C.blood,'-1');
-  if(g.health<=0){ g.dead=true; g.state='dead'; g.stT=0; }
+  if(g.health<=0){ g.dead=true; g.state='dead'; g.stT=0; sndGuardDie(); }
   else { g.state='hit'; g.stT=0; g.vx=player.facing*80; }
 }
 
@@ -799,12 +810,12 @@ function hitPlayer(src){
   if(player.effects.shield>0){
     spawnPart(player.x,player.y-30,C.sword,'SHIELDED!');
     player.effects.shield=Math.max(0,player.effects.shield-0.5);
-    return;
+    sndBlock(); return;
   }
   // Shield armor
   if(player.shield>0){
     spawnPart(player.x,player.y-30,'#2a1008','Blocked!');
-    player.shield--;
+    player.shield--; sndBlock();
     player.hitT=0.3;
     return;
   }
@@ -818,17 +829,19 @@ function hitPlayer(src){
   player.hitT=1.0; player.stT=0;
   player.state='hit';
   player.vx=-src.facing*60; player.vy=-80;
+  sndHitPlayer();
   if(player.health<=0) killPlayer();
 }
 
 function killPlayer(){
   if(player.dead) return;
   player.dead=true; player.state='die'; player.stT=0; player.vy=-180;
+  sndPlayerDie();
 }
 
 function gameOver(){
   gState='gameOver'; showOv('gameOverOverlay');
-  updateAuthUI();
+  stopMusic(); updateAuthUI();
 }
 
 function doLevelComplete(){
@@ -836,12 +849,14 @@ function doLevelComplete(){
   if(lvlIdx===LEVELS.length-1){
     gState='victory'; showOv('victoryOverlay');
     document.getElementById('victory-time').textContent=fmtTime(gameSec);
+    stopMusic(); sndVictory();
     maybeSaveScore();
     return;
   }
   gState='levelComplete'; showOv('levelCompleteOverlay');
   document.getElementById('lc-msg').textContent=
     'Level '+(lvlIdx+1)+' complete!  Time: '+fmtTime(lvlSec);
+  stopMusic(); sndLevelComplete();
 }
 
 // ── Guard update ───────────────────────────────────────────────────────────
@@ -1828,7 +1843,7 @@ function renderHUD(){
 }
 
 // ── Main render ────────────────────────────────────────────────────────────
-const VERSION='0.005';
+const VERSION='0.006';
 function render(){
   ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
   ctx.save(); ctx.translate(0,HUD_H);
@@ -1857,6 +1872,129 @@ function loop(ts){
 }
 function startLoop(){
   looping=true; lastTs=performance.now(); requestAnimationFrame(loop);
+}
+
+// ── Web Audio ─────────────────────────────────────────────────────────────
+let audioCtx=null, muteAll=false, musicTimer=null;
+
+function initAudio(){
+  if(audioCtx) return;
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(!muteAll) scheduleMusic();
+}
+
+// Core tone generator
+function tone(freq,type,dur,vol,startAt,freqEnd){
+  if(!audioCtx||muteAll) return;
+  const t=startAt||audioCtx.currentTime;
+  const o=audioCtx.createOscillator();
+  const g=audioCtx.createGain();
+  o.connect(g); g.connect(audioCtx.destination);
+  o.type=type;
+  o.frequency.setValueAtTime(freq,t);
+  if(freqEnd) o.frequency.exponentialRampToValueAtTime(freqEnd,t+dur*0.88);
+  g.gain.setValueAtTime(0,t);
+  g.gain.linearRampToValueAtTime(vol,t+0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.start(t); o.stop(t+dur+0.05);
+}
+
+// ── Sound effects ──────────────────────────────────────────────────────────
+function sndJump(){ tone(320,'square',0.1,0.07,null,520); }
+function sndLand(){ tone(80,'sawtooth',0.08,0.14,null,36); }
+function sndStrike(){
+  tone(200,'sawtooth',0.06,0.18,null,80);
+  tone(400,'square',0.04,0.1,null,200);
+}
+function sndBlock(){ tone(660,'triangle',0.1,0.1,null,440); }
+function sndHitPlayer(){
+  tone(130,'sawtooth',0.14,0.24,null,55);
+  tone(260,'square',0.09,0.1,null,90);
+}
+function sndGuardDie(){
+  const t=audioCtx?audioCtx.currentTime:0;
+  tone(380,'sawtooth',0.05,0.18,t,95);
+  tone(95,'square',0.28,0.12,t+0.04,38);
+}
+function sndPickItem(){
+  if(!audioCtx||muteAll) return;
+  const t=audioCtx.currentTime;
+  tone(440,'sine',0.07,0.1,t);
+  tone(660,'sine',0.09,0.08,t+0.06);
+  tone(880,'sine',0.11,0.07,t+0.12);
+}
+function sndExitReached(){
+  if(!audioCtx||muteAll) return;
+  const t=audioCtx.currentTime;
+  [523,659,784,1047].forEach((f,i)=>tone(f,'sine',0.28,0.1,t+i*0.1));
+}
+function sndPlayerDie(){
+  if(!audioCtx||muteAll) return;
+  const t=audioCtx.currentTime;
+  tone(200,'sawtooth',0.06,0.28,t,100);
+  tone(100,'sawtooth',0.5,0.18,t+0.05,30);
+}
+function sndLevelComplete(){
+  if(!audioCtx||muteAll) return;
+  const t=audioCtx.currentTime;
+  [523,659,784,1047].forEach((f,i)=>tone(f,'square',0.3,0.1,t+i*0.12));
+}
+function sndVictory(){
+  if(!audioCtx||muteAll) return;
+  const t=audioCtx.currentTime;
+  [523,659,784,523,659,784,1047,784,1047,1319].forEach((f,i)=>
+    tone(f,'square',0.22,0.1,t+i*0.1)
+  );
+}
+
+// ── Background music (synthwave loop, 128 BPM) ─────────────────────────────
+function scheduleMusic(){
+  if(muteAll||!audioCtx) return;
+  if(musicTimer) clearTimeout(musicTimer);
+  const bpm=128, beat=60/bpm, t0=audioCtx.currentTime+0.05;
+  const bars=8; const total=bars*beat;
+
+  // Bass line — two-bar pattern, repeated ×4 (each entry: [hz, beat offset in 0-8 range])
+  const bassBar=[
+    [82.4,0.0],[82.4,0.5],[123.5,1.0],[82.4,1.5],
+    [98.0,2.0],[98.0,2.5],[123.5,3.0],[82.4,3.5],
+    [110.0,4.0],[110.0,4.5],[164.8,5.0],[110.0,5.5],
+    [130.8,6.0],[130.8,6.5],[164.8,7.0],[110.0,7.5],
+  ];
+  bassBar.forEach(([f,b])=>tone(f,'sawtooth',beat*0.42,0.12,t0+b*beat));
+  bassBar.forEach(([f,b])=>tone(f,'sawtooth',beat*0.42,0.12,t0+(b+8)*beat));
+  bassBar.forEach(([f,b])=>tone(f,'sawtooth',beat*0.42,0.12,t0+(b+16)*beat));
+  bassBar.forEach(([f,b])=>tone(f,'sawtooth',beat*0.42,0.12,t0+(b+24)*beat));
+
+  // Kick drum — every 2 beats
+  for(let i=0;i<bars;i++) tone(55,'sine',0.18,0.28,t0+i*2*beat,38);
+
+  // Hi-hat — every beat
+  for(let i=0;i<bars*4;i++) tone(900+Math.random()*300,'square',0.03,0.025,t0+i*beat);
+
+  // Melody arpeggios — E minor pentatonic
+  const melBar=[
+    [330,0.0],[392,0.5],[494,1.0],[659,1.5],
+    [494,2.0],[392,2.5],[330,3.0],[494,3.5],
+    [440,4.0],[523,4.5],[659,5.0],[784,5.5],
+    [659,6.0],[523,6.5],[440,7.0],[330,7.5],
+  ];
+  melBar.forEach(([f,b])=>tone(f,'sine',beat*0.38,0.04,t0+b*beat));
+  melBar.forEach(([f,b])=>tone(f,'sine',beat*0.38,0.04,t0+(b+8)*beat));
+  melBar.forEach(([f,b])=>tone(f,'sine',beat*0.38,0.04,t0+(b+16)*beat));
+  melBar.forEach(([f,b])=>tone(f,'sine',beat*0.38,0.04,t0+(b+24)*beat));
+
+  // Re-schedule before the loop ends
+  musicTimer=setTimeout(scheduleMusic,(total-0.4)*1000);
+}
+
+function stopMusic(){ if(musicTimer){clearTimeout(musicTimer);musicTimer=null;} }
+
+function toggleMute(){
+  muteAll=!muteAll;
+  document.getElementById('mute-btn').textContent=muteAll?'🔇':'🔊';
+  if(muteAll) stopMusic();
+  else if(audioCtx&&gState==='playing') scheduleMusic();
 }
 
 // ── Firebase ───────────────────────────────────────────────────────────────
@@ -1979,6 +2117,7 @@ function toggleLB(){
 }
 
 // ── Button wiring ──────────────────────────────────────────────────────────
+document.getElementById('mute-btn').addEventListener('click',toggleMute);
 document.getElementById('signin-btn').addEventListener('click',signIn);
 document.getElementById('signout-btn').addEventListener('click',signOut);
 document.getElementById('go-signin-btn').addEventListener('click',signIn);
@@ -1990,6 +2129,7 @@ document.getElementById('next-btn').addEventListener('click',()=>{
   lvlIdx++;
   loadLevel(lvlIdx);
   gState='playing'; showOv(null);
+  if(!muteAll) scheduleMusic();
 });
 document.getElementById('play-again-btn').addEventListener('click',startGame);
 document.getElementById('lb-close-btn').addEventListener('click',toggleLB);
