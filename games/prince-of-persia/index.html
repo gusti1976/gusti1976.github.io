@@ -1478,9 +1478,9 @@ function _drawHerculesCore(ctx, pose) {
   const chestG = cylGrad(ctx, -56, 56, P.shadow, P.skin, P.hi);
   ctx.fillStyle = chestG;
   ctx.fillRect(-52, -308, 104, 40);
-  // Sternum line
-  ctx.fillStyle = P.shadow;
-  ctx.fillRect(-4, -308,  8, 112);
+  // Sternum line — chest only, not full torso height
+  ctx.fillStyle = 'rgba(0,0,0,0.30)';
+  ctx.fillRect(-3, -308,  6, 38);
   // Oblique shadows
   ctx.fillStyle = P.shadow;
   ctx.fillRect(-48, -272,  8, 56);
@@ -1811,20 +1811,6 @@ function drawGuard(ctx, g, pose) {
   ctx.fillRect( -9,  -9 + sw,  6,  4);
   ctx.fillRect(  3,  -9 - sw,  6,  4);
 
-  // ── Speedo ──
-  const speedoG = cylGrad(ctx, -9, 9, speedoDk, speedo, speedo);
-  ctx.fillStyle = speedoG;
-  ctx.fillRect(-9, -36, 18, 10);
-  ctx.fillRect(-7, -38, 14,  4);
-  ctx.fillStyle = speedoDk;
-  ctx.fillRect(-9, -36,  3, 10);
-  ctx.fillRect( 6, -36,  3, 10);
-  ctx.fillRect(-9, -38, 18,  2);
-  ctx.fillRect(-1, -36,  2,  8);
-  // Speedo elastic highlight
-  ctx.fillStyle = 'rgba(255,255,255,0.15)';
-  ctx.fillRect(-7, -38, 14,  2);
-
   // ── Big glutes ──
   ctx.fillStyle = cylGrad(ctx, -14, 14, shadow, skin, hi);
   ctx.fillRect(-14, -38,  4, 10);
@@ -1876,6 +1862,20 @@ function drawGuard(ctx, g, pose) {
   ctx.fillStyle = 'rgba(255,240,200,0.12)';
   ctx.fillRect(-7, -61,  3,  3);  ctx.fillRect(4, -61,  3,  3);
   ctx.fillRect(-7, -53,  3,  3);  ctx.fillRect(4, -53,  3,  3);
+
+  // ── Speedo (drawn on top of torso) ──
+  const speedoG = cylGrad(ctx, -9, 9, speedoDk, speedo, speedo);
+  ctx.fillStyle = speedoG;
+  ctx.fillRect(-9, -36, 18, 10);
+  ctx.fillRect(-7, -38, 14,  4);
+  ctx.fillStyle = speedoDk;
+  ctx.fillRect(-9, -36,  3, 10);
+  ctx.fillRect( 6, -36,  3, 10);
+  ctx.fillRect(-9, -38, 18,  2);
+  ctx.fillRect(-1, -36,  2,  8);
+  // Speedo elastic highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.fillRect(-7, -38, 14,  2);
 
   // ── Wide shoulders ──
   ctx.fillStyle = sphGrad(ctx, -16, -75, 7, hi, skin, shadow);
