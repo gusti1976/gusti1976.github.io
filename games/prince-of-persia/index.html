@@ -1857,7 +1857,7 @@ function renderHUD(){
 }
 
 // ── Main render ────────────────────────────────────────────────────────────
-const VERSION='0.007';
+const VERSION='0.008';
 function render(){
   ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
   ctx.save(); ctx.translate(0,HUD_H);
@@ -1889,11 +1889,13 @@ function startLoop(){
 }
 
 // ── Web Audio ─────────────────────────────────────────────────────────────
-let audioCtx=null, muteAll=false, musicTimer=null;
+let audioCtx=null, musicGain=null, muteAll=false, musicTimer=null, musicLoopEnd=0;
 
 function initAudio(){
   if(audioCtx) return;
   audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  musicGain=audioCtx.createGain();
+  musicGain.connect(audioCtx.destination);
   if(!muteAll) scheduleMusic();
 }
 
@@ -1906,6 +1908,21 @@ function tone(freq,type,dur,vol,startAt,freqEnd){
   o.connect(g); g.connect(audioCtx.destination);
   o.type=type;
   o.frequency.setValueAtTime(freq,t);
+  if(freqEnd) o.frequency.exponentialRampToValueAtTime(freqEnd,t+dur*0.88);
+  g.gain.setValueAtTime(0,t);
+  g.gain.linearRampToValueAtTime(vol,t+0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.start(t); o.stop(t+dur+0.05);
+}
+
+// Music-specific tone — routes through musicGain so stopMusic() can silence it
+function musicTone(freq,type,dur,vol,startAt,freqEnd){
+  if(!audioCtx||muteAll||!musicGain) return;
+  const t=startAt||audioCtx.currentTime;
+  const o=audioCtx.createOscillator();
+  const g=audioCtx.createGain();
+  o.connect(g); g.connect(musicGain);
+  o.type=type; o.frequency.setValueAtTime(freq,t);
   if(freqEnd) o.frequency.exponentialRampToValueAtTime(freqEnd,t+dur*0.88);
   g.gain.setValueAtTime(0,t);
   g.gain.linearRampToValueAtTime(vol,t+0.01);
@@ -1961,48 +1978,58 @@ function sndVictory(){
   );
 }
 
-// ── Background music (synthwave loop, 128 BPM) ─────────────────────────────
+// ── Background music (synthwave loop, 128 BPM, 32 beats = ~15 s) ──────────
 function scheduleMusic(){
-  if(muteAll||!audioCtx) return;
-  if(musicTimer) clearTimeout(musicTimer);
-  const bpm=128, beat=60/bpm, t0=audioCtx.currentTime+0.05;
-  const bars=8; const total=bars*beat;
+  if(muteAll||!audioCtx||!musicGain) return;
+  // Guard: don't start a new loop if one is already playing
+  if(audioCtx.currentTime < musicLoopEnd-0.5) return;
+  if(musicTimer){ clearTimeout(musicTimer); musicTimer=null; }
+  // Restore gain in case stopMusic() faded it
+  musicGain.gain.cancelScheduledValues(audioCtx.currentTime);
+  musicGain.gain.setTargetAtTime(1, audioCtx.currentTime, 0.05);
 
-  // Bass line — two-bar pattern, repeated ×4 (each entry: [hz, beat offset in 0-8 range])
+  const bpm=128, beat=60/bpm, t0=audioCtx.currentTime+0.05;
+  const total=32*beat;  // actual loop length: 4 passes × 8 beats each
+  musicLoopEnd=t0+total;
+
+  // Bass line — 8-beat pattern repeated ×4
   const bassBar=[
     [82.4,0.0],[82.4,0.5],[123.5,1.0],[82.4,1.5],
     [98.0,2.0],[98.0,2.5],[123.5,3.0],[82.4,3.5],
     [110.0,4.0],[110.0,4.5],[164.8,5.0],[110.0,5.5],
     [130.8,6.0],[130.8,6.5],[164.8,7.0],[110.0,7.5],
   ];
-  bassBar.forEach(([f,b])=>tone(f,'sawtooth',beat*0.42,0.12,t0+b*beat));
-  bassBar.forEach(([f,b])=>tone(f,'sawtooth',beat*0.42,0.12,t0+(b+8)*beat));
-  bassBar.forEach(([f,b])=>tone(f,'sawtooth',beat*0.42,0.12,t0+(b+16)*beat));
-  bassBar.forEach(([f,b])=>tone(f,'sawtooth',beat*0.42,0.12,t0+(b+24)*beat));
+  for(let p=0;p<4;p++)
+    bassBar.forEach(([f,b])=>musicTone(f,'sawtooth',beat*0.42,0.12,t0+(b+p*8)*beat));
 
-  // Kick drum — every 2 beats
-  for(let i=0;i<bars;i++) tone(55,'sine',0.18,0.28,t0+i*2*beat,38);
+  // Kick — every 2 beats across all 32 beats
+  for(let i=0;i<16;i++) musicTone(55,'sine',0.18,0.28,t0+i*2*beat,38);
 
-  // Hi-hat — every beat
-  for(let i=0;i<bars*4;i++) tone(900+Math.random()*300,'square',0.03,0.025,t0+i*beat);
+  // Hi-hat — every beat for 32 beats
+  for(let i=0;i<32;i++) musicTone(900+Math.random()*300,'square',0.03,0.025,t0+i*beat);
 
-  // Melody arpeggios — E minor pentatonic
+  // Melody — 8-beat arpeggio repeated ×4
   const melBar=[
     [330,0.0],[392,0.5],[494,1.0],[659,1.5],
     [494,2.0],[392,2.5],[330,3.0],[494,3.5],
     [440,4.0],[523,4.5],[659,5.0],[784,5.5],
     [659,6.0],[523,6.5],[440,7.0],[330,7.5],
   ];
-  melBar.forEach(([f,b])=>tone(f,'sine',beat*0.38,0.04,t0+b*beat));
-  melBar.forEach(([f,b])=>tone(f,'sine',beat*0.38,0.04,t0+(b+8)*beat));
-  melBar.forEach(([f,b])=>tone(f,'sine',beat*0.38,0.04,t0+(b+16)*beat));
-  melBar.forEach(([f,b])=>tone(f,'sine',beat*0.38,0.04,t0+(b+24)*beat));
+  for(let p=0;p<4;p++)
+    melBar.forEach(([f,b])=>musicTone(f,'sine',beat*0.38,0.04,t0+(b+p*8)*beat));
 
-  // Re-schedule before the loop ends
+  // Re-schedule just before the loop ends
   musicTimer=setTimeout(scheduleMusic,(total-0.4)*1000);
 }
 
-function stopMusic(){ if(musicTimer){clearTimeout(musicTimer);musicTimer=null;} }
+function stopMusic(){
+  if(musicTimer){ clearTimeout(musicTimer); musicTimer=null; }
+  musicLoopEnd=0;
+  if(musicGain&&audioCtx){
+    musicGain.gain.cancelScheduledValues(audioCtx.currentTime);
+    musicGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.08);
+  }
+}
 
 function toggleMute(){
   muteAll=!muteAll;
