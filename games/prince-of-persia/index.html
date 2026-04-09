@@ -7,7 +7,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:#0a0612;color:#e8e0c0;font-family:'Courier New',monospace;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:12px}
-#wrap{position:relative;width:640px;max-width:100%}
+#wrap{position:relative;width:1280px;max-width:100%}
 #auth-bar{display:flex;justify-content:space-between;align-items:center;padding:6px 0;margin-bottom:4px}
 #auth-bar h1{font-size:1rem;letter-spacing:3px;color:#e040c0;text-transform:uppercase}
 #user-info{display:flex;align-items:center;gap:8px}
@@ -56,7 +56,7 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
       </div>
     </div>
   </div>
-  <canvas id="game" width="640" height="400"></canvas>
+  <canvas id="game" width="1280" height="800"></canvas>
 
   <div id="startOverlay" class="overlay">
     <h2>Hercules Escape</h2>
@@ -116,7 +116,7 @@ canvas#game{display:block;width:100%;height:auto;image-rendering:pixelated;borde
   </div>
 </div>
 
-<div style="width:640px;max-width:100%">
+<div style="width:1280px;max-width:100%">
   <div id="hint-row">
     <div><span>← →</span> Move</div>
     <div><span>↑</span> Jump / Climb</div>
@@ -1857,8 +1857,9 @@ function renderHUD(){
 }
 
 // ── Main render ────────────────────────────────────────────────────────────
-const VERSION='0.008';
+const VERSION='0.009';
 function render(){
+  ctx.setTransform(2,0,0,2,0,0);
   ctx.fillStyle=C.bg; ctx.fillRect(0,0,640,400);
   ctx.save(); ctx.translate(0,HUD_H);
   renderTiles();
