@@ -14,10 +14,6 @@ _No open HIGH issues._
 
 _No open MEDIUM issues._
 
-### BUG-008: Missing canonical, viewport, charset, lang on utility files
-**Affected:** `navigation-template.html`, `google46e00271f9de7d83.html`  
-**Impact:** Low (not public pages) but technically malformed.
-
 ---
 
 ## LOW Priority
@@ -28,9 +24,6 @@ _No open MEDIUM issues._
 **Impact:** Very old browsers (<5% of users) won't load these images.  
 **Fix:** Create JPG versions and add `<picture>` element with fallback.
 
-### BUG-010: `--z-header: 1` defined but rarely used
-CSS variable defined in `:root` but almost never referenced. Low impact, code smell only.
-
 ### BUG-011: games/prince-of-persia/ pages lack main site navigation and dark-mode.js
 **Affected:** `games/prince-of-persia/*.html`  
 **By design** — that game is a separate, self-contained experience. Noting here for awareness.
@@ -40,6 +33,21 @@ CSS variable defined in `:root` but almost never referenced. Low impact, code sm
   entirely into the game file). It intentionally does not load `dark-mode.js`. Not missing.
 - `tetris.html` at repo root is a `<meta http-equiv="refresh">` redirect stub to `games/tetris/`.
   It is not a real page and does not need `dark-mode.js`.
+
+---
+
+## RESOLVED (2026-04-12 second pass)
+
+### ✅ BUG-008: Missing head elements on utility files — CLOSED (not a bug)
+- `navigation-template.html` — fully rewritten in Phase 1 with proper `<head>`, charset,
+  viewport, robots noindex. Fixed.
+- `google46e00271f9de7d83.html` — contains only the literal text
+  `google-site-verification: google46e00271f9de7d83.html`. This is the exact format Google
+  Search Console requires for HTML file verification. It cannot have head elements added.
+  Not a bug — by design.
+
+### ✅ BUG-010: `--z-header: 1` unused — CLOSED (false positive)
+The variable is used on `style-optimized.css:361` and `:558`. It was never unused.
 
 ---
 
