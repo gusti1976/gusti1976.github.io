@@ -81,9 +81,15 @@ and `MusicGroup`. Inconsistent signals to search engines.
 ### BUG-010: `--z-header: 1` defined but rarely used
 CSS variable defined in `:root` but almost never referenced. Low impact, code smell only.
 
-### BUG-011: games/ pages lack main site navigation and dark-mode.js
-**Affected:** `games/prince-of-persia/*.html`, `games/tetris/index.html`  
-**By design** — games are separate experiences. Noting here for awareness.
+### BUG-011: games/prince-of-persia/ pages lack main site navigation and dark-mode.js
+**Affected:** `games/prince-of-persia/*.html`  
+**By design** — that game is a separate, self-contained experience. Noting here for awareness.
+
+**Not a bug — Tetris:**
+- `games/tetris/index.html` has its **own** dark mode (`tetris_dark` localStorage key, built
+  entirely into the game file). It intentionally does not load `dark-mode.js`. Not missing.
+- `tetris.html` at repo root is a `<meta http-equiv="refresh">` redirect stub to `games/tetris/`.
+  It is not a real page and does not need `dark-mode.js`.
 
 ---
 
