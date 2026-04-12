@@ -9,6 +9,8 @@ Custom domain: `www.gusti.com` → configured via `CNAME` file at repo root.
 
 ## Pre-Commit Checklist
 
+- [ ] **Update `_memory/` files** to reflect any changes made (see CLAUDE.md Memory Maintenance table)
+- [ ] **Update `_notes.md`** — mark completed tasks done, add new pending ones
 - [ ] Hard refresh browser (Ctrl+Shift+R) and check for visual regressions
 - [ ] Open F12 console — 0 JS errors, 0 404s
 - [ ] Run `python3 html_validator.py` — must exit with 0 content errors

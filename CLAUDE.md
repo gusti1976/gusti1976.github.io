@@ -44,6 +44,24 @@ Find detailed documentation in `_memory/` (Jekyll-protected, not publicly access
 
 Game-specific memory: `games/tetris/_memory/` (separate system, do not modify).
 
+## Memory Maintenance (REQUIRED)
+
+After **every** change to the site — adding a page, deleting a page, fixing a bug, extracting CSS, updating nav, adding a release — you **must** update the relevant memory file(s) before committing:
+
+| Change type | Update |
+|---|---|
+| New HTML page | `_memory/content.md` catalog + `_memory/architecture.md` page count + `sitemap.xml` |
+| Deleted page | Same as above |
+| Bug found | Add to `_memory/bugs.md` |
+| Bug fixed | Mark resolved in `_memory/bugs.md` |
+| CSS extracted | Update `_memory/architecture.md` page families table |
+| New CSS/JS file | Add to `_memory/architecture.md` file map |
+| Nav changed | Update `_memory/navigation.md` |
+| Active task added/done | Update `_notes.md` |
+| New release/album | `_memory/content.md` catalog |
+
+The memory is the source of truth. Keep it accurate — stale memory is worse than no memory.
+
 ## Active Work
 
 See `_notes.md` for current tasks and pending decisions.
