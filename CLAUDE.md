@@ -27,12 +27,27 @@ Icelandic queer pop artist from Reykjavík. Always use both names together on pa
 
 74 public pages in sitemap; 82 HTML files total (includes templates/utilities). Navigation HTML is manually copy-pasted (no server-side includes).
 
+## Writing Rules (MANDATORY)
+
+**All text written for this project must follow `_memory/writing-rules.md`.** This applies to
+every page, lyric description, press copy, alt text, schema description, or any other
+human-readable text. Read it before writing anything.
+
+Key points:
+- British English always
+- No banned words, phrases, or sentence openers (long lists in the file)
+- No em dashes except very rarely (max one per page)
+- Active voice, simple verbs, short paragraphs
+- No AI structural patterns: rule of three, hedging seesaw, corporate pep talk
+- Get to the point first. Don't restate what you just said.
+
 ## Memory System
 
 Find detailed documentation in `_memory/` (Jekyll-protected, not publicly accessible):
 
 | Topic | File |
 |---|---|
+| **Writing style and tone rules** | **`_memory/writing-rules.md`** |
 | Tech stack, file map, CSS vars, JS functions | `_memory/architecture.md` |
 | Artist bio, music catalog, naming conventions | `_memory/content.md` |
 | SEO strategy, Schema.org templates, meta tags | `_memory/seo.md` |

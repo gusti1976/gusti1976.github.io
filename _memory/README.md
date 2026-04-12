@@ -8,6 +8,7 @@ there is NO `.nojekyll` file in the repo root — **do not add one**.
 
 | File | Covers |
 |---|---|
+| `writing-rules.md` | **Mandatory writing style** — tone, banned words, structure, British English |
 | `architecture.md` | Tech stack, file map, CSS variables, JS functions, page families |
 | `content.md` | Artist bio, music catalog, contact links, naming conventions |
 | `seo.md` | SEO strategy, Schema.org templates, meta tags, sitemap |
