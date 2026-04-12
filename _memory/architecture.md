@@ -55,8 +55,16 @@ Hosted on GitHub Pages. Custom domain via `CNAME` file (`www.gusti.com`).
 
 **Typography:** `--font-stack` (system font stack), `--line-height-normal/tight/relaxed`
 
-**Z-index:** `--z-tooltip` (999999), `--z-tooltip-bubble` (999998), `--z-bubble` (100),
-`--z-skip-link` (9999), `--z-header` (1, rarely used)
+**Z-index:** `--z-tooltip` (999999), `--z-tooltip-bubble` (999998), `--z-fixed-ui` (10000),
+`--z-skip-link` (9999), `--z-bubble` (100), `--z-header` (1, rarely used)
+
+**Navigation — Light Mode Colors:** `--nav-light-text`, `--nav-light-text-hover`,
+`--nav-light-text-active`, `--nav-light-bg`, `--nav-light-bg-hover`, `--nav-light-bg-active`,
+`--nav-light-border`, `--nav-light-border-hover`, `--nav-light-border-active`,
+`--nav-light-sub-text`, `--nav-light-sub-text-hover`, `--nav-light-sub-bg`,
+`--nav-light-sub-bg-hover`, `--nav-light-sub-border`, `--nav-light-sub-border-hover`,
+`--nav-light-section-header`, `--nav-light-overlay`, `--nav-light-hamburger`
+(All 18 used exclusively by `navigation.css` light-mode overrides)
 
 Dark mode overrides defined in `@media (prefers-color-scheme: dark)` block and
 `html[data-theme="dark"]` block, both in `style-optimized.css`.
