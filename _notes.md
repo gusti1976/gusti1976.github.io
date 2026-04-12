@@ -29,14 +29,24 @@ Deferred (bigger scope):
 
 ## Bug Fixes Needed
 
-### MEDIUM — address when convenient
-- [ ] **BUG-004: CSS `?v=` version mismatch** — standardise cache-busting params across all pages.
-- [ ] **BUG-005: GLASS template files publicly accessible** — move to `_templates/` or add noindex.
+_No open HIGH or MEDIUM bugs. See `_memory/bugs.md` for full tracker._
+
+LOW (not urgent):
+- [ ] **BUG-009: Missing JPG fallbacks** — `gay-and-proud-cover.webp`, `swipe-me-to-the-moon-cover.webp`
+- [ ] **BUG-010: `--z-header: 1` unused CSS var** — low impact, code smell only
 
 ---
 
 ## Completed
 
+- ✅ Phase 4 deep HTML sweep — JS version params fixed (15 pages), zero structural issues
+  found (2026-04-12).
+- ✅ Phase 3 CSS extraction — `press-release.css` extracted (2026-04-12).
+- ✅ Phase 2 Schema.org — position, inLanguage, genre added to 36 lyric pages (2026-04-12).
+- ✅ BUG-004 CSS version mismatch — standardised navigation.css, glass-site.css,
+  glass-lyrics-template.css across all pages (2026-04-12).
+- ✅ BUG-005 GLASS templates — added noindex to GLASS_ALBUM_TEMPLATE.html and
+  GLASS_LYRICS_TEMPLATE.html (2026-04-12).
 - ✅ Bug fixes + Schema.org audit — BUG-001 (alt text, 53 pages), BUG-002 (sr-announcements,
   76 pages), BUG-003 (test.html noindex), BUG-006 (Person schema standardised), BUG-007
   (NewsArticle→Article), redundant @context removed (67 pages), @id refs standardised (2026-04-12).
@@ -57,5 +67,7 @@ Deferred (bigger scope):
 
 - Date: 2026-04-12
 - Branch: `claude/improve-memory-architecture-Rp6qw`
-- What was done: Fixed BUG-001/002/003/006/007 + full Schema.org audit (redundant @context, @id format, byArtist consistency)
-- What's next: BUG-004 (CSS version mismatch), BUG-005 (GLASS templates), CSS migration tasks
+- What was done: Phases 2–4 complete. Schema fields added (position/inLanguage/genre), CSS extracted
+  (press-release.css), JS version params fixed (15 pages), all MEDIUM bugs resolved.
+  Validator: 76 files, 0 errors, 3 warnings (acceptable).
+- What's next: Push branch → PR → merge to main. Then address Phase 6 if defined.

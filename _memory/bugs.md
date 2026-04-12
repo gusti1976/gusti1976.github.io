@@ -12,20 +12,7 @@ _No open HIGH issues._
 
 ## MEDIUM Priority
 
-### BUG-004: CSS cache-busting version mismatch
-**Issue:** Same stylesheets referenced with different `?v=` params across pages.
-- `glass-site.css`: `?v=20260304e` on some pages, `?v=20260317a` on others
-- `navigation.css`: sometimes with version param, sometimes without
-**Fix:** Standardize all pages to use the latest version string. Search for each stylesheet
-filename and ensure all references use the same `?v=` value.
-
-### BUG-005: GLASS template files publicly accessible
-**Files:** `GLASS_ALBUM_TEMPLATE.html`, `GLASS_LYRICS_TEMPLATE.html`  
-**Issue:** Contain unparsed placeholder variables like `{{album_slug}}` and are publicly accessible.  
-**Fix:** Move to `_templates/` directory (Jekyll-protected) or add:
-```html
-<meta name="robots" content="noindex, nofollow">
-```
+_No open MEDIUM issues._
 
 ### BUG-008: Missing canonical, viewport, charset, lang on utility files
 **Affected:** `navigation-template.html`, `google46e00271f9de7d83.html`  
@@ -53,6 +40,34 @@ CSS variable defined in `:root` but almost never referenced. Low impact, code sm
   entirely into the game file). It intentionally does not load `dark-mode.js`. Not missing.
 - `tetris.html` at repo root is a `<meta http-equiv="refresh">` redirect stub to `games/tetris/`.
   It is not a real page and does not need `dark-mode.js`.
+
+---
+
+## RESOLVED (2026-04-12 Phase 2–4 sweep)
+
+### ✅ BUG-004: CSS cache-busting version mismatch — FIXED
+All stylesheet `?v=` params standardised across all pages:
+- `navigation.css`: `?v=20260304d` everywhere (was missing on 15 pages)
+- `glass-site.css`: `?v=20260317a` everywhere (3 pages had `?v=20260304e`)
+- `glass-lyrics-template.css`: `?v=20260304f` everywhere (58 pages had `?v=20260304e`)
+
+### ✅ BUG-005: GLASS template files publicly accessible — FIXED
+Added `<meta name="robots" content="noindex, nofollow">` to both:
+- `GLASS_ALBUM_TEMPLATE.html`
+- `GLASS_LYRICS_TEMPLATE.html`
+
+### ✅ Schema: Missing position/inLanguage/genre on lyric pages — FIXED
+Added to 36 MusicComposition schemas across lyric pages:
+- `position`: track number within album (1–27 for Unseen Chorus, 1–5 Cowboys EP, etc.)
+- `inLanguage`: "en" for all English tracks, "es" for gay-y-orgulloso
+- `genre`: ["Pop", "LGBTQ+ Pride"] for out-and-proud and gay-y-orgulloso
+
+### ✅ JS version params missing — FIXED (Phase 4)
+15 pages were loading `navigation.js` and `dark-mode.js` without `?v=` cache-busting params.
+All now use `src="navigation.js?v=20260304d"` and `src="dark-mode.js?v=20260304d"`.
+
+### ✅ CSS extraction: agust-islandia-gay-and-proud-press-release.html — FIXED
+Inline `<style>` block (1,663 chars) extracted to `press-release.css?v=20260412a`.
 
 ---
 
