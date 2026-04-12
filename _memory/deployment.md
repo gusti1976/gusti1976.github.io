@@ -44,7 +44,7 @@ What it checks:
 **Exit 0** = all checks pass  
 **Exit 1** = errors found (content errors block deploy; warnings are acceptable)
 
-**Expected clean baseline:** 60 files, 0 content errors  
+**Expected clean baseline:** 82 HTML files, 0 content errors  
 **Files that intentionally differ:**
 - `google46e00271f9de7d83.html` — Google verification file, minimal HTML
 - `navigation-template.html` — utility template, incomplete `<head>`

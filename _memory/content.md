@@ -20,20 +20,22 @@
 
 ## Music Catalog
 
-| Release | Type | Date | Tracks | Notes |
-|---|---|---|---|---|
-| The Unseen Chorus | Gay Musical | Oct 6, 2025 | 27 | All 27 have lyric pages; 3-act narrative |
-| Swipe Me to the Moon | Album | Jul 18, 2025 | 22 | No individual lyric pages yet |
-| Gay and Proud / Gay y Orgulloso | Single | — | 1 | Bilingual en/es; 540K+ TikTok views |
-| My Fire (Mi Fuego) | Single | — | 1 | Bilingual en/es |
-| Feel Alive | Single | — | 1 | EDM dance anthem |
-| Pride Month 2025 | EP | 2025 | 3-6 | Standout tracks only |
-| Cowboys | Album/EP | — | — | |
-| Bless This Mess | Release | — | — | |
-| Peach and Purple | Release | — | — | |
-| Pride on the Seas | Release | — | — | |
-| Yogurt | Release | — | — | |
-| The Gay Mormon Musical | Release | — | — | |
+| Release | Type | Date | Tracks | Lyric Pages | Notes |
+|---|---|---|---|---|---|
+| The Unseen Chorus | Gay Musical | Oct 6, 2025 | 27 | 27 | Full album pages; 3-act narrative |
+| Swipe Me to the Moon | Gay Musical | Jul 18, 2025 | 22 | 16 | and-i-had-him, is-there-a-guidebook, is-this-real, just-an-advisory, maybe-its-me, next-time-i-see-him, so-what-do-we-do, the-awakening, the-fairys-waltz, the-first-argument, the-grindr-carol, the-spiral-extended/original, were-not-just-friends, what-app-though, what-do-we-do-with-forever |
+| Cowboys | EP | Sep 2, 2025 | 5 | 5 | Queer country-pop; broken-spurs, fuck-this-shit, playing-with-my-ding-dong, two-steers-in-love, yall-means-all |
+| Pride Month 2025 | EP | Jul 16, 2025 | 5 | 0 | Album landing page only |
+| The Gay Mormon Musical | Musical | — | — | 0 | Album landing page only |
+| Gay and Proud / Gay y Orgulloso | Single | — | 1 | 2 | Bilingual en/es (gay-and-proud + gay-y-orgulloso); 540K+ TikTok views |
+| Out and Proud | Single | — | 1 | 1 | |
+| My Fire | Single | — | 1 | 1 | Bilingual en/es |
+| Feel Alive | Single | — | 1 | 1 | EDM dance anthem |
+| Bless This Mess | Single | Aug 15, 2025 | 1 | 1 | |
+| Peach and Purple | Release | — | — | 1 | Special page |
+| Pride on the Seas | Release | — | — | 1 | Special page |
+| Pride Around the World | Release | — | — | 1 | Special page |
+| Yogurt | Release | — | — | 1 | Special page |
 
 ## Contact & Profiles
 

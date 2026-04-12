@@ -25,7 +25,7 @@ Icelandic queer pop artist from Reykjavík. Always use both names together on pa
 | `ALBUM_PAGE_TEMPLATE.md` | HTML scaffold for new album pages — do not delete |
 | `html_validator.py` | Run `python3 html_validator.py` before committing |
 
-35 HTML pages total. Navigation HTML is manually copy-pasted (no server-side includes).
+74 public pages in sitemap; 82 HTML files total (includes templates/utilities). Navigation HTML is manually copy-pasted (no server-side includes).
 
 ## Memory System
 
@@ -51,7 +51,7 @@ See `_notes.md` for current tasks and pending decisions.
 ## Critical Constraints
 
 - **No `.nojekyll`** — adding it would expose `_memory/` files to the public web. Do not add it.
-- **No server-side includes** — nav HTML must be updated in all 35 pages manually when changed.
+- **No server-side includes** — nav HTML must be updated in all pages manually when changed.
 - **No npm / no build step** — never introduce build tooling without explicit agreement.
 - **`README.md`** is the public GitHub repo README — do not delete or repurpose.
 - **`ALBUM_PAGE_TEMPLATE.md`** is a live HTML scaffold — do not delete.

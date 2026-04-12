@@ -4,7 +4,7 @@
 
 Pure HTML5 / CSS3 / Vanilla JavaScript. No npm. No build step. No framework.
 Hosted on GitHub Pages. Custom domain via `CNAME` file (`www.gusti.com`).
-35 HTML pages total. Deploy = `git push origin main` (auto-builds in ~1 min).
+74 public pages in sitemap; 82 HTML files total (includes templates/utilities). Deploy = `git push origin main` (auto-builds in ~1 min).
 
 ## File Map
 
@@ -24,7 +24,7 @@ Hosted on GitHub Pages. Custom domain via `CNAME` file (`www.gusti.com`).
 | `navigation-template.html` | HTML | Canonical nav structure — edit this first | Not a public page |
 | `_includes/navigation.html` | HTML | Jekyll include — the nav HTML fragment | Edit this when updating nav |
 | `html_validator.py` | Python | Local HTML + Schema.org validator | Run from repo root |
-| `sitemap.xml` | XML | SEO sitemap (50 URLs) | Update when adding pages |
+| `sitemap.xml` | XML | SEO sitemap (74 URLs) | Update when adding pages |
 | `llms.txt` | Text | AI crawler optimization data | Update with new songs |
 | `robots.txt` | Text | Search engine crawl rules | |
 | `CNAME` | Text | Custom domain: `www.gusti.com` | Do not delete |
@@ -103,10 +103,38 @@ Dark mode overrides defined in `@media (prefers-color-scheme: dark)` block and
 ## Site Structure
 
 ```
-35 HTML pages:
-  Core (5):        index, about, press, lyrics, the-unseen-chorus
-  Singles (3):     gay-and-proud, my-fire, feel-alive
-  Unseen Chorus:   27 track pages (just-an-advisory → come-out-of-the-dark)
-  Games:           games/tetris/index.html, games/prince-of-persia/*.html
-  Utility:         test.html (noindex), google46e00271f9de7d83.html, navigation-template.html
+74 public pages (sitemap), 82 HTML files total:
+
+  Core (4):          index, about, press, lyrics
+  Glass variant (1): glass/index.html (Glass Edition frontpage)
+
+  Album/EP pages (5):
+    the-unseen-chorus.html, swipe-me-to-the-moon.html, cowboys.html,
+    the-gay-mormon-musical.html, pride-month-2025.html
+
+  Press release (1): agust-islandia-gay-and-proud-press-release.html
+
+  Singles (6):       gay-and-proud, gay-y-orgulloso, out-and-proud,
+                     my-fire, feel-alive, bless-this-mess
+
+  Special pages (4): peach-and-purple, pride-on-the-seas, yogurt,
+                     pride-around-the-world
+
+  Lyric pages (~54):
+    Unseen Chorus (27 tracks): a-bar-in-my-pocket → yall-means-all
+    Swipe Me to the Moon (16 pages): and-i-had-him, is-there-a-guidebook,
+      is-this-real, just-an-advisory, maybe-its-me, next-time-i-see-him,
+      so-what-do-we-do, the-awakening, the-fairys-waltz, the-first-argument,
+      the-grindr-carol, the-spiral-extended, the-spiral-original,
+      were-not-just-friends, what-app-though, what-do-we-do-with-forever
+    Cowboys EP (5 tracks): broken-spurs, fuck-this-shit,
+      playing-with-my-ding-dong, two-steers-in-love, yall-means-all
+    Shared/cross-listed: some songs appear on multiple releases
+
+  Utility (not in sitemap):
+    test.html, google46e00271f9de7d83.html, navigation-template.html,
+    tetris.html (redirect stub), GLASS_ALBUM_TEMPLATE.html,
+    GLASS_LYRICS_TEMPLATE.html, _includes/navigation.html
+
+  Games (separate): games/tetris/index.html, games/prince-of-persia/*.html
 ```
