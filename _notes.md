@@ -10,8 +10,8 @@ _This file is ephemeral. Update it each session. For permanent reference, see `_
 
 Pending inline `<style>` extractions (these pages still have styles embedded in HTML):
 
-- [ ] `lyrics.html` → extract to `lyrics-archive.css`
-- [ ] `agust-islandia-gay-and-proud-press-release.html` → extract to `press-release.css`
+- ✅ `lyrics.html` → already extracted to `lyrics-archive.css` (done in earlier session)
+- ✅ `agust-islandia-gay-and-proud-press-release.html` → extracted to `press-release.css` (2026-04-12)
 
 Deferred (bigger scope):
 - [ ] 27+ song/lyrics pages → shared `lyrics-page.css`

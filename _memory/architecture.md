@@ -13,7 +13,8 @@ Hosted on GitHub Pages. Custom domain via `CNAME` file (`www.gusti.com`).
 | `style-optimized.css` | CSS | Main stylesheet, all `:root` CSS variables | Source of truth for design tokens |
 | `navigation.css` | CSS | Global hamburger nav styles (268 lines) | Linked on every page |
 | `about.css` | CSS | About page styles | Extracted from about.html |
-| `press.css` | CSS | Press page styles | Extracted |
+| `press.css` | CSS | Press page styles | Extracted from press.html |
+| `press-release.css` | CSS | Press release page styles | Extracted from agust-islandia-gay-and-proud-press-release.html |
 | `glass-site.css` | CSS | Glass morphism variant | Used by glass/ and some main pages |
 | `glass-lyrics-template.css` | CSS | Glass variant for lyrics | Template use |
 | `lyrics-archive.css` | CSS | Lyrics hub styles | lyrics.html |
@@ -95,7 +96,7 @@ Dark mode overrides defined in `@media (prefers-color-scheme: dark)` block and
 | About/Profile | `about.html` | `about.css` | ✅ Extracted |
 | Press Hub | `press.html` | `press.css` | ✅ Extracted |
 | Lyrics Archive | `lyrics.html` | `lyrics-archive.css` | ✅ Extracted |
-| Press Release | `agust-islandia-gay-and-proud-press-release.html` | `press-release.css` | Pending |
+| Press Release | `agust-islandia-gay-and-proud-press-release.html` | `press-release.css` | ✅ Extracted |
 | Song/Lyrics Pages | 27+ track pages | `lyrics-page.css` | Pending |
 | Album/Release Pages | `cowboys.html`, `swipe-me-to-the-moon.html`, etc. | `album-page.css` | Pending |
 | Special/One-off | `peach-and-purple.html`, `pride-on-the-seas.html`, `yogurt.html` | TBD | Review later |
