@@ -19,7 +19,7 @@ def read_html_file(filepath):
         parts = content.split("---\n", 2)
         if len(parts) == 3:
             content = parts[2]
-    base_dir = Path("/Users/gusti/gusti1976.github.io")
+    base_dir = Path(__file__).parent
     include_pattern = re.compile(r'{%\s*include\s+([^\s%]+)\s*%}')
 
     def replace_include(match):
@@ -337,7 +337,7 @@ def validate_internal_links(base_dir, all_files):
     return broken_links
 
 def main():
-    base_dir = Path("/Users/gusti/gusti1976.github.io")
+    base_dir = Path(__file__).parent
     excluded_files = {
         "google46e00271f9de7d83.html",  # Google site verification token file
         "navigation-template.html",     # Reusable snippet/template, not a standalone page
