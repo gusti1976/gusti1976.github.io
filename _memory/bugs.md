@@ -6,34 +6,7 @@ Last audit: 2026-04-12. Run `python3 html_validator.py` to re-validate.
 
 ## HIGH Priority
 
-### BUG-001: Malformed alt text — 30+ song pages
-**Pattern:** `alt="Song Title" cover art"` (extra quote closes the attribute early; " cover art" becomes stray text)  
-**Correct pattern:** `alt="Song Title cover art"` (no stray quote)  
-**Affected:** All Unseen Chorus track pages that use `the-unseen-chorus-cover.webp`:
-a-bar-in-my-pocket, broken-spurs, can-you-host, circle-of-chairs, come-out-of-the-dark,
-could-this-be-it, dark-room-desire, ding-a-ling-a-ling, empty-mornings, endless-tabs,
-every-day-is-a-wonder, every-single-day, first-session, fuck-this-shit, gaycation, he-left-me,
-i-am-in-love, like-i-have-known-you, maybe-i-took-it-too-far, mirrors-in-the-mind,
-not-broken-anymore, not-supposed-to, our-place-finally, phone-glow, playing-with-my-ding-dong,
-pornhub-paradise, rock-bottom, signed-and-sealed, steam-and-shadows, table-for-two,
-ten-years-strong, the-floor-is-mine, the-ramble, the-unseen-chorus-title-track, two-steers-in-love,
-yall-means-all  
-**Fix:** Search for `" cover art"` (with leading quote), replace with ` cover art"` across all files.
-
-### BUG-002: Missing `#sr-announcements` on 76 pages
-**Issue:** `dark-mode.js` calls `document.getElementById('sr-announcements')` to announce theme
-changes to screen readers. Only `index.html` has this element. On all other pages, announcements
-silently fail — breaking WCAG 4.1.3 (Status Messages).  
-**Affected:** All pages except `index.html`  
-**Fix:** Add to every page's `<body>` (already in index.html, add to all others):
-```html
-<div id="sr-announcements" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-```
-The `.sr-only` class must visually hide the element while keeping it accessible.
-
-### BUG-003: test.html in production root
-**Issue:** `test.html` is publicly accessible at www.gusti.com/test.html with no purpose.  
-**Fix:** Add `<meta name="robots" content="noindex, nofollow">` or delete the file.
+_No open HIGH issues._
 
 ---
 
@@ -53,16 +26,6 @@ filename and ensure all references use the same `?v=` value.
 ```html
 <meta name="robots" content="noindex, nofollow">
 ```
-
-### BUG-006: Schema.org entity type inconsistency
-**Issue:** `index.html` uses `Person` as the primary entity. `about.html` uses both `Person`
-and `MusicGroup`. Inconsistent signals to search engines.  
-**Fix:** Standardize: use `Person` as primary entity with `sameAs` links on all pages.
-`MusicGroup` can be used in `byArtist` fields within MusicComposition/MusicRecording schemas.
-
-### BUG-007: `NewsArticle` schema misused in press.html
-**Issue:** Press release announcements tagged as `NewsArticle` — they are not time-sensitive news.  
-**Fix:** Change schema type to `PressRelease` (a subtype of `Article`) or `CreativeWork`.
 
 ### BUG-008: Missing canonical, viewport, charset, lang on utility files
 **Affected:** `navigation-template.html`, `google46e00271f9de7d83.html`  
@@ -90,6 +53,43 @@ CSS variable defined in `:root` but almost never referenced. Low impact, code sm
   entirely into the game file). It intentionally does not load `dark-mode.js`. Not missing.
 - `tetris.html` at repo root is a `<meta http-equiv="refresh">` redirect stub to `games/tetris/`.
   It is not a real page and does not need `dark-mode.js`.
+
+---
+
+## RESOLVED (2026-04-12 bug fixes + schema audit)
+
+### ✅ BUG-001: Malformed alt text — 53 pages — FIXED
+`alt="Song Title" cover art"` → `alt="Song Title cover art"` across all 53 affected files.
+
+### ✅ BUG-002: Missing `#sr-announcements` — 76 pages — FIXED
+Added `<div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>`
+to all 76 pages that load `dark-mode.js` but lacked the element. All 78 pages now have it.
+
+### ✅ BUG-003: test.html in production root — FIXED
+Added `<meta name="robots" content="noindex, nofollow">`.
+
+### ✅ BUG-006: Schema.org Person entity inconsistency — FIXED
+Standardised Person schema across `index.html` and `about.html`:
+- `index.html`: jobTitle changed from string to array, description added, ISNI kept
+- `about.html`: ISNI identifier added, Wikidata sameAs added
+- Both now use identical jobTitle array and description.
+
+### ✅ BUG-007: `NewsArticle` schema misused — FIXED
+Changed `NewsArticle` → `Article` on `press.html` (3 entries) and
+`agust-islandia-gay-and-proud-press-release.html` (1 entry).
+
+### ✅ Schema: Relative @id references in index.html — FIXED
+All `@id` values in `index.html` changed from relative (`#agust-person`) to full URL
+(`https://www.gusti.com/#agust-person`). Consistent with about.html and press.html.
+
+### ✅ Schema: Redundant nested @context in @graph — FIXED (67 pages)
+Removed duplicate `"@context": "https://schema.org"` from inside `@graph` items on 67 pages.
+Root-level `@context` applies to all `@graph` items; nested declarations were redundant.
+
+### ✅ Schema: byArtist standardised on album pages — FIXED
+`gay-and-proud.html` and `swipe-me-to-the-moon.html` both now use inline `MusicGroup` for
+`byArtist` (consistent with all 48 lyric pages). Inline definitions are required because
+Google processes each page's JSON-LD independently — cross-page `@id` references don't resolve.
 
 ---
 
@@ -157,14 +157,21 @@ Other files (press.css, glass-site.css, etc.) not yet reviewed.
 
 ---
 
-## Schema.org Warnings (67 total, low priority)
+## Schema.org Warnings (optional fields, low priority)
 
 These are optional fields flagged by the validator, not errors:
-- 13 standalone single pages missing `lyricist` field
+- Some standalone single pages missing `lyricist` field
 - Singles missing `position` (not applicable to singles — ignore)
 - Some pages missing `datePublished`
 
 These do not affect site functionality or core SEO.
+
+**Schema patterns now standardised (2026-04-12):**
+- Person entity: consistent jobTitle array, description, ISNI across index + about
+- All @id references use full URLs (no relative `#fragment` refs)
+- No redundant nested `@context` in `@graph` blocks
+- Press items use `Article` type (not `NewsArticle`)
+- `byArtist` uses inline `MusicGroup` on pages that don't define the entity in @graph
 
 ---
 

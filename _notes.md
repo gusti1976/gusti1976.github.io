@@ -10,7 +10,6 @@ _This file is ephemeral. Update it each session. For permanent reference, see `_
 
 Pending inline `<style>` extractions (these pages still have styles embedded in HTML):
 
-- [ ] `press.html` → extract to `press.css`
 - [ ] `lyrics.html` → extract to `lyrics-archive.css`
 - [ ] `agust-islandia-gay-and-proud-press-release.html` → extract to `press-release.css`
 
@@ -28,26 +27,23 @@ Deferred (bigger scope):
 
 ---
 
-## Bug Fixes Needed (from 2026-04-12 audit)
-
-### HIGH — fix soon
-- [ ] **BUG-001: Malformed alt text** — 30+ Unseen Chorus track pages have `alt="Song Name" cover art"`.
-  Fix: search-replace `" cover art"` → ` cover art"` across all affected files. See `_memory/bugs.md`.
-- [ ] **BUG-002: Missing `#sr-announcements`** — 76 pages missing the screen-reader announcement div.
-  Add `<div id="sr-announcements" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>`
-  to all pages. Check `index.html` for the reference implementation.
-- [ ] **BUG-003: test.html in production** — add `<meta name="robots" content="noindex, nofollow">` or delete.
+## Bug Fixes Needed
 
 ### MEDIUM — address when convenient
-- [ ] **BUG-004: CSS `?v=` version mismatch** — standardize cache-busting params across all pages.
+- [ ] **BUG-004: CSS `?v=` version mismatch** — standardise cache-busting params across all pages.
 - [ ] **BUG-005: GLASS template files publicly accessible** — move to `_templates/` or add noindex.
-- [ ] **BUG-006: Schema.org entity inconsistency** — standardize `Person` entity across index/about.
-- [ ] **BUG-007: `NewsArticle` in press.html** — change to `PressRelease` or `CreativeWork`.
 
 ---
 
 ## Completed
 
+- ✅ Bug fixes + Schema.org audit — BUG-001 (alt text, 53 pages), BUG-002 (sr-announcements,
+  76 pages), BUG-003 (test.html noindex), BUG-006 (Person schema standardised), BUG-007
+  (NewsArticle→Article), redundant @context removed (67 pages), @id refs standardised (2026-04-12).
+- ✅ Comprehensive code audit — 13 issues fixed, pushed live to main (2026-04-12).
+- ✅ Memory architecture corrected — page counts updated (35→74 public/82 total),
+  catalog updated with Cowboys EP, SMTTM lyric pages, Gay Mormon Musical (2026-04-12).
+- ✅ Memory maintenance rules added to `CLAUDE.md` and `_memory/deployment.md` (2026-04-12).
 - ✅ LYRICS_TEMPLATE_CONVERSION_TODO — all 51 song pages converted. File deleted.
 - ✅ Memory architecture created — `/_memory/` with 9 files, `CLAUDE.md`, `_notes.md` (this file).
   Old root markdown files (15) consolidated and deleted (2026-04-12).
@@ -59,9 +55,7 @@ Deferred (bigger scope):
 
 ## Last Session Notes
 
-_Fill in at start of each working session._
-
-- Date:
-- Branch:
-- What was done:
-- What's next:
+- Date: 2026-04-12
+- Branch: `claude/improve-memory-architecture-Rp6qw`
+- What was done: Fixed BUG-001/002/003/006/007 + full Schema.org audit (redundant @context, @id format, byArtist consistency)
+- What's next: BUG-004 (CSS version mismatch), BUG-005 (GLASS templates), CSS migration tasks
