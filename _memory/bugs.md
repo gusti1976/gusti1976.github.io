@@ -93,13 +93,67 @@ CSS variable defined in `:root` but almost never referenced. Low impact, code sm
 
 ---
 
+## RESOLVED (2026-04-12 audit fixes)
+
+### ✅ NEW-001: Heading hierarchy on index.html — FIXED
+`h1 → h3` (skipping h2). Three glass-grid `<h3>` headings changed to `<h2>`.
+
+### ✅ NEW-002: `document.write()` email obfuscation — FIXED
+`about.html` and `press.html`. Replaced pre-2010 obfuscation script with plain
+`<a href="mailto:agust@arcticsea.com">agust@arcticsea.com</a>`.
+
+### ✅ NEW-003: Album cover images missing width/height — FIXED
+`index.html` and `glass/index.html`. Added intrinsic dimensions to `.album-cover` images
+to prevent CLS (Cumulative Layout Shift).
+
+### ✅ NEW-004: Hardcoded `z-index: 10000` on `.theme-toggle` — FIXED
+`style-optimized.css`. Added `--z-fixed-ui: 10000` variable; `.theme-toggle` now uses it.
+
+### ✅ NEW-006: Missing `:focus-visible` on `.nav-collapsible-trigger` — FIXED
+`navigation.css`. Added `outline: 2px solid var(--color-primary-blue)` on focus.
+
+### ✅ NEW-007: Anonymous event listeners in `script.js` — FIXED
+Named `closeOutsideTooltips` and `handleInfoBubbleResize` for clarity and future removeability.
+
+### ✅ NEW-008: `console.warn` in production `navigation.js` — FIXED
+Removed from `navigation.js:22`.
+
+### ✅ NEW-009: Skip-link positioned incorrectly in nav include — FIXED
+`_includes/navigation.html`. Skip link moved to be first element (before nav-toggle button)
+so keyboard Tab order is correct: skip-link → nav-toggle → nav links → content.
+
+### ✅ NEW-010: Hardcoded light-mode nav colors in navigation.css — FIXED
+`style-optimized.css` now defines 17 `--nav-light-*` CSS variables. `navigation.css`
+updated to use them instead of hardcoded hex/rgba values.
+
+### ✅ NEW-011: No preload for hero images on index.html — FIXED
+Added `<link rel="preload">` for both album cover WebPs in `index.html` `<head>`.
+
+### ✅ NEW-012: `willExpand.toString()` in `script.js` — FIXED
+Changed to `willExpand ? 'true' : 'false'` in both occurrences.
+
+### ✅ Validator hardcoded macOS path — FIXED
+`html_validator.py` had `Path("/Users/gusti/...")` on lines 22 and 340.
+Changed to `Path(__file__).parent`. Validator now correctly finds all 76 HTML files.
+
+### ✅ `tetris.html` missing viewport meta tag — FIXED
+Added `<meta name="viewport" content="width=device-width, initial-scale=1">`.
+
+### ⚠️ NEW-005: `!important` overuse in CSS — PARTIALLY ADDRESSED
+`navigation.css` lines 7-8: removed redundant `!important` (cascade order was sufficient).
+Lines 242-243 (`content: none !important` in nav-drawer): kept intentionally — needed to
+override higher-specificity `a:not(.btn-icon):hover::after` rule from style-optimized.css.
+Other files (press.css, glass-site.css, etc.) not yet reviewed.
+
+---
+
 ## Validated OK
 
-- All 50 sitemap URLs → existing files (no broken sitemap entries)
+- All 74 sitemap URLs → existing files (no broken sitemap entries)
 - All internal links functional (no 404s detected)
 - WebP/JPG strategy solid for main images
-- Navigation consistent across all 35 main pages
-- 0 content errors from `python3 html_validator.py` (as of 2026-03-01)
+- Navigation consistent across all pages via `{% include navigation.html %}`
+- Validator (`html_validator.py`) fixed — was using hardcoded macOS path, now uses `Path(__file__).parent`
 
 ---
 
