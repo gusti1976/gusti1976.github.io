@@ -10,8 +10,8 @@ _This file is ephemeral. Update it each session. For permanent reference, see `_
 
 Pending inline `<style>` extractions (these pages still have styles embedded in HTML):
 
-- [ ] `lyrics.html` → extract to `lyrics-archive.css`
-- [ ] `agust-islandia-gay-and-proud-press-release.html` → extract to `press-release.css`
+- ✅ `lyrics.html` → already extracted to `lyrics-archive.css` (done in earlier session)
+- ✅ `agust-islandia-gay-and-proud-press-release.html` → extracted to `press-release.css` (2026-04-12)
 
 Deferred (bigger scope):
 - [ ] 27+ song/lyrics pages → shared `lyrics-page.css`
@@ -27,43 +27,31 @@ Deferred (bigger scope):
 
 ---
 
-## Bug Fixes Needed (from 2026-04-12 audit)
+## Bug Fixes Needed
 
-### HIGH — fix soon
-- [ ] **BUG-001: Malformed alt text** — 30+ Unseen Chorus track pages have `alt="Song Name" cover art"`.
-  Fix: search-replace `" cover art"` → ` cover art"` across all affected files. See `_memory/bugs.md`.
-- [ ] **BUG-002: Missing `#sr-announcements`** — 76 pages missing the screen-reader announcement div.
-  Add `<div id="sr-announcements" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>`
-  to all pages. Check `index.html` for the reference implementation.
-- [ ] **BUG-003: test.html in production** — add `<meta name="robots" content="noindex, nofollow">` or delete.
+_No open HIGH or MEDIUM bugs. See `_memory/bugs.md` for full tracker._
 
-### MEDIUM — address when convenient
-- [ ] **BUG-004: CSS `?v=` version mismatch** — standardize cache-busting params across all pages.
-- [ ] **BUG-005: GLASS template files publicly accessible** — move to `_templates/` or add noindex.
-- [ ] **BUG-006: Schema.org entity inconsistency** — standardize `Person` entity across index/about.
-- [ ] **BUG-007: `NewsArticle` in press.html** — change to `PressRelease` or `CreativeWork`.
-
-### FIXED (2026-04-12 — see `_memory/bugs.md` RESOLVED section for details)
-- ✅ NEW-001: index.html h1→h3 heading hierarchy skip
-- ✅ NEW-002: `document.write()` email obfuscation (about.html, press.html)
-- ✅ NEW-003: Album cover images missing width/height (CLS)
-- ✅ NEW-004: Hardcoded `z-index: 10000` on `.theme-toggle`
-- ✅ NEW-005: Redundant `!important` on skip-link position in navigation.css
-- ✅ NEW-006: Missing `:focus-visible` on `.nav-collapsible-trigger`
-- ✅ NEW-007: Anonymous event listeners in script.js
-- ✅ NEW-008: `console.warn` left in production navigation.js
-- ✅ NEW-009: Skip-link was last element in nav include (wrong tab order)
-- ✅ NEW-010: Hardcoded light-mode nav colours → 18 `--nav-light-*` CSS vars
-- ✅ NEW-011: No `<link rel="preload">` for hero images on index.html
-- ✅ NEW-012: `willExpand.toString()` in script.js
-- ✅ html_validator.py hardcoded macOS path (was checking 0 files on Linux)
-- ✅ tetris.html missing viewport meta tag
+LOW (not urgent):
+- [ ] **BUG-009: Missing JPG fallbacks** — `gay-and-proud-cover.webp`, `swipe-me-to-the-moon-cover.webp`
 
 ---
 
 ## Completed
 
-- ✅ Comprehensive code audit — 13 issues fixed, pushed live to main (2026-04-12).
+- ✅ Album cover aspect ratio fix — height attributes corrected to 16:9 values; `--glass-strong`
+  CSS variable defined; glass card copy rewritten with real SEO terms (2026-04-12).
+- ✅ Phase 4 deep HTML sweep — JS version params fixed (15 pages), zero structural issues
+  found (2026-04-12).
+- ✅ Phase 3 CSS extraction — `press-release.css` extracted (2026-04-12).
+- ✅ Phase 2 Schema.org — position, inLanguage, genre added to 36 lyric pages (2026-04-12).
+- ✅ BUG-004 CSS version mismatch — standardised navigation.css, glass-site.css,
+  glass-lyrics-template.css across all pages (2026-04-12).
+- ✅ BUG-005 GLASS templates — added noindex to GLASS_ALBUM_TEMPLATE.html and
+  GLASS_LYRICS_TEMPLATE.html (2026-04-12).
+- ✅ Bug fixes + Schema.org audit — BUG-001 (alt text, 53 pages), BUG-002 (sr-announcements,
+  76 pages), BUG-003 (test.html noindex), BUG-006 (Person schema standardised), BUG-007
+  (NewsArticle→Article), redundant @context removed (67 pages), @id refs standardised (2026-04-12).
+- ✅ Comprehensive code audit — 13 issues fixed (2026-04-12).
 - ✅ Memory architecture corrected — page counts updated (35→74 public/82 total),
   catalog updated with Cowboys EP, SMTTM lyric pages, Gay Mormon Musical (2026-04-12).
 - ✅ Memory maintenance rules added to `CLAUDE.md` and `_memory/deployment.md` (2026-04-12).
@@ -80,5 +68,6 @@ Deferred (bigger scope):
 
 - Date: 2026-04-12
 - Branch: `claude/improve-memory-architecture-Rp6qw` → merged to `main`
-- What was done: Memory architecture built + comprehensive HTML/CSS/JS audit (13 fixes pushed live)
-- What's next: BUG-001 (malformed alt text, 30+ pages), BUG-002 (#sr-announcements, 76 pages), BUG-003 (test.html noindex)
+- What was done: Phases 2–4 complete + album cover fix + glass card copy + bug tracker cleanup.
+  Validator: 76 files, 0 errors, 3 warnings (acceptable).
+- What's next: Deferred CSS migration (lyrics-page.css, album-page.css)

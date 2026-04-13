@@ -6,67 +6,13 @@ Last audit: 2026-04-12. Run `python3 html_validator.py` to re-validate.
 
 ## HIGH Priority
 
-### BUG-001: Malformed alt text — 30+ song pages
-**Pattern:** `alt="Song Title" cover art"` (extra quote closes the attribute early; " cover art" becomes stray text)  
-**Correct pattern:** `alt="Song Title cover art"` (no stray quote)  
-**Affected:** All Unseen Chorus track pages that use `the-unseen-chorus-cover.webp`:
-a-bar-in-my-pocket, broken-spurs, can-you-host, circle-of-chairs, come-out-of-the-dark,
-could-this-be-it, dark-room-desire, ding-a-ling-a-ling, empty-mornings, endless-tabs,
-every-day-is-a-wonder, every-single-day, first-session, fuck-this-shit, gaycation, he-left-me,
-i-am-in-love, like-i-have-known-you, maybe-i-took-it-too-far, mirrors-in-the-mind,
-not-broken-anymore, not-supposed-to, our-place-finally, phone-glow, playing-with-my-ding-dong,
-pornhub-paradise, rock-bottom, signed-and-sealed, steam-and-shadows, table-for-two,
-ten-years-strong, the-floor-is-mine, the-ramble, the-unseen-chorus-title-track, two-steers-in-love,
-yall-means-all  
-**Fix:** Search for `" cover art"` (with leading quote), replace with ` cover art"` across all files.
-
-### BUG-002: Missing `#sr-announcements` on 76 pages
-**Issue:** `dark-mode.js` calls `document.getElementById('sr-announcements')` to announce theme
-changes to screen readers. Only `index.html` has this element. On all other pages, announcements
-silently fail — breaking WCAG 4.1.3 (Status Messages).  
-**Affected:** All pages except `index.html`  
-**Fix:** Add to every page's `<body>` (already in index.html, add to all others):
-```html
-<div id="sr-announcements" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-```
-The `.sr-only` class must visually hide the element while keeping it accessible.
-
-### BUG-003: test.html in production root
-**Issue:** `test.html` is publicly accessible at www.gusti.com/test.html with no purpose.  
-**Fix:** Add `<meta name="robots" content="noindex, nofollow">` or delete the file.
+_No open HIGH issues._
 
 ---
 
 ## MEDIUM Priority
 
-### BUG-004: CSS cache-busting version mismatch
-**Issue:** Same stylesheets referenced with different `?v=` params across pages.
-- `glass-site.css`: `?v=20260304e` on some pages, `?v=20260317a` on others
-- `navigation.css`: sometimes with version param, sometimes without
-**Fix:** Standardize all pages to use the latest version string. Search for each stylesheet
-filename and ensure all references use the same `?v=` value.
-
-### BUG-005: GLASS template files publicly accessible
-**Files:** `GLASS_ALBUM_TEMPLATE.html`, `GLASS_LYRICS_TEMPLATE.html`  
-**Issue:** Contain unparsed placeholder variables like `{{album_slug}}` and are publicly accessible.  
-**Fix:** Move to `_templates/` directory (Jekyll-protected) or add:
-```html
-<meta name="robots" content="noindex, nofollow">
-```
-
-### BUG-006: Schema.org entity type inconsistency
-**Issue:** `index.html` uses `Person` as the primary entity. `about.html` uses both `Person`
-and `MusicGroup`. Inconsistent signals to search engines.  
-**Fix:** Standardize: use `Person` as primary entity with `sameAs` links on all pages.
-`MusicGroup` can be used in `byArtist` fields within MusicComposition/MusicRecording schemas.
-
-### BUG-007: `NewsArticle` schema misused in press.html
-**Issue:** Press release announcements tagged as `NewsArticle` — they are not time-sensitive news.  
-**Fix:** Change schema type to `PressRelease` (a subtype of `Article`) or `CreativeWork`.
-
-### BUG-008: Missing canonical, viewport, charset, lang on utility files
-**Affected:** `navigation-template.html`, `google46e00271f9de7d83.html`  
-**Impact:** Low (not public pages) but technically malformed.
+_No open MEDIUM issues._
 
 ---
 
@@ -78,9 +24,6 @@ and `MusicGroup`. Inconsistent signals to search engines.
 **Impact:** Very old browsers (<5% of users) won't load these images.  
 **Fix:** Create JPG versions and add `<picture>` element with fallback.
 
-### BUG-010: `--z-header: 1` defined but rarely used
-CSS variable defined in `:root` but almost never referenced. Low impact, code smell only.
-
 ### BUG-011: games/prince-of-persia/ pages lack main site navigation and dark-mode.js
 **Affected:** `games/prince-of-persia/*.html`  
 **By design** — that game is a separate, self-contained experience. Noting here for awareness.
@@ -90,6 +33,86 @@ CSS variable defined in `:root` but almost never referenced. Low impact, code sm
   entirely into the game file). It intentionally does not load `dark-mode.js`. Not missing.
 - `tetris.html` at repo root is a `<meta http-equiv="refresh">` redirect stub to `games/tetris/`.
   It is not a real page and does not need `dark-mode.js`.
+
+---
+
+## RESOLVED (2026-04-12 second pass)
+
+### ✅ BUG-008: Missing head elements on utility files — CLOSED (not a bug)
+- `navigation-template.html` — fully rewritten in Phase 1 with proper `<head>`, charset,
+  viewport, robots noindex. Fixed.
+- `google46e00271f9de7d83.html` — contains only the literal text
+  `google-site-verification: google46e00271f9de7d83.html`. This is the exact format Google
+  Search Console requires for HTML file verification. It cannot have head elements added.
+  Not a bug — by design.
+
+### ✅ BUG-010: `--z-header: 1` unused — CLOSED (false positive)
+The variable is used on `style-optimized.css:361` and `:558`. It was never unused.
+
+---
+
+## RESOLVED (2026-04-12 Phase 2–4 sweep)
+
+### ✅ BUG-004: CSS cache-busting version mismatch — FIXED
+All stylesheet `?v=` params standardised across all pages:
+- `navigation.css`: `?v=20260304d` everywhere (was missing on 15 pages)
+- `glass-site.css`: `?v=20260317a` everywhere (3 pages had `?v=20260304e`)
+- `glass-lyrics-template.css`: `?v=20260304f` everywhere (58 pages had `?v=20260304e`)
+
+### ✅ BUG-005: GLASS template files publicly accessible — FIXED
+Added `<meta name="robots" content="noindex, nofollow">` to both:
+- `GLASS_ALBUM_TEMPLATE.html`
+- `GLASS_LYRICS_TEMPLATE.html`
+
+### ✅ Schema: Missing position/inLanguage/genre on lyric pages — FIXED
+Added to 36 MusicComposition schemas across lyric pages:
+- `position`: track number within album (1–27 for Unseen Chorus, 1–5 Cowboys EP, etc.)
+- `inLanguage`: "en" for all English tracks, "es" for gay-y-orgulloso
+- `genre`: ["Pop", "LGBTQ+ Pride"] for out-and-proud and gay-y-orgulloso
+
+### ✅ JS version params missing — FIXED (Phase 4)
+15 pages were loading `navigation.js` and `dark-mode.js` without `?v=` cache-busting params.
+All now use `src="navigation.js?v=20260304d"` and `src="dark-mode.js?v=20260304d"`.
+
+### ✅ CSS extraction: agust-islandia-gay-and-proud-press-release.html — FIXED
+Inline `<style>` block (1,663 chars) extracted to `press-release.css?v=20260412a`.
+
+---
+
+## RESOLVED (2026-04-12 bug fixes + schema audit)
+
+### ✅ BUG-001: Malformed alt text — 53 pages — FIXED
+`alt="Song Title" cover art"` → `alt="Song Title cover art"` across all 53 affected files.
+
+### ✅ BUG-002: Missing `#sr-announcements` — 76 pages — FIXED
+Added `<div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>`
+to all 76 pages that load `dark-mode.js` but lacked the element. All 78 pages now have it.
+
+### ✅ BUG-003: test.html in production root — FIXED
+Added `<meta name="robots" content="noindex, nofollow">`.
+
+### ✅ BUG-006: Schema.org Person entity inconsistency — FIXED
+Standardised Person schema across `index.html` and `about.html`:
+- `index.html`: jobTitle changed from string to array, description added, ISNI kept
+- `about.html`: ISNI identifier added, Wikidata sameAs added
+- Both now use identical jobTitle array and description.
+
+### ✅ BUG-007: `NewsArticle` schema misused — FIXED
+Changed `NewsArticle` → `Article` on `press.html` (3 entries) and
+`agust-islandia-gay-and-proud-press-release.html` (1 entry).
+
+### ✅ Schema: Relative @id references in index.html — FIXED
+All `@id` values in `index.html` changed from relative (`#agust-person`) to full URL
+(`https://www.gusti.com/#agust-person`). Consistent with about.html and press.html.
+
+### ✅ Schema: Redundant nested @context in @graph — FIXED (67 pages)
+Removed duplicate `"@context": "https://schema.org"` from inside `@graph` items on 67 pages.
+Root-level `@context` applies to all `@graph` items; nested declarations were redundant.
+
+### ✅ Schema: byArtist standardised on album pages — FIXED
+`gay-and-proud.html` and `swipe-me-to-the-moon.html` both now use inline `MusicGroup` for
+`byArtist` (consistent with all 48 lyric pages). Inline definitions are required because
+Google processes each page's JSON-LD independently — cross-page `@id` references don't resolve.
 
 ---
 
@@ -157,14 +180,21 @@ Other files (press.css, glass-site.css, etc.) not yet reviewed.
 
 ---
 
-## Schema.org Warnings (67 total, low priority)
+## Schema.org Warnings (optional fields, low priority)
 
 These are optional fields flagged by the validator, not errors:
-- 13 standalone single pages missing `lyricist` field
+- Some standalone single pages missing `lyricist` field
 - Singles missing `position` (not applicable to singles — ignore)
 - Some pages missing `datePublished`
 
 These do not affect site functionality or core SEO.
+
+**Schema patterns now standardised (2026-04-12):**
+- Person entity: consistent jobTitle array, description, ISNI across index + about
+- All @id references use full URLs (no relative `#fragment` refs)
+- No redundant nested `@context` in `@graph` blocks
+- Press items use `Article` type (not `NewsArticle`)
+- `byArtist` uses inline `MusicGroup` on pages that don't define the entity in @graph
 
 ---
 

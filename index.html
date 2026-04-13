@@ -137,7 +137,7 @@
   "@graph": [
     {
       "@type": "Person",
-      "@id": "#agust-person",
+      "@id": "https://www.gusti.com/#agust-person",
       "name": "Agust Smari Bjarkarson",
       "alternateName": "Agust Islandia",
       "additionalName": [
@@ -155,7 +155,8 @@
         "value": "0000000528099919"
       },
       "image": "https://www.gusti.com/agust_islandia.jpg",
-      "jobTitle": "Pop Artist",
+      "jobTitle": ["Singer-songwriter", "Composer", "Queer Pop Artist"],
+      "description": "Icelandic queer pop artist and musical storyteller creating gay anthems, full lyric pages, and LGBTQ+ musical theatre projects.",
       "nationality": "Icelandic",
       "sameAs": [
         "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
@@ -167,12 +168,12 @@
       ],
       "url": "https://www.gusti.com/",
       "memberOf": {
-        "@id": "#agust-islandia"
+        "@id": "https://www.gusti.com/#agust-islandia"
       }
     },
     {
       "@type": "MusicGroup",
-      "@id": "#agust-islandia",
+      "@id": "https://www.gusti.com/#agust-islandia",
       "name": "Agust Islandia",
       "url": "https://www.gusti.com",
       "genre": [
@@ -186,7 +187,7 @@
         "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
       ],
       "member": {
-        "@id": "#agust-person"
+        "@id": "https://www.gusti.com/#agust-person"
       }
     },
     {
@@ -209,16 +210,16 @@
         "@id": "https://www.gusti.com/#breadcrumb"
       },
       "about": {
-        "@id": "#agust-person"
+        "@id": "https://www.gusti.com/#agust-person"
       },
       "primaryImageOfPage": {
-        "@id": "#hero-image"
+        "@id": "https://www.gusti.com/#hero-image"
       },
       "inLanguage": "en-US"
     },
     {
       "@type": "ImageObject",
-      "@id": "#hero-image",
+      "@id": "https://www.gusti.com/#hero-image",
       "url": "https://www.gusti.com/agust_islandia.jpg",
       "contentUrl": "https://www.gusti.com/agust_islandia.jpg",
       "caption": "Portrait of Agust Smari Bjarkarson (Agust Islandia)",
@@ -245,7 +246,7 @@
       "alternateName": "Agust Islandia (label)",
       "url": "https://www.gusti.com/",
       "founder": {
-        "@id": "#agust-person"
+        "@id": "https://www.gusti.com/#agust-person"
       },
       "foundingDate": "2020",
       "foundingLocation": {
@@ -475,9 +476,9 @@
 }
   </script>
 
-  <link rel="stylesheet" href="navigation.css">
+  <link rel="stylesheet" href="navigation.css?v=20260304d">
   <link rel="stylesheet" href="glass-site.css?v=20260317a">
-  <link rel="stylesheet" href="index-glass.css">
+  <link rel="stylesheet" href="index-glass.css?v=20260412b">
 </head>
 <body>
   <svg style="display: none;" aria-hidden="true">
@@ -529,16 +530,16 @@
     <main id="main-content">
       <section class="glass-grid">
         <article class="glass-card">
-          <h2>50+ Lyrics Pages Published</h2>
-          <p>A continuously expanding archive of complete song texts across albums, singles, and projects so fans, journalists, and search engines can access the full catalog.</p>
+          <h2>Two Complete Gay Musicals</h2>
+          <p>The Unseen Chorus (27 tracks) and Swipe Me to the Moon (22 tracks) are full-length LGBTQ+ musical theatre albums — original queer pop stories tracing love, betrayal, and recovery from first note to finale.</p>
         </article>
         <article class="glass-card">
-          <h2>Enter the Storyworld</h2>
-          <p>Each musical is presented as a full narrative universe, so visitors can move from overview to tracks in a way that preserves emotion, conflict, and payoff.</p>
+          <h2>Full Lyrics for Every Song</h2>
+          <p>50+ complete lyric pages across both musicals and all singles — every word published here so fans can read along, explore the narrative, and stream directly on Apple Music or Spotify.</p>
         </article>
         <article class="glass-card">
-          <h2>Queer Canon, Fully Documented</h2>
-          <p>Complete lyrics, context, and thematic framing turn every release into durable cultural documentation designed for discovery, citation, and long-term search value.</p>
+          <h2>Icelandic Gay Pop & Pride Anthems</h2>
+          <p>Agust Smari Bjarkarson (Agust Islandia) is a Reykjavík-based songwriter creating LGBTQ+ pop anthems, pride songs, and queer musical theatre — with every release documented and streamed worldwide.</p>
         </article>
       </section>
 
@@ -571,7 +572,7 @@
 
       <section class="album-row" aria-label="Featured works">
         <article class="album-card">
-          <img class="album-cover" src="/the-unseen-chorus-cover.webp" alt="The Unseen Chorus album artwork" width="1200" height="1200" loading="lazy">
+          <img class="album-cover" src="/the-unseen-chorus-cover.webp" alt="The Unseen Chorus album artwork" width="1200" height="675" loading="lazy">
           <div class="album-body">
             <h2>The Unseen Chorus</h2>
             <p>A 27-track gay musical released October 6, 2025, tracing betrayal, compulsion, shame, healing, and recommitment.</p>
@@ -584,7 +585,7 @@
         </article>
 
         <article class="album-card">
-          <img class="album-cover" src="/swipe-me-to-the-moon-cover.webp" alt="Swipe Me to the Moon album artwork" width="632" height="632" loading="lazy">
+          <img class="album-cover" src="/swipe-me-to-the-moon-cover.webp" alt="Swipe Me to the Moon album artwork" width="632" height="356" loading="lazy">
           <div class="album-body">
             <h2>Swipe Me to the Moon</h2>
             <p>A 22-track musical released July 18, 2025, following queer love from first swipe to commitment, grief, and renewal.</p>
@@ -638,7 +639,7 @@
 
   <div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
-  <script src="dark-mode.js"></script>
-  <script src="navigation.js"></script>
+  <script src="dark-mode.js?v=20260304d"></script>
+  <script src="navigation.js?v=20260304d"></script>
 </body>
 </html>
