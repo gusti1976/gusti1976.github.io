@@ -139,7 +139,6 @@
       "inLanguage": "en-US"
     },
     {
-      "@context": "https://schema.org",
       "@type": "MusicComposition",
       "name": "A Bar in My Pocket",
       "image": "https://www.gusti.com/the-unseen-chorus-cover.webp",
@@ -280,14 +279,15 @@
       "url": "https://www.gusti.com/a-bar-in-my-pocket.html",
       "mainEntityOfPage": {
         "@id": "https://www.gusti.com/a-bar-in-my-pocket.html#webpage"
-      }
+      },
+      "position": 10
     }
   ]
 }
   </script>
   <link rel="stylesheet" href="navigation.css?v=20260304d">
   <link rel="stylesheet" href="glass-site.css?v=20260317a">
-  <link rel="stylesheet" href="glass-lyrics-template.css?v=20260304e">
+  <link rel="stylesheet" href="glass-lyrics-template.css?v=20260304f">
 </head>
 
 <body>
@@ -326,7 +326,7 @@
       </div>
       <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
         <h2 id="song-snapshot-title">Song Snapshot</h2>
-        <img src="the-unseen-chorus-cover.webp" alt="A Bar in My Pocket" cover art" loading="lazy" style="width:min(100%,320px);aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:1px solid rgba(123,148,209,.33);display:block;margin:0 auto 12px;">
+        <img src="the-unseen-chorus-cover.webp" alt="A Bar in My Pocket cover art" loading="lazy" style="width:min(100%,320px);aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:1px solid rgba(123,148,209,.33);display:block;margin:0 auto 12px;">
         <div class="snapshot-grid">
           <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">October 6, 2025</span></div>
           <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">2:22</span></div>
@@ -421,5 +421,6 @@
   <!-- Dark Mode Toggle Script -->
   <script src="dark-mode.js?v=20260304d"></script>
   <script src="navigation.js?v=20260304d"></script>
+  <div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>

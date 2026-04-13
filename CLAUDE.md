@@ -1,0 +1,92 @@
+# Claude Code Context — www.gusti.com
+
+## Site
+
+Pure HTML5 / CSS3 / Vanilla JS static site. No npm. No build step. No framework.
+Hosted on GitHub Pages (`gusti1976.github.io`), custom domain `www.gusti.com` via `CNAME`.
+Deploy = `git push origin main` (auto-builds in ~1 minute).
+
+## Artist
+
+**Agust Smari Bjarkarson** (real name) = **Agust Islandia** (stage name).
+Icelandic queer pop artist from Reykjavík. Always use both names together on pages for SEO.
+
+## Key Files
+
+| File | Role |
+|---|---|
+| `style-optimized.css` | All CSS variables in `:root` — edit here first for design changes |
+| `navigation.css` | Hamburger nav styles — linked on every page |
+| `navigation.js` | Nav toggle, collapsibles, active state — linked on every page |
+| `dark-mode.js` | Theme toggle — localStorage key: `agust-islandia-theme` |
+| `script.js` | Homepage only (info bubbles) |
+| `_includes/navigation.html` | Canonical nav HTML — **edit this before updating nav on pages** |
+| `navigation-template.html` | Full page template for reference |
+| `ALBUM_PAGE_TEMPLATE.md` | HTML scaffold for new album pages — do not delete |
+| `html_validator.py` | Run `python3 html_validator.py` before committing |
+
+74 public pages in sitemap; 82 HTML files total (includes templates/utilities). Navigation HTML is manually copy-pasted (no server-side includes).
+
+## Writing Rules (MANDATORY)
+
+**All text written for this project must follow `_memory/writing-rules.md`.** This applies to
+every page, lyric description, press copy, alt text, schema description, or any other
+human-readable text. Read it before writing anything.
+
+Key points:
+- British English always
+- No banned words, phrases, or sentence openers (long lists in the file)
+- No em dashes except very rarely (max one per page)
+- Active voice, simple verbs, short paragraphs
+- No AI structural patterns: rule of three, hedging seesaw, corporate pep talk
+- Get to the point first. Don't restate what you just said.
+
+## Memory System
+
+Find detailed documentation in `_memory/` (Jekyll-protected, not publicly accessible):
+
+| Topic | File |
+|---|---|
+| **Writing style and tone rules** | **`_memory/writing-rules.md`** |
+| Tech stack, file map, CSS vars, JS functions | `_memory/architecture.md` |
+| Artist bio, music catalog, naming conventions | `_memory/content.md` |
+| SEO strategy, Schema.org templates, meta tags | `_memory/seo.md` |
+| Navigation system, HTML snippet, CSS classes | `_memory/navigation.md` |
+| Adding lyrics pages, workflow checklist | `_memory/lyrics.md` |
+| Dark mode: localStorage key, CSS, functions | `_memory/dark-mode.md` |
+| Audit findings, known bugs, code gotchas | `_memory/bugs.md` |
+| GitHub Pages, git workflow, validator | `_memory/deployment.md` |
+
+Game-specific memory: `games/tetris/_memory/` (separate system, do not modify).
+
+## Memory Maintenance (REQUIRED)
+
+After **every** change to the site — adding a page, deleting a page, fixing a bug, extracting CSS, updating nav, adding a release — you **must** update the relevant memory file(s) before committing:
+
+| Change type | Update |
+|---|---|
+| New HTML page | `_memory/content.md` catalog + `_memory/architecture.md` page count + `sitemap.xml` |
+| Deleted page | Same as above |
+| Bug found | Add to `_memory/bugs.md` |
+| Bug fixed | Mark resolved in `_memory/bugs.md` |
+| CSS extracted | Update `_memory/architecture.md` page families table |
+| New CSS/JS file | Add to `_memory/architecture.md` file map |
+| Nav changed | Update `_memory/navigation.md` |
+| Active task added/done | Update `_notes.md` |
+| New release/album | `_memory/content.md` catalog |
+
+The memory is the source of truth. Keep it accurate — stale memory is worse than no memory.
+
+## Active Work
+
+See `_notes.md` for current tasks and pending decisions.
+
+## Critical Constraints
+
+- **No `.nojekyll`** — adding it would expose `_memory/` files to the public web. Do not add it.
+- **No server-side includes** — nav HTML must be updated in all pages manually when changed.
+- **No npm / no build step** — never introduce build tooling without explicit agreement.
+- **`README.md`** is the public GitHub repo README — do not delete or repurpose.
+- **`ALBUM_PAGE_TEMPLATE.md`** is a live HTML scaffold — do not delete.
+- **CSS vars only in `:root`** in `style-optimized.css` — never define new vars in page `<style>` blocks.
+- **Canvas API** cannot read CSS vars — use literal `rgba()` strings (Tetris game only).

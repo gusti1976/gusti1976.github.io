@@ -19,7 +19,6 @@
     const navOverlay = document.getElementById('nav-overlay');
 
     if (!navToggle || !navDrawer || !navOverlay) {
-      console.warn('Navigation elements not found');
       return;
     }
 

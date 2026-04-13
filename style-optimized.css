@@ -78,9 +78,30 @@
   /* Z-index Scale */
   --z-tooltip: 999999;
   --z-tooltip-bubble: 999998;
+  --z-fixed-ui: 10000;
   --z-bubble: 100;
   --z-header: 1;
   --z-skip-link: 9999;
+
+  /* Navigation - Light Mode Colors */
+  --nav-light-text: #1e2942;
+  --nav-light-text-hover: #0f1b35;
+  --nav-light-text-active: #0c1730;
+  --nav-light-bg: rgba(255, 255, 255, 0.58);
+  --nav-light-bg-hover: rgba(255, 255, 255, 0.8);
+  --nav-light-bg-active: rgba(173, 208, 255, 0.5);
+  --nav-light-border: rgba(180, 198, 236, 0.7);
+  --nav-light-border-hover: rgba(141, 170, 228, 0.75);
+  --nav-light-border-active: rgba(95, 145, 235, 0.95);
+  --nav-light-sub-text: #2a3e64;
+  --nav-light-sub-text-hover: #142649;
+  --nav-light-sub-bg: rgba(255, 255, 255, 0.46);
+  --nav-light-sub-bg-hover: rgba(255, 255, 255, 0.72);
+  --nav-light-sub-border: rgba(176, 196, 236, 0.64);
+  --nav-light-sub-border-hover: rgba(130, 162, 227, 0.72);
+  --nav-light-section-header: #455a84;
+  --nav-light-overlay: rgba(170, 182, 212, 0.22);
+  --nav-light-hamburger: #000000;
 }
 
 /* ============================================================================
@@ -500,7 +521,7 @@ html[data-theme="dark"] .btn-secondary:hover {
   align-items: center;
   justify-content: center;
   transition: all var(--transition-normal) var(--transition-cubic);
-  z-index: 10000;
+  z-index: var(--z-fixed-ui);
   font-family: inherit;
 }
 
