@@ -14,9 +14,9 @@ Pending inline `<style>` extractions (these pages still have styles embedded in 
 - ✅ `agust-islandia-gay-and-proud-press-release.html` → extracted to `press-release.css` (2026-04-12)
 
 Deferred (bigger scope):
-- [ ] 27+ song/lyrics pages → shared `lyrics-page.css`
-- [ ] Album/release pages (`cowboys.html`, `swipe-me-to-the-moon.html`, etc.) → `album-page.css`
-- [ ] Special pages (`peach-and-purple.html`, `pride-on-the-seas.html`, `yogurt.html`) → review later
+- ✅ 60 song/lyrics pages → `glass-lyrics-template.css` (confirmed: no inline styles remain)
+- ✅ Album/release pages (`cowboys.html`, `swipe-me-to-the-moon.html`, etc.) → `glass-site.css` (confirmed: album layout styles already there, no inline styles)
+- ✅ Special pages (`peach-and-purple.html`, `pride-on-the-seas.html`, `yogurt.html`) → confirmed clean: all link to `glass-site.css`, no inline styles
 
 **Migration principles:**
 - Migrate by page family, not one file at a time without structure
@@ -32,7 +32,7 @@ Deferred (bigger scope):
 _No open HIGH or MEDIUM bugs. See `_memory/bugs.md` for full tracker._
 
 LOW (not urgent):
-- [ ] **BUG-009: Missing JPG fallbacks** — `gay-and-proud-cover.webp`, `swipe-me-to-the-moon-cover.webp`
+- [ ] **BUG-009: Missing JPG fallbacks** — `gay-and-proud-cover.webp` (3 pages), `swipe-me-to-the-moon-cover.webp` (17 pages). Requires image conversion tools (`dwebp`, `convert`, or PIL) to create `.jpg` files — none available in current environment.
 
 ---
 
@@ -66,8 +66,15 @@ LOW (not urgent):
 
 ## Last Session Notes
 
-- Date: 2026-04-12
-- Branch: `claude/improve-memory-architecture-Rp6qw` → merged to `main`
-- What was done: Phases 2–4 complete + album cover fix + glass card copy + bug tracker cleanup.
-  Validator: 76 files, 0 errors, 3 warnings (acceptable).
-- What's next: Deferred CSS migration (lyrics-page.css, album-page.css)
+- Date: 2026-04-13
+- Branch: `claude/fix-api-memory-errors-BZjTC`
+- What was done: Audited all deferred CSS migration items — confirmed complete. All 60 lyrics
+  pages use `glass-lyrics-template.css`; all album/special pages use `glass-site.css`. Zero
+  inline `<style>` blocks remain on any main-site page. Notes updated to reflect reality.
+- What's next: BUG-009 (needs image tools to create JPG fallbacks — LOW priority)
+
+---
+
+_Previous session (2026-04-12): Branch `claude/improve-memory-architecture-Rp6qw` → merged to `main`.
+Phases 2–4 complete + album cover fix + glass card copy + bug tracker cleanup.
+Validator: 76 files, 0 errors, 3 warnings (acceptable)._
