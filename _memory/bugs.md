@@ -36,6 +36,36 @@ _No open MEDIUM issues._
 
 ---
 
+## RESOLVED (2026-04-14)
+
+### ✅ BUG-012: Jekyll Liquid-parse error in CLAUDE.md silently halted Pages build — FIXED
+
+**Symptom:** After pushing the nav restructure (commit `b6c828a`), the live
+site kept serving the OLD nav and `/discography.html` returned 404 despite
+the file being on `origin/main` at github.com. Hard-refresh did not help.
+
+**Root cause:** `CLAUDE.md` contained `` `{% include %}` `` inside a
+Markdown code span. On Jekyll, Liquid runs BEFORE the Markdown renderer,
+so the include tag was parsed even inside backticks. With no filename
+argument, Liquid raised a fatal parse error. GitHub Pages then kept
+serving the last good build — which is why the old nav persisted and
+the new pages 404'd. The build log would show this but the live site
+gives no visible signal.
+
+**Fix (commit `e0e0532`):** Added a minimal `_config.yml` with an
+`exclude:` list: `CLAUDE.md`, `_notes.md`, `README.md`,
+`html_validator.py`, `ALBUM_PAGE_TEMPLATE.md`, `validation_report.txt`,
+`schema_validation_detailed.txt`, `.claude/`, `.github/`. Those files
+now never enter the Jekyll build, so no amount of Liquid-looking syntax
+in them can break Pages again.
+
+**Lesson:** Any Markdown file at repo root that the site does not need
+to serve must be in the `_config.yml` exclude list. Backticks are NOT
+enough to escape Liquid tags — use the exclude list or
+`{% raw %}...{% endraw %}` blocks.
+
+---
+
 ## RESOLVED (2026-04-12 second pass)
 
 ### ✅ BUG-008: Missing head elements on utility files — CLOSED (not a bug)

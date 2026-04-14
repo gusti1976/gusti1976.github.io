@@ -7,6 +7,15 @@ GitHub Pages serves files directly from `main` branch.
 Custom domain: `www.gusti.com` → configured via `CNAME` file at repo root.
 **Deploy = `git push origin main`** — GitHub Pages auto-builds in ~30 seconds to 2 minutes.
 
+Jekyll processes the repo on every push (default Pages behaviour). The
+`_config.yml` at repo root contains a small `exclude:` list so internal
+docs — `CLAUDE.md`, `_notes.md`, `README.md`, `html_validator.py`,
+validator output files, `.claude/`, `.github/` — never enter the public
+build. Without that exclude list, Liquid-looking strings inside those
+files (e.g. `` `{% include %}` `` in a code span) fail the build and
+silently halt Pages deploys. See `_memory/bugs.md` BUG-012 for the
+post-mortem.
+
 ## Pre-Commit Checklist
 
 - [ ] **Update `_memory/` files** to reflect any changes made (see CLAUDE.md Memory Maintenance table)

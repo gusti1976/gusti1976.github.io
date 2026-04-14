@@ -66,42 +66,65 @@ LOW (not urgent):
 
 ## Last Session Notes
 
-- Date: 2026-04-14 (later session)
+- Date: 2026-04-14 (multi-part session)
 - Branch: `claude/test-and-deploy-website-e4BZZ`
-- What was done: **Navigation restructure.** Rebuilt `_includes/navigation.html` from
-  9 flat-ish items into 4 intentional sections: Releases (collapsible, 6 featured
-  releases + Full discography →), Lyrics (flat top-level link), About the musician
-  (collapsible: Biography, Press, Contact), Listen (collapsible: Apple Music, Spotify,
-  TikTok). Removed the duplicate Apple Music link at top level and the buried mailto.
-  Added two new hub pages: `discography.html` (full catalog of every release by
-  category) and `contact.html` (press, bookings, identifiers). Patched
-  `navigation.js` `setActiveLink()` with a lyric-page fallback: if current page loads
-  `glass-lyrics-template.css`, the top-level Lyrics link activates automatically.
-  Bumped `navigation.js?v=20260414a` across 78 pages. Updated the 3 template files
-  (`GLASS_ALBUM_TEMPLATE`, `GLASS_LYRICS_TEMPLATE`, `navigation-template`) to use
-  the Jekyll include pattern instead of hard-coded nav stubs. Added discography and
-  contact to `sitemap.xml`. Validator: 78 files, 0 errors, 3 baseline warnings,
-  0 broken internal links.
-- What's next: BUG-009 (needs image tools for JPG fallbacks — LOW priority).
+- Final commit on main: `056789b`
 
-### Earlier session (2026-04-14)
+### What shipped
 
-- (1) Ran full site audit — validator reports 0 errors, 3 expected warnings;
-  all CSS/JS references intact; sitemap matches. Site health: excellent, no fixes needed.
-- (2) Built session resilience system in `.claude/`: hook-driven logger writes an append-only
-  event trail (`session-log.md`) and a single-page resume snapshot (`resume-state.md`) on
-  every `SessionStart` / `UserPromptSubmit` / `PostToolUse` / `Stop`. Purpose: survive API
-  outages so the next session picks up without user restating context. File-based, no
-  network. Dot-prefixed so Jekyll never serves it.
-- (3) Added the Deployment Rule to `CLAUDE.md`: every change to a public-site file
-  must be merged to `main` and pushed before the task is complete.
+1. **Session resilience system** (`.claude/`). Hook-driven logger writes
+   `.claude/session-log.md` (append-only) and `.claude/resume-state.md`
+   (snapshot) on every `SessionStart` / `UserPromptSubmit` / `PostToolUse` /
+   `Stop`. Survives API outages. Runtime files gitignored; structural
+   files (`settings.json`, `log-event.sh`, `README.md`) committed.
 
-### Previous session (2026-04-13)
+2. **Deployment Rule** now permanent in `CLAUDE.md` (top of file). Every
+   public-site file change must be merged to `main` and pushed before the
+   task is reported complete. Mirrored into `_memory/deployment.md`.
+
+3. **Navigation restructure.** Rebuilt `_includes/navigation.html` from
+   9 flat-ish items into four sections: Home / Releases (6 featured +
+   Full discography →) / Lyrics / About the musician (Biography, Press,
+   Contact) / Listen (Apple Music, Spotify, TikTok). One edit cascades
+   to all 74 public pages via Jekyll include. `navigation.js`
+   `setActiveLink()` gained a lyric-page fallback — if a page loads
+   `glass-lyrics-template.css`, top-level Lyrics auto-activates even if
+   the URL isn't in the nav. Bumped `navigation.js?v=20260414a` across
+   78 pages. Templates (`GLASS_ALBUM_TEMPLATE`, `GLASS_LYRICS_TEMPLATE`,
+   `navigation-template`) now use the include instead of stubs.
+
+4. **Two new hub pages:** `discography.html` (every album/EP/single/
+   special by category) and `contact.html` (press, bookings, artist
+   identifiers: ISNI, MusicBrainz, Wikidata). Both in sitemap.xml.
+
+5. **`_config.yml` (the Pages fix).** First deploy after the nav
+   restructure didn't reach live — `discography.html` 404'd, homepage
+   kept serving old nav. Root cause: CLAUDE.md's `` `{% include %}` ``
+   reference (inside a code span) tripped Jekyll's Liquid parser.
+   Minimal `_config.yml` now excludes internal docs from the build
+   (`CLAUDE.md`, `_notes.md`, `README.md`, `html_validator.py`,
+   validator output files, `.claude/`, `.github/`). Post-mortem in
+   `_memory/bugs.md` as BUG-012.
+
+6. **Hub-page facelift.** First pass of discography + contact used
+   generic `.card` / `.grid-*` classes and looked plain. Rebuilt both
+   with new `hub.css` — hero panel, summary sidebar, glass grid of
+   panels, 3-up highlights strip, full light/dark support. Visual
+   language matches `press.css`.
+
+### What's next
+
+- BUG-009 (JPG fallbacks — LOW, blocked on image tools).
+- Nav-vs-sidebar decision (hamburger drawer kept for now).
+- Future when content exists: videos, tour, merch, newsletter.
+
+### Earlier session (2026-04-13)
 
 - Branch: `claude/fix-api-memory-errors-BZjTC`
-- Audited all deferred CSS migration items — confirmed complete. All 60 lyrics pages use
-  `glass-lyrics-template.css`; all album/special pages use `glass-site.css`. Zero inline
-  `<style>` blocks remain on any main-site page. Notes updated to reflect reality.
+- Audited all deferred CSS migration items — confirmed complete. All
+  60 lyrics pages use `glass-lyrics-template.css`; all album/special
+  pages use `glass-site.css`. Zero inline `<style>` blocks remain on
+  any main-site page. Notes updated to reflect reality.
 
 ---
 

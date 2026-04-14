@@ -35,6 +35,9 @@ are obsolete.
 | `llms.txt` | Text | AI crawler optimization data | Update with new songs |
 | `robots.txt` | Text | Search engine crawl rules | |
 | `CNAME` | Text | Custom domain: `www.gusti.com` | Do not delete |
+| `_config.yml` | YAML | Jekyll build config — `exclude:` list keeps internal docs out of the public build | Prevents Liquid-in-code-spans in CLAUDE.md from failing the Pages build. See bugs.md BUG-012. |
+| `discography.html` | HTML | Full catalogue hub page | Created 2026-04-14 |
+| `contact.html` | HTML | Contact hub page (press, bookings, identifiers) | Created 2026-04-14 |
 | `.claude/settings.json` | JSON | Claude Code hook wiring (SessionStart, UserPromptSubmit, PostToolUse, Stop) | Dot-prefixed, ignored by Jekyll |
 | `.claude/log-event.sh` | Bash | Session resilience logger — appends to session-log.md, rewrites resume-state.md | Runs on every hook event |
 | `.claude/session-log.md` | Markdown | Append-only event trail | Auto-written |
