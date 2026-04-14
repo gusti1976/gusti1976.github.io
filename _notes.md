@@ -66,16 +66,35 @@ LOW (not urgent):
 
 ## Last Session Notes
 
-- Date: 2026-04-14
+- Date: 2026-04-14 (later session)
 - Branch: `claude/test-and-deploy-website-e4BZZ`
-- What was done: (1) Ran full site audit — validator reports 0 errors, 3 expected warnings;
+- What was done: **Navigation restructure.** Rebuilt `_includes/navigation.html` from
+  9 flat-ish items into 4 intentional sections: Releases (collapsible, 6 featured
+  releases + Full discography →), Lyrics (flat top-level link), About the musician
+  (collapsible: Biography, Press, Contact), Listen (collapsible: Apple Music, Spotify,
+  TikTok). Removed the duplicate Apple Music link at top level and the buried mailto.
+  Added two new hub pages: `discography.html` (full catalog of every release by
+  category) and `contact.html` (press, bookings, identifiers). Patched
+  `navigation.js` `setActiveLink()` with a lyric-page fallback: if current page loads
+  `glass-lyrics-template.css`, the top-level Lyrics link activates automatically.
+  Bumped `navigation.js?v=20260414a` across 78 pages. Updated the 3 template files
+  (`GLASS_ALBUM_TEMPLATE`, `GLASS_LYRICS_TEMPLATE`, `navigation-template`) to use
+  the Jekyll include pattern instead of hard-coded nav stubs. Added discography and
+  contact to `sitemap.xml`. Validator: 78 files, 0 errors, 3 baseline warnings,
+  0 broken internal links.
+- What's next: BUG-009 (needs image tools for JPG fallbacks — LOW priority).
+
+### Earlier session (2026-04-14)
+
+- (1) Ran full site audit — validator reports 0 errors, 3 expected warnings;
   all CSS/JS references intact; sitemap matches. Site health: excellent, no fixes needed.
-  (2) Built session resilience system in `.claude/`: hook-driven logger writes an append-only
+- (2) Built session resilience system in `.claude/`: hook-driven logger writes an append-only
   event trail (`session-log.md`) and a single-page resume snapshot (`resume-state.md`) on
   every `SessionStart` / `UserPromptSubmit` / `PostToolUse` / `Stop`. Purpose: survive API
   outages so the next session picks up without user restating context. File-based, no
   network. Dot-prefixed so Jekyll never serves it.
-- What's next: BUG-009 (needs image tools to create JPG fallbacks — LOW priority)
+- (3) Added the Deployment Rule to `CLAUDE.md`: every change to a public-site file
+  must be merged to `main` and pushed before the task is complete.
 
 ### Previous session (2026-04-13)
 

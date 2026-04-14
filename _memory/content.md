@@ -37,6 +37,15 @@
 | Pride Around the World | Release | — | — | 1 | Special page |
 | Yogurt | Release | — | — | 1 | Special page |
 
+**Hub pages (not releases, but catalog navigation):**
+
+| Page | Role |
+|---|---|
+| `discography.html` | Full catalog: every album, EP, single, special. Created 2026-04-14. |
+| `contact.html` | Contact hub for press, bookings, general enquiries. Replaces mailto-only nav item. Created 2026-04-14. |
+| `lyrics.html` | A–Z lyric archive grouped by album. |
+| `press.html` | Press coverage and milestones. |
+
 ## Contact & Profiles
 
 | Platform | URL / Value |

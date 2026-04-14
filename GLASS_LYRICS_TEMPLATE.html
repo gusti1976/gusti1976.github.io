@@ -76,15 +76,7 @@
   <link rel="stylesheet" href="glass-lyrics-template.css?v=20260304f">
 </head>
 <body>
-<button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
-<nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
-  <a href="#" class="nav-link">Home</a>
-  <a href="#" class="nav-link">Listen on Apple Music</a>
-  <div class="nav-collapsible"><button class="nav-collapsible-trigger" aria-expanded="false"><span>Music</span><span class="arrow">▶</span></button><div class="nav-collapsible-content"><a href="#">Swipe Me to the Moon</a><a href="#">The Unseen Chorus</a></div></div>
-  <a href="#" class="nav-link">Lyrics</a><a href="#" class="nav-link">About</a><a href="#" class="nav-link">Press</a>
-</nav>
-<div class="nav-overlay" id="nav-overlay"></div>
-<a href="#main-content" class="skip-link">Skip to main content</a>
+{% include navigation.html %}
 
 <div class="page">
   <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
@@ -141,7 +133,7 @@
 </div>
 
 <script src="dark-mode.js?v=20260304d"></script>
-<script src="navigation.js?v=20260304d"></script>
+<script src="navigation.js?v=20260414a"></script>
   <div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>

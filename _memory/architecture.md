@@ -4,7 +4,12 @@
 
 Pure HTML5 / CSS3 / Vanilla JavaScript. No npm. No build step. No framework.
 Hosted on GitHub Pages. Custom domain via `CNAME` file (`www.gusti.com`).
-74 public pages in sitemap; 82 HTML files total (includes templates/utilities). Deploy = `git push origin main` (auto-builds in ~1 min).
+76 public pages in sitemap; 84 HTML files total (includes templates/utilities). Deploy = `git push origin main` (auto-builds in ~1 min).
+
+**Jekyll processing is live** on GitHub Pages: all 74 main pages load the nav via
+`{% include navigation.html %}`, so editing `_includes/navigation.html` cascades
+to every page at build time. Earlier notes claiming "no server-side includes"
+are obsolete.
 
 ## File Map
 
