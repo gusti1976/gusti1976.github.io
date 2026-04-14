@@ -74,9 +74,31 @@ Priority guide: `1.0` core pages, `0.9` song/lyric pages, `0.8` album pages, `0.
 
 ## Branch Strategy
 
-- `main` — production; every push deploys live
-- Feature work on `claude/` prefixed branches; merge to main when ready
+- `main` — production; every push deploys live to www.gusti.com
+- Feature work on `claude/` prefixed branches when the session harness requires it
 - No staging environment — use `test.html` at root for local scratch (noindex)
+
+### User standing order: site changes must go live
+
+See the **Deployment Rule** block at the top of `CLAUDE.md`. The short version:
+**any change to a file the public site loads must be merged to `main` and pushed
+before the task is reported complete.** A change that only lives on a feature
+branch is invisible to the user and therefore incomplete. Internal files
+(`.claude/`, `_memory/`, `_notes.md`, `CLAUDE.md`) are exempt but usually merge
+anyway.
+
+End-of-task flow (copy from `CLAUDE.md`):
+
+```
+python3 html_validator.py
+git add <specific files>
+git commit -m "..."
+git checkout main
+git merge --ff-only <feature-branch>
+git push origin main               # goes live ~1 min later
+git checkout <feature-branch>
+git push origin <feature-branch>
+```
 
 ## Session Resilience (`.claude/`)
 

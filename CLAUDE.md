@@ -6,6 +6,36 @@ Pure HTML5 / CSS3 / Vanilla JS static site. No npm. No build step. No framework.
 Hosted on GitHub Pages (`gusti1976.github.io`), custom domain `www.gusti.com` via `CNAME`.
 Deploy = `git push origin main` (auto-builds in ~1 minute).
 
+## Deployment Rule (MANDATORY — USER STANDING ORDER)
+
+**Every change to a file the public site loads — any `.html`, `.css`, `.js`,
+image, `sitemap.xml`, `robots.txt`, `llms.txt`, `CNAME` — must end up on
+`main` and be pushed to GitHub before the task is reported complete.** The
+user needs to see changes live at www.gusti.com to review or debug. Leaving
+site changes on a feature branch is not acceptable — it is invisible to the
+user.
+
+End-of-task flow for any site-file change:
+
+```
+1. python3 html_validator.py      # 0 errors required
+2. git add <specific files>       # never 'git add .'
+3. git commit -m "..."
+4. git checkout main
+5. git merge --ff-only <feature-branch>    # fast-forward when possible
+6. git push origin main           # this is what puts it on www.gusti.com
+7. git checkout <feature-branch>  # return to designated dev branch
+8. git push origin <feature-branch>  # keep the feature branch in sync
+```
+
+Roughly one minute after step 6 the change is live. Confirm by visiting
+www.gusti.com in a browser with a hard refresh (Ctrl+Shift+R).
+
+Files the public site does **not** load are exempt: `.claude/`, `_memory/`,
+`_notes.md`, `CLAUDE.md`, `html_validator.py`, `ALBUM_PAGE_TEMPLATE.md`.
+These may stay on a feature branch — but if there is no reason to keep them
+off `main`, prefer merging anyway to keep history linear.
+
 ## Artist
 
 **Agust Smari Bjarkarson** (real name) = **Agust Islandia** (stage name).
