@@ -20,6 +20,7 @@ are obsolete.
 | `about.css` | CSS | About page styles | Extracted from about.html |
 | `press.css` | CSS | Press page styles | Extracted from press.html |
 | `press-release.css` | CSS | Press release page styles | Extracted from agust-islandia-gay-and-proud-press-release.html |
+| `hub.css` | CSS | Shared "hub page" styles: hero + summary card + grid of panels | Used by `discography.html`, `contact.html`. Mirrors press.css visual language. |
 | `glass-site.css` | CSS | Glass morphism variant | Used by glass/ and some main pages |
 | `glass-lyrics-template.css` | CSS | Glass variant for lyrics | Template use |
 | `lyrics-archive.css` | CSS | Lyrics hub styles | lyrics.html |

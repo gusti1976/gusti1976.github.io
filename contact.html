@@ -161,11 +161,12 @@
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css?v=20260304d">
   <link rel="stylesheet" href="glass-site.css?v=20260317a">
+  <link rel="stylesheet" href="hub.css?v=20260414a">
 </head>
 <body>
   {% include navigation.html %}
 
-  <div class="page">
+  <div class="page hub-page">
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
       <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
@@ -174,78 +175,112 @@
       </svg>
     </button>
 
-    <header>
-      <h1>Contact</h1>
-      <p class="subtitle"><strong>Agust Smari Bjarkarson</strong> | performing as <strong>Agust Islandia</strong></p>
-      <p>Press, bookings, Pride festivals, interviews, features, collaborations, and general enquiries all go to the same email. Responses come from Reykjavik.</p>
+    <header class="hub-hero">
+      <section class="hub-hero-copy">
+        <span class="hub-kicker">Get in Touch</span>
+        <h1>Contact</h1>
+        <p class="hub-subtitle">
+          Press, bookings, Pride festivals, interviews, features, collaborations, and general
+          enquiries all go to the same email for <strong>Agust Smari Bjarkarson</strong>,
+          performing as <strong>Agust Islandia</strong>. Responses come from Reykjavik.
+        </p>
+        <div class="hub-actions">
+          <a class="hub-btn hub-btn-primary" href="mailto:agust@arcticsea.com">agust@arcticsea.com</a>
+          <a class="hub-btn hub-btn-secondary" href="/press.html">Press page</a>
+          <a class="hub-btn hub-btn-secondary" href="/about.html">Biography</a>
+        </div>
+        <div class="hub-highlights">
+          <div class="hub-highlight">
+            <strong>Booking</strong>
+            <span>Pride festivals, club nights, LGBTQ+ events, live showcases.</span>
+          </div>
+          <div class="hub-highlight">
+            <strong>Press</strong>
+            <span>Interviews, features, music syndication, podcast guests.</span>
+          </div>
+          <div class="hub-highlight">
+            <strong>Collab</strong>
+            <span>Producers, writers, visual artists, queer creators.</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="hub-summary-card" aria-labelledby="contact-summary-title">
+        <div>
+          <h2 id="contact-summary-title">Quick check</h2>
+          <p>A short note with the essentials helps me respond faster. Please include:</p>
+        </div>
+        <ul>
+          <li>Who you are &amp; what you represent</li>
+          <li>Format: interview, festival, feature, collab</li>
+          <li>Date range or deadline</li>
+          <li>Link to your outlet or event</li>
+        </ul>
+        <div class="hub-link-row">
+          <a class="hub-btn hub-btn-secondary" href="mailto:agust@arcticsea.com">Send an email</a>
+        </div>
+      </aside>
     </header>
 
-    <main id="main-content">
-      <section aria-labelledby="email-heading">
-        <h2 id="email-heading">Email</h2>
-        <div class="grid-2">
-          <article class="card">
-            <h3>General enquiries</h3>
-            <p>For booking, features, Pride events, interviews, press, and artist-related requests:</p>
-            <p><strong><a href="mailto:agust@arcticsea.com">agust@arcticsea.com</a></strong></p>
-            <p>Available languages: English, Icelandic, Spanish.</p>
-          </article>
-          <article class="card">
-            <h3>What to include</h3>
-            <ul>
-              <li>Who you are and what outlet, venue, or project you represent.</li>
-              <li>The format: interview, festival slot, feature, syndication, collaboration.</li>
-              <li>Date range or deadline if there is one.</li>
-              <li>Link to your publication or event so the context is clear.</li>
-            </ul>
-          </article>
+    <main id="main-content" class="hub-grid">
+
+      <section class="hub-panel" aria-labelledby="email-heading">
+        <div class="hub-panel-inner">
+          <h2 id="email-heading">Email</h2>
+          <p>One inbox, one address. English, Icelandic, and Spanish all welcome.</p>
+          <p><strong><a href="mailto:agust@arcticsea.com">agust@arcticsea.com</a></strong></p>
+          <p>For time-sensitive press enquiries, put a deadline in the subject line.</p>
         </div>
       </section>
 
-      <section aria-labelledby="listen-heading">
-        <h2 id="listen-heading">Listen &amp; follow</h2>
-        <p>The catalog lives on the main streaming platforms. Each link below opens the official artist profile:</p>
-        <div class="btn-row">
-          <a class="glass-btn glass-btn-primary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-          <a class="glass-btn glass-btn-primary" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
-          <a class="glass-btn glass-btn-secondary" href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a>
+      <section class="hub-panel" aria-labelledby="listen-heading">
+        <div class="hub-panel-inner">
+          <h2 id="listen-heading">Listen &amp; follow</h2>
+          <p>Official profiles on the main streaming and social platforms:</p>
+          <div class="hub-link-row">
+            <a class="hub-btn hub-btn-primary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+            <a class="hub-btn hub-btn-primary" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
+            <a class="hub-btn hub-btn-secondary" href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a>
+          </div>
         </div>
       </section>
 
-      <section aria-labelledby="press-heading">
-        <h2 id="press-heading">For press</h2>
-        <div class="grid-2">
-          <article class="card">
-            <h3>Press kit &amp; milestones</h3>
-            <p>Latest milestones, release context, and syndication materials are on the press page. The official press release for Gay and Proud is linked from there.</p>
-            <div class="btn-row">
-              <a class="glass-btn glass-btn-secondary" href="/press.html">Open press page</a>
-              <a class="glass-btn glass-btn-secondary" href="/agust-islandia-gay-and-proud-press-release.html">Press release: Gay and Proud</a>
-            </div>
-          </article>
-          <article class="card">
-            <h3>Artist reference</h3>
-            <p>Biography, discography, and the full lyric archive are public and stable URLs for citation:</p>
-            <div class="btn-row">
-              <a class="glass-btn glass-btn-secondary" href="/about.html">Biography</a>
-              <a class="glass-btn glass-btn-secondary" href="/discography.html">Discography</a>
-              <a class="glass-btn glass-btn-secondary" href="/lyrics.html">Lyrics</a>
-            </div>
-          </article>
+      <section class="hub-panel" aria-labelledby="press-heading">
+        <div class="hub-panel-inner">
+          <h2 id="press-heading">For press</h2>
+          <p>Release milestones, syndication-ready materials, and the latest press release live on the press page.</p>
+          <div class="hub-link-row">
+            <a class="hub-btn hub-btn-secondary" href="/press.html">Press page</a>
+            <a class="hub-btn hub-btn-secondary" href="/agust-islandia-gay-and-proud-press-release.html">Gay and Proud press release</a>
+          </div>
         </div>
       </section>
 
-      <section aria-labelledby="identifiers-heading">
-        <h2 id="identifiers-heading">Artist identifiers</h2>
-        <p>For citation, indexing, and verification:</p>
-        <ul>
-          <li><strong>Legal name:</strong> Agust Smari Bjarkarson</li>
-          <li><strong>Stage name:</strong> Agust Islandia</li>
-          <li><strong>Based in:</strong> Reykjavik, Iceland</li>
-          <li><strong>ISNI:</strong> 0000 0005 2809 9919</li>
-          <li><strong>MusicBrainz:</strong> <a href="https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5" target="_blank" rel="noopener noreferrer">fca2294b-5bbb-4711-881a-aa61e90346f5</a></li>
-          <li><strong>Wikidata:</strong> <a href="https://www.wikidata.org/wiki/Q136089384" target="_blank" rel="noopener noreferrer">Q136089384</a></li>
-        </ul>
+      <section class="hub-panel" aria-labelledby="reference-heading">
+        <div class="hub-panel-inner">
+          <h2 id="reference-heading">Artist reference</h2>
+          <p>Public pages with stable URLs, good for citation in articles and listings.</p>
+          <div class="hub-link-row">
+            <a class="hub-btn hub-btn-secondary" href="/about.html">Biography</a>
+            <a class="hub-btn hub-btn-secondary" href="/discography.html">Discography</a>
+            <a class="hub-btn hub-btn-secondary" href="/lyrics.html">Lyrics archive</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="hub-panel hub-panel-wide" aria-labelledby="identifiers-heading">
+        <div class="hub-panel-inner">
+          <h2 id="identifiers-heading">Artist identifiers</h2>
+          <p>For citation, indexing, and verification across music databases and libraries:</p>
+          <ul>
+            <li><strong>Legal name:</strong> Agust Smari Bjarkarson</li>
+            <li><strong>Stage name:</strong> Agust Islandia</li>
+            <li><strong>Based in:</strong> Reykjavik, Iceland</li>
+            <li><strong>ISNI:</strong> 0000 0005 2809 9919</li>
+            <li><strong>MusicBrainz:</strong> <a href="https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5" target="_blank" rel="noopener noreferrer">fca2294b-5bbb-4711-881a-aa61e90346f5</a></li>
+            <li><strong>Wikidata:</strong> <a href="https://www.wikidata.org/wiki/Q136089384" target="_blank" rel="noopener noreferrer">Q136089384</a></li>
+          </ul>
+        </div>
       </section>
     </main>
 

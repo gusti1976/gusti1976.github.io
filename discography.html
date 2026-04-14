@@ -173,11 +173,12 @@
   <link rel="stylesheet" href="style-optimized.css">
   <link rel="stylesheet" href="navigation.css?v=20260304d">
   <link rel="stylesheet" href="glass-site.css?v=20260317a">
+  <link rel="stylesheet" href="hub.css?v=20260414a">
 </head>
 <body>
   {% include navigation.html %}
 
-  <div class="page">
+  <div class="page hub-page">
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
       <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display: none;"/>
@@ -186,110 +187,167 @@
       </svg>
     </button>
 
-    <header>
-      <h1>Discography</h1>
-      <p class="subtitle"><strong>Agust Smari Bjarkarson</strong> | performing as <strong>Agust Islandia</strong></p>
-      <p>Every album, EP, single, and special release. Newest first. Each title links to its release page with tracklist, cover, lyrics, and streaming links.</p>
-      <div class="btn-row">
-        <a class="glass-btn glass-btn-primary" href="/lyrics.html">All lyrics</a>
-        <a class="glass-btn glass-btn-secondary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
-        <a class="glass-btn glass-btn-secondary" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
-      </div>
+    <header class="hub-hero">
+      <section class="hub-hero-copy">
+        <span class="hub-kicker">Full Catalogue</span>
+        <h1>Discography</h1>
+        <p class="hub-subtitle">
+          Every album, EP, single, and special release by <strong>Agust Smari Bjarkarson</strong>,
+          performing as <strong>Agust Islandia</strong>. Newest first. Each title opens its own
+          page with cover art, tracklist, lyrics, and streaming links.
+        </p>
+        <div class="hub-actions">
+          <a class="hub-btn hub-btn-primary" href="/lyrics.html">All lyrics</a>
+          <a class="hub-btn hub-btn-secondary" href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="hub-btn hub-btn-secondary" href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
+        </div>
+        <div class="hub-highlights">
+          <div class="hub-highlight">
+            <strong>14 releases</strong>
+            <span>5 albums &amp; EPs, 5 singles, 4 special releases.</span>
+          </div>
+          <div class="hub-highlight">
+            <strong>Latest</strong>
+            <span>The Unseen Chorus, a 27-track gay musical (Oct 2025).</span>
+          </div>
+          <div class="hub-highlight">
+            <strong>Breakout</strong>
+            <span>Gay and Proud / Gay y Orgulloso — bilingual Pride anthem, 540K+ TikTok.</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="hub-summary-card" aria-labelledby="hub-summary-title">
+        <div>
+          <h2 id="hub-summary-title">At a glance</h2>
+          <p>Four years of queer pop and theatrical songwriting, from Pride anthems to full-length gay musicals.</p>
+        </div>
+        <ul>
+          <li>2 full gay musicals, 1 EP</li>
+          <li>5 singles, bilingual &amp; English</li>
+          <li>~59 lyric pages published</li>
+          <li>Streaming on every major platform</li>
+        </ul>
+        <div class="hub-link-row">
+          <a class="hub-btn hub-btn-secondary" href="/the-unseen-chorus.html">The Unseen Chorus</a>
+          <a class="hub-btn hub-btn-secondary" href="/gay-and-proud.html">Gay and Proud</a>
+        </div>
+      </aside>
     </header>
 
-    <main id="main-content">
+    <main id="main-content" class="hub-grid">
 
-      <section aria-labelledby="albums-heading">
-        <h2 id="albums-heading">Albums &amp; EPs</h2>
-        <div class="grid-2">
-          <article class="card">
+      <section class="hub-panel hub-panel-wide" aria-labelledby="albums-heading">
+        <div class="hub-panel-inner">
+          <h2 id="albums-heading">Albums &amp; EPs</h2>
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Gay Musical · 27 tracks · 6 October 2025</span>
             <h3><a href="/the-unseen-chorus.html">The Unseen Chorus</a></h3>
-            <p><strong>Gay Musical · 27 tracks · 6 October 2025</strong></p>
             <p>Three-act narrative album moving from infidelity through sexual addiction into recovery and redemptive love. Full lyrics published for every track.</p>
           </article>
-          <article class="card">
-            <h3><a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a></h3>
-            <p><strong>Gay Musical · 22 tracks · 18 July 2025</strong></p>
-            <p>Modern queer love story told through dating apps, first dates, the grind, the spiral, and the long negotiation of what real connection costs. 16 tracks have dedicated lyric pages.</p>
-          </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">EP · 5 tracks · 2 September 2025</span>
             <h3><a href="/cowboys.html">Cowboys</a></h3>
-            <p><strong>EP · 5 tracks · 2 September 2025</strong></p>
             <p>Queer country-pop with teeth. Subverts western tropes into something unapologetically gay, campy, and tender.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Gay Musical · 22 tracks · 18 July 2025</span>
+            <h3><a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a></h3>
+            <p>Modern queer love story told through dating apps, first dates, the grind, the spiral, and the long negotiation of what real connection costs. 16 tracks have dedicated lyric pages.</p>
+          </article>
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">EP · 5 tracks · 16 July 2025</span>
             <h3><a href="/pride-month-2025.html">Pride Month 2025</a></h3>
-            <p><strong>EP · 5 tracks · 16 July 2025</strong></p>
             <p>Landing page collecting the Pride Month releases from 2025.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Musical · In development</span>
             <h3><a href="/the-gay-mormon-musical.html">The Gay Mormon Musical</a></h3>
-            <p><strong>Musical · in development</strong></p>
             <p>Landing page for the upcoming musical project.</p>
           </article>
         </div>
       </section>
 
-      <section aria-labelledby="singles-heading">
-        <h2 id="singles-heading">Singles</h2>
-        <div class="grid-3">
-          <article class="card">
+      <section class="hub-panel" aria-labelledby="singles-heading">
+        <div class="hub-panel-inner">
+          <h2 id="singles-heading">Singles</h2>
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Bilingual single · 11 September 2025</span>
             <h3><a href="/gay-and-proud.html">Gay and Proud / Gay y Orgulloso</a></h3>
-            <p><strong>Bilingual single · 11 September 2025</strong></p>
             <p>The breakout Pride anthem. English and Spanish versions with full lyrics. 540,000+ TikTok views.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Single · 15 August 2025</span>
             <h3><a href="/bless-this-mess.html">Bless This Mess</a></h3>
-            <p><strong>Single · 15 August 2025</strong></p>
             <p>A hymn to chaos, self-acceptance, and being kind to your own unfinished life.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Single</span>
             <h3><a href="/out-and-proud.html">Out and Proud</a></h3>
-            <p><strong>Single</strong></p>
             <p>An uptempo statement of visibility.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Bilingual single</span>
             <h3><a href="/my-fire.html">My Fire (Mi Fuego)</a></h3>
-            <p><strong>Bilingual single</strong></p>
             <p>English and Spanish versions of a dance-pop track about desire that refuses to dim.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Single · EDM dance</span>
             <h3><a href="/feel-alive.html">Feel Alive</a></h3>
-            <p><strong>Single</strong></p>
-            <p>EDM dance anthem built for the floor.</p>
+            <p>Dance anthem built for the floor.</p>
           </article>
         </div>
       </section>
 
-      <section aria-labelledby="specials-heading">
-        <h2 id="specials-heading">Special releases</h2>
-        <div class="grid-2">
-          <article class="card">
+      <section class="hub-panel" aria-labelledby="specials-heading">
+        <div class="hub-panel-inner">
+          <h2 id="specials-heading">Special releases</h2>
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Thematic release</span>
             <h3><a href="/peach-and-purple.html">Peach and Purple</a></h3>
-            <p>One-off thematic release.</p>
+            <p>A one-off thematic release.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Pride release</span>
             <h3><a href="/pride-on-the-seas.html">Pride on the Seas</a></h3>
             <p>A Pride-themed release set on the water.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Global Pride</span>
             <h3><a href="/pride-around-the-world.html">Pride Around the World</a></h3>
             <p>A global Pride-facing release.</p>
           </article>
-          <article class="card">
+
+          <article class="hub-release-item">
+            <span class="hub-release-meta">Left-field</span>
             <h3><a href="/yogurt.html">Yogurt</a></h3>
-            <p>A standalone left-field release.</p>
+            <p>A standalone release off the beaten path.</p>
           </article>
         </div>
       </section>
 
-      <section aria-labelledby="lyrics-heading">
-        <h2 id="lyrics-heading">Looking for the lyrics?</h2>
-        <p>Every release above links through to its own page. For the full A-to-Z lyric archive, grouped by album, open the lyrics index.</p>
-        <div class="btn-row">
-          <a class="glass-btn glass-btn-primary" href="/lyrics.html">Open the lyrics archive</a>
-          <a class="glass-btn glass-btn-secondary" href="/about.html">About the musician</a>
-          <a class="glass-btn glass-btn-secondary" href="/contact.html">Contact</a>
+      <section class="hub-panel hub-panel-wide" aria-labelledby="lyrics-heading">
+        <div class="hub-panel-inner">
+          <h2 id="lyrics-heading">Looking for the lyrics?</h2>
+          <p>Every release above links through to its own page. For the full A-to-Z lyric archive, grouped by album, open the lyrics index.</p>
+          <div class="hub-link-row">
+            <a class="hub-btn hub-btn-primary" href="/lyrics.html">Open the lyrics archive</a>
+            <a class="hub-btn hub-btn-secondary" href="/about.html">About the musician</a>
+            <a class="hub-btn hub-btn-secondary" href="/contact.html">Contact</a>
+          </div>
         </div>
       </section>
     </main>
