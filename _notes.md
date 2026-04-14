@@ -66,12 +66,23 @@ LOW (not urgent):
 
 ## Last Session Notes
 
-- Date: 2026-04-13
-- Branch: `claude/fix-api-memory-errors-BZjTC`
-- What was done: Audited all deferred CSS migration items — confirmed complete. All 60 lyrics
-  pages use `glass-lyrics-template.css`; all album/special pages use `glass-site.css`. Zero
-  inline `<style>` blocks remain on any main-site page. Notes updated to reflect reality.
+- Date: 2026-04-14
+- Branch: `claude/test-and-deploy-website-e4BZZ`
+- What was done: (1) Ran full site audit — validator reports 0 errors, 3 expected warnings;
+  all CSS/JS references intact; sitemap matches. Site health: excellent, no fixes needed.
+  (2) Built session resilience system in `.claude/`: hook-driven logger writes an append-only
+  event trail (`session-log.md`) and a single-page resume snapshot (`resume-state.md`) on
+  every `SessionStart` / `UserPromptSubmit` / `PostToolUse` / `Stop`. Purpose: survive API
+  outages so the next session picks up without user restating context. File-based, no
+  network. Dot-prefixed so Jekyll never serves it.
 - What's next: BUG-009 (needs image tools to create JPG fallbacks — LOW priority)
+
+### Previous session (2026-04-13)
+
+- Branch: `claude/fix-api-memory-errors-BZjTC`
+- Audited all deferred CSS migration items — confirmed complete. All 60 lyrics pages use
+  `glass-lyrics-template.css`; all album/special pages use `glass-site.css`. Zero inline
+  `<style>` blocks remain on any main-site page. Notes updated to reflect reality.
 
 ---
 

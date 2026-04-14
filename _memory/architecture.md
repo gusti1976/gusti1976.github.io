@@ -29,6 +29,11 @@ Hosted on GitHub Pages. Custom domain via `CNAME` file (`www.gusti.com`).
 | `llms.txt` | Text | AI crawler optimization data | Update with new songs |
 | `robots.txt` | Text | Search engine crawl rules | |
 | `CNAME` | Text | Custom domain: `www.gusti.com` | Do not delete |
+| `.claude/settings.json` | JSON | Claude Code hook wiring (SessionStart, UserPromptSubmit, PostToolUse, Stop) | Dot-prefixed, ignored by Jekyll |
+| `.claude/log-event.sh` | Bash | Session resilience logger — appends to session-log.md, rewrites resume-state.md | Runs on every hook event |
+| `.claude/session-log.md` | Markdown | Append-only event trail | Auto-written |
+| `.claude/resume-state.md` | Markdown | Single-page state snapshot | Auto-overwritten |
+| `.claude/README.md` | Markdown | Documentation for the resilience system | |
 
 ## CSS Variables (`:root` in style-optimized.css)
 

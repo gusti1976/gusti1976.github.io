@@ -81,6 +81,15 @@ The memory is the source of truth. Keep it accurate — stale memory is worse th
 
 See `_notes.md` for current tasks and pending decisions.
 
+## Session Resilience
+
+`.claude/` holds the logging + resume system. Hooks in `.claude/settings.json` write to
+`.claude/session-log.md` (append-only trail) and refresh `.claude/resume-state.md`
+(single-page snapshot) on every event. If a session dies mid-work — API outage, network
+drop, crash — the next session's `SessionStart` hook surfaces the prior state. See
+`.claude/README.md` for schema, file map, and troubleshooting. Folder is `.`-prefixed so
+Jekyll never serves it.
+
 ## Critical Constraints
 
 - **No `.nojekyll`** — adding it would expose `_memory/` files to the public web. Do not add it.

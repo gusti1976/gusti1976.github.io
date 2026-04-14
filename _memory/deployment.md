@@ -77,3 +77,22 @@ Priority guide: `1.0` core pages, `0.9` song/lyric pages, `0.8` album pages, `0.
 - `main` — production; every push deploys live
 - Feature work on `claude/` prefixed branches; merge to main when ready
 - No staging environment — use `test.html` at root for local scratch (noindex)
+
+## Session Resilience (`.claude/`)
+
+Claude Code hooks write a session event log + resume snapshot to `.claude/` on every
+lifecycle event (`SessionStart`, `UserPromptSubmit`, `PostToolUse` on Write/Edit/Bash,
+`Stop`). Purpose: if a session crashes mid-work — Anthropic API outage, network drop,
+process kill — the next session picks up without the user restating context.
+
+Files:
+
+- `.claude/settings.json` — hook wiring (tracked in git).
+- `.claude/log-event.sh` — the logger helper (tracked).
+- `.claude/session-log.md` — append-only trail, one line per event.
+- `.claude/resume-state.md` — overwritten on every event; read this first after a crash.
+- `.claude/hook-errors.log` — stray stderr from hook runs, normally empty.
+
+All file-based, no network. See `.claude/README.md` for the full schema, how to read the
+logs, and how to disable. The `.claude/` folder is dot-prefixed so Jekyll never serves it
+— none of this is publicly visible on `www.gusti.com`.
