@@ -2,15 +2,15 @@
 
 **Full title:** Tetris Flare: Snap, Stack & Slay  
 **Author:** Agust Smari Bjarkarson / Agust Islandia  
-**Live URL:** https://www.gusti.com/tetris.html  
-**Source:** `gusti1976.github.io` → `tetris.html` (single file, no build step)  
+**Live URL:** https://www.gusti.com/games/tetris/  
+**Source:** `gusti1976.github.io` → `games/tetris/index.html` (single file, no build step)  
 **Current version:** 0.187 (increment by 0.001 each release — visible in footer)
 
 ---
 
 ## Architecture
 
-Everything lives in one self-contained HTML file (`tetris.html`). No npm, no bundler, no external JS except Firebase SDKs loaded from CDN.
+Everything lives in one self-contained HTML file (`games/tetris/index.html`). No npm, no bundler, no external JS except Firebase SDKs loaded from CDN.
 
 - **Rendering:** HTML Canvas API. Colors must be literal `rgba()` strings — Canvas cannot resolve CSS variables.
 - **Audio:** Web Audio API, fully synthesized (no audio files). All sounds are built from oscillators, noise buffers, and gain nodes.
@@ -22,10 +22,10 @@ Everything lives in one self-contained HTML file (`tetris.html`). No npm, no bun
 ## File Structure
 
 ```
-tetris.html        Main game (everything in one file)
-test.html          Scratch/preview page (safe to overwrite)
-Tetris.md          This file
-favicon-*.png      Shared favicons used by the whole site
+games/tetris/index.html   Main game (everything in one file)
+test.html                 Scratch/preview page (safe to overwrite)
+Tetris.md                 This file
+favicon-*.png             Shared favicons used by the whole site
 ```
 
 ---
@@ -235,7 +235,7 @@ Increment by `0.001` on each push. Displayed in the page footer so you can verif
 
 ## SEO / Meta
 
-- Canonical: `https://www.gusti.com/tetris.html`
+- Canonical: `https://www.gusti.com/games/tetris/`
 - `og:url`: same
 - JSON-LD schema type: `VideoGame`
 - Favicons: shared with main site (`/favicon-32x32.png`, `/favicon-16x16.png`, `/apple-touch-icon.png`, `/android-chrome-192x192.png`)
