@@ -256,6 +256,7 @@
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.4);
       background: rgba(20,30,70,0.18);
+      touch-action: manipulation;
     }
 
     /* ── Overlay screens ── */
@@ -303,7 +304,7 @@
 
     /* ── Glass button ── */
     .btn {
-      padding: 10px 26px;
+      padding: 12px 26px;
       font-size: 0.92rem;
       font-weight: 600;
       font-family: inherit;
@@ -473,12 +474,14 @@
         display: block;
         position: relative;
         z-index: 2;
-        font-size: 0.65rem;
-        color: rgba(13,26,51,0.42);
-        margin-top: 6px;
-        letter-spacing: 0.03em;
+        font-size: 0.72rem;
+        color: rgba(13,26,51,0.62);
+        margin-top: 8px;
+        letter-spacing: 0.02em;
         text-align: center;
+        line-height: 1.6;
       }
+      body.dark #touch-hint { color: rgba(220,232,255,0.55); }
     }
 
     /* ── Language dropdown ── */
@@ -590,7 +593,8 @@
       white-space: nowrap;
     }
     .btn-sm {
-      padding: 5px 14px;
+      padding: 8px 16px;
+      min-height: 32px;
       font-size: 0.72rem;
       font-weight: 600;
       font-family: inherit;
@@ -896,7 +900,7 @@
 
 </div>
 
-<div id="touch-hint" data-i18n="touchHint">Swipe to move · Tap to rotate · Swipe ↓ to drop</div>
+<div id="touch-hint" data-i18n="touchHint">Swipe to move · Tap to rotate · Swipe ↓ to drop · Swipe ↑ to hold</div>
 
 <footer style="text-align:center;font-size:0.65rem;color:var(--ink-soft);opacity:0.55;padding:10px 0 14px;user-select:none;">
   © Agust Islandia · All rights reserved &nbsp;·&nbsp; <span id="version-label"></span>
@@ -930,7 +934,7 @@ const TRANSLATIONS = {
     gameOver:      'Game Over',
     playAgain:     'Play Again',
     ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Move</div><div><kbd>↑</kbd> Rotate</div><div><kbd>↓</kbd> Soft drop</div><div><kbd>Space</kbd> Drop</div><div><kbd>C</kbd> Hold</div><div><kbd>P</kbd> Pause</div><div><kbd>M</kbd> Mute</div><div><kbd>L</kbd> Leaderboard</div><div><kbd>H</kbd> Help</div>',
-    touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop',
+    touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop · Swipe ↑ to hold',
     darkLight:     'Light',
     darkDark:      'Dark',
     lbTitle:       '🏆 High Scores',
@@ -959,7 +963,7 @@ const TRANSLATIONS = {
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar de Novo',
     ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Rodar</div><div><kbd>↓</kbd> Queda suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Segurar</div><div><kbd>P</kbd> Pausa</div><div><kbd>M</kbd> Mudo</div><div><kbd>L</kbd> Classificação</div><div><kbd>H</kbd> Ajuda</div>',
-    touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓',
+    touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓ para soltar · Deslize ↑ para segurar',
     darkLight:     'Claro',
     darkDark:      'Escuro',
     lbTitle:       '🏆 Melhores Pontuações',
@@ -988,7 +992,7 @@ const TRANSLATIONS = {
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar Novamente',
     ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Girar</div><div><kbd>↓</kbd> Queda suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Segurar</div><div><kbd>P</kbd> Pausar</div><div><kbd>M</kbd> Mudo</div><div><kbd>L</kbd> Classificação</div><div><kbd>H</kbd> Ajuda</div>',
-    touchHint:     'Deslize para mover · Toque para girar · Deslize ↓',
+    touchHint:     'Deslize para mover · Toque para girar · Deslize ↓ para soltar · Deslize ↑ para segurar',
     darkLight:     'Claro',
     darkDark:      'Escuro',
     lbTitle:       '🏆 Melhores Pontuações',
@@ -1017,7 +1021,7 @@ const TRANSLATIONS = {
     gameOver:      'Fin del Juego',
     playAgain:     'Jugar de Nuevo',
     ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Rotar</div><div><kbd>↓</kbd> Caída suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Retener</div><div><kbd>P</kbd> Pausa</div><div><kbd>M</kbd> Silencio</div><div><kbd>L</kbd> Clasificación</div><div><kbd>H</kbd> Ayuda</div>',
-    touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓',
+    touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓ para soltar · Desliza ↑ para retener',
     darkLight:     'Claro',
     darkDark:      'Oscuro',
     lbTitle:       '🏆 Mejores Puntuaciones',
@@ -2287,6 +2291,8 @@ boardCanvas.addEventListener('touchend', e => {
   const dy = e.changedTouches[0].clientY - touchStartY;
   if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 20) {
     dx > 0 ? moveRight() : moveLeft();
+  } else if (dy < -40 && Math.abs(dx) < 30) {
+    holdAction();
   } else if (Math.abs(dy) < 10 && Math.abs(dx) < 10) {
     rotate();
   }
