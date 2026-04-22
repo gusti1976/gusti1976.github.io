@@ -637,9 +637,11 @@
       padding: 28px 32px;
       min-width: 300px;
       max-width: 94vw;
+      max-height: min(580px, 88vh);
       display: flex;
       flex-direction: column;
       gap: 14px;
+      overflow: hidden;
     }
     #lb-panel h2 { font-size: 1.1rem; font-weight: 700; color: var(--ink); text-align: center; }
     #lb-list {
@@ -648,10 +650,13 @@
       flex-direction: column;
       gap: 6px;
       padding: 0;
+      overflow-y: auto;
+      flex: 1 1 auto;
+      min-height: 0;
     }
     #lb-list li {
       display: grid;
-      grid-template-columns: 1.4rem 1fr auto;
+      grid-template-columns: 2rem 1fr auto;
       align-items: center;
       gap: 8px;
       font-size: 0.82rem;
@@ -660,7 +665,7 @@
       border-radius: 8px;
       background: rgba(255,255,255,0.28);
     }
-    #lb-list li.lb-me { background: rgba(80,130,255,0.18); font-weight: 600; }
+    #lb-list li.lb-me { background: rgba(80,130,255,0.28); font-weight: 600; box-shadow: inset 3px 0 0 var(--accent); }
     .lb-rank { font-weight: 700; color: var(--ink-soft); text-align: right; }
     .lb-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .lb-score { font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -689,11 +694,11 @@
     #mini-lb-list li {
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 2px;
     }
     #mini-lb-list li.lb-me .ml-name { color: var(--accent); font-weight: 700; }
     #mini-lb-list .ml-name {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 600;
       color: var(--ink);
       white-space: nowrap;
@@ -701,7 +706,7 @@
       text-overflow: ellipsis;
     }
     #mini-lb-list .ml-pts {
-      font-size: 0.60rem;
+      font-size: 0.65rem;
       color: var(--ink-soft);
       font-variant-numeric: tabular-nums;
     }
@@ -2616,7 +2621,7 @@ async function maybeSaveScore(score, level, lines) {
     }
   } catch (e) {
     console.warn('Firestore save error', e);
-    msgEl.textContent = 'Could not save score.';
+    msgEl.textContent = 'Score not saved — check connection.';
   }
 }
 
@@ -2647,10 +2652,13 @@ async function loadLeaderboard() {
   const list = document.getElementById('lb-list');
   list.innerHTML = '<li style="justify-content:center;opacity:.6">Loading…</li>';
   try {
-    const snap = await db.collection('scores')
-      .orderBy('score', 'desc')
-      .limit(20)
-      .get();
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('timeout')), 5000)
+    );
+    const snap = await Promise.race([
+      db.collection('scores').orderBy('score', 'desc').limit(20).get(),
+      timeout
+    ]);
     list.innerHTML = '';
     if (snap.empty) {
       list.innerHTML = '<li style="justify-content:center;opacity:.6">No scores yet</li>';
@@ -2671,7 +2679,8 @@ async function loadLeaderboard() {
       lbI++;
     });
   } catch (e) {
-    list.innerHTML = '<li style="justify-content:center;opacity:.6">Could not load scores</li>';
+    const msg = e.message === 'timeout' ? 'Request timed out — tap Refresh to try again' : 'Could not load scores';
+    list.innerHTML = `<li style="justify-content:center;opacity:.6">${msg}</li>`;
     console.warn('Leaderboard error', e);
   }
 }
