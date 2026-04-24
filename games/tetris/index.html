@@ -256,6 +256,7 @@
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.4);
       background: rgba(20,30,70,0.18);
+      touch-action: manipulation;
     }
 
     /* ── Overlay screens ── */
@@ -303,7 +304,7 @@
 
     /* ── Glass button ── */
     .btn {
-      padding: 10px 26px;
+      padding: 12px 26px;
       font-size: 0.92rem;
       font-weight: 600;
       font-family: inherit;
@@ -473,12 +474,14 @@
         display: block;
         position: relative;
         z-index: 2;
-        font-size: 0.65rem;
-        color: rgba(13,26,51,0.42);
-        margin-top: 6px;
-        letter-spacing: 0.03em;
+        font-size: 0.72rem;
+        color: rgba(13,26,51,0.62);
+        margin-top: 8px;
+        letter-spacing: 0.02em;
         text-align: center;
+        line-height: 1.6;
       }
+      body.dark #touch-hint { color: rgba(220,232,255,0.55); }
     }
 
     /* ── Language dropdown ── */
@@ -590,7 +593,8 @@
       white-space: nowrap;
     }
     .btn-sm {
-      padding: 5px 14px;
+      padding: 8px 16px;
+      min-height: 32px;
       font-size: 0.72rem;
       font-weight: 600;
       font-family: inherit;
@@ -637,9 +641,11 @@
       padding: 28px 32px;
       min-width: 300px;
       max-width: 94vw;
+      max-height: min(580px, 88vh);
       display: flex;
       flex-direction: column;
       gap: 14px;
+      overflow: hidden;
     }
     #lb-panel h2 { font-size: 1.1rem; font-weight: 700; color: var(--ink); text-align: center; }
     #lb-list {
@@ -648,10 +654,13 @@
       flex-direction: column;
       gap: 6px;
       padding: 0;
+      overflow-y: auto;
+      flex: 1 1 auto;
+      min-height: 0;
     }
     #lb-list li {
       display: grid;
-      grid-template-columns: 1.4rem 1fr auto;
+      grid-template-columns: 2rem 1fr auto;
       align-items: center;
       gap: 8px;
       font-size: 0.82rem;
@@ -660,7 +669,7 @@
       border-radius: 8px;
       background: rgba(255,255,255,0.28);
     }
-    #lb-list li.lb-me { background: rgba(80,130,255,0.18); font-weight: 600; }
+    #lb-list li.lb-me { background: rgba(80,130,255,0.28); font-weight: 600; box-shadow: inset 3px 0 0 var(--accent); }
     .lb-rank { font-weight: 700; color: var(--ink-soft); text-align: right; }
     .lb-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .lb-score { font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -689,11 +698,11 @@
     #mini-lb-list li {
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 2px;
     }
     #mini-lb-list li.lb-me .ml-name { color: var(--accent); font-weight: 700; }
     #mini-lb-list .ml-name {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 600;
       color: var(--ink);
       white-space: nowrap;
@@ -701,7 +710,7 @@
       text-overflow: ellipsis;
     }
     #mini-lb-list .ml-pts {
-      font-size: 0.60rem;
+      font-size: 0.65rem;
       color: var(--ink-soft);
       font-variant-numeric: tabular-nums;
     }
@@ -875,12 +884,13 @@
     </div>
     <!-- Auth bar -->
     <div id="auth-bar">
+      <span id="signin-error" style="font-size:0.65rem;color:#e05050;text-align:center;display:none;"></span>
       <button class="btn-sm btn-google" id="signin-btn">
         <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
         Sign in
       </button>
       <div class="hidden" id="user-info">
-        <img id="user-avatar" src="" alt="">
+        <img id="user-avatar" src="" alt="" onerror="this.style.display='none'">
         <span id="user-name"></span>
         <button class="btn-sm btn-signout" id="signout-btn">Sign out</button>
         <button class="btn-sm btn-lb" id="lb-btn">🏆</button>
@@ -890,7 +900,7 @@
 
 </div>
 
-<div id="touch-hint" data-i18n="touchHint">Swipe to move · Tap to rotate · Swipe ↓ to drop</div>
+<div id="touch-hint" data-i18n="touchHint">Swipe to move · Tap to rotate · Swipe ↓ to drop · Swipe ↑ to hold</div>
 
 <footer style="text-align:center;font-size:0.65rem;color:var(--ink-soft);opacity:0.55;padding:10px 0 14px;user-select:none;">
   © Agust Islandia · All rights reserved &nbsp;·&nbsp; <span id="version-label"></span>
@@ -924,7 +934,7 @@ const TRANSLATIONS = {
     gameOver:      'Game Over',
     playAgain:     'Play Again',
     ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Move</div><div><kbd>↑</kbd> Rotate</div><div><kbd>↓</kbd> Soft drop</div><div><kbd>Space</kbd> Drop</div><div><kbd>C</kbd> Hold</div><div><kbd>P</kbd> Pause</div><div><kbd>M</kbd> Mute</div><div><kbd>L</kbd> Leaderboard</div><div><kbd>H</kbd> Help</div>',
-    touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop',
+    touchHint:     'Swipe to move · Tap to rotate · Swipe ↓ to drop · Swipe ↑ to hold',
     darkLight:     'Light',
     darkDark:      'Dark',
     lbTitle:       '🏆 High Scores',
@@ -953,7 +963,7 @@ const TRANSLATIONS = {
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar de Novo',
     ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Rodar</div><div><kbd>↓</kbd> Queda suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Segurar</div><div><kbd>P</kbd> Pausa</div><div><kbd>M</kbd> Mudo</div><div><kbd>L</kbd> Classificação</div><div><kbd>H</kbd> Ajuda</div>',
-    touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓',
+    touchHint:     'Deslize para mover · Toque para rodar · Deslize ↓ para soltar · Deslize ↑ para segurar',
     darkLight:     'Claro',
     darkDark:      'Escuro',
     lbTitle:       '🏆 Melhores Pontuações',
@@ -982,7 +992,7 @@ const TRANSLATIONS = {
     gameOver:      'Fim de Jogo',
     playAgain:     'Jogar Novamente',
     ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Girar</div><div><kbd>↓</kbd> Queda suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Segurar</div><div><kbd>P</kbd> Pausar</div><div><kbd>M</kbd> Mudo</div><div><kbd>L</kbd> Classificação</div><div><kbd>H</kbd> Ajuda</div>',
-    touchHint:     'Deslize para mover · Toque para girar · Deslize ↓',
+    touchHint:     'Deslize para mover · Toque para girar · Deslize ↓ para soltar · Deslize ↑ para segurar',
     darkLight:     'Claro',
     darkDark:      'Escuro',
     lbTitle:       '🏆 Melhores Pontuações',
@@ -1011,7 +1021,7 @@ const TRANSLATIONS = {
     gameOver:      'Fin del Juego',
     playAgain:     'Jugar de Nuevo',
     ctrlHtml:      '<div><kbd>←</kbd><kbd>→</kbd> Mover</div><div><kbd>↑</kbd> Rotar</div><div><kbd>↓</kbd> Caída suave</div><div><kbd>Space</kbd> Soltar</div><div><kbd>C</kbd> Retener</div><div><kbd>P</kbd> Pausa</div><div><kbd>M</kbd> Silencio</div><div><kbd>L</kbd> Clasificación</div><div><kbd>H</kbd> Ayuda</div>',
-    touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓',
+    touchHint:     'Desliza para mover · Toca para rotar · Desliza ↓ para soltar · Desliza ↑ para retener',
     darkLight:     'Claro',
     darkDark:      'Oscuro',
     lbTitle:       '🏆 Mejores Puntuaciones',
@@ -2113,12 +2123,12 @@ function draw() {
   if (current) {
     getCells(ghost).forEach(([r, c]) => {
       ctx.save();
-      ctx.globalAlpha = 0.35;
-      ctx.fillStyle = 'rgba(200,220,255,0.25)';
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = 'rgba(200,220,255,0.45)';
       ctx.beginPath();
       roundRect(ctx, c * CELL + 1, r * CELL + 1, CELL - 2, CELL - 2, CELL * 0.2);
       ctx.fill();
-      ctx.strokeStyle = 'rgba(180,200,255,0.5)';
+      ctx.strokeStyle = 'rgba(180,200,255,0.75)';
       ctx.lineWidth = 1;
       ctx.stroke();
       ctx.restore();
@@ -2281,6 +2291,8 @@ boardCanvas.addEventListener('touchend', e => {
   const dy = e.changedTouches[0].clientY - touchStartY;
   if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 20) {
     dx > 0 ? moveRight() : moveLeft();
+  } else if (dy < -40 && Math.abs(dx) < 30) {
+    holdAction();
   } else if (Math.abs(dy) < 10 && Math.abs(dx) < 10) {
     rotate();
   }
@@ -2563,6 +2575,7 @@ function updateAuthUI() {
   if (fbUser) {
     signinBtn.classList.add('hidden');
     userInfo.classList.remove('hidden');
+    avatar.style.display = '';
     avatar.src = fbUser.photoURL || '';
     nameEl.textContent = fbUser.displayName || fbUser.email;
     if (goGuest)  goGuest.classList.add('hidden');
@@ -2577,7 +2590,17 @@ function updateAuthUI() {
 
 // ─── Sign in / out ────────────────────────────────────────────────────────────
 function signInWithGoogle() {
-  auth.signInWithPopup(googleProvider).catch(err => console.warn('Sign-in error', err));
+  const errEl  = document.getElementById('signin-error');
+  const hintEl = document.getElementById('go-save-hint');
+  if (errEl) { errEl.textContent = ''; errEl.style.display = 'none'; }
+  auth.signInWithPopup(googleProvider).catch(err => {
+    console.warn('Sign-in error', err);
+    if (err.code === 'auth/popup-blocked') {
+      const msg = 'Pop-up blocked — allow pop-ups and try again';
+      if (errEl) { errEl.textContent = msg; errEl.style.display = ''; }
+      if (hintEl) hintEl.textContent = msg;
+    }
+  });
 }
 function signOut() {
   auth.signOut();
@@ -2616,7 +2639,7 @@ async function maybeSaveScore(score, level, lines) {
     }
   } catch (e) {
     console.warn('Firestore save error', e);
-    msgEl.textContent = 'Could not save score.';
+    msgEl.textContent = 'Score not saved — check connection.';
   }
 }
 
@@ -2640,17 +2663,23 @@ async function loadMiniLeaderboard() {
       list.appendChild(li);
       miniI++;
     });
-  } catch(e) { console.warn('Mini LB error', e); }
+  } catch(e) {
+    console.warn('Mini LB error', e);
+    list.innerHTML = '<li><span class="ml-name" style="opacity:.5">—</span></li>';
+  }
 }
 
 async function loadLeaderboard() {
   const list = document.getElementById('lb-list');
   list.innerHTML = '<li style="justify-content:center;opacity:.6">Loading…</li>';
   try {
-    const snap = await db.collection('scores')
-      .orderBy('score', 'desc')
-      .limit(20)
-      .get();
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('timeout')), 5000)
+    );
+    const snap = await Promise.race([
+      db.collection('scores').orderBy('score', 'desc').limit(20).get(),
+      timeout
+    ]);
     list.innerHTML = '';
     if (snap.empty) {
       list.innerHTML = '<li style="justify-content:center;opacity:.6">No scores yet</li>';
@@ -2671,7 +2700,8 @@ async function loadLeaderboard() {
       lbI++;
     });
   } catch (e) {
-    list.innerHTML = '<li style="justify-content:center;opacity:.6">Could not load scores</li>';
+    const msg = e.message === 'timeout' ? 'Request timed out — tap Refresh to try again' : 'Could not load scores';
+    list.innerHTML = `<li style="justify-content:center;opacity:.6">${msg}</li>`;
     console.warn('Leaderboard error', e);
   }
 }
