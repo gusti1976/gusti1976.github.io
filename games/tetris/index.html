@@ -1551,6 +1551,27 @@ function showTEmoji(row, col) {
   requestAnimationFrame(step);
 }
 
+function showWEmoji() {
+  const bw = boardCanvas.width, bh = boardCanvas.height;
+  const ex = bw / 2, ey = bh / 2;
+  const fontSize = Math.round(bw * 0.55);
+  let alpha = 1.0;
+  const step = () => {
+    if (alpha <= 0) return;
+    draw();
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.font = `${fontSize}px serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('😱', ex, ey);
+    ctx.restore();
+    alpha -= 0.038;
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
 // Scoring
 const LINE_SCORES = [0, 100, 300, 500, 800];
 
@@ -1888,6 +1909,7 @@ function lockPiece() {
     }
     isAnimating = true;
     draw();
+    showWEmoji();
     playSound('ooze');
     animateOoze(pinkCell, expandCells, () => {
       isAnimating = false;
@@ -2118,67 +2140,103 @@ function drawCellQuad(ctx, r, c, color, alpha = 1, cellSize = CELL) {
 
 function drawCellSlot(ctx, r, c, color, alpha = 1, cellSize = CELL) {
   const x = c * cellSize, y = r * cellSize;
-  const s    = cellSize;
-  const rad  = s * 0.2;
-  const slotW = Math.max(2, s * 0.056);
-  const slotH = s * 0.30;
-  const slotX = x + (s - slotW) / 2;
-  const bot   = y + s;
+  const s = cellSize;
+  const cx = x + s / 2;
+
+  // Dome occupies top ~80% of cell; corona band sits at ~78%; base fills to bottom
+  const domeBot  = y + s * 0.78;  // where corona begins
+  const coronaH  = s * 0.14;      // thickness of corona ridge
+  const baseTop  = domeBot + coronaH;
+  const bot      = y + s;
+
+  // Slot (urethral opening) at center-bottom of base
+  const slotW = Math.max(2, s * 0.13);
+  const slotH = s * 0.18;
+  const slotX = cx - slotW / 2;
 
   ctx.save();
   ctx.globalAlpha = alpha;
 
-  // Outline path with rectangular slot cut from bottom
+  // ── Dome body ──
+  // Dome path: full-semicircle top, straight sides down to domeBot
+  const domeR = s * 0.46;  // radius of the dome arc
+  const domeCy = y + domeR; // arc centre — sits near top of cell
   ctx.beginPath();
-  ctx.moveTo(x + rad, y);
-  ctx.lineTo(x + s - rad, y);
-  ctx.arcTo(x + s, y, x + s, y + rad, rad);
-  ctx.lineTo(x + s, bot);
+  ctx.arc(cx, domeCy, domeR, Math.PI, 0, false); // top half-arc left→right
+  ctx.lineTo(cx + domeR, domeBot);
+  ctx.lineTo(cx - domeR, domeBot);
+  ctx.closePath();
+
+  const domeGrd = ctx.createRadialGradient(cx - domeR * 0.25, y + domeR * 0.25, domeR * 0.05, cx, domeCy, domeR);
+  domeGrd.addColorStop(0, lighten(color, 0.50));
+  domeGrd.addColorStop(0.45, lighten(color, 0.18));
+  domeGrd.addColorStop(1, color);
+  ctx.fillStyle = domeGrd;
+  ctx.fill();
+
+  // Dome specular shine
+  const shine = ctx.createRadialGradient(cx - domeR * 0.28, y + domeR * 0.22, 0, cx - domeR * 0.15, y + domeR * 0.35, domeR * 0.55);
+  shine.addColorStop(0, 'rgba(255,255,255,0.62)');
+  shine.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.beginPath();
+  ctx.arc(cx, domeCy, domeR, Math.PI, 0, false);
+  ctx.lineTo(cx + domeR, domeBot);
+  ctx.lineTo(cx - domeR, domeBot);
+  ctx.closePath();
+  ctx.fillStyle = shine;
+  ctx.fill();
+
+  // ── Corona ridge ── (protruding ring slightly wider than dome)
+  const coronaW = domeR * 2 + s * 0.10;  // a bit wider than dome
+  const coronaX = cx - coronaW / 2;
+  ctx.beginPath();
+  roundRect(ctx, coronaX, domeBot, coronaW, coronaH, coronaH * 0.35);
+  const coronaGrd = ctx.createLinearGradient(cx, domeBot, cx, baseTop);
+  coronaGrd.addColorStop(0, lighten(color, 0.30));
+  coronaGrd.addColorStop(0.5, color);
+  coronaGrd.addColorStop(1, lighten(color, -0.10));
+  ctx.fillStyle = coronaGrd;
+  ctx.fill();
+  // Corona highlight strip
+  ctx.beginPath();
+  roundRect(ctx, coronaX + 1, domeBot + 1, coronaW - 2, coronaH * 0.4, coronaH * 0.2);
+  ctx.fillStyle = 'rgba(255,255,255,0.30)';
+  ctx.fill();
+
+  // ── Base (shaft stub below corona, with slot) ──
+  ctx.beginPath();
+  ctx.moveTo(cx + domeR, baseTop);
+  ctx.lineTo(cx + domeR, bot);
   ctx.lineTo(slotX + slotW, bot);
   ctx.lineTo(slotX + slotW, bot - slotH);
   ctx.lineTo(slotX,         bot - slotH);
   ctx.lineTo(slotX,         bot);
-  ctx.lineTo(x, bot);
-  ctx.lineTo(x, y + rad);
-  ctx.arcTo(x, y, x + rad, y, rad);
+  ctx.lineTo(cx - domeR, bot);
+  ctx.lineTo(cx - domeR, baseTop);
   ctx.closePath();
-
-  const grd = ctx.createLinearGradient(x, y, x + s, y + s);
-  grd.addColorStop(0, lighten(color, 0.25));
-  grd.addColorStop(1, color);
-  ctx.fillStyle = grd;
+  const baseGrd = ctx.createLinearGradient(cx - domeR, baseTop, cx + domeR, baseTop);
+  baseGrd.addColorStop(0, lighten(color, -0.05));
+  baseGrd.addColorStop(0.5, lighten(color, 0.12));
+  baseGrd.addColorStop(1, lighten(color, -0.05));
+  ctx.fillStyle = baseGrd;
   ctx.fill();
-
-  // Specular highlight
-  const hl = ctx.createLinearGradient(x + 1, y + 1, x + 1, y + s * 0.55);
-  hl.addColorStop(0, 'rgba(255,255,255,0.55)');
-  hl.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.beginPath();
-  roundRect(ctx, x + 2, y + 2, s - 4, s * 0.5, rad * 0.8);
-  ctx.fillStyle = hl;
-  ctx.fill();
-
-  // Border (re-trace same path)
-  ctx.beginPath();
-  ctx.moveTo(x + rad, y);
-  ctx.lineTo(x + s - rad, y);
-  ctx.arcTo(x + s, y, x + s, y + rad, rad);
-  ctx.lineTo(x + s, bot);
-  ctx.lineTo(slotX + slotW, bot);
-  ctx.lineTo(slotX + slotW, bot - slotH);
-  ctx.lineTo(slotX,         bot - slotH);
-  ctx.lineTo(slotX,         bot);
-  ctx.lineTo(x, bot);
-  ctx.lineTo(x, y + rad);
-  ctx.arcTo(x, y, x + rad, y, rad);
-  ctx.closePath();
-  ctx.strokeStyle = 'rgba(255,255,255,0.55)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
 
   // Slot interior shadow
-  ctx.fillStyle = 'rgba(80,20,50,0.65)';
+  ctx.fillStyle = 'rgba(80,20,50,0.70)';
   ctx.fillRect(slotX + 1, bot - slotH + 1, slotW - 2, slotH - 1);
+  // Slot highlight edge
+  ctx.fillStyle = 'rgba(255,180,200,0.25)';
+  ctx.fillRect(slotX, bot - slotH, 1, slotH);
+
+  // ── Dome outline ──
+  ctx.beginPath();
+  ctx.arc(cx, domeCy, domeR, Math.PI, 0, false);
+  ctx.lineTo(cx + domeR, domeBot);
+  ctx.lineTo(cx - domeR, domeBot);
+  ctx.closePath();
+  ctx.strokeStyle = 'rgba(255,255,255,0.40)';
+  ctx.lineWidth = 0.8;
+  ctx.stroke();
 
   ctx.restore();
 }
