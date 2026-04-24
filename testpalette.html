@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tetris Flare — Palette Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0f;
+    color: #fff;
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    padding: 40px 20px 60px;
+  }
+
+  h1 {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #555;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ─── Each card is a self-contained mini scene ─── */
+  .scene {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 36px;
+    gap: 0;
+  }
+
+  /* Orbs */
+  .scene::before, .scene::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Label */
+  .label {
+    position: absolute;
+    bottom: 14px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    z-index: 10;
+  }
+
+  .num {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    opacity: 0.45;
+    z-index: 10;
+    text-transform: uppercase;
+  }
+
+  /* Hero mock */
+  .hero {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 18px;
+  }
+  .hero-sub {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .hero-main {
+    display: block;
+    font-size: 3.4rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    line-height: 0.88;
+  }
+  .hero-by {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 5px;
+    opacity: 0.35;
+  }
+
+  /* Game layout mock */
+  .layout {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .panel-sm {
+    width: 54px;
+    height: 130px;
+    border-radius: 10px;
+    border: 1px solid;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .panel-board {
+    width: 110px;
+    height: 160px;
+    border-radius: 10px;
+    border: 1px solid;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    /* fake tetris cells */
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 16px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 16px);
+  }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     01  MAGENTA NOIR
+     Near-black with deep magenta pulse.
+     Hot pink glass. The red logo crackles.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .p01 {
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(200,0,120,0.55) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 12%, rgba(120,0,100,0.45) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 90%, rgba(80,0,60,0.5) 0%, transparent 40%),
+      linear-gradient(135deg, #160610 0%, #0e040e 50%, #080410 100%);
+  }
+  .p01::before {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(255,20,147,0.45), transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .p01::after {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(200,0,80,0.35), transparent 70%);
+    bottom: -60px; right: -60px;
+  }
+  .p01 .hero-sub   { color: #ff1a8c; }
+  .p01 .title-solid  { color: #fff; }
+  .p01 .title-outline { -webkit-text-stroke: 2px #ff1a8c; color: transparent; }
+  .p01 .hero-by    { color: #fff; }
+  .p01 .panel-sm, .p01 .panel-board {
+    background-color: rgba(255,20,147,0.07);
+    border-color: rgba(255,20,147,0.22);
+    box-shadow: inset 0 1px 0 rgba(255,100,180,0.35), 0 8px 32px rgba(200,0,100,0.25);
+  }
+  .p01 .label { color: rgba(255,150,200,0.6); }
+
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     02  VELVET VIOLET
+     Rich deep violet and indigo night sky.
+     Purple-smoke glass. Mysterious, luxurious.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .p02 {
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(100,20,200,0.6) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 12%, rgba(60,0,140,0.5) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 90%, rgba(80,20,160,0.4) 0%, transparent 40%),
+      linear-gradient(135deg, #0e0820 0%, #12062a 50%, #0a0418 100%);
+  }
+  .p02::before {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(120,40,255,0.5), transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .p02::after {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(180,20,255,0.35), transparent 70%);
+    bottom: -60px; right: -60px;
+  }
+  .p02 .hero-sub   { color: #c060ff; }
+  .p02 .title-solid  { color: #fff; }
+  .p02 .title-outline { -webkit-text-stroke: 2px #e03030; color: transparent; }
+  .p02 .hero-by    { color: #fff; }
+  .p02 .panel-sm, .p02 .panel-board {
+    background-color: rgba(120,40,255,0.09);
+    border-color: rgba(150,80,255,0.28);
+    box-shadow: inset 0 1px 0 rgba(200,140,255,0.30), 0 8px 32px rgba(80,0,180,0.30);
+  }
+  .p02 .label { color: rgba(180,130,255,0.6); }
+
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     03  OBSIDIAN CHERRY
+     Blackest black with deep wine-red warmth.
+     Glass almost invisible — just edge glow.
+     The red logo feels inevitable.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .p03 {
+    background:
+      radial-gradient(ellipse at 20% 8%, rgba(160,10,30,0.50) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 15%, rgba(80,0,20,0.40) 0%, transparent 38%),
+      radial-gradient(ellipse at 50% 92%, rgba(100,5,20,0.45) 0%, transparent 38%),
+      linear-gradient(135deg, #100406 0%, #0a0204 50%, #0d0305 100%);
+  }
+  .p03::before {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(220,20,50,0.40), transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .p03::after {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(140,0,30,0.30), transparent 70%);
+    bottom: -60px; right: -60px;
+  }
+  .p03 .hero-sub   { color: #e03030; }
+  .p03 .title-solid  { color: #fff; }
+  .p03 .title-outline { -webkit-text-stroke: 2px #e03030; color: transparent; }
+  .p03 .hero-by    { color: #fff; }
+  .p03 .panel-sm, .p03 .panel-board {
+    background-color: rgba(200,20,40,0.06);
+    border-color: rgba(220,40,60,0.20);
+    box-shadow: inset 0 1px 0 rgba(255,100,100,0.20), 0 8px 32px rgba(150,0,20,0.30);
+  }
+  .p03 .label { color: rgba(220,100,100,0.55); }
+
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     04  JADE NIGHT
+     Ink-dark with deep forest green undertone.
+     Emerald-tinted glass. Money, growth, edge.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .p04 {
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(0,120,60,0.50) 0%, transparent 42%),
+      radial-gradient(ellipse at 80% 15%, rgba(0,80,50,0.40) 0%, transparent 38%),
+      radial-gradient(ellipse at 50% 92%, rgba(0,100,40,0.40) 0%, transparent 38%),
+      linear-gradient(135deg, #03100a 0%, #040d07 50%, #020b06 100%);
+  }
+  .p04::before {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(0,200,100,0.35), transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .p04::after {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(0,140,70,0.30), transparent 70%);
+    bottom: -60px; right: -60px;
+  }
+  .p04 .hero-sub   { color: #00e070; }
+  .p04 .title-solid  { color: #fff; }
+  .p04 .title-outline { -webkit-text-stroke: 2px #e03030; color: transparent; }
+  .p04 .hero-by    { color: #fff; }
+  .p04 .panel-sm, .p04 .panel-board {
+    background-color: rgba(0,180,80,0.07);
+    border-color: rgba(0,200,100,0.22);
+    box-shadow: inset 0 1px 0 rgba(100,255,160,0.22), 0 8px 32px rgba(0,120,50,0.28);
+  }
+  .p04 .label { color: rgba(80,200,130,0.6); }
+
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     05  ROSE QUARTZ
+     Warm dusty rose and deep mauve dark base.
+     Blush glass. Soft femme energy, still dramatic.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .p05 {
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(220,100,140,0.55) 0%, transparent 44%),
+      radial-gradient(ellipse at 85% 12%, rgba(160,60,120,0.45) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 90%, rgba(140,40,100,0.40) 0%, transparent 38%),
+      linear-gradient(135deg, #180a12 0%, #120810 50%, #100810 100%);
+  }
+  .p05::before {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(255,120,160,0.40), transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .p05::after {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(200,80,140,0.30), transparent 70%);
+    bottom: -60px; right: -60px;
+  }
+  .p05 .hero-sub   { color: #ff80aa; }
+  .p05 .title-solid  { color: #fff; }
+  .p05 .title-outline { -webkit-text-stroke: 2px #e03030; color: transparent; }
+  .p05 .hero-by    { color: #fff; }
+  .p05 .panel-sm, .p05 .panel-board {
+    background-color: rgba(255,100,150,0.08);
+    border-color: rgba(255,120,160,0.24);
+    box-shadow: inset 0 1px 0 rgba(255,180,200,0.28), 0 8px 32px rgba(180,40,100,0.25);
+  }
+  .p05 .label { color: rgba(255,160,190,0.6); }
+
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     06  COBALT MIDNIGHT
+     Very deep cobalt blue, electric cyan glass.
+     Cool, slick, club-bathroom-mirror energy.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .p06 {
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(0,60,200,0.55) 0%, transparent 44%),
+      radial-gradient(ellipse at 85% 12%, rgba(0,40,160,0.45) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 90%, rgba(0,30,140,0.45) 0%, transparent 38%),
+      linear-gradient(135deg, #020818 0%, #030612 50%, #020510 100%);
+  }
+  .p06::before {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(0,100,255,0.45), transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .p06::after {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(0,180,255,0.30), transparent 70%);
+    bottom: -60px; right: -60px;
+  }
+  .p06 .hero-sub   { color: #00c8ff; }
+  .p06 .title-solid  { color: #fff; }
+  .p06 .title-outline { -webkit-text-stroke: 2px #e03030; color: transparent; }
+  .p06 .hero-by    { color: #fff; }
+  .p06 .panel-sm, .p06 .panel-board {
+    background-color: rgba(0,100,255,0.08);
+    border-color: rgba(0,160,255,0.24);
+    box-shadow: inset 0 1px 0 rgba(100,220,255,0.28), 0 8px 32px rgba(0,60,200,0.35);
+  }
+  .p06 .label { color: rgba(80,180,255,0.6); }
+
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     07  AMBER DRAG
+     Warm golden-brown dark base, amber glass.
+     Champagne, leopard print, Saturday night.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .p07 {
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(200,120,0,0.50) 0%, transparent 44%),
+      radial-gradient(ellipse at 85% 12%, rgba(160,80,0,0.40) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 90%, rgba(180,100,0,0.40) 0%, transparent 38%),
+      linear-gradient(135deg, #120a02 0%, #0e0802 50%, #100900 100%);
+  }
+  .p07::before {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(255,160,0,0.38), transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .p07::after {
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(220,120,0,0.28), transparent 70%);
+    bottom: -60px; right: -60px;
+  }
+  .p07 .hero-sub   { color: #ffb020; }
+  .p07 .title-solid  { color: #fff; }
+  .p07 .title-outline { -webkit-text-stroke: 2px #e03030; color: transparent; }
+  .p07 .hero-by    { color: #fff; }
+  .p07 .panel-sm, .p07 .panel-board {
+    background-color: rgba(255,160,0,0.07);
+    border-color: rgba(255,180,0,0.24);
+    box-shadow: inset 0 1px 0 rgba(255,220,120,0.26), 0 8px 32px rgba(180,80,0,0.28);
+  }
+  .p07 .label { color: rgba(255,180,80,0.6); }
+
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     08  TRANS DUSK
+     Blue-pink sky split: deep twilight blue base,
+     warm blush from below. Trans flag energy, dark.
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  .p08 {
+    background:
+      radial-gradient(ellipse at 20% 5%, rgba(91,206,250,0.45) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 90%, rgba(245,169,184,0.50) 0%, transparent 42%),
+      radial-gradient(ellipse at 50% 50%, rgba(60,40,100,0.35) 0%, transparent 50%),
+      linear-gradient(160deg, #04101a 0%, #0d0818 60%, #1a0810 100%);
+  }
+  .p08::before {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(91,206,250,0.40), transparent 70%);
+    top: -80px; left: -40px;
+  }
+  .p08::after {
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(245,169,184,0.38), transparent 70%);
+    bottom: -70px; right: -60px;
+  }
+  .p08 .hero-sub   { color: #5bcefa; }
+  .p08 .title-solid  { color: #fff; }
+  .p08 .title-outline { -webkit-text-stroke: 2px #f5a9b8; color: transparent; }
+  .p08 .hero-by    { color: #fff; }
+  .p08 .panel-sm, .p08 .panel-board {
+    background-color: rgba(140,100,200,0.09);
+    border-color: rgba(180,140,220,0.24);
+    box-shadow: inset 0 1px 0 rgba(220,200,255,0.28), 0 8px 32px rgba(60,20,120,0.35);
+  }
+  .p08 .label { color: rgba(180,200,240,0.6); }
+</style>
+</head>
+<body>
+
+<h1>Tetris Flare — Background &amp; Glass Palette Concepts</h1>
+
+<div class="grid">
+
+  <!-- 01 MAGENTA NOIR -->
+  <div class="scene p01">
+    <span class="num">01 — Magenta Noir</span>
+    <div class="hero">
+      <span class="hero-sub">Out and Proud</span>
+      <span class="hero-main"><span class="title-solid">TETRIS</span> <span class="title-outline">FLARE</span></span>
+      <span class="hero-by">by Agust Islandia</span>
+    </div>
+    <div class="layout">
+      <div class="panel-sm p01"></div>
+      <div class="panel-board p01"></div>
+      <div class="panel-sm p01"></div>
+    </div>
+    <span class="label">Deep plum black · hot magenta glass · the red logo ignites</span>
+  </div>
+
+  <!-- 02 VELVET VIOLET -->
+  <div class="scene p02">
+    <span class="num">02 — Velvet Violet</span>
+    <div class="hero">
+      <span class="hero-sub">Out and Proud</span>
+      <span class="hero-main"><span class="title-solid">TETRIS</span> <span class="title-outline">FLARE</span></span>
+      <span class="hero-by">by Agust Islandia</span>
+    </div>
+    <div class="layout">
+      <div class="panel-sm p02"></div>
+      <div class="panel-board p02"></div>
+      <div class="panel-sm p02"></div>
+    </div>
+    <span class="label">Deep violet indigo · purple-smoke glass · purple accent</span>
+  </div>
+
+  <!-- 03 OBSIDIAN CHERRY -->
+  <div class="scene p03">
+    <span class="num">03 — Obsidian Cherry</span>
+    <div class="hero">
+      <span class="hero-sub">Out and Proud</span>
+      <span class="hero-main"><span class="title-solid">TETRIS</span> <span class="title-outline">FLARE</span></span>
+      <span class="hero-by">by Agust Islandia</span>
+    </div>
+    <div class="layout">
+      <div class="panel-sm p03"></div>
+      <div class="panel-board p03"></div>
+      <div class="panel-sm p03"></div>
+    </div>
+    <span class="label">Blackest black · wine-red warmth · near-invisible glass</span>
+  </div>
+
+  <!-- 04 JADE NIGHT -->
+  <div class="scene p04">
+    <span class="num">04 — Jade Night</span>
+    <div class="hero">
+      <span class="hero-sub">Out and Proud</span>
+      <span class="hero-main"><span class="title-solid">TETRIS</span> <span class="title-outline">FLARE</span></span>
+      <span class="hero-by">by Agust Islandia</span>
+    </div>
+    <div class="layout">
+      <div class="panel-sm p04"></div>
+      <div class="panel-board p04"></div>
+      <div class="panel-sm p04"></div>
+    </div>
+    <span class="label">Ink dark · deep forest · emerald glass · money energy</span>
+  </div>
+
+  <!-- 05 ROSE QUARTZ -->
+  <div class="scene p05">
+    <span class="num">05 — Rose Quartz</span>
+    <div class="hero">
+      <span class="hero-sub">Out and Proud</span>
+      <span class="hero-main"><span class="title-solid">TETRIS</span> <span class="title-outline">FLARE</span></span>
+      <span class="hero-by">by Agust Islandia</span>
+    </div>
+    <div class="layout">
+      <div class="panel-sm p05"></div>
+      <div class="panel-board p05"></div>
+      <div class="panel-sm p05"></div>
+    </div>
+    <span class="label">Deep mauve · dusty rose bloom · blush glass · soft femme</span>
+  </div>
+
+  <!-- 06 COBALT MIDNIGHT -->
+  <div class="scene p06">
+    <span class="num">06 — Cobalt Midnight</span>
+    <div class="hero">
+      <span class="hero-sub">Out and Proud</span>
+      <span class="hero-main"><span class="title-solid">TETRIS</span> <span class="title-outline">FLARE</span></span>
+      <span class="hero-by">by Agust Islandia</span>
+    </div>
+    <div class="layout">
+      <div class="panel-sm p06"></div>
+      <div class="panel-board p06"></div>
+      <div class="panel-sm p06"></div>
+    </div>
+    <span class="label">Deepest cobalt · electric cyan glass · cool &amp; slick</span>
+  </div>
+
+  <!-- 07 AMBER DRAG -->
+  <div class="scene p07">
+    <span class="num">07 — Amber Drag</span>
+    <div class="hero">
+      <span class="hero-sub">Out and Proud</span>
+      <span class="hero-main"><span class="title-solid">TETRIS</span> <span class="title-outline">FLARE</span></span>
+      <span class="hero-by">by Agust Islandia</span>
+    </div>
+    <div class="layout">
+      <div class="panel-sm p07"></div>
+      <div class="panel-board p07"></div>
+      <div class="panel-sm p07"></div>
+    </div>
+    <span class="label">Dark golden brown · amber glass · champagne &amp; Saturday night</span>
+  </div>
+
+  <!-- 08 TRANS DUSK -->
+  <div class="scene p08">
+    <span class="num">08 — Trans Dusk</span>
+    <div class="hero">
+      <span class="hero-sub">Out and Proud</span>
+      <span class="hero-main"><span class="title-solid">TETRIS</span> <span class="title-outline p08-outline">FLARE</span></span>
+      <span class="hero-by">by Agust Islandia</span>
+    </div>
+    <div class="layout">
+      <div class="panel-sm p08"></div>
+      <div class="panel-board p08"></div>
+      <div class="panel-sm p08"></div>
+    </div>
+    <span class="label">Blue above · pink below · trans flag twilight</span>
+  </div>
+
+</div>
+</body>
+</html>
