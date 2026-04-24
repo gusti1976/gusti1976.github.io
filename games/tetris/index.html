@@ -1556,9 +1556,10 @@ function showWEmoji() {
   const ex = bw / 2, ey = bh / 2;
   const fontSize = Math.round(bw * 0.55);
   let alpha = 1.0;
+  // Do NOT call draw() here — animateOoze manages the canvas each frame.
+  // We just paint the emoji on top after whatever animateOoze already drew.
   const step = () => {
     if (alpha <= 0) return;
-    draw();
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.font = `${fontSize}px serif`;
@@ -2142,99 +2143,87 @@ function drawCellSlot(ctx, r, c, color, alpha = 1, cellSize = CELL) {
   const x = c * cellSize, y = r * cellSize;
   const s = cellSize;
   const cx = x + s / 2;
+  const bot = y + s;
 
-  // Dome occupies top ~80% of cell; corona band sits at ~78%; base fills to bottom
-  const domeBot  = y + s * 0.78;  // where corona begins
-  const coronaH  = s * 0.14;      // thickness of corona ridge
-  const baseTop  = domeBot + coronaH;
-  const bot      = y + s;
+  // Corona ring at the TOP (where glans meets shaft above it)
+  const coronaH = s * 0.15;
+  const coronaW = s * 0.98;
+  const coronaX = cx - coronaW / 2;
+  const coronaBot = y + coronaH;
 
-  // Slot (urethral opening) at center-bottom of base
+  // Dome body: straight sides from corona down, semicircle arc at BOTTOM (free tip)
+  const domeR = s * 0.46;
+  const arcCy  = bot - domeR;   // centre of the bottom arc
+
+  // Slot at the very tip (bottom center, overlaid on the dome)
   const slotW = Math.max(2, s * 0.13);
-  const slotH = s * 0.18;
+  const slotH = s * 0.20;
   const slotX = cx - slotW / 2;
 
   ctx.save();
   ctx.globalAlpha = alpha;
 
-  // ── Dome body ──
-  // Dome path: full-semicircle top, straight sides down to domeBot
-  const domeR = s * 0.46;  // radius of the dome arc
-  const domeCy = y + domeR; // arc centre — sits near top of cell
+  // ── Corona ridge (top) ──
   ctx.beginPath();
-  ctx.arc(cx, domeCy, domeR, Math.PI, 0, false); // top half-arc left→right
-  ctx.lineTo(cx + domeR, domeBot);
-  ctx.lineTo(cx - domeR, domeBot);
+  roundRect(ctx, coronaX, y, coronaW, coronaH, coronaH * 0.35);
+  const coronaGrd = ctx.createLinearGradient(cx, y, cx, coronaBot);
+  coronaGrd.addColorStop(0, lighten(color, 0.32));
+  coronaGrd.addColorStop(1, lighten(color, 0.18));
+  ctx.fillStyle = coronaGrd;
+  ctx.fill();
+  ctx.beginPath();
+  roundRect(ctx, coronaX + 1, y + 1, coronaW - 2, coronaH * 0.45, coronaH * 0.2);
+  ctx.fillStyle = 'rgba(255,255,255,0.28)';
+  ctx.fill();
+
+  // ── Dome body (below corona, rounded at the bottom) ──
+  ctx.beginPath();
+  ctx.moveTo(cx - domeR, coronaBot);
+  ctx.lineTo(cx + domeR, coronaBot);
+  ctx.lineTo(cx + domeR, arcCy);
+  ctx.arc(cx, arcCy, domeR, 0, Math.PI, false);  // bottom semicircle (tip)
   ctx.closePath();
 
-  const domeGrd = ctx.createRadialGradient(cx - domeR * 0.25, y + domeR * 0.25, domeR * 0.05, cx, domeCy, domeR);
-  domeGrd.addColorStop(0, lighten(color, 0.50));
-  domeGrd.addColorStop(0.45, lighten(color, 0.18));
+  const domeGrd = ctx.createRadialGradient(
+    cx - domeR * 0.25, coronaBot + (bot - coronaBot) * 0.22, domeR * 0.04,
+    cx, coronaBot + (bot - coronaBot) * 0.55, domeR
+  );
+  domeGrd.addColorStop(0, lighten(color, 0.52));
+  domeGrd.addColorStop(0.42, lighten(color, 0.18));
   domeGrd.addColorStop(1, color);
   ctx.fillStyle = domeGrd;
   ctx.fill();
 
-  // Dome specular shine
-  const shine = ctx.createRadialGradient(cx - domeR * 0.28, y + domeR * 0.22, 0, cx - domeR * 0.15, y + domeR * 0.35, domeR * 0.55);
-  shine.addColorStop(0, 'rgba(255,255,255,0.62)');
+  // Specular shine (upper-left of dome)
+  const shine = ctx.createRadialGradient(
+    cx - domeR * 0.30, coronaBot + (bot - coronaBot) * 0.15, 0,
+    cx - domeR * 0.12, coronaBot + (bot - coronaBot) * 0.38, domeR * 0.62
+  );
+  shine.addColorStop(0, 'rgba(255,255,255,0.60)');
   shine.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.beginPath();
-  ctx.arc(cx, domeCy, domeR, Math.PI, 0, false);
-  ctx.lineTo(cx + domeR, domeBot);
-  ctx.lineTo(cx - domeR, domeBot);
+  ctx.moveTo(cx - domeR, coronaBot);
+  ctx.lineTo(cx + domeR, coronaBot);
+  ctx.lineTo(cx + domeR, arcCy);
+  ctx.arc(cx, arcCy, domeR, 0, Math.PI, false);
   ctx.closePath();
   ctx.fillStyle = shine;
   ctx.fill();
 
-  // ── Corona ridge ── (protruding ring slightly wider than dome)
-  const coronaW = domeR * 2 + s * 0.10;  // a bit wider than dome
-  const coronaX = cx - coronaW / 2;
-  ctx.beginPath();
-  roundRect(ctx, coronaX, domeBot, coronaW, coronaH, coronaH * 0.35);
-  const coronaGrd = ctx.createLinearGradient(cx, domeBot, cx, baseTop);
-  coronaGrd.addColorStop(0, lighten(color, 0.30));
-  coronaGrd.addColorStop(0.5, color);
-  coronaGrd.addColorStop(1, lighten(color, -0.10));
-  ctx.fillStyle = coronaGrd;
-  ctx.fill();
-  // Corona highlight strip
-  ctx.beginPath();
-  roundRect(ctx, coronaX + 1, domeBot + 1, coronaW - 2, coronaH * 0.4, coronaH * 0.2);
-  ctx.fillStyle = 'rgba(255,255,255,0.30)';
-  ctx.fill();
-
-  // ── Base (shaft stub below corona, with slot) ──
-  ctx.beginPath();
-  ctx.moveTo(cx + domeR, baseTop);
-  ctx.lineTo(cx + domeR, bot);
-  ctx.lineTo(slotX + slotW, bot);
-  ctx.lineTo(slotX + slotW, bot - slotH);
-  ctx.lineTo(slotX,         bot - slotH);
-  ctx.lineTo(slotX,         bot);
-  ctx.lineTo(cx - domeR, bot);
-  ctx.lineTo(cx - domeR, baseTop);
-  ctx.closePath();
-  const baseGrd = ctx.createLinearGradient(cx - domeR, baseTop, cx + domeR, baseTop);
-  baseGrd.addColorStop(0, lighten(color, -0.05));
-  baseGrd.addColorStop(0.5, lighten(color, 0.12));
-  baseGrd.addColorStop(1, lighten(color, -0.05));
-  ctx.fillStyle = baseGrd;
-  ctx.fill();
-
-  // Slot interior shadow
-  ctx.fillStyle = 'rgba(80,20,50,0.70)';
-  ctx.fillRect(slotX + 1, bot - slotH + 1, slotW - 2, slotH - 1);
-  // Slot highlight edge
-  ctx.fillStyle = 'rgba(255,180,200,0.25)';
+  // ── Slot at tip (dark slit at the bottom center of the dome) ──
+  ctx.fillStyle = 'rgba(80,20,50,0.72)';
+  ctx.fillRect(slotX, bot - slotH, slotW, slotH);
+  ctx.fillStyle = 'rgba(255,180,200,0.22)';
   ctx.fillRect(slotX, bot - slotH, 1, slotH);
 
   // ── Dome outline ──
   ctx.beginPath();
-  ctx.arc(cx, domeCy, domeR, Math.PI, 0, false);
-  ctx.lineTo(cx + domeR, domeBot);
-  ctx.lineTo(cx - domeR, domeBot);
+  ctx.moveTo(cx - domeR, coronaBot);
+  ctx.lineTo(cx + domeR, coronaBot);
+  ctx.lineTo(cx + domeR, arcCy);
+  ctx.arc(cx, arcCy, domeR, 0, Math.PI, false);
   ctx.closePath();
-  ctx.strokeStyle = 'rgba(255,255,255,0.40)';
+  ctx.strokeStyle = 'rgba(255,255,255,0.38)';
   ctx.lineWidth = 0.8;
   ctx.stroke();
 
