@@ -2,6 +2,7 @@
   --glass-border: rgba(255, 255, 255, 0.35);
   --glass-bg: rgba(255, 255, 255, 0.18);
   --glass-bg-strong: rgba(255, 255, 255, 0.28);
+  --glass-strong: rgba(255, 255, 255, 0.28);
   --ink-strong: #13203d;
   --ink-soft: #3f4f79;
   --accent-blue: #5a8dff;
@@ -355,8 +356,7 @@ body::after {
 
 .album-cover {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  height: auto;
   display: block;
 }
 

@@ -14,3 +14,16 @@ LOCAL_NOTES*.md
 
 # macOS
 .DS_Store
+
+# Claude Code session resilience — runtime state (local per-machine).
+# Structural files (settings.json, log-event.sh, README.md) ARE tracked;
+# these churn on every hook event and are regenerated on demand.
+.claude/session-log.md
+.claude/resume-state.md
+.claude/hook-errors.log
+.claude/.log.lock
+.claude/.state.*
+
+# Validator output (regenerated each run)
+validation_report.txt
+schema_validation_detailed.txt

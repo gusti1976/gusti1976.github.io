@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const willExpand = !isExpanded;
         mobileContent.classList.toggle('expanded', willExpand);
         mobileContent.setAttribute('aria-hidden', willExpand ? 'false' : 'true');
-        bubble.setAttribute('aria-expanded', willExpand.toString());
+        bubble.setAttribute('aria-expanded', willExpand ? 'true' : 'false');
 
         // Screen reader announcement
         if (willExpand) {
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Toggle current bubble and tooltip
       const willExpand = !isExpanded;
       bubble.classList.toggle('active', willExpand);
-      bubble.setAttribute('aria-expanded', willExpand.toString());
+      bubble.setAttribute('aria-expanded', willExpand ? 'true' : 'false');
       if (tooltip) {
         tooltip.setAttribute('aria-hidden', willExpand ? 'false' : 'true');
       }
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Close tooltip when clicking outside (desktop only)
   if (!isMobile) {
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function closeOutsideTooltips() {
       infoBubbles.forEach(bubble => {
         bubble.classList.remove('active');
         bubble.setAttribute('aria-expanded', 'false');
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Handle window resize to update mobile detection
-  window.addEventListener('resize', function() {
+  window.addEventListener('resize', function handleInfoBubbleResize() {
     const isNowMobile = window.innerWidth <= 640;
     if (isNowMobile !== isMobile) {
       isMobile = isNowMobile;

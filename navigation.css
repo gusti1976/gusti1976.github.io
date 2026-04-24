@@ -2,10 +2,10 @@
    GLOBAL NAVIGATION - Hamburger Menu
    ============================================ */
 
-/* Adjust skip-link to not conflict with hamburger */
+/* Adjust skip-link position to clear the hamburger button */
 .skip-link:focus {
-  top: 6px !important;
-  left: 90px !important; /* Move right of hamburger button */
+  top: 6px;
+  left: 90px;
 }
 
 /* Hamburger Button */
@@ -199,6 +199,12 @@
   align-items: center;
 }
 
+.nav-collapsible-trigger:focus-visible {
+  outline: 2px solid var(--color-primary-blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
 .nav-collapsible-trigger .arrow {
   font-size: 12px;
   transition: transform 0.3s ease;
@@ -314,48 +320,48 @@
 }
 
 :root[data-theme="light"] .nav-overlay {
-  background: rgba(170, 182, 212, 0.22);
+  background: var(--nav-light-overlay);
 }
 
 :root[data-theme="light"] .nav-drawer a,
 :root[data-theme="light"] .nav-drawer button {
-  color: #1e2942;
-  background: rgba(255, 255, 255, 0.58);
-  border-color: rgba(180, 198, 236, 0.7);
+  color: var(--nav-light-text);
+  background: var(--nav-light-bg);
+  border-color: var(--nav-light-border);
 }
 
 :root[data-theme="light"] .nav-drawer a:hover,
 :root[data-theme="light"] .nav-drawer button:hover {
-  color: #0f1b35;
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(141, 170, 228, 0.75);
+  color: var(--nav-light-text-hover);
+  background: var(--nav-light-bg-hover);
+  border-color: var(--nav-light-border-hover);
 }
 
 :root[data-theme="light"] .nav-drawer a.active {
-  color: #0c1730;
-  background: rgba(173, 208, 255, 0.5);
-  border-left-color: rgba(95, 145, 235, 0.95);
+  color: var(--nav-light-text-active);
+  background: var(--nav-light-bg-active);
+  border-left-color: var(--nav-light-border-active);
   border-top-color: rgba(145, 170, 224, 0.72);
   border-right-color: rgba(145, 170, 224, 0.72);
   border-bottom-color: rgba(145, 170, 224, 0.72);
 }
 
 :root[data-theme="light"] .nav-section-header {
-  color: #455a84;
+  color: var(--nav-light-section-header);
 }
 
 :root[data-theme="light"] .nav-collapsible-content a {
-  color: #2a3e64;
-  background: rgba(255, 255, 255, 0.46);
-  border-color: rgba(176, 196, 236, 0.64);
+  color: var(--nav-light-sub-text);
+  background: var(--nav-light-sub-bg);
+  border-color: var(--nav-light-sub-border);
 }
 
 :root[data-theme="light"] .nav-collapsible-content a:hover {
-  color: #142649;
-  background: rgba(255, 255, 255, 0.72);
-  border-color: rgba(130, 162, 227, 0.72);
+  color: var(--nav-light-sub-text-hover);
+  background: var(--nav-light-sub-bg-hover);
+  border-color: var(--nav-light-sub-border-hover);
 }
 
 :root[data-theme="light"] .nav-toggle span {
-  background: #000000;
+  background: var(--nav-light-hamburger);
 }

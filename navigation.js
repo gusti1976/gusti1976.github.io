@@ -19,7 +19,6 @@
     const navOverlay = document.getElementById('nav-overlay');
 
     if (!navToggle || !navDrawer || !navOverlay) {
-      console.warn('Navigation elements not found');
       return;
     }
 
@@ -91,6 +90,7 @@
     function setActiveLink() {
       const currentPath = window.location.pathname;
       const navLinks = document.querySelectorAll('.nav-drawer a');
+      let matched = false;
 
       navLinks.forEach(function(link) {
         const linkPath = new URL(link.href).pathname;
@@ -99,6 +99,7 @@
             (currentPath === '/' && linkPath === '/') ||
             (currentPath.endsWith('.html') && linkPath.endsWith(currentPath.split('/').pop()))) {
           link.classList.add('active');
+          matched = true;
 
           // If link is inside a collapsible section, expand it
           const collapsibleContent = link.closest('.nav-collapsible-content');
@@ -112,6 +113,13 @@
           }
         }
       });
+
+      // Fallback: lyric pages (not individually listed in nav) should
+      // highlight the top-level "Lyrics" link. Detect by stylesheet.
+      if (!matched && document.querySelector('link[href*="glass-lyrics-template.css"]')) {
+        const lyricsLink = document.querySelector('.nav-drawer a[href="/lyrics.html"]');
+        if (lyricsLink) lyricsLink.classList.add('active');
+      }
     }
 
   }

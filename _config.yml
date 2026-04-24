@@ -1,0 +1,20 @@
+# GitHub Pages Jekyll config
+#
+# This repo deploys via GitHub Pages' built-in Jekyll. This config exists
+# to keep internal docs and tooling out of the public build. Without it,
+# Liquid-looking strings inside those files (e.g. CLAUDE.md's
+# `{% include %}` reference) can fail the Jekyll build, which silently
+# stops Pages from publishing new commits.
+#
+# Exclude list: anything the public site does NOT need to serve.
+
+exclude:
+  - CLAUDE.md
+  - _notes.md
+  - README.md
+  - html_validator.py
+  - ALBUM_PAGE_TEMPLATE.md
+  - validation_report.txt
+  - schema_validation_detailed.txt
+  - .claude/
+  - .github/

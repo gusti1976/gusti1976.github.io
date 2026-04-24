@@ -1,57 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Navigation Template — Developer Reference</title>
+  <!--
+    This file is a developer reference only.
+
+    The canonical nav markup lives in `_includes/navigation.html`. All 74
+    public pages load it via Jekyll:
+
+        {% include navigation.html %}
+
+    Edit `_includes/navigation.html` first; every page updates automatically.
+    The block below mirrors the current include for reference. It is NOT
+    copied into pages — pages use the include.
+
+    Stylesheets required on the page:
+      <link rel="stylesheet" href="navigation.css?v=20260304d">
+    Scripts required before </body>:
+      <script src="navigation.js?v=20260414a"></script>
+      <div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  -->
+  <link rel="stylesheet" href="navigation.css?v=20260304d">
+</head>
+<body>
+
 <!-- ============================================
-     GLOBAL NAVIGATION - Copy this into <body> after opening tag
+     MIRROR OF _includes/navigation.html
+     (Reference only. Do not copy-paste this into pages — use the include.)
      ============================================ -->
 
-<!-- Hamburger Toggle Button -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-  <span></span>
-  <span></span>
-  <span></span>
+  <span></span><span></span><span></span>
 </button>
 
-<!-- Navigation Drawer -->
 <nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation">
   <a href="/" class="nav-link">Home</a>
-  <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" class="nav-link" target="_blank" rel="noopener noreferrer">Listen on Apple Music</a>
 
   <div class="nav-collapsible">
     <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Music</span>
+      <span>Releases</span>
       <span class="arrow">▶</span>
     </button>
     <div class="nav-collapsible-content">
       <a href="/the-unseen-chorus.html">The Unseen Chorus</a>
       <a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a>
+      <a href="/cowboys.html">Cowboys EP</a>
+      <a href="/the-gay-mormon-musical.html">The Gay Mormon Musical</a>
+      <a href="/pride-month-2025.html">Pride Month 2025</a>
       <a href="/gay-and-proud.html">Gay and Proud</a>
-      <a href="/my-fire.html">My Fire (Mi Fuego)</a>
-      <a href="/feel-alive.html">Feel Alive</a>
+      <a href="/discography.html">Full discography →</a>
     </div>
   </div>
 
   <a href="/lyrics.html" class="nav-link">Lyrics</a>
-  <a href="/about.html" class="nav-link">About</a>
-  <a href="/press.html" class="nav-link">Press</a>
 
   <div class="nav-collapsible">
     <button class="nav-collapsible-trigger" aria-expanded="false">
-      <span>Listen &amp; Links</span>
+      <span>About the musician</span>
+      <span class="arrow">▶</span>
+    </button>
+    <div class="nav-collapsible-content">
+      <a href="/about.html">Biography</a>
+      <a href="/press.html">Press</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+  </div>
+
+  <div class="nav-collapsible">
+    <button class="nav-collapsible-trigger" aria-expanded="false">
+      <span>Listen</span>
       <span class="arrow">▶</span>
     </button>
     <div class="nav-collapsible-content">
       <a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a>
       <a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a>
       <a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a>
-      <a href="mailto:agust@arcticsea.com">Contact</a>
     </div>
   </div>
 </nav>
 
-<!-- Overlay (closes menu when clicked) -->
 <div class="nav-overlay" id="nav-overlay"></div>
 
-<!-- Add these before closing </head> tag -->
-<!-- <link rel="stylesheet" href="navigation.css"> -->
-<!-- <link rel="stylesheet" href="glass-site.css?v=20260304e"> -->
-
-<!-- Add this before closing </body> tag (after dark-mode.js) -->
-<!-- <script src="navigation.js"></script> -->
+</body>
+</html>
