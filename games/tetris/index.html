@@ -781,12 +781,27 @@
       transition: color 0.2s;
       min-width: 28px;
     }
-    body.dark .toggle-label { color: rgba(220,232,255,0.55); }
+    body.dark .toggle-label { color: rgba(220,200,255,0.70); }
     body.dark .hero-subtitle { color: #c060ff; }
     body.dark .hero-title .title-solid { color: #ffffff; }
     body.dark .hero-title .title-outline { -webkit-text-stroke: 2px #e03030; }
     body.dark .hero-byline { color: rgba(220,200,255,0.32); }
-    body.dark #lang-trigger  { color: rgba(220,232,255,0.85); }
+    body.dark #lang-trigger  { color: rgba(220,200,255,0.90); }
+
+    /* Panel labels need hard contrast against the purple glass */
+    body.dark .panel-label {
+      color: rgba(230,210,255,0.95);
+      opacity: 1;
+    }
+    body.dark .panel-value {
+      color: #fff;
+    }
+    body.dark #mini-lb-list .ml-pts {
+      color: rgba(210,185,255,0.80);
+    }
+    body.dark #mini-lb-list .ml-name {
+      color: rgba(240,230,255,0.95);
+    }
   </style>
 </head>
 <body>
