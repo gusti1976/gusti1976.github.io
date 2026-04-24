@@ -58,6 +58,9 @@
     }
   }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-a: #c8d8ff;
@@ -153,35 +156,43 @@
 
     .hero-subtitle {
       display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.5em;
       text-transform: uppercase;
-      color: rgba(15,34,71,0.7);
-      margin-bottom: 4px;
+      color: #e03030;
+      margin-bottom: 2px;
     }
 
     .hero-title {
       display: block;
-      font-size: 3.6rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 4.8rem;
       font-weight: 900;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #1a3a8f 0%, #7b2fff 50%, #ff3a8c 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: none;
-      filter: drop-shadow(0 2px 8px rgba(120,60,255,0.25));
+      letter-spacing: -0.01em;
+      line-height: 0.88;
+      text-transform: uppercase;
+    }
+
+    .hero-title .title-solid {
+      color: #0a0a14;
+    }
+
+    .hero-title .title-outline {
+      color: transparent;
+      -webkit-text-stroke: 2px #e03030;
     }
 
     .hero-byline {
       display: block;
-      font-size: 0.62rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: rgba(15,34,71,0.52);
-      margin-top: 5px;
-      font-style: italic;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(10,10,20,0.35);
+      margin-top: 6px;
     }
 
     /* ── Glass panel mixin ── */
@@ -414,7 +425,7 @@
         margin-bottom: 8px;
       }
 
-      .hero-title { font-size: 2.4rem; }
+      .hero-title { font-size: 3rem; }
 
       #wrapper {
         flex-direction: column;
@@ -771,7 +782,10 @@
       min-width: 28px;
     }
     body.dark .toggle-label { color: rgba(220,232,255,0.55); }
-    body.dark .hero-subtitle { color: rgba(255,255,255,0.92); }
+    body.dark .hero-subtitle { color: #ff4d4d; }
+    body.dark .hero-title .title-solid { color: #ffffff; }
+    body.dark .hero-title .title-outline { -webkit-text-stroke: 2px #ff4d4d; }
+    body.dark .hero-byline { color: rgba(255,255,255,0.32); }
     body.dark #lang-trigger  { color: rgba(220,232,255,0.85); }
   </style>
 </head>
@@ -779,8 +793,8 @@
 
 <div class="hero">
   <span class="hero-subtitle">Out and Proud</span>
-  <span class="hero-title">TETRIS FLARE</span>
-  <span class="hero-byline">...by Agust Islandia</span>
+  <span class="hero-title"><span class="title-solid">TETRIS</span> <span class="title-outline">FLARE</span></span>
+  <span class="hero-byline">by Agust Islandia</span>
   <div class="hero-controls">
     <div id="lang-dropdown">
       <button id="lang-trigger">
