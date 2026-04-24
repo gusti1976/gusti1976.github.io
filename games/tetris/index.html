@@ -1552,25 +1552,7 @@ function showTEmoji(row, col) {
 }
 
 function showWEmoji() {
-  const bw = boardCanvas.width, bh = boardCanvas.height;
-  const ex = bw / 2, ey = bh / 2;
-  const fontSize = Math.round(bw * 0.55);
-  let alpha = 1.0;
-  // Do NOT call draw() here — animateOoze manages the canvas each frame.
-  // We just paint the emoji on top after whatever animateOoze already drew.
-  const step = () => {
-    if (alpha <= 0) return;
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.font = `${fontSize}px serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('😱', ex, ey);
-    ctx.restore();
-    alpha -= 0.038;
-    requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
+  wEmojiAlpha = 1.0;  // animateOoze renders it at the end of each frame
 }
 
 // Scoring
@@ -1599,6 +1581,7 @@ let board, boardMeta, current, ghost, nextQueue, holdPiece, canHold;
 let score, level, lines, best;
 let lastWasSpecial = false;
 let isAnimating = false;   // true during W explosion — pauses drop timer
+let wEmojiAlpha = 0;       // >0 while 😱 emoji is fading over ooze animation
 let gameRunning, paused, dropTimer, dropInterval;
 let animId;
 
@@ -1863,6 +1846,18 @@ function animateOoze(pinkCell, expandCells, onDone) {
       ctx.fill();
       ctx.restore();
       f.age++;
+    }
+
+    // ── 😱 emoji overlay (fades independently on top of ooze) ──
+    if (wEmojiAlpha > 0) {
+      ctx.save();
+      ctx.globalAlpha = wEmojiAlpha;
+      ctx.font = `${Math.round(boardCanvas.width * 0.55)}px serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('😱', boardCanvas.width / 2, boardCanvas.height / 2);
+      ctx.restore();
+      wEmojiAlpha = Math.max(0, wEmojiAlpha - 0.038);
     }
 
     frame++;
