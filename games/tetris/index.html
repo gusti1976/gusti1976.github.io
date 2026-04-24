@@ -1867,8 +1867,8 @@ function lockPiece() {
   }
   const wCoords = [];
   getCells(current).forEach(([r, c], i) => {
-    board[r][c]     = current.cellColors ? current.cellColors[current.rot][i] : current.color;
-    boardMeta[r][c] = current.cellTypes  ? current.cellTypes[current.rot][i]  : null;
+    board[r][c]     = current.cellColors?.[current.rot]?.[i] ?? current.color;
+    boardMeta[r][c] = current.cellTypes?.[current.rot]?.[i]  ?? null;
     wCoords.push([r, c]);
   });
 
@@ -2248,8 +2248,8 @@ function draw() {
       ctx.restore();
     } else {
     getCells(current).forEach(([r, c], i) => {
-      const color = current.cellColors ? current.cellColors[current.rot][i] : current.color;
-      const type  = current.cellTypes  ? current.cellTypes[current.rot][i]  : null;
+      const color = current.cellColors?.[current.rot]?.[i] ?? current.color;
+      const type  = current.cellTypes?.[current.rot]?.[i]  ?? null;
       drawCellTyped(ctx, r, c, color, type);
     });
     } // end else (non-T piece)
