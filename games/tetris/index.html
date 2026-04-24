@@ -1253,6 +1253,13 @@ function sndLock() {
   osc(c, 'square', 160, 0.08, t, 0.05);
 }
 
+function sndTLock() {
+  const c = getACtx(), t = audioNow();
+  sweep(c, 'sine', 300, 90,  0.30, t,        0.26);
+  sweep(c, 'sine', 190, 78,  0.12, t + 0.16, 0.18);
+  osc(c,   'sine', 85,  0.06, t + 0.28, 0.12);
+}
+
 function sndHold() {
   const c = getACtx(), t = audioNow();
   sweep(c, 'sine', 400, 200, 0.09, t, 0.06);
@@ -1379,7 +1386,7 @@ function sndSecret() {
 
 const SOUNDS = {
   move: sndMove, rotate: sndRotate, softDrop: sndSoftDrop,
-  hardDrop: sndHardDrop, lock: sndLock, hold: sndHold,
+  hardDrop: sndHardDrop, lock: sndLock, tLock: sndTLock, hold: sndHold,
   clear1: sndClear1, clear2: sndClear2, clear3: sndClear3,
   clear4: sndClear4, backToBack: sndBackToBack,
   levelUp: sndLevelUp, gameOver: sndGameOver, secret: sndSecret,
@@ -1445,7 +1452,15 @@ window.addEventListener('resize', () => {
 const PIECES = {
   I: { color: 'rgba(0,200,255,0.82)',   cells: [[[0,-1],[0,0],[0,1],[0,2]],[[-1,0],[0,0],[1,0],[2,0]],[[0,-1],[0,0],[0,1],[0,2]],[[-1,0],[0,0],[1,0],[2,0]]] },
   O: { color: 'rgba(255,210,0,0.82)',   cells: [[[0,0],[0,1],[1,0],[1,1]],[[0,0],[0,1],[1,0],[1,1]],[[0,0],[0,1],[1,0],[1,1]],[[0,0],[0,1],[1,0],[1,1]]] },
-  T: { color: 'rgba(180,60,255,0.82)',  cells: [[[0,-1],[0,0],[0,1],[-1,0]],[[-1,0],[0,0],[1,0],[0,1]],[[0,-1],[0,0],[0,1],[1,0]],[[-1,0],[0,0],[1,0],[0,-1]]] },
+  T: {
+    color: 'rgba(215,178,132,0.85)',
+    cellColors: (() => {
+      const b = 'rgba(215,178,132,0.85)', p = 'rgba(232,118,142,0.92)';
+      // cells per rotation: [left/top, center, right/bottom, tip] — tip is always index 3
+      const c = [b, b, b, p]; return [c, c, c, c];
+    })(),
+    cells: [[[0,-1],[0,0],[0,1],[-1,0]],[[-1,0],[0,0],[1,0],[0,1]],[[0,-1],[0,0],[0,1],[1,0]],[[-1,0],[0,0],[1,0],[0,-1]]],
+  },
   S: { color: 'rgba(0,210,100,0.82)',   cells: [[[0,-1],[0,0],[-1,0],[-1,1]],[[-1,0],[0,0],[0,1],[1,1]],[[0,-1],[0,0],[-1,0],[-1,1]],[[-1,0],[0,0],[0,1],[1,1]]] },
   Z: { color: 'rgba(255,60,60,0.82)',   cells: [[[-1,-1],[-1,0],[0,0],[0,1]],[[0,0],[1,0],[-1,1],[0,1]],[[-1,-1],[-1,0],[0,0],[0,1]],[[0,0],[1,0],[-1,1],[0,1]]] },
   J: { color: 'rgba(40,100,255,0.82)',  cells: [[[0,-1],[0,0],[0,1],[-1,-1]],[[-1,0],[0,0],[1,0],[-1,1]],[[0,-1],[0,0],[0,1],[1,1]],[[-1,0],[0,0],[1,0],[1,-1]]] },
@@ -1477,6 +1492,64 @@ const PIECES = {
 };
 // Standard 7 pieces only — W is injected separately by randomPiece()
 const PIECE_KEYS = ['I','O','T','S','Z','J','L'];
+
+// ── T-piece special effects ───────────────────────────────────────────────────
+const T_BEIGE = 'rgba(215,178,132,0.85)';
+const T_PINK  = 'rgba(232,118,142,0.92)';
+const T_JIGGLE_MS = 320;
+let tTrail     = [];      // [{cells:[[r,c],...], alpha}]
+let tJiggleEnd = 0;
+let tAnimRaf   = null;
+
+function tPulseColors(rot) {
+  const p = (Math.sin(Date.now() / 240) + 1) / 2;
+  const b = `rgba(${Math.round(215+p*20)},${Math.round(178+p*12)},${Math.round(132+p*8)},${(0.82+p*0.10).toFixed(2)})`;
+  const t = `rgba(${Math.round(232+p*18)},${Math.round(118+p*22)},${Math.round(142+p*12)},${(0.88+p*0.08).toFixed(2)})`;
+  return [b, b, b, t];
+}
+
+function tJiggleOffset() {
+  if (!tJiggleEnd || Date.now() >= tJiggleEnd) return 0;
+  const elapsed  = Date.now() - (tJiggleEnd - T_JIGGLE_MS);
+  const progress = elapsed / T_JIGGLE_MS;
+  return Math.sin(progress * Math.PI * 5) * 4 * (1 - progress);
+}
+
+function startTAnim() {
+  if (tAnimRaf) return;
+  const loop = () => {
+    tTrail.forEach(t => { t.alpha -= 0.07; });
+    tTrail = tTrail.filter(t => t.alpha > 0);
+    const active = (tJiggleEnd && Date.now() < tJiggleEnd)
+                || (typeof current !== 'undefined' && current && current.key === 'T')
+                || tTrail.length > 0;
+    if (!active) { tAnimRaf = null; return; }
+    draw();
+    tAnimRaf = requestAnimationFrame(loop);
+  };
+  tAnimRaf = requestAnimationFrame(loop);
+}
+
+function showTEmoji(row, col) {
+  const x = (col + 0.5) * CELL;
+  let   y = row * CELL - 4;
+  let   alpha = 1.0;
+  const step = () => {
+    if (alpha <= 0) return;
+    draw();
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.font = `${Math.round(CELL * 1.4)}px serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('🍆', x, y);
+    ctx.restore();
+    y    -= 1.8;
+    alpha -= 0.038;
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
 
 // Scoring
 const LINE_SCORES = [0, 100, 300, 500, 800];
@@ -1544,6 +1617,7 @@ function spawnPiece() {
     col: Math.floor(COLS / 2),
   };
   if (key === 'W') playSound('secret');
+  if (key === 'T') { tJiggleEnd = Date.now() + T_JIGGLE_MS; startTAnim(); }
   canHold = true;
   calcGhost();
   if (!isValid(current)) {
@@ -1585,7 +1659,14 @@ function softDrop() {
 
 function tryMove(dr, dc) {
   const next = {...current, row: current.row + dr, col: current.col + dc};
-  if (isValid(next)) { current = next; calcGhost(); if (dr === 0) playSound('move'); draw(); return true; }
+  if (isValid(next)) {
+    if (current.key === 'T') {
+      tTrail.unshift({ cells: getCells(current).map(([r,c]) => [r,c]), alpha: 0.45 });
+      if (tTrail.length > 3) tTrail.pop();
+      startTAnim();
+    }
+    current = next; calcGhost(); if (dr === 0) playSound('move'); draw(); return true;
+  }
   return false;
 }
 
@@ -1773,7 +1854,17 @@ function animateOoze(pinkCell, expandCells, onDone) {
 
 function lockPiece() {
   clearTimeout(dropTimer); // always cancel the pending drop before locking
-  playSound('lock');
+  if (current.key === 'T') {
+    playSound('tLock');
+    const cells = getCells(current);
+    const midC  = Math.round(cells.reduce((s,[,c]) => s+c, 0) / cells.length);
+    const topR  = Math.min(...cells.map(([r]) => r));
+    showTEmoji(topR, midC);
+    tJiggleEnd = Date.now() + T_JIGGLE_MS;
+    startTAnim();
+  } else {
+    playSound('lock');
+  }
   const wCoords = [];
   getCells(current).forEach(([r, c], i) => {
     board[r][c]     = current.cellColors ? current.cellColors[current.rot][i] : current.color;
@@ -2134,12 +2225,34 @@ function draw() {
       ctx.restore();
     });
 
+    // T-piece shimmer trail
+    tTrail.forEach(tr => {
+      tr.cells.forEach(([r, c]) => {
+        ctx.save();
+        ctx.globalAlpha = tr.alpha * 0.55;
+        ctx.fillStyle = T_PINK;
+        ctx.beginPath();
+        roundRect(ctx, c * CELL + 3, r * CELL + 3, CELL - 6, CELL - 6, CELL * 0.2);
+        ctx.fill();
+        ctx.restore();
+      });
+    });
+
     // Current piece
+    if (current.key === 'T') {
+      const dx = tJiggleOffset();
+      const pulseColors = tPulseColors(current.rot);
+      ctx.save();
+      ctx.translate(dx, 0);
+      getCells(current).forEach(([r, c], i) => drawCellTyped(ctx, r, c, pulseColors[i], null));
+      ctx.restore();
+    } else {
     getCells(current).forEach(([r, c], i) => {
       const color = current.cellColors ? current.cellColors[current.rot][i] : current.color;
       const type  = current.cellTypes  ? current.cellTypes[current.rot][i]  : null;
       drawCellTyped(ctx, r, c, color, type);
     });
+    } // end else (non-T piece)
   }
 }
 
@@ -2155,7 +2268,10 @@ function drawMini(mCtx, key, canvasW, canvasH, cellSize = 22) {
   const maxC = Math.max(...cells.map(([_, c]) => c));
   const offR = Math.floor((canvasH / cellSize - (maxR - minR + 1)) / 2) - minR;
   const offC = Math.floor((canvasW / cellSize - (maxC - minC + 1)) / 2) - minC;
-  cells.forEach(([r, c]) => drawCell(mCtx, r + offR, c + offC, piece.color, 1, cellSize));
+  cells.forEach(([r, c], i) => {
+    const col = piece.cellColors ? piece.cellColors[0][i] : piece.color;
+    drawCell(mCtx, r + offR, c + offC, col, 1, cellSize);
+  });
 }
 
 function drawNext() {
@@ -2176,7 +2292,10 @@ function drawNext() {
     const maxC = Math.max(...cells.map(([_, c]) => c));
     const offR = Math.floor((sectionH / cellSize - (maxR - minR + 1)) / 2) - minR;
     const offC = Math.floor((nextCanvas.width / cellSize - (maxC - minC + 1)) / 2) - minC;
-    cells.forEach(([r, c]) => drawCell(nCtx, r + offR, c + offC, piece.color, i === 0 ? 1 : 0.55, cellSize));
+    cells.forEach(([r, c], ci) => {
+      const col = piece.cellColors ? piece.cellColors[0][ci] : piece.color;
+      drawCell(nCtx, r + offR, c + offC, col, i === 0 ? 1 : 0.55, cellSize);
+    });
     nCtx.restore();
   });
 }
