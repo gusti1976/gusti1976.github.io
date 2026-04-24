@@ -1477,8 +1477,8 @@ const PIECES = {
       return [c, c, c, c];
     })(),
     cellTypes: (function(){
-      // quad on bar sides, slot on the pink tip — same regardless of rotation
-      const t = ['quad', null, 'quad', null, null, 'slot'];
+      // ball on bar sides, slot on the pink tip — same regardless of rotation
+      const t = ['ball', null, 'ball', null, null, 'slot'];
       return [t, t, t, t];
     })(),
     cells: (function(){
@@ -2183,8 +2183,52 @@ function drawCellSlot(ctx, r, c, color, alpha = 1, cellSize = CELL) {
   ctx.restore();
 }
 
+function drawCellBall(ctx, r, c, color, alpha = 1, cellSize = CELL) {
+  const cx = c * cellSize + cellSize / 2;
+  const cy = r * cellSize + cellSize / 2;
+  const rad = cellSize * 0.44;
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+
+  // Sphere body — radial gradient with off-centre highlight
+  const body = ctx.createRadialGradient(
+    cx - rad * 0.28, cy - rad * 0.30, rad * 0.04,
+    cx, cy, rad
+  );
+  body.addColorStop(0,   lighten(color, 0.50));
+  body.addColorStop(0.4, lighten(color, 0.18));
+  body.addColorStop(1,   color);
+  ctx.beginPath();
+  ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+  ctx.fillStyle = body;
+  ctx.fill();
+
+  // Specular shine
+  const shine = ctx.createRadialGradient(
+    cx - rad * 0.26, cy - rad * 0.26, 0,
+    cx - rad * 0.26, cy - rad * 0.26, rad * 0.38
+  );
+  shine.addColorStop(0, 'rgba(255,255,255,0.78)');
+  shine.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.beginPath();
+  ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+  ctx.fillStyle = shine;
+  ctx.fill();
+
+  // Rim
+  ctx.beginPath();
+  ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.42)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.restore();
+}
+
 // Dispatch to the right draw function based on cell type
 function drawCellTyped(ctx, r, c, color, type, alpha = 1, cellSize = CELL) {
+  if (type === 'ball') return drawCellBall(ctx, r, c, color, alpha, cellSize);
   if (type === 'quad') return drawCellQuad(ctx, r, c, color, alpha, cellSize);
   if (type === 'slot') return drawCellSlot(ctx, r, c, color, alpha, cellSize);
   return drawCell(ctx, r, c, color, alpha, cellSize);
