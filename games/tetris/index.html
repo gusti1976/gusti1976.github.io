@@ -63,18 +63,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-a: #c8d8ff;
-      --bg-b: #e8c8f0;
-      --bg-c: #c8f0ee;
-      --bg-base: linear-gradient(135deg, #8fa8d8 0%, #9fa3d4 50%, #a8aad0 100%);
-      --ink: #0d1a33;
-      --ink-soft: #2a3d6a;
+      --bg-a: #d4c0ff;
+      --bg-b: #e8c0f8;
+      --bg-c: #c0c4f8;
+      --bg-base: linear-gradient(135deg, #c4b8e8 0%, #d0b8ec 50%, #c0b8e4 100%);
+      --ink: #180830;
+      --ink-soft: #4a2880;
       --glass: rgba(255,255,255,0.55);
       --glass-strong: rgba(255,255,255,0.72);
-      --glass-border: rgba(255,255,255,0.7);
-      --glass-shadow: rgba(80,100,180,0.18);
+      --glass-border: rgba(180,140,255,0.55);
+      --glass-shadow: rgba(100,40,200,0.16);
       --radius: 20px;
-      --accent: #3b6fff;
+      --accent: #7030e0;
 
       /* Piece colors — translucent glass tints */
       --c-i: rgba(0,200,255,0.72);
@@ -88,16 +88,16 @@
     }
 
     body.dark {
-      --bg-a: #0a1030;
-      --bg-b: #1a0828;
-      --bg-c: #081820;
-      --bg-base: linear-gradient(135deg, #0d1428 0%, #140d24 50%, #0a1020 100%);
-      --ink: #dce8ff;
-      --ink-soft: #8ea8d8;
-      --glass: rgba(20,32,70,0.72);
-      --glass-strong: rgba(18,28,60,0.88);
-      --glass-border: rgba(80,110,200,0.28);
-      --glass-shadow: rgba(0,10,60,0.45);
+      --bg-a: #200850;
+      --bg-b: #180438;
+      --bg-c: #100428;
+      --bg-base: linear-gradient(135deg, #0e0820 0%, #12062a 50%, #0a0418 100%);
+      --ink: #ede0ff;
+      --ink-soft: #b090e0;
+      --glass: rgba(80,30,180,0.14);
+      --glass-strong: rgba(60,15,140,0.88);
+      --glass-border: rgba(150,80,255,0.28);
+      --glass-shadow: rgba(60,0,160,0.45);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -131,19 +131,19 @@
     }
     body::before {
       width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(120,160,255,0.5), transparent 70%);
+      background: radial-gradient(circle, rgba(140,80,255,0.45), transparent 70%);
       top: -150px; left: -150px;
     }
     body::after {
       width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(200,140,255,0.4), transparent 70%);
+      background: radial-gradient(circle, rgba(200,80,255,0.35), transparent 70%);
       bottom: -100px; right: -100px;
     }
     body.dark::before {
-      background: radial-gradient(circle, rgba(30,50,140,0.6), transparent 70%);
+      background: radial-gradient(circle, rgba(120,40,255,0.55), transparent 70%);
     }
     body.dark::after {
-      background: radial-gradient(circle, rgba(80,20,120,0.5), transparent 70%);
+      background: radial-gradient(circle, rgba(180,20,255,0.38), transparent 70%);
     }
 
     .hero {
@@ -161,7 +161,7 @@
       font-weight: 800;
       letter-spacing: 0.5em;
       text-transform: uppercase;
-      color: #e03030;
+      color: #7030e0;
       margin-bottom: 2px;
     }
 
@@ -782,10 +782,10 @@
       min-width: 28px;
     }
     body.dark .toggle-label { color: rgba(220,232,255,0.55); }
-    body.dark .hero-subtitle { color: #ff4d4d; }
+    body.dark .hero-subtitle { color: #c060ff; }
     body.dark .hero-title .title-solid { color: #ffffff; }
-    body.dark .hero-title .title-outline { -webkit-text-stroke: 2px #ff4d4d; }
-    body.dark .hero-byline { color: rgba(255,255,255,0.32); }
+    body.dark .hero-title .title-outline { -webkit-text-stroke: 2px #e03030; }
+    body.dark .hero-byline { color: rgba(220,200,255,0.32); }
     body.dark #lang-trigger  { color: rgba(220,232,255,0.85); }
   </style>
 </head>
@@ -2065,23 +2065,23 @@ function updateUI() {
 }
 
 // Body background shifts with level
-const LEVEL_HUES = [230, 200, 170, 140, 110, 80, 50, 20, 350, 320];
+const LEVEL_HUES = [270, 290, 310, 250, 220, 300, 330, 270, 285, 255];
 function updateBodyTheme() {
   const h = LEVEL_HUES[(level - 1) % LEVEL_HUES.length];
   const dark = document.body.classList.contains('dark');
   if (dark) {
     document.body.style.background = `
-      radial-gradient(ellipse at 10% 15%, hsl(${h},55%,12%) 0%, transparent 40%),
-      radial-gradient(ellipse at 90% 8%, hsl(${h+40},45%,10%) 0%, transparent 38%),
-      radial-gradient(ellipse at 50% 90%, hsl(${h+80},50%,10%) 0%, transparent 38%),
-      linear-gradient(135deg, hsl(${h+10},35%,8%) 0%, hsl(${h+30},30%,9%) 50%, hsl(${h+50},28%,8%) 100%)
+      radial-gradient(ellipse at 10% 15%, hsl(${h},65%,14%) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 8%, hsl(${h+30},55%,11%) 0%, transparent 38%),
+      radial-gradient(ellipse at 50% 90%, hsl(${h+60},60%,10%) 0%, transparent 38%),
+      linear-gradient(135deg, hsl(${h+5},45%,7%) 0%, hsl(${h+20},40%,8%) 50%, hsl(${h+40},38%,6%) 100%)
     `;
   } else {
     document.body.style.background = `
-      radial-gradient(ellipse at 10% 15%, hsl(${h},70%,78%) 0%, transparent 40%),
-      radial-gradient(ellipse at 90% 8%, hsl(${h+40},60%,82%) 0%, transparent 38%),
-      radial-gradient(ellipse at 50% 90%, hsl(${h+80},65%,80%) 0%, transparent 38%),
-      linear-gradient(135deg, hsl(${h+10},45%,68%) 0%, hsl(${h+30},40%,68%) 50%, hsl(${h+50},38%,66%) 100%)
+      radial-gradient(ellipse at 10% 15%, hsl(${h},75%,80%) 0%, transparent 40%),
+      radial-gradient(ellipse at 90% 8%, hsl(${h+30},65%,84%) 0%, transparent 38%),
+      radial-gradient(ellipse at 50% 90%, hsl(${h+60},70%,82%) 0%, transparent 38%),
+      linear-gradient(135deg, hsl(${h+5},50%,72%) 0%, hsl(${h+20},45%,73%) 50%, hsl(${h+40},42%,70%) 100%)
     `;
   }
 }
