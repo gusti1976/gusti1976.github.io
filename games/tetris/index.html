@@ -1941,7 +1941,7 @@ function clearLines() {
   for (let r = ROWS - 1; r >= 0; r--) {
     if (board[r].every(c => c !== null)) {
       // Check BEFORE removing: does this row contain a quad Easter-egg cell?
-      if (!quadBonus && boardMeta[r].some(m => m === 'quad')) quadBonus = true;
+      if (!quadBonus && boardMeta[r].some(m => m === 'ball' || m === 'quad')) quadBonus = true;
       board.splice(r, 1);
       board.unshift(Array(COLS).fill(null));
       boardMeta.splice(r, 1);
