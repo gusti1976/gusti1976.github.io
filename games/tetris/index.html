@@ -1732,29 +1732,67 @@ const PEARL = 'rgba(245, 240, 255, 0.94)';  // pearl-white fill colour
 // Jumps over one occupied cell to reach empty cells beyond it.
 function getExpandCells(wCoords) {
   const DIRS = [[-1,0],[1,0],[0,-1],[0,1]];
-  const seen  = new Set(wCoords.map(([r,c]) => `${r},${c}`));
+  // seen = cells that will be filled (W piece cells + ooze targets)
+  const seen = new Set(wCoords.map(([r,c]) => `${r},${c}`));
   const cells = [];
 
+  // ── Step 1: adjacency expansion (immediate neighbours + one-cell jump) ──
   for (const [r, c] of wCoords) {
     for (const [dr, dc] of DIRS) {
       const r1 = r + dr, c1 = c + dc;
       if (r1 < 0 || r1 >= ROWS || c1 < 0 || c1 >= COLS) continue;
       const k1 = `${r1},${c1}`;
       if (!board[r1][c1] && !seen.has(k1)) {
-        seen.add(k1);
-        cells.push([r1, c1]);
-      } else if (board[r1][c1] && !seen.has(k1)) {
-        const r2 = r + dr * 2, c2 = c + dc * 2;
+        seen.add(k1); cells.push([r1, c1]);
+      } else if (board[r1][c1]) {
+        // Jump over one occupied cell to reach the empty cell behind it
+        const r2 = r + dr*2, c2 = c + dc*2;
         if (r2 >= 0 && r2 < ROWS && c2 >= 0 && c2 < COLS) {
           const k2 = `${r2},${c2}`;
           if (!board[r2][c2] && !seen.has(k2)) {
-            seen.add(k2);
-            cells.push([r2, c2]);
+            seen.add(k2); cells.push([r2, c2]);
           }
         }
       }
     }
   }
+
+  // ── Step 2: seal orphaned pockets iteratively ──
+  // After filling `seen` cells, some empty cells may become unreachable from
+  // the top (a piece can no longer fall into them).  Find those and fill them
+  // too.  Repeat until no new orphans are created by previous fills.
+  let changed = true;
+  while (changed) {
+    changed = false;
+    // BFS from top row: find every empty cell still reachable when `seen` = filled
+    const reachable = new Set();
+    const q = [];
+    for (let c = 0; c < COLS; c++) {
+      const k = `0,${c}`;
+      if (!board[0][c] && !seen.has(k)) { reachable.add(k); q.push([0, c]); }
+    }
+    for (let h = 0; h < q.length; h++) {
+      const [r, c] = q[h];
+      for (const [dr, dc] of DIRS) {
+        const nr = r+dr, nc = c+dc;
+        if (nr < 0 || nr >= ROWS || nc < 0 || nc >= COLS) continue;
+        const k = `${nr},${nc}`;
+        if (!board[nr][nc] && !seen.has(k) && !reachable.has(k)) {
+          reachable.add(k); q.push([nr, nc]);
+        }
+      }
+    }
+    // Any empty cell not reachable from the top is orphaned — ooze fills it
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const k = `${r},${c}`;
+        if (!board[r][c] && !seen.has(k) && !reachable.has(k)) {
+          seen.add(k); cells.push([r, c]); changed = true;
+        }
+      }
+    }
+  }
+
   return cells;
 }
 
