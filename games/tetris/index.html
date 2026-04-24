@@ -2758,7 +2758,8 @@ async function maybeSaveScore(score, level, lines) {
     }
   } catch (e) {
     console.warn('Firestore save error', e);
-    msgEl.textContent = 'Score not saved — check connection.';
+    const code = e.code || e.message || 'unknown';
+    msgEl.textContent = `Score not saved (${code})`;
   }
 }
 
