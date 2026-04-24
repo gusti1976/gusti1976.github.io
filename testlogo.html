@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TETRIS FLARE — Logo Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bebas+Neue&family=Orbitron:wght@700;900&family=Russo+One&family=Anton&family=Oswald:wght@700&family=Playfair+Display:wght@900&family=Black+Ops+One&family=Teko:wght@700&family=Barlow+Condensed:wght@800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d0d14;
+    color: #fff;
+    font-family: system-ui, sans-serif;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #666;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #13131e;
+    border: 1px solid #22223a;
+    border-radius: 12px;
+    padding: 36px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .card-num {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: #444;
+    text-transform: uppercase;
+  }
+
+  .card-name {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: #444;
+    text-transform: uppercase;
+  }
+
+  /* ─── shared layout for subtitle / title / byline inside each card ─── */
+  .logo { text-align: center; }
+  .logo .sub  { display: block; }
+  .logo .main { display: block; line-height: 1; }
+  .logo .by   { display: block; }
+
+
+  /* ════════════════════════════════════════════════════════
+     01  PIXEL ARCADE
+     Press Start 2P — each letter in a Tetris piece colour
+  ════════════════════════════════════════════════════════ */
+  .c01 .sub {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.38rem;
+    letter-spacing: 0.18em;
+    color: #aaa;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .c01 .main {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+  .c01 .t { color: #00cfff; }
+  .c01 .e { color: #f5a623; }
+  .c01 .r { color: #ff4069; }
+  .c01 .i { color: #a855f7; }
+  .c01 .s { color: #3ddc84; }
+  .c01 .sp { color: transparent; }
+  .c01 .f  { color: #ff4069; }
+  .c01 .l  { color: #f5a623; }
+  .c01 .a  { color: #00cfff; }
+  .c01 .re { color: #3ddc84; }
+  .c01 .by {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.3rem;
+    color: #555;
+    margin-top: 12px;
+    letter-spacing: 0.1em;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     02  NEON NOIR
+     Orbitron, hot cyan glow on dark — nightclub arcade
+  ════════════════════════════════════════════════════════ */
+  .c02 { background: #060810; }
+  .c02 .sub {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #ff2d78;
+    text-shadow: 0 0 8px #ff2d78;
+    margin-bottom: 6px;
+  }
+  .c02 .main {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #00f5ff;
+    text-shadow:
+      0 0 4px #00f5ff,
+      0 0 16px #00f5ff,
+      0 0 48px rgba(0,245,255,0.4);
+    letter-spacing: 0.04em;
+  }
+  .c02 .by {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.45rem;
+    color: rgba(0,245,255,0.4);
+    letter-spacing: 0.15em;
+    margin-top: 8px;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     03  BRUTALIST BLOCK
+     Bebas Neue, massive, black-and-yellow construction tape
+  ════════════════════════════════════════════════════════ */
+  .c03 { background: #f7e800; }
+  .c03 .sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    color: #000;
+    margin-bottom: 2px;
+  }
+  .c03 .main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5.2rem;
+    color: #000;
+    letter-spacing: -0.01em;
+  }
+  .c03 .by {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: rgba(0,0,0,0.5);
+    margin-top: 4px;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     04  CHROME PRISM
+     Russo One, multi-stop rainbow gradient — but curated,
+     not the AI slop blue-purple-pink
+  ════════════════════════════════════════════════════════ */
+  .c04 .sub {
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 6px;
+  }
+  .c04 .main {
+    font-family: 'Russo One', sans-serif;
+    font-size: 3.8rem;
+    letter-spacing: 0.02em;
+    background: linear-gradient(
+      90deg,
+      #f7e800 0%,
+      #ff6600 20%,
+      #ff0055 40%,
+      #cc00ff 60%,
+      #0080ff 80%,
+      #00ffcc 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,0.6));
+  }
+  .c04 .by {
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    color: #666;
+    margin-top: 8px;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     05  EDITORIAL CONTRAST
+     Playfair Display serif — luxury / magazine cover
+  ════════════════════════════════════════════════════════ */
+  .c05 { background: #fff; }
+  .c05 .sub {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 4px;
+    font-style: italic;
+  }
+  .c05 .main {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: #0a0a0a;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+  }
+  .c05 .main em {
+    font-style: italic;
+    color: #c0392b;
+  }
+  .c05 .by {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: #aaa;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     06  COLD WAR STENCIL
+     Black Ops One — military, worn, stamp feel
+  ════════════════════════════════════════════════════════ */
+  .c06 { background: #1a1a0e; border-color: #3a3a20; }
+  .c06 .sub {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: #6b7a2e;
+    margin-bottom: 6px;
+  }
+  .c06 .main {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 3.6rem;
+    color: #d4c87a;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 0 #000, 3px 3px 0 rgba(0,0,0,0.3);
+  }
+  .c06 .by {
+    font-family: 'Black Ops One', sans-serif;
+    font-size: 0.48rem;
+    letter-spacing: 0.2em;
+    color: #6b7a2e;
+    margin-top: 8px;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     07  SPORT CONDENSED
+     Barlow Condensed — stadium scoreboard energy
+  ════════════════════════════════════════════════════════ */
+  .c07 .sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: #ff4d4d;
+    margin-bottom: 0;
+  }
+  .c07 .main {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 6.5rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 0.88;
+    text-transform: uppercase;
+  }
+  .c07 .main .flare {
+    color: transparent;
+    -webkit-text-stroke: 2px #ff4d4d;
+  }
+  .c07 .by {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #555;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     08  GLITCH CYBER
+     Teko, offset colour layers, digital corruption feel
+  ════════════════════════════════════════════════════════ */
+  .c08 { background: #04040d; }
+  .c08 .sub {
+    font-family: 'Teko', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: #0f0;
+    margin-bottom: 2px;
+  }
+  .c08 .glitch-wrap {
+    position: relative;
+    display: inline-block;
+  }
+  .c08 .main {
+    font-family: 'Teko', sans-serif;
+    font-size: 4.8rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    position: relative;
+    z-index: 1;
+  }
+  .c08 .main::before {
+    content: 'TETRIS FLARE';
+    position: absolute;
+    left: -3px; top: 0;
+    color: #ff003c;
+    opacity: 0.75;
+    z-index: -1;
+    clip-path: polygon(0 20%, 100% 20%, 100% 45%, 0 45%);
+  }
+  .c08 .main::after {
+    content: 'TETRIS FLARE';
+    position: absolute;
+    left: 3px; top: 0;
+    color: #00f0ff;
+    opacity: 0.75;
+    z-index: -1;
+    clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+  }
+  .c08 .by {
+    font-family: 'Teko', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #0f0;
+    margin-top: 4px;
+    opacity: 0.6;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     09  MINIMAL INK
+     Anton, pure white on black, zero effects, max weight
+  ════════════════════════════════════════════════════════ */
+  .c09 { background: #000; border-color: #111; }
+  .c09 .sub {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 2px;
+  }
+  .c09 .main {
+    font-family: 'Anton', sans-serif;
+    font-size: 4.4rem;
+    color: #fff;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+  }
+  .c09 .accent {
+    display: block;
+    font-family: 'Anton', sans-serif;
+    font-size: 4.4rem;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #fff;
+    letter-spacing: 0.01em;
+    line-height: 0.95;
+    margin-top: -4px;
+  }
+  .c09 .by {
+    font-family: 'Anton', sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: #333;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+
+  /* ════════════════════════════════════════════════════════
+     10  QUEER PRIDE BLOCKS
+     Oswald, stacked layout, actual pride flag stripe colours
+     used as underline accent blocks — not a gradient on text
+  ════════════════════════════════════════════════════════ */
+  .c10 .sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 10px;
+  }
+  .c10 .main {
+    font-family: 'Oswald', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+  }
+  .c10 .stripe-row {
+    display: flex;
+    width: 100%;
+    height: 7px;
+    margin-top: 10px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .c10 .s1 { flex: 1; background: #E40303; }
+  .c10 .s2 { flex: 1; background: #FF8C00; }
+  .c10 .s3 { flex: 1; background: #FFED00; }
+  .c10 .s4 { flex: 1; background: #008026; }
+  .c10 .s5 { flex: 1; background: #004DFF; }
+  .c10 .s6 { flex: 1; background: #750787; }
+  .c10 .by {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: #555;
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<h1>Tetris Flare — 10 Logo Concepts</h1>
+
+<div class="grid">
+
+  <!-- 01 PIXEL ARCADE -->
+  <div class="card c01">
+    <span class="card-num">01</span>
+    <span class="card-name">Pixel Arcade</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">
+        <span class="t">T</span><span class="e">E</span><span class="r">T</span><span class="i">R</span><span class="s">I</span><span class="t">S</span>
+        <span style="display:block;font-size:0.4rem;line-height:2"></span>
+        <span class="f">F</span><span class="l">L</span><span class="a">A</span><span class="re">R</span><span class="e">E</span>
+      </span>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 02 NEON NOIR -->
+  <div class="card c02">
+    <span class="card-num">02</span>
+    <span class="card-name">Neon Noir</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">TETRIS FLARE</span>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 03 BRUTALIST BLOCK -->
+  <div class="card c03">
+    <span class="card-num" style="color:#aaa">03</span>
+    <span class="card-name" style="color:#aaa">Brutalist Block</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">TETRIS FLARE</span>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 04 CHROME PRISM -->
+  <div class="card c04">
+    <span class="card-num">04</span>
+    <span class="card-name">Chrome Prism</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">TETRIS FLARE</span>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 05 EDITORIAL CONTRAST -->
+  <div class="card c05">
+    <span class="card-num" style="color:#ccc">05</span>
+    <span class="card-name" style="color:#ccc">Editorial Contrast</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">TETRIS <em>FLARE</em></span>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 06 COLD WAR STENCIL -->
+  <div class="card c06">
+    <span class="card-num">06</span>
+    <span class="card-name">Cold War Stencil</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">TETRIS FLARE</span>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 07 SPORT CONDENSED -->
+  <div class="card c07">
+    <span class="card-num">07</span>
+    <span class="card-name">Sport Condensed</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">TETRIS<br><span class="flare">FLARE</span></span>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 08 GLITCH CYBER -->
+  <div class="card c08">
+    <span class="card-num">08</span>
+    <span class="card-name">Glitch Cyber</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <div class="glitch-wrap">
+        <span class="main">TETRIS FLARE</span>
+      </div>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 09 MINIMAL INK -->
+  <div class="card c09">
+    <span class="card-num">09</span>
+    <span class="card-name">Minimal Ink</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">TETRIS</span>
+      <span class="accent">FLARE</span>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+  <!-- 10 QUEER PRIDE BLOCKS -->
+  <div class="card c10">
+    <span class="card-num">10</span>
+    <span class="card-name">Pride Blocks</span>
+    <div class="logo">
+      <span class="sub">Out and Proud</span>
+      <span class="main">TETRIS FLARE</span>
+      <div class="stripe-row">
+        <div class="s1"></div><div class="s2"></div><div class="s3"></div>
+        <div class="s4"></div><div class="s5"></div><div class="s6"></div>
+      </div>
+      <span class="by">...by Agust Islandia</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
