@@ -76,15 +76,6 @@
       --radius: 20px;
       --accent: #7030e0;
 
-      /* Piece colors — translucent glass tints */
-      --c-i: rgba(0,200,255,0.72);
-      --c-o: rgba(255,210,0,0.72);
-      --c-t: rgba(180,60,255,0.72);
-      --c-s: rgba(0,220,100,0.72);
-      --c-z: rgba(255,60,60,0.72);
-      --c-j: rgba(40,100,255,0.72);
-      --c-l: rgba(255,140,0,0.72);
-      --c-ghost: rgba(200,220,255,0.22);
     }
 
     body.dark {
@@ -877,7 +868,7 @@
 
     <!-- Start overlay -->
     <div class="overlay" id="startOverlay">
-      <h2 data-i18n="startTitle">Glass Tetris</h2>
+      <h2 data-i18n="startTitle">Tetris Flare</h2>
       <p data-i18n="startSub">Classic Tetris with a Liquid Glass look</p>
       <button class="btn" id="startBtn" data-i18n="startBtn">Start Game</button>
     </div>
@@ -1500,7 +1491,7 @@ window.addEventListener('resize', () => {
   clearTimeout(_resizeTimer);
   _resizeTimer = setTimeout(() => {
     initCellSize();
-    draw(); drawNext(); drawHold();
+    if (gameRunning) { draw(); drawNext(); drawHold(); }
   }, 150);
 });
 // initCellSize() is called inside startGame() — not here, as boardCanvas isn't defined yet
@@ -1551,7 +1542,6 @@ const PIECES = {
 const PIECE_KEYS = ['I','O','T','S','Z','J','L'];
 
 // ── T-piece special effects ───────────────────────────────────────────────────
-const T_BEIGE = 'rgba(215,178,132,0.85)';
 const T_PINK  = 'rgba(232,118,142,0.92)';
 const T_JIGGLE_MS = 320;
 let tTrail     = [];      // [{cells:[[r,c],...], alpha}]
@@ -1645,7 +1635,6 @@ let lastWasSpecial = false;
 let isAnimating = false;   // true during W explosion — pauses drop timer
 let wEmojiAlpha = 0;       // >0 while 😱 emoji is fading over ooze animation
 let gameRunning, paused, dropTimer, dropInterval;
-let animId;
 
 function init() {
   board     = Array.from({length: ROWS}, () => Array(COLS).fill(null));
@@ -1654,7 +1643,7 @@ function init() {
   holdPiece = null;
   canHold = true;
   score = 0; level = 1; lines = 0;
-  best = parseInt(localStorage.getItem('tetris_best') || '0');
+  best = parseInt(localStorage.getItem('tetris_best') || '0', 10);
   bestEl.textContent = best;
   updateUI();
   spawnPiece();
@@ -1688,7 +1677,7 @@ function spawnPiece() {
   canHold = true;
   calcGhost();
   if (!isValid(current)) {
-    endGame();
+    endGame(); return;
   }
 }
 
@@ -2138,10 +2127,6 @@ function updateBodyTheme() {
 //  DRAWING
 // ─────────────────────────────────────────────
 
-function cssVar(name) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
 function drawCell(ctx, r, c, color, alpha = 1, cellSize = CELL) {
   const x = c * cellSize, y = r * cellSize;
   const s = cellSize;
@@ -2558,7 +2543,7 @@ function togglePause() {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'm' || e.key === 'M') { toggleMute(); return; }
-  if (!gameRunning || paused) {
+  if (!gameRunning || paused || isAnimating || easterAnimating) {
     if (e.key === 'p' || e.key === 'P') togglePause();
     return;
   }
@@ -2584,14 +2569,14 @@ boardCanvas.addEventListener('touchstart', e => {
 }, {passive: false});
 
 boardCanvas.addEventListener('touchmove', e => {
-  if (!gameRunning || paused) return;
+  if (!gameRunning || paused || isAnimating || easterAnimating) return;
   const dy = e.touches[0].clientY - touchLastY;
   if (dy > 20) { softDrop(); touchLastY = e.touches[0].clientY; }
   e.preventDefault();
 }, {passive: false});
 
 boardCanvas.addEventListener('touchend', e => {
-  if (!gameRunning || paused) return;
+  if (!gameRunning || paused || isAnimating || easterAnimating) return;
   const dx = e.changedTouches[0].clientX - touchStartX;
   const dy = e.changedTouches[0].clientY - touchStartY;
   if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 20) {
@@ -2860,14 +2845,12 @@ auth.onAuthStateChanged(user => {
   const wasGuest = !fbUser;
   fbUser = user;
   updateAuthUI();
+  loadMiniLeaderboard();
   // If user just signed in while the game-over overlay is showing, save now
   if (user && wasGuest && pendingScoreSave) {
     pendingScoreSave = false;
-    maybeSaveScore(
-      parseInt(document.getElementById('score').textContent.replace(/,/g,'')) || 0,
-      parseInt(document.getElementById('level').textContent) || 1,
-      parseInt(document.getElementById('lines').textContent) || 0
-    );
+    const saved = lastEndGame || {};
+    maybeSaveScore(saved.score || 0, saved.level || 1, saved.lines || 0);
   }
 });
 
@@ -2967,7 +2950,13 @@ async function loadMiniLeaderboard() {
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
       const firstName = (d.displayName || d.name || 'Anon').split(' ')[0];
       const pts = Math.floor(Number(d.score) || 0);
-      li.innerHTML = `<span class="ml-name">${miniI + 1}. ${firstName}</span><span class="ml-pts">${pts.toLocaleString()} points</span>`;
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'ml-name';
+      nameSpan.textContent = `${miniI + 1}. ${firstName}`;
+      const ptsSpan = document.createElement('span');
+      ptsSpan.className = 'ml-pts';
+      ptsSpan.textContent = `${pts.toLocaleString()} points`;
+      li.appendChild(nameSpan); li.appendChild(ptsSpan);
       list.appendChild(li);
       miniI++;
     });
@@ -3000,10 +2989,16 @@ async function loadLeaderboard() {
       if (fbUser && doc.id === fbUser.uid) li.classList.add('lb-me');
       const firstName = (d.displayName || d.name || 'Anonymous').split(' ')[0];
       const pts = Math.floor(Number(d.score) || 0);
-      li.innerHTML = `
-        <span class="lb-rank">${lbI + 1}</span>
-        <span class="lb-name">${firstName}</span>
-        <span class="lb-score">${pts.toLocaleString()}</span>`;
+      const rankSpan = document.createElement('span');
+      rankSpan.className = 'lb-rank';
+      rankSpan.textContent = String(lbI + 1);
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'lb-name';
+      nameSpan.textContent = firstName;
+      const scoreSpan = document.createElement('span');
+      scoreSpan.className = 'lb-score';
+      scoreSpan.textContent = pts.toLocaleString();
+      li.appendChild(rankSpan); li.appendChild(nameSpan); li.appendChild(scoreSpan);
       list.appendChild(li);
       lbI++;
     });
@@ -3070,10 +3065,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Load mini LB on page load
-loadMiniLeaderboard();
-// Refresh mini LB when auth state changes (user signs in/out)
-auth.onAuthStateChanged(() => loadMiniLeaderboard());
+// Mini LB is loaded inside auth.onAuthStateChanged above (fires immediately on page load)
 </script>
 </body>
 </html>
