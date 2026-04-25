@@ -1581,6 +1581,11 @@ function startTAnim() {
                 || (typeof current !== 'undefined' && current && current.key === 'T')
                 || tTrail.length > 0;
     if (!active) { tAnimRaf = null; return; }
+    // Yield the canvas to full-screen animations that own it this frame
+    if (isAnimating || easterAnimating) {
+      tAnimRaf = requestAnimationFrame(loop);
+      return;
+    }
     draw();
     tAnimRaf = requestAnimationFrame(loop);
   };
@@ -2662,6 +2667,8 @@ function playEasterFanfare() {
 }
 
 function triggerRainbowClear() {
+  cancelAnimationFrame(tAnimRaf);
+  tAnimRaf = null;
   easterAnimating = true;
 
   // Row harp pitches: C2 → C7 ascending over 20 rows
