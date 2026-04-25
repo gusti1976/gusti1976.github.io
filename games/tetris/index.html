@@ -417,15 +417,19 @@
         overflow-y: auto;
         overflow-x: hidden;
         justify-content: flex-start;
-        padding: 10px 0 24px;
+        padding: 8px 0 20px;
         gap: 0;
       }
 
       .hero {
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+        padding: 0 12px;
       }
 
-      .hero-title { font-size: 3rem; }
+      .hero-subtitle { font-size: 0.6rem; letter-spacing: 0.35em; margin-bottom: 0; }
+      .hero-title { font-size: 2.4rem; }
+      .hero-byline { font-size: 0.58rem; margin-top: 3px; }
+      .hero-controls { margin-top: 6px; }
 
       #wrapper {
         flex-direction: column;
@@ -492,7 +496,12 @@
         text-align: center;
         line-height: 1.6;
       }
-      body.dark #touch-hint { color: rgba(220,232,255,0.55); }
+      body.dark #touch-hint { color: rgba(210,185,255,0.65); }
+    }
+
+    /* Tablet safety: allow vertical scroll if the board grows taller than viewport */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      body { overflow-y: auto; }
     }
 
     /* ── Language dropdown ── */
@@ -1447,21 +1456,40 @@ function toggleMute() {
 // ─────────────────────────────────────────────
 
 const COLS = 10, ROWS = 20;
-let CELL = 30; // px per cell — recalculated on mobile by initCellSize()
+let CELL = 30; // px per cell — recalculated every game start and on resize
 
 function initCellSize() {
-  if (window.innerWidth <= 640) {
-    const availW = window.innerWidth - 32;   // 16px margin each side
-    const availH = window.innerHeight - 230; // reserve hero + stats strip + next strip
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+
+  if (W <= 640) {
+    // Mobile: panels reflow into horizontal strips above/below the board.
+    // Reserve: hero ~130 px + stats strip ~60 px + next strip ~60 px +
+    //          touch hint ~50 px + body padding ~40 px = ~340 px.
+    const availW = W - 24;           // 12 px margin each side
+    const availH = H - 340;
+    CELL = Math.min(
+      Math.floor(availW / COLS),
+      Math.floor(availH / ROWS)
+    );
+    CELL = Math.max(CELL, 16);       // minimum tappable cell
+    CELL = Math.min(CELL, 32);       // cap so very tall phones don't go huge
+  } else {
+    // Desktop / tablet: side panels are 130 px wide each.
+    // Horizontal space consumed by panels + gaps + board-wrap padding:
+    //   2×130 (panels) + 2×14 (gaps) + 2×12 (board-wrap pad) = 312 px.
+    // Vertical space consumed by hero area + board-wrap top/bottom pad:
+    //   ~180 px (hero + margin) + 24 px (board-wrap) = 204 px.
+    const availW = W - 312;
+    const availH = H - 204;
     CELL = Math.min(
       Math.floor(availW / COLS),
       Math.floor(availH / ROWS),
-      30 // never exceed desktop cell size
+      44                             // cap — keeps board sane on 4K / ultra-wide
     );
-    CELL = Math.max(CELL, 16); // floor so cells stay tappable
-  } else {
-    CELL = 30;
+    CELL = Math.max(CELL, 28);       // minimum comfortable desktop cell
   }
+
   boardCanvas.width  = CELL * COLS;
   boardCanvas.height = CELL * ROWS;
 }
