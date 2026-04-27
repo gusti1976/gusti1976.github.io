@@ -681,6 +681,7 @@
       background: rgba(255,255,255,0.28);
     }
     #lb-list li.lb-me { background: rgba(80,130,255,0.28); font-weight: 600; box-shadow: inset 3px 0 0 var(--accent); }
+    #lb-list li.lb-status { display: block; text-align: center; background: none; }
     .lb-rank { font-weight: 700; color: var(--ink-soft); text-align: right; }
     .lb-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .lb-score { font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -2835,6 +2836,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db   = firebase.firestore();
+db.settings({ experimentalAutoDetectLongPolling: true, merge: true });
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 // ─── Auth state ───────────────────────────────────────────────────────────────
@@ -2940,7 +2942,8 @@ async function loadMiniLeaderboard() {
   const list = document.getElementById('mini-lb-list');
   if (!list) return;
   try {
-    const snap = await db.collection('scores').orderBy('score', 'desc').limit(5).get();
+    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 12000));
+    const snap = await Promise.race([db.collection('scores').orderBy('score', 'desc').limit(5).get(), timeout]);
     list.innerHTML = '';
     if (snap.empty) { list.innerHTML = '<li><span class="ml-name">No scores yet</span></li>'; return; }
     let miniI = 0;
@@ -2968,10 +2971,10 @@ async function loadMiniLeaderboard() {
 
 async function loadLeaderboard() {
   const list = document.getElementById('lb-list');
-  list.innerHTML = '<li style="justify-content:center;opacity:.6">Loading…</li>';
+  list.innerHTML = '<li class="lb-status" style="opacity:.6">Loading…</li>';
   try {
     const timeout = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('timeout')), 5000)
+      setTimeout(() => reject(new Error('timeout')), 12000)
     );
     const snap = await Promise.race([
       db.collection('scores').orderBy('score', 'desc').limit(20).get(),
@@ -2979,7 +2982,7 @@ async function loadLeaderboard() {
     ]);
     list.innerHTML = '';
     if (snap.empty) {
-      list.innerHTML = '<li style="justify-content:center;opacity:.6">No scores yet</li>';
+      list.innerHTML = '<li class="lb-status" style="opacity:.6">No scores yet</li>';
       return;
     }
     let lbI = 0;
@@ -3004,7 +3007,7 @@ async function loadLeaderboard() {
     });
   } catch (e) {
     const msg = e.message === 'timeout' ? 'Request timed out — tap Refresh to try again' : 'Could not load scores';
-    list.innerHTML = `<li style="justify-content:center;opacity:.6">${msg}</li>`;
+    list.innerHTML = `<li class="lb-status" style="opacity:.6">${msg}</li>`;
     console.warn('Leaderboard error', e);
   }
 }
