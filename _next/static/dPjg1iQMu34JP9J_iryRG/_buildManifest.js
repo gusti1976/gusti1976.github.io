@@ -1,30 +1,30 @@
 self.__BUILD_MANIFEST = {
   "/": [
-    "static/chunks/0-v6fzts5sry5.js"
+    "static/chunks/0dsknway.d1wq.js"
   ],
   "/[slug]": [
-    "static/chunks/0xg-frwaxicsv.js"
+    "static/chunks/0lcrwpqk_yp1..js"
   ],
   "/_error": [
     "static/chunks/0-2rwe4v.pqwc.js"
   ],
   "/about": [
-    "static/chunks/101ys2u-ssuhx.js"
+    "static/chunks/0704rwj6ikhzn.js"
   ],
   "/agust-islandia-gay-and-proud-press-release": [
-    "static/chunks/0hbld8k69o71g.js"
+    "static/chunks/07j7d6zdo3119.js"
   ],
   "/contact": [
-    "static/chunks/0suz80w.amtpw.js"
+    "static/chunks/06wpkjlp37o6r.js"
   ],
   "/discography": [
-    "static/chunks/0q6ijlz2ubuen.js"
+    "static/chunks/0i1i0jb5xsebh.js"
   ],
   "/lyrics": [
-    "static/chunks/0~6oj3x7t4mn-.js"
+    "static/chunks/01alur4db~35..js"
   ],
   "/press": [
-    "static/chunks/0hk9yxbspdc37.js"
+    "static/chunks/0zomrxrqslhdf.js"
   ],
   "__rewrites": {
     "afterFiles": [],
