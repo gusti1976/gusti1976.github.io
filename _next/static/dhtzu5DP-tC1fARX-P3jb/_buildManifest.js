@@ -3,7 +3,7 @@ self.__BUILD_MANIFEST = {
     "static/chunks/0dsknway.d1wq.js"
   ],
   "/[slug]": [
-    "static/chunks/0lcrwpqk_yp1..js"
+    "static/chunks/1287qc9vh1nq_.js"
   ],
   "/_error": [
     "static/chunks/0-2rwe4v.pqwc.js"
