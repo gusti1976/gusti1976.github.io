@@ -1,440 +1,53 @@
----
----
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="max-image-preview:large">
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528">
-  <meta name="color-scheme" content="light dark">
-
-  <script>
-    (function(){
-      try {
-        var t = localStorage.getItem("agust-islandia-theme");
-        var h = document.documentElement;
-        var isDark = false;
-        if (t === "dark" || t === "light") {
-          h.setAttribute("data-theme", t);
-          h.classList.toggle("dark-mode", t === "dark");
-          isDark = (t === "dark");
-        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          h.setAttribute("data-theme", "dark");
-          h.classList.add("dark-mode");
-          isDark = true;
-        } else {
-          h.setAttribute("data-theme", "light");
-          h.classList.remove("dark-mode");
-        }
-        h.style.colorScheme = isDark ? "dark" : "light";
-      } catch (e) {}
-    })();
-  </script>
-
-  <title>Two of Us Lyrics | Agust Islandia</title>
-  <link rel="canonical" href="https://www.gusti.com/two-of-us.html">
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-
-  <meta name="description" content="Full lyrics to 'Two of Us' from The Unseen Chorus (A Gay Musical) by Agust Islandia (Agust Smari Bjarkarson).">
-
-  <meta property="og:title" content="Two of Us Lyrics - The Unseen Chorus Musical">
-  <meta property="og:site_name" content="Agust Islandia">
-  <meta property="og:description" content="'Love's not enough when the hunger's alive' - Opening song from The Unseen Chorus exploring relationship betrayal.">
-  <meta property="og:type" content="music.song">
-  <meta property="og:url" content="https://www.gusti.com/two-of-us.html">
-  <meta property="og:image" content="https://www.gusti.com/the-unseen-chorus-cover.webp">
-  <meta property="music:musician" content="https://www.gusti.com/">
-  <meta property="music:release_date" content="2025-10-06">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Two of Us Lyrics - The Unseen Chorus">
-  <meta name="twitter:description" content="'Two of us but I'm already gone / The first lie whispered before the dawn'">
-  <meta name="twitter:image" content="https://www.gusti.com/the-unseen-chorus-cover.webp">
-
-  <link rel="stylesheet" href="style-optimized.css">
-
-  <!-- Schema.org Structured Data for Song -->
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://www.gusti.com/two-of-us.html#webpage",
-      "url": "https://www.gusti.com/two-of-us.html",
-      "name": "Two of Us Lyrics | Agust Islandia",
-      "description": "Full lyrics to 'Two of Us' from The Unseen Chorus (A Gay Musical) by Agust Islandia (Agust Smari Bjarkarson).",
-      "isPartOf": {
-        "@id": "https://www.gusti.com/#website"
-      },
-      "mainEntity": {
-        "@id": "https://www.gusti.com/two-of-us.html#schema"
-      },
-      "breadcrumb": {
-        "@id": "https://www.gusti.com/two-of-us.html#breadcrumb"
-      },
-      "publisher": {
-        "@id": "https://www.gusti.com/#organization"
-      },
-      "inLanguage": "en-US",
-      "primaryImageOfPage": {
-        "@id": "https://www.gusti.com/two-of-us.html#cover-image"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.gusti.com/#website",
-      "name": "Agust Islandia",
-      "url": "https://www.gusti.com/",
-      "publisher": {
-        "@id": "https://www.gusti.com/#organization"
-      },
-      "inLanguage": "en-US"
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://www.gusti.com/#organization",
-      "name": "Agust Islandia",
-      "url": "https://www.gusti.com/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.gusti.com/android-chrome-192x192.png"
-      },
-      "sameAs": [
-        "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
-        "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
-        "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"
-      ]
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://www.gusti.com/two-of-us.html#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.gusti.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Two of Us",
-          "item": "https://www.gusti.com/two-of-us.html"
-        }
-      ]
-    },
-    {
-      "@type": "ImageObject",
-      "@id": "https://www.gusti.com/two-of-us.html#cover-image",
-      "url": "https://www.gusti.com/the-unseen-chorus-cover.webp",
-      "contentUrl": "https://www.gusti.com/the-unseen-chorus-cover.webp",
-      "caption": "Two of Us",
-      "inLanguage": "en-US"
-    },
-    {
-      "@type": "MusicComposition",
-      "name": "Two of Us",
-      "image": "https://www.gusti.com/the-unseen-chorus-cover.webp",
-      "composer": {
-        "@type": "Person",
-        "name": "Agust Smari Bjarkarson",
-        "alternateName": "Agust Islandia",
-        "url": "https://www.gusti.com/",
-        "sameAs": [
-          "https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5",
-          "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561",
-          "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG"
-        ]
-      },
-      "lyricist": {
-        "@type": "Person",
-        "name": "Agust Smari Bjarkarson",
-        "alternateName": "Agust Islandia"
-      },
-      "lyrics": {
-        "@type": "CreativeWork",
-        "text": "He takes his coffee too hot\nLeaves his socks by the bed\nLaughs at shows I've seen a hundred times\nHe's not perfect no one is\nBut he's mine\n\nTwo of us in morning light\nShirts on chairs our love feels right\nKisses soft the day begins\nHome is here in the warmth of his skin\n\nBut some nights\nThe sheets feel empty even with him near\nMy chest burns my hands ache\nLike something's gone something I can't hold\n\nI love him but the hunger grows\nA secret itch nobody knows\nI tell myself it's just a phase\nBut the wanting doesn't fade\n\nIt's nothing just a screen just a glow in the dark\nJust a glow in the dark\nThe thrill hits hard my body knows\nBody knows lies begin where the phone light shows\n\nTwo of us but my eyes slip away\nTwo of us but my hands want to stray\nTwo of us and I still can't deny\nLove's not enough when the hunger's alive\n\nDon't look at me now\nHe turns in his sleep\nI swipe I tap hard already\nIt's just one message\nJust one lie\n\nTwo of us but my eyes slip away\nTwo of us but my hands want to stray\nTwo of us but I'm already gone\nThe first lie whispered before the dawn",
-        "inLanguage": "en-US"
-      },
-      "inLanguage": "en",
-      "datePublished": "2025-10-06",
-      "genre": [
-        "Musical Theatre",
-        "LGBTQ+ Music",
-        "Gay Musical",
-        "Theatrical Pop"
-      ],
-      "keywords": "infidelity, relationship betrayal, phone addiction, hookup apps, gay relationships, The Unseen Chorus",
-      "isPartOf": {
-        "@type": "MusicAlbum",
-        "name": "The Unseen Chorus (A Gay Musical)",
-        "datePublished": "2025-10-06",
-        "numTracks": 27,
-        "countryOfOrigin": "XW",
-        "identifier": [
-          {
-            "@type": "PropertyValue",
-            "propertyID": "MusicBrainz Release ID",
-            "value": "10f786eb-23a3-4934-862a-5fad7772824c"
-          },
-          {
-            "@type": "PropertyValue",
-            "propertyID": "Barcode",
-            "value": "199742064330"
-          },
-          {
-            "@type": "PropertyValue",
-            "propertyID": "MusicBrainz Release Status",
-            "value": "Official"
-          }
-        ],
-        "sameAs": [
-          "https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c"
-        ],
-        "recordLabel": {
-          "@type": "Organization",
-          "name": "Agust Islandia",
-          "sameAs": "https://musicbrainz.org/label/ca66ad85-7842-4a0b-b95b-b969d54eea85"
-        }
-      },
-      "recordedAs": {
-        "@type": "MusicRecording",
-        "name": "Two of Us",
-        "image": "https://www.gusti.com/the-unseen-chorus-cover.webp",
-        "datePublished": "2025-10-06",
-        "position": "2",
-        "duration": "PT3M35S",
-        "byArtist": {
-          "@type": "MusicGroup",
-          "name": "Agust Islandia",
-          "url": "https://www.gusti.com/",
-          "sameAs": [
-            "https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG",
-            "https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"
-          ]
-        },
-        "inAlbum": {
-          "@type": "MusicAlbum",
-          "name": "The Unseen Chorus (A Gay Musical)",
-          "datePublished": "2025-10-06",
-          "identifier": [
-            {
-              "@type": "PropertyValue",
-              "propertyID": "MusicBrainz Release ID",
-              "value": "10f786eb-23a3-4934-862a-5fad7772824c"
-            }
-          ],
-          "sameAs": [
-            "https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c"
-          ]
-        },
-        "url": "https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p",
-        "identifier": [
-          {
-            "@type": "PropertyValue",
-            "propertyID": "MusicBrainz Recording ID",
-            "value": "8a292fca-9da0-46fe-850f-044c1a22c561"
-          }
-        ],
-        "sameAs": [
-          "https://musicbrainz.org/recording/8a292fca-9da0-46fe-850f-044c1a22c561",
-          "https://music.apple.com/us/album/two-of-us/1844179786?i=1844179790&uo=4"
-        ]
-      },
-      "identifier": [
-        {
-          "@type": "PropertyValue",
-          "propertyID": "MusicBrainz Recording ID",
-          "value": "8a292fca-9da0-46fe-850f-044c1a22c561"
-        },
-        {
-          "@type": "PropertyValue",
-          "propertyID": "MusicBrainz Release ID",
-          "value": "10f786eb-23a3-4934-862a-5fad7772824c"
-        },
-        {
-          "@type": "PropertyValue",
-          "propertyID": "Barcode",
-          "value": "199742064330"
-        },
-        {
-          "@type": "PropertyValue",
-          "propertyID": "MusicBrainz Release Status",
-          "value": "Official"
-        }
-      ],
-      "sameAs": [
-        "https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c",
-        "https://musicbrainz.org/recording/8a292fca-9da0-46fe-850f-044c1a22c561",
-        "https://music.apple.com/us/album/two-of-us/1844179786?i=1844179790&uo=4"
-      ],
-      "@id": "https://www.gusti.com/two-of-us.html#schema",
-      "url": "https://www.gusti.com/two-of-us.html",
-      "mainEntityOfPage": {
-        "@id": "https://www.gusti.com/two-of-us.html#webpage"
-      },
-      "position": 2
+<!DOCTYPE html><html lang="en-US"><head><meta charSet="UTF-8" data-next-head=""/><meta name="viewport" content="width=device-width, initial-scale=1" data-next-head=""/><meta name="robots" content="max-image-preview:large" data-next-head=""/><title data-next-head="">Two of Us | Agust Islandia</title><meta name="description" content="Full lyrics to &#x27;Two of Us&#x27; from The Unseen Chorus (A Gay Musical) by Agust Islandia (Agust Smari Bjarkarson)." data-next-head=""/><link rel="canonical" href="https://www.gusti.com/two-of-us.html" data-next-head=""/><meta property="og:title" content="Two of Us Lyrics - The Unseen Chorus Musical" data-next-head=""/><meta property="og:site_name" content="Agust Islandia" data-next-head=""/><meta property="og:description" content="&#x27;Love&#x27;s not enough when the hunger&#x27;s alive&#x27; - Opening song from The Unseen Chorus exploring relationship betrayal." data-next-head=""/><meta property="og:type" content="music.song" data-next-head=""/><meta property="og:url" content="https://www.gusti.com/two-of-us.html" data-next-head=""/><meta property="og:image" content="https://www.gusti.com/the-unseen-chorus-cover.webp" data-next-head=""/><meta name="twitter:card" content="summary_large_image" data-next-head=""/><meta name="twitter:title" content="Two of Us Lyrics - The Unseen Chorus" data-next-head=""/><meta name="twitter:description" content="&#x27;Two of us but I&#x27;m already gone / The first lie whispered before the dawn&#x27;" data-next-head=""/><meta name="twitter:image" content="https://www.gusti.com/the-unseen-chorus-cover.webp" data-next-head=""/><meta property="music:release_date" content="2025-10-06" data-next-head=""/><meta property="music:musician" content="https://www.gusti.com/" data-next-head=""/><meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff"/><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1528"/><meta name="color-scheme" content="light dark"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png"/><link rel="preload" href="/_next/static/chunks/0_xpuk0uy.~y9.css" as="style"/><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.gusti.com/two-of-us.html#webpage","url":"https://www.gusti.com/two-of-us.html","name":"Two of Us Lyrics | Agust Islandia","description":"Full lyrics to 'Two of Us' from The Unseen Chorus (A Gay Musical) by Agust Islandia (Agust Smari Bjarkarson).","isPartOf":{"@id":"https://www.gusti.com/#website"},"mainEntity":{"@id":"https://www.gusti.com/two-of-us.html#schema"},"breadcrumb":{"@id":"https://www.gusti.com/two-of-us.html#breadcrumb"},"publisher":{"@id":"https://www.gusti.com/#organization"},"inLanguage":"en-US","primaryImageOfPage":{"@id":"https://www.gusti.com/two-of-us.html#cover-image"}},{"@type":"WebSite","@id":"https://www.gusti.com/#website","name":"Agust Islandia","url":"https://www.gusti.com/","publisher":{"@id":"https://www.gusti.com/#organization"},"inLanguage":"en-US"},{"@type":"Organization","@id":"https://www.gusti.com/#organization","name":"Agust Islandia","url":"https://www.gusti.com/","logo":{"@type":"ImageObject","url":"https://www.gusti.com/android-chrome-192x192.png"},"sameAs":["https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561","https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG","https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"]},{"@type":"BreadcrumbList","@id":"https://www.gusti.com/two-of-us.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.gusti.com/"},{"@type":"ListItem","position":2,"name":"Two of Us","item":"https://www.gusti.com/two-of-us.html"}]},{"@type":"ImageObject","@id":"https://www.gusti.com/two-of-us.html#cover-image","url":"https://www.gusti.com/the-unseen-chorus-cover.webp","contentUrl":"https://www.gusti.com/the-unseen-chorus-cover.webp","caption":"Two of Us","inLanguage":"en-US"},{"@context":"https://schema.org","@type":"MusicComposition","name":"Two of Us","image":"https://www.gusti.com/the-unseen-chorus-cover.webp","composer":{"@type":"Person","name":"Agust Smari Bjarkarson","alternateName":"Agust Islandia","url":"https://www.gusti.com/","sameAs":["https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5","https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561","https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG"]},"lyricist":{"@type":"Person","name":"Agust Smari Bjarkarson","alternateName":"Agust Islandia"},"lyrics":{"@type":"CreativeWork","text":"He takes his coffee too hot\nLeaves his socks by the bed\nLaughs at shows I've seen a hundred times\nHe's not perfect no one is\nBut he's mine\n\nTwo of us in morning light\nShirts on chairs our love feels right\nKisses soft the day begins\nHome is here in the warmth of his skin\n\nBut some nights\nThe sheets feel empty even with him near\nMy chest burns my hands ache\nLike something's gone something I can't hold\n\nI love him but the hunger grows\nA secret itch nobody knows\nI tell myself it's just a phase\nBut the wanting doesn't fade\n\nIt's nothing just a screen just a glow in the dark\nJust a glow in the dark\nThe thrill hits hard my body knows\nBody knows lies begin where the phone light shows\n\nTwo of us but my eyes slip away\nTwo of us but my hands want to stray\nTwo of us and I still can't deny\nLove's not enough when the hunger's alive\n\nDon't look at me now\nHe turns in his sleep\nI swipe I tap hard already\nIt's just one message\nJust one lie\n\nTwo of us but my eyes slip away\nTwo of us but my hands want to stray\nTwo of us but I'm already gone\nThe first lie whispered before the dawn","inLanguage":"en-US"},"inLanguage":"en","datePublished":"2025-10-06","genre":["Musical Theatre","LGBTQ+ Music","Gay Musical","Theatrical Pop"],"keywords":"infidelity, relationship betrayal, phone addiction, hookup apps, gay relationships, The Unseen Chorus","isPartOf":{"@type":"MusicAlbum","name":"The Unseen Chorus (A Gay Musical)","datePublished":"2025-10-06","numTracks":27,"countryOfOrigin":"XW","identifier":[{"@type":"PropertyValue","propertyID":"MusicBrainz Release ID","value":"10f786eb-23a3-4934-862a-5fad7772824c"},{"@type":"PropertyValue","propertyID":"Barcode","value":"199742064330"},{"@type":"PropertyValue","propertyID":"MusicBrainz Release Status","value":"Official"}],"sameAs":["https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c"],"recordLabel":{"@type":"Organization","name":"Agust Islandia","sameAs":"https://musicbrainz.org/label/ca66ad85-7842-4a0b-b95b-b969d54eea85"}},"recordedAs":{"@type":"MusicRecording","name":"Two of Us","image":"https://www.gusti.com/the-unseen-chorus-cover.webp","datePublished":"2025-10-06","position":"2","duration":"PT3M35S","byArtist":{"@type":"MusicGroup","name":"Agust Islandia","url":"https://www.gusti.com/","sameAs":["https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG","https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"]},"inAlbum":{"@type":"MusicAlbum","name":"The Unseen Chorus (A Gay Musical)","datePublished":"2025-10-06","identifier":[{"@type":"PropertyValue","propertyID":"MusicBrainz Release ID","value":"10f786eb-23a3-4934-862a-5fad7772824c"}],"sameAs":["https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c"]},"url":"https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p","identifier":[{"@type":"PropertyValue","propertyID":"MusicBrainz Recording ID","value":"8a292fca-9da0-46fe-850f-044c1a22c561"}],"sameAs":["https://musicbrainz.org/recording/8a292fca-9da0-46fe-850f-044c1a22c561","https://music.apple.com/us/album/two-of-us/1844179786?i=1844179790&uo=4"]},"identifier":[{"@type":"PropertyValue","propertyID":"MusicBrainz Recording ID","value":"8a292fca-9da0-46fe-850f-044c1a22c561"},{"@type":"PropertyValue","propertyID":"MusicBrainz Release ID","value":"10f786eb-23a3-4934-862a-5fad7772824c"},{"@type":"PropertyValue","propertyID":"Barcode","value":"199742064330"},{"@type":"PropertyValue","propertyID":"MusicBrainz Release Status","value":"Official"}],"sameAs":["https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c","https://musicbrainz.org/recording/8a292fca-9da0-46fe-850f-044c1a22c561","https://music.apple.com/us/album/two-of-us/1844179786?i=1844179790&uo=4"],"@id":"https://www.gusti.com/two-of-us.html#schema","url":"https://www.gusti.com/two-of-us.html","mainEntityOfPage":{"@id":"https://www.gusti.com/two-of-us.html#webpage"}}]}</script><script>(function(){
+  try {
+    var t = localStorage.getItem("agust-islandia-theme");
+    var h = document.documentElement;
+    var isDark = false;
+    if (t === "dark" || t === "light") {
+      h.setAttribute("data-theme", t);
+      h.classList.toggle("dark-mode", t === "dark");
+      isDark = (t === "dark");
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      h.setAttribute("data-theme", "dark");
+      h.classList.add("dark-mode");
+      isDark = true;
+    } else {
+      h.setAttribute("data-theme", "light");
+      h.classList.remove("dark-mode");
     }
-  ]
-}
-  </script>
-  <link rel="stylesheet" href="navigation.css?v=20260304d">
-  <link rel="stylesheet" href="glass-site.css?v=20260317a">
-  <link rel="stylesheet" href="glass-lyrics-template.css?v=20260304f">
-</head>
-
-<body>
-<!-- Hamburger Toggle Button -->
-{% include navigation.html %}
-
-  <div class="page">
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle"
-            id="theme-toggle"
-            aria-label="Toggle dark mode"
-            title="Toggle dark/light mode">
-      <svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="12" cy="12" r="5"
-                stroke="currentColor" stroke-width="2" fill="none" id="sun-icon" style="display: none;"/>
-        <line x1="12" y1="1" x2="12" y2="3"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="12" y1="21" x2="12" y2="23"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="1" y1="12" x2="3" y2="12"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="21" y1="12" x2="23" y2="12"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"
-              stroke="currentColor" stroke-width="2" style="display: none;"/>
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-              stroke="currentColor" stroke-width="2" fill="none" id="moon-icon"/>
-      </svg>
-    </button>
-
-        <header class="song-hero">
-      <div>
-        <nav style="margin-bottom: var(--spacing-lg);">
-          <a href="/the-unseen-chorus.html" style="font-weight: 600;">← Back to The Unseen Chorus</a>
-        </nav>
-        <span class="song-kicker">Track 2 • The Unseen Chorus (A Gay Musical)</span>
-        <h1>Two of Us</h1>
-        <p class="song-sub">Track 2 from The Unseen Chorus (A Gay Musical)</p>
-        <div class="song-actions">
-          <a class="song-btn apple" href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener noreferrer">Apple Music</a>
-          <a class="song-btn spotify" href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer">Spotify</a>
-        </div>
-      </div>
-      <aside class="song-meta-card" aria-labelledby="song-snapshot-title">
-        <h2 id="song-snapshot-title">Song Snapshot</h2>
-        <img src="the-unseen-chorus-cover.webp" alt="Two of Us cover art" loading="lazy" style="width:min(100%,320px);aspect-ratio:1/1;object-fit:cover;border-radius:12px;border:1px solid rgba(123,148,209,.33);display:block;margin:0 auto 12px;">
-        <div class="snapshot-grid">
-          <div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">October 6, 2025</span></div>
-          <div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">3:35</span></div>
-          <div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">Infidelity, Phone/App Addiction, Emotional Distance</span></div>
-          <div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson (Agust Islandia)</span></div>
-        </div>
-      </aside>
-    </header>
-
-        <main id="main-content" class="song-layout">
-      <section class="panel" aria-labelledby="full-lyrics-title">
-        <h3 id="full-lyrics-title">Full Lyrics</h3>
-        <div class="lyric-lines">
-          <p>
-            He takes his coffee too hot<br>
-            Leaves his socks by the bed<br>
-            Laughs at shows I've seen a hundred times<br>
-            He's not perfect no one is<br>
-            But he's mine
-          </p>
-          <p>
-            Two of us in morning light<br>
-            Shirts on chairs our love feels right<br>
-            Kisses soft the day begins<br>
-            Home is here in the warmth of his skin
-          </p>
-          <p>
-            But some nights<br>
-            The sheets feel empty even with him near<br>
-            My chest burns my hands ache<br>
-            Like something's gone something I can't hold
-          </p>
-          <p>
-            I love him but the hunger grows<br>
-            A secret itch nobody knows<br>
-            I tell myself it's just a phase<br>
-            But the wanting doesn't fade
-          </p>
-          <p>
-            It's nothing just a screen just a glow in the dark<br>
-            <em>Just a glow in the dark</em><br>
-            The thrill hits hard my body knows<br>
-            Body knows lies begin where the phone light shows
-          </p>
-          <p>
-            <strong>Two of us but my eyes slip away<br>
-            Two of us but my hands want to stray<br>
-            Two of us and I still can't deny<br>
-            Love's not enough when the hunger's alive</strong>
-          </p>
-          <p>
-            Don't look at me now<br>
-            He turns in his sleep<br>
-            I swipe I tap hard already<br>
-            It's just one message<br>
-            Just one lie
-          </p>
-          <p>
-            <strong>Two of us but my eyes slip away<br>
-            Two of us but my hands want to stray<br>
-            Two of us but I'm already gone<br>
-            The first lie whispered before the dawn</strong>
-          </p>
-        <div class="song-actions" style="margin-top:var(--spacing-md);justify-content:flex-start;"><a class="song-btn apple" href="https://music.apple.com/us/album/two-of-us/1844179786?i=1844179790&uo=4" target="_blank" rel="noopener noreferrer">Play Two of Us on Apple Music</a></div></div>
-      </section>
-
-      <aside class="panel" aria-labelledby="song-matters-title">
-        <h3 id="song-matters-title">Why This Song Matters</h3>
-                <p>
-          <strong>"Two of Us"</strong> is the devastating opening number of The Unseen Chorus's narrative arc.
-          What begins as a tender portrait of domestic love—coffee, socks, shared laughter—quickly reveals
-          the cracks beneath the surface. The protagonist lies next to his partner while secretly engaging
-          with hookup apps in the dark.
-        </p>
-        <p>
-          The song captures the heartbreaking contradiction at the core of infidelity: genuine love coexisting
-          with compulsive betrayal. "Love's not enough when the hunger's alive" articulates the beginning of
-          a spiral that will define the entire musical.
-        </p>
-        <h3 id="next-story-title">Next In Story</h3>
-        <nav class="next-list" aria-labelledby="next-story-title">
-          <a href="/phone-glow.html">Phone Glow</a>
-          <a href="/the-fairys-waltz.html">The Fairy's Waltz</a>
-          <a href="/steam-and-shadows.html">Steam & Shadows</a>
-        </nav>
-      </aside>
-    </main>
-
-    <footer>
-      © 2026 <strong>Agust Smari Bjarkarson</strong>
-    </footer>
-  </div>
-
-  <script src="dark-mode.js?v=20260304d"></script>
-  <script src="navigation.js?v=20260414a"></script>
-  <div id="sr-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-</body>
-</html>
+    h.style.colorScheme = isDark ? "dark" : "light";
+  } catch (e) {}
+})();</script><link rel="stylesheet" href="/_next/static/chunks/0_xpuk0uy.~y9.css" data-n-g=""/><noscript data-n-css=""></noscript><script src="/_next/static/chunks/0c.vsqnekl4~m.js" defer=""></script><script src="/_next/static/chunks/0s-820cer5lng.js" defer=""></script><script src="/_next/static/chunks/turbopack-09tvs_c~~msn7.js" defer=""></script><script src="/_next/static/chunks/0grr.zema91ji.js" defer=""></script><script src="/_next/static/chunks/01go22xp3b2xm.js" defer=""></script><script src="/_next/static/chunks/turbopack-0u86k3ze4u2rf.js" defer=""></script><script src="/_next/static/V0Im1bSfDdxoBiDhO-2Kb/_buildManifest.js" defer=""></script><script src="/_next/static/V0Im1bSfDdxoBiDhO-2Kb/_ssgManifest.js" defer=""></script><script src="/_next/static/V0Im1bSfDdxoBiDhO-2Kb/_clientMiddlewareManifest.js" defer=""></script></head><body><div id="__next"><svg style="display:none" aria-hidden="true"><defs><symbol id="spotify-icon" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"></path></symbol><symbol id="apple-icon" viewBox="0 0 24 24"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536a1.88 1.88 0 011.038-2.022c.323-.16.67-.25 1.018-.324.378-.082.758-.153 1.134-.24.274-.063.457-.23.51-.516a.904.904 0 00.02-.193c0-1.815 0-3.63-.002-5.443a.725.725 0 00-.026-.185c-.04-.15-.15-.243-.304-.234-.16.01-.318.035-.475.066-.76.15-1.52.303-2.28.456l-2.325.47-1.374.278c-.016.003-.032.01-.048.013-.277.077-.377.203-.39.49-.002.042 0 .086 0 .13-.002 2.602 0 5.204-.003 7.805 0 .42-.047.836-.215 1.227-.278.64-.77 1.04-1.434 1.233-.35.1-.71.16-1.075.172-.96.036-1.755-.6-1.92-1.544-.14-.812.23-1.685 1.154-2.075.357-.15.73-.232 1.108-.31.287-.06.575-.116.86-.177.383-.083.583-.323.6-.714v-.15c0-2.96 0-5.922.002-8.882 0-.123.013-.25.042-.37.07-.285.273-.448.546-.518.255-.066.515-.112.774-.165.733-.15 1.466-.296 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.403.22-.043.442-.088.663-.106.31-.025.523.17.554.482.008.073.012.148.012.223.002 1.91.002 3.822 0 5.732z"></path></symbol></defs></svg><a href="#main-content" class="skip-link">Skip to main content</a><button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false"><span></span><span></span><span></span></button><nav class="nav-drawer" id="nav-drawer" aria-label="Main navigation"><a href="/" class="nav-link">Home</a><div class="nav-collapsible"><button class="nav-collapsible-trigger" aria-expanded="false"><span>Releases</span><span class="arrow">▶</span></button><div class="nav-collapsible-content"><a href="/the-unseen-chorus.html">The Unseen Chorus</a><a href="/swipe-me-to-the-moon.html">Swipe Me to the Moon</a><a href="/cowboys.html">Cowboys EP</a><a href="/the-gay-mormon-musical.html">The Gay Mormon Musical</a><a href="/pride-month-2025.html">Pride Month 2025</a><a href="/gay-and-proud.html">Gay and Proud</a><a href="/discography.html">Full discography →</a></div></div><a href="/lyrics.html" class="nav-link">Lyrics</a><div class="nav-collapsible"><button class="nav-collapsible-trigger" aria-expanded="false"><span>About the musician</span><span class="arrow">▶</span></button><div class="nav-collapsible-content"><a href="/about.html">Biography</a><a href="/press.html">Press</a><a href="/contact.html">Contact</a></div></div><div class="nav-collapsible"><button class="nav-collapsible-trigger" aria-expanded="false"><span>Listen</span><span class="arrow">▶</span></button><div class="nav-collapsible-content"><a href="https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561" target="_blank" rel="noopener noreferrer">Apple Music</a><a href="https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG" target="_blank" rel="noopener noreferrer">Spotify</a><a href="https://www.tiktok.com/@gusticeland" target="_blank" rel="noopener noreferrer">TikTok</a></div></div></nav><div class="nav-overlay" id="nav-overlay"></div><div class="page"><button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode"><svg class="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle id="sun-circle" cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none" style="display:none"></circle><path id="sun-rays" d="M12 1v2m0 18v2M1 12h2m18 0h2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" style="display:none"></path><path id="moon-path" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="none"></path></svg></button><header class="song-hero"><div><nav style="margin-bottom:var(--spacing-lg)"><a href="/the-unseen-chorus.html" style="font-weight:600">← Back to <!-- -->The Unseen Chorus (A Gay Musical)</a></nav><span class="song-kicker">Track <!-- -->2<!-- --> • <!-- -->The Unseen Chorus (A Gay Musical)</span><h1>Two of Us</h1><p class="song-sub">Track <!-- -->2<!-- --> from <!-- -->The Unseen Chorus (A Gay Musical)</p><div class="song-actions"><a class="song-btn apple" href="https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786" target="_blank" rel="noopener noreferrer">Apple Music</a><a class="song-btn spotify" href="https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p" target="_blank" rel="noopener noreferrer">Spotify</a></div></div><aside class="song-meta-card" aria-labelledby="song-snapshot-title"><h2 id="song-snapshot-title">Song Snapshot</h2><img src="/the-unseen-chorus-cover.webp" alt="Two of Us cover art" loading="lazy" style="width:min(100%, 320px);aspect-ratio:1 / 1;object-fit:cover;border-radius:12px;border:1px solid rgba(123,148,209,.33);display:block;margin:0 auto 12px"/><div class="snapshot-grid"><div class="snapshot-item"><span class="snapshot-label">Release</span><span class="snapshot-value">October 6, 2025</span></div><div class="snapshot-item"><span class="snapshot-label">Duration</span><span class="snapshot-value">3:35</span></div><div class="snapshot-item"><span class="snapshot-label">Themes</span><span class="snapshot-value">Infidelity, Phone/App Addiction, Emotional Distance</span></div><div class="snapshot-item"><span class="snapshot-label">Written by</span><span class="snapshot-value">Agust Smari Bjarkarson</span></div></div></aside></header><main id="main-content" class="song-layout"><section class="panel" aria-labelledby="full-lyrics-title"><h3 id="full-lyrics-title">Full Lyrics</h3><div class="lyric-lines"><p>He takes his coffee too hot<br>
+Leaves his socks by the bed<br>
+Laughs at shows I've seen a hundred times<br>
+He's not perfect no one is<br>
+But he's mine</p>
+<p>Two of us in morning light<br>
+Shirts on chairs our love feels right<br>
+Kisses soft the day begins<br>
+Home is here in the warmth of his skin</p>
+<p>But some nights<br>
+The sheets feel empty even with him near<br>
+My chest burns my hands ache<br>
+Like something's gone something I can't hold</p>
+<p>I love him but the hunger grows<br>
+A secret itch nobody knows<br>
+I tell myself it's just a phase<br>
+But the wanting doesn't fade</p>
+<p>It's nothing just a screen just a glow in the dark<br>
+Just a glow in the dark<br>
+The thrill hits hard my body knows<br>
+Body knows lies begin where the phone light shows</p>
+<p>Two of us but my eyes slip away<br>
+Two of us but my hands want to stray<br>
+Two of us and I still can't deny<br>
+Love's not enough when the hunger's alive</p>
+<p>Don't look at me now<br>
+He turns in his sleep<br>
+I swipe I tap hard already<br>
+It's just one message<br>
+Just one lie</p>
+<p>Two of us but my eyes slip away<br>
+Two of us but my hands want to stray<br>
+Two of us but I'm already gone<br>
+The first lie whispered before the dawn</p></div></section><aside class="panel" aria-labelledby="song-matters-title"><h3 id="song-matters-title">Why This Song Matters</h3><p>&quot;Two of Us&quot; is the devastating opening number of The Unseen Chorus&#x27;s narrative arc. What begins as a tender portrait of domestic love—coffee, socks, shared laughter—quickly reveals the cracks beneath the surface. The protagonist lies next to his partner while secretly engaging with hookup apps in the dark.</p><p>The song captures the heartbreaking contradiction at the core of infidelity: genuine love coexisting with compulsive betrayal. &quot;Love&#x27;s not enough when the hunger&#x27;s alive&quot; articulates the beginning of a spiral that will define the entire musical.</p><h3 id="next-story-title">Next In Story</h3><nav class="next-list" aria-labelledby="next-story-title"><a href="/phone-glow.html">Phone Glow</a><a href="/the-fairys-waltz.html">The Fairy&#x27;s Waltz</a><a href="/steam-and-shadows.html">Steam &amp; Shadows</a></nav></aside></main><footer>© 2026 <strong>Agust Smari Bjarkarson</strong></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"kind":"song","song":{"title":"Two of Us","slug":"two-of-us","kind":"track","album":"the-unseen-chorus","albumTitle":"The Unseen Chorus (A Gay Musical)","trackNumber":2,"releaseDate":"2025-10-06","duration":"PT3M35S","cover":"/the-unseen-chorus-cover.webp","canonical":"/two-of-us.html","language":"en","genre":["Musical Theatre","LGBTQ+ Music","Gay Musical","Theatrical Pop"],"keywords":"infidelity, relationship betrayal, phone addiction, hookup apps, gay relationships, The Unseen Chorus","themes":["Infidelity","Phone/App Addiction","Emotional Distance"],"writtenBy":"Agust Smari Bjarkarson","description":"Full lyrics to 'Two of Us' from The Unseen Chorus (A Gay Musical) by Agust Islandia (Agust Smari Bjarkarson).","og":{"title":"Two of Us Lyrics - The Unseen Chorus Musical","description":"'Love's not enough when the hunger's alive' - Opening song from The Unseen Chorus exploring relationship betrayal.","image":"/the-unseen-chorus-cover.webp","type":"music.song"},"twitter":{"title":"Two of Us Lyrics - The Unseen Chorus","description":"'Two of us but I'm already gone / The first lie whispered before the dawn'","image":"/the-unseen-chorus-cover.webp"},"streaming":{"apple":"https://music.apple.com/album/the-unseen-chorus-a-gay-musical/1844179786","spotify":"https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p"},"identifiers":{"musicbrainz_recording_id":"8a292fca-9da0-46fe-850f-044c1a22c561","musicbrainz_release_id":"10f786eb-23a3-4934-862a-5fad7772824c","barcode":"199742064330","musicbrainz_release_status":"Official"},"essay":["\"Two of Us\" is the devastating opening number of The Unseen Chorus's narrative arc. What begins as a tender portrait of domestic love—coffee, socks, shared laughter—quickly reveals the cracks beneath the surface. The protagonist lies next to his partner while secretly engaging with hookup apps in the dark.","The song captures the heartbreaking contradiction at the core of infidelity: genuine love coexisting with compulsive betrayal. \"Love's not enough when the hunger's alive\" articulates the beginning of a spiral that will define the entire musical."],"nextInStory":[{"slug":"phone-glow","title":"Phone Glow"},{"slug":"the-fairys-waltz","title":"The Fairy's Waltz"},{"slug":"steam-and-shadows","title":"Steam \u0026 Shadows"}],"lyricsHtml":"\u003cp\u003eHe takes his coffee too hot\u003cbr\u003e\nLeaves his socks by the bed\u003cbr\u003e\nLaughs at shows I've seen a hundred times\u003cbr\u003e\nHe's not perfect no one is\u003cbr\u003e\nBut he's mine\u003c/p\u003e\n\u003cp\u003eTwo of us in morning light\u003cbr\u003e\nShirts on chairs our love feels right\u003cbr\u003e\nKisses soft the day begins\u003cbr\u003e\nHome is here in the warmth of his skin\u003c/p\u003e\n\u003cp\u003eBut some nights\u003cbr\u003e\nThe sheets feel empty even with him near\u003cbr\u003e\nMy chest burns my hands ache\u003cbr\u003e\nLike something's gone something I can't hold\u003c/p\u003e\n\u003cp\u003eI love him but the hunger grows\u003cbr\u003e\nA secret itch nobody knows\u003cbr\u003e\nI tell myself it's just a phase\u003cbr\u003e\nBut the wanting doesn't fade\u003c/p\u003e\n\u003cp\u003eIt's nothing just a screen just a glow in the dark\u003cbr\u003e\nJust a glow in the dark\u003cbr\u003e\nThe thrill hits hard my body knows\u003cbr\u003e\nBody knows lies begin where the phone light shows\u003c/p\u003e\n\u003cp\u003eTwo of us but my eyes slip away\u003cbr\u003e\nTwo of us but my hands want to stray\u003cbr\u003e\nTwo of us and I still can't deny\u003cbr\u003e\nLove's not enough when the hunger's alive\u003c/p\u003e\n\u003cp\u003eDon't look at me now\u003cbr\u003e\nHe turns in his sleep\u003cbr\u003e\nI swipe I tap hard already\u003cbr\u003e\nIt's just one message\u003cbr\u003e\nJust one lie\u003c/p\u003e\n\u003cp\u003eTwo of us but my eyes slip away\u003cbr\u003e\nTwo of us but my hands want to stray\u003cbr\u003e\nTwo of us but I'm already gone\u003cbr\u003e\nThe first lie whispered before the dawn\u003c/p\u003e","lyricsMarkdown":"He takes his coffee too hot  \nLeaves his socks by the bed  \nLaughs at shows I've seen a hundred times  \nHe's not perfect no one is  \nBut he's mine\n\nTwo of us in morning light  \nShirts on chairs our love feels right  \nKisses soft the day begins  \nHome is here in the warmth of his skin\n\nBut some nights  \nThe sheets feel empty even with him near  \nMy chest burns my hands ache  \nLike something's gone something I can't hold\n\nI love him but the hunger grows  \nA secret itch nobody knows  \nI tell myself it's just a phase  \nBut the wanting doesn't fade\n\nIt's nothing just a screen just a glow in the dark  \nJust a glow in the dark  \nThe thrill hits hard my body knows  \nBody knows lies begin where the phone light shows\n\nTwo of us but my eyes slip away  \nTwo of us but my hands want to stray  \nTwo of us and I still can't deny  \nLove's not enough when the hunger's alive\n\nDon't look at me now  \nHe turns in his sleep  \nI swipe I tap hard already  \nIt's just one message  \nJust one lie\n\nTwo of us but my eyes slip away  \nTwo of us but my hands want to stray  \nTwo of us but I'm already gone  \nThe first lie whispered before the dawn\n","schemaGraph":{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.gusti.com/two-of-us.html#webpage","url":"https://www.gusti.com/two-of-us.html","name":"Two of Us Lyrics | Agust Islandia","description":"Full lyrics to 'Two of Us' from The Unseen Chorus (A Gay Musical) by Agust Islandia (Agust Smari Bjarkarson).","isPartOf":{"@id":"https://www.gusti.com/#website"},"mainEntity":{"@id":"https://www.gusti.com/two-of-us.html#schema"},"breadcrumb":{"@id":"https://www.gusti.com/two-of-us.html#breadcrumb"},"publisher":{"@id":"https://www.gusti.com/#organization"},"inLanguage":"en-US","primaryImageOfPage":{"@id":"https://www.gusti.com/two-of-us.html#cover-image"}},{"@type":"WebSite","@id":"https://www.gusti.com/#website","name":"Agust Islandia","url":"https://www.gusti.com/","publisher":{"@id":"https://www.gusti.com/#organization"},"inLanguage":"en-US"},{"@type":"Organization","@id":"https://www.gusti.com/#organization","name":"Agust Islandia","url":"https://www.gusti.com/","logo":{"@type":"ImageObject","url":"https://www.gusti.com/android-chrome-192x192.png"},"sameAs":["https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561","https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG","https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5"]},{"@type":"BreadcrumbList","@id":"https://www.gusti.com/two-of-us.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.gusti.com/"},{"@type":"ListItem","position":2,"name":"Two of Us","item":"https://www.gusti.com/two-of-us.html"}]},{"@type":"ImageObject","@id":"https://www.gusti.com/two-of-us.html#cover-image","url":"https://www.gusti.com/the-unseen-chorus-cover.webp","contentUrl":"https://www.gusti.com/the-unseen-chorus-cover.webp","caption":"Two of Us","inLanguage":"en-US"},{"@context":"https://schema.org","@type":"MusicComposition","name":"Two of Us","image":"https://www.gusti.com/the-unseen-chorus-cover.webp","composer":{"@type":"Person","name":"Agust Smari Bjarkarson","alternateName":"Agust Islandia","url":"https://www.gusti.com/","sameAs":["https://musicbrainz.org/artist/fca2294b-5bbb-4711-881a-aa61e90346f5","https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561","https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG"]},"lyricist":{"@type":"Person","name":"Agust Smari Bjarkarson","alternateName":"Agust Islandia"},"lyrics":{"@type":"CreativeWork","text":"He takes his coffee too hot\nLeaves his socks by the bed\nLaughs at shows I've seen a hundred times\nHe's not perfect no one is\nBut he's mine\n\nTwo of us in morning light\nShirts on chairs our love feels right\nKisses soft the day begins\nHome is here in the warmth of his skin\n\nBut some nights\nThe sheets feel empty even with him near\nMy chest burns my hands ache\nLike something's gone something I can't hold\n\nI love him but the hunger grows\nA secret itch nobody knows\nI tell myself it's just a phase\nBut the wanting doesn't fade\n\nIt's nothing just a screen just a glow in the dark\nJust a glow in the dark\nThe thrill hits hard my body knows\nBody knows lies begin where the phone light shows\n\nTwo of us but my eyes slip away\nTwo of us but my hands want to stray\nTwo of us and I still can't deny\nLove's not enough when the hunger's alive\n\nDon't look at me now\nHe turns in his sleep\nI swipe I tap hard already\nIt's just one message\nJust one lie\n\nTwo of us but my eyes slip away\nTwo of us but my hands want to stray\nTwo of us but I'm already gone\nThe first lie whispered before the dawn","inLanguage":"en-US"},"inLanguage":"en","datePublished":"2025-10-06","genre":["Musical Theatre","LGBTQ+ Music","Gay Musical","Theatrical Pop"],"keywords":"infidelity, relationship betrayal, phone addiction, hookup apps, gay relationships, The Unseen Chorus","isPartOf":{"@type":"MusicAlbum","name":"The Unseen Chorus (A Gay Musical)","datePublished":"2025-10-06","numTracks":27,"countryOfOrigin":"XW","identifier":[{"@type":"PropertyValue","propertyID":"MusicBrainz Release ID","value":"10f786eb-23a3-4934-862a-5fad7772824c"},{"@type":"PropertyValue","propertyID":"Barcode","value":"199742064330"},{"@type":"PropertyValue","propertyID":"MusicBrainz Release Status","value":"Official"}],"sameAs":["https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c"],"recordLabel":{"@type":"Organization","name":"Agust Islandia","sameAs":"https://musicbrainz.org/label/ca66ad85-7842-4a0b-b95b-b969d54eea85"}},"recordedAs":{"@type":"MusicRecording","name":"Two of Us","image":"https://www.gusti.com/the-unseen-chorus-cover.webp","datePublished":"2025-10-06","position":"2","duration":"PT3M35S","byArtist":{"@type":"MusicGroup","name":"Agust Islandia","url":"https://www.gusti.com/","sameAs":["https://open.spotify.com/artist/3vCWdArvNjajk3eCmfExNG","https://music.apple.com/us/artist/agust-smari-bjarkarson/1827272561"]},"inAlbum":{"@type":"MusicAlbum","name":"The Unseen Chorus (A Gay Musical)","datePublished":"2025-10-06","identifier":[{"@type":"PropertyValue","propertyID":"MusicBrainz Release ID","value":"10f786eb-23a3-4934-862a-5fad7772824c"}],"sameAs":["https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c"]},"url":"https://open.spotify.com/album/0hMwFUq63zUjMyYBKvnq9p","identifier":[{"@type":"PropertyValue","propertyID":"MusicBrainz Recording ID","value":"8a292fca-9da0-46fe-850f-044c1a22c561"}],"sameAs":["https://musicbrainz.org/recording/8a292fca-9da0-46fe-850f-044c1a22c561","https://music.apple.com/us/album/two-of-us/1844179786?i=1844179790\u0026uo=4"]},"identifier":[{"@type":"PropertyValue","propertyID":"MusicBrainz Recording ID","value":"8a292fca-9da0-46fe-850f-044c1a22c561"},{"@type":"PropertyValue","propertyID":"MusicBrainz Release ID","value":"10f786eb-23a3-4934-862a-5fad7772824c"},{"@type":"PropertyValue","propertyID":"Barcode","value":"199742064330"},{"@type":"PropertyValue","propertyID":"MusicBrainz Release Status","value":"Official"}],"sameAs":["https://musicbrainz.org/release/10f786eb-23a3-4934-862a-5fad7772824c","https://musicbrainz.org/recording/8a292fca-9da0-46fe-850f-044c1a22c561","https://music.apple.com/us/album/two-of-us/1844179786?i=1844179790\u0026uo=4"],"@id":"https://www.gusti.com/two-of-us.html#schema","url":"https://www.gusti.com/two-of-us.html","mainEntityOfPage":{"@id":"https://www.gusti.com/two-of-us.html#webpage"}}]}}},"__N_SSG":true},"page":"/[slug]","query":{"slug":"two-of-us"},"buildId":"V0Im1bSfDdxoBiDhO-2Kb","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

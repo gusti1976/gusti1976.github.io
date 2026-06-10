@@ -90,19 +90,23 @@
 
     if (savedTheme) {
       // Use saved preference (user previously toggled)
-      setTheme(savedTheme);
+      setTheme(savedTheme, false); // already persisted; no need to re-write
     } else {
-      // Use system preference (first visit)
+      // Use system preference (first visit) — don't persist so
+      // listenToSystemTheme() keeps tracking OS changes.
       const prefersDark = getSystemThemePreference();
-      setTheme(prefersDark ? 'dark' : 'light');
+      setTheme(prefersDark ? 'dark' : 'light', false);
     }
   }
 
   /**
    * Set theme and update UI
    * @param {string} theme - 'light' or 'dark'
+   * @param {boolean} save  - persist to localStorage (true for explicit user
+   *   toggle, false for system-preference init so the media-query listener
+   *   keeps working until the user makes a conscious choice)
    */
-  function setTheme(theme) {
+  function setTheme(theme, save) {
     if (theme === 'dark') {
       html.classList.add(DARK_MODE_CLASS);
       html.setAttribute('data-theme', 'dark');
@@ -113,8 +117,9 @@
       updateToggleIcon(false);
     }
 
-    // Save preference to localStorage
-    localStorage.setItem(THEME_KEY, theme);
+    if (save) {
+      localStorage.setItem(THEME_KEY, theme);
+    }
 
     // Announce to screen readers
     announceThemeChange(theme);
@@ -155,7 +160,7 @@
    */
   function toggleTheme() {
     const isDarkMode = html.classList.contains(DARK_MODE_CLASS);
-    setTheme(isDarkMode ? 'light' : 'dark');
+    setTheme(isDarkMode ? 'light' : 'dark', true); // explicit choice → persist
   }
 
   /**
